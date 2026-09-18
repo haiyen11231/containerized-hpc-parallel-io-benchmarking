@@ -2,42 +2,24 @@ Bootstrap: docker
 From: ubuntu:22.04
 
 %post
-    apt-get update 
-    apt-get install -y build-essential wget git m4 automake libtool \
-                       libopenmpi-dev openmpi-bin pkg-config
-    
-     # Install autoconf (2.73)
-    cd /opt
-    wget https://ftp.gnu.org/gnu/autoconf/autoconf-2.73.tar.gz
-    tar -xvf autoconf-2.73.tar.gz
-    cd autoconf-2.73
-    ./configure --prefix=/usr/local
-    make
-    make install
-    cd /opt
-    rm -rf autoconf-2.73*
+	# Install GNU C/C++, Make -> compile the benchmark source code
+	# Install wget, tar -> download and extract
+	# Install libopenmpi-dev & openmpi-bin -> installs Open MPI + development headers needed to compile applications against it.
+    apt-get update
+    apt-get install -y build-essential wget tar openmpi-bin libopenmpi-dev
 
-    # Add /usr/local/bin to PATH so new autoconf and automake are used
-    export PATH=/usr/local/bin:$PATH
-    hash -r
-    autoconf --version
-    automake --version
-    libtoolize --version
-
-    git clone https://github.com/hpc/ior.git
-    cd ior
-    ./bootstrap
+    # Download and build IOR.
+    cd /opt
+    wget https://github.com/hpc/ior/releases/download/4.0.0/ior-4.0.0.tar.gz
+    tar xzf ior-4.0.0.tar.gz
+    cd ior-4.0.0
     ./configure
-	make
-    make install
-		
-	# Clean up
-    cd /opt
-    rm -rf ior
+    make
+
+    # Clean up
+    rm -f /opt/ior-4.0.0.tar.gz
     apt-get clean
     rm -rf /var/lib/apt/lists/*
 
 %environment
-    # Ensure MPI and IOR binaries are in PATH
-    export PATH=/usr/local/bin:$PATH
-    
+    export PATH=/opt/ior-4.0.0/src:$PATH
