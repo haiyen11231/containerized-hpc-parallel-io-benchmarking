@@ -1,0 +1,132 @@
+#!/bin/bash
+#PBS -N ior_native_test
+#PBS -l select=1:ncpus=16:mpiprocs=16:mem=8gb
+#PBS -l walltime=00:05:00
+#PBS -l place=excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o ior_native_test.out
+
+# set -x # Enable bash debug mode
+cd "$PBS_O_WORKDIR"
+
+module swap cray-mpich openmpi
+
+IOR_BIN=$HOME/scratch/fyp/native/ior/ior-4.0.0/src/ior
+NP=16
+STRIPE_COUNT=8
+EXPECTED_NODES=1
+PAYLOAD_DIR="native_baseline_stripe_c${STRIPE_COUNT}"
+
+# Ensure leftover test payload files are cleaned up even if the script exits early
+trap 'rm -f "${PAYLOAD_DIR}"/test_*' EXIT
+
+# Check actual allocation (1 node, 16 ranks)
+echo "=== Resource Allocation Diagnosis ==="
+ACTUAL_NODES=$(sort -u "$PBS_NODEFILE" | wc -l)
+echo "Job $PBS_JOBID | nodes: $ACTUAL_NODES (expected $EXPECTED_NODES) | ranks: $NP"
+
+if [ "$ACTUAL_NODES" -ne "$EXPECTED_NODES" ]; then
+    echo "FATAL: expected $EXPECTED_NODES node(s), PBS granted $ACTUAL_NODES."
+    exit 1
+fi
+
+qstat -f -w "$PBS_JOBID" > "qstat_f_${PBS_JOBID}.txt"
+EXEC_VNODE=$(grep "exec_vnode = " "qstat_f_${PBS_JOBID}.txt" | sed 's/.*exec_vnode = //')
+echo "exec_vnode (ground truth of what PBS granted): $EXEC_VNODE"
+
+for NODE in $(sort -u "$PBS_NODEFILE"); do
+    # PBS_NODEFILE entries are FQDNs (e.g. x1003c3s0b1n1.hostmgmt....) but
+    # pbsnodes matches on the short vnode name -- strip the domain suffix
+    # to query reliably (the FQDN form intermittently fails to match).
+    SHORT_NODE="${NODE%%.*}"
+    pbsnodes -v "$SHORT_NODE" > "vnode_${SHORT_NODE}.txt" 2>&1
+
+    if grep -qi "unknown node\|error" "vnode_${SHORT_NODE}.txt"; then
+        echo "  $NODE : QUERY FAILED -- $(cat "vnode_${SHORT_NODE}.txt")"
+        continue
+    fi
+
+    STATE=$(grep -m1 "state = " "vnode_${SHORT_NODE}.txt" | awk -F'= ' '{print $2}')
+    AVAIL_NCPUS=$(grep -m1 "resources_available.ncpus" "vnode_${SHORT_NODE}.txt" | awk -F'= ' '{print $2}')
+    ASSIGNED_NCPUS=$(grep -m1 "resources_assigned.ncpus" "vnode_${SHORT_NODE}.txt" | awk -F'= ' '{print $2}')
+    SHARING=$(grep -m1 "sharing = " "vnode_${SHORT_NODE}.txt" | awk -F'= ' '{print $2}')
+
+    JOBLINE=$(grep "^     jobs = " "vnode_${SHORT_NODE}.txt")
+    OTHER_JOBS=$(echo "$JOBLINE" | sed 's/.*jobs = //' | tr ',' '\n' \
+                 | sed 's#/.*##; s/^ *//; s/ *$//' | grep -v -F "$PBS_JOBID" | sort -u)
+    if [ -z "$STATE" ]; then
+        VERDICT="UNKNOWN (no state parsed -- check vnode_${SHORT_NODE}.txt)"
+    elif [ -n "$OTHER_JOBS" ]; then
+        VERDICT="WARNING: other job(s) present -> $(echo "$OTHER_JOBS" | tr '\n' ' ')"
+    else
+        VERDICT="OK: exclusively ours"
+    fi
+    echo "  $NODE : state=$STATE ncpus=$ASSIGNED_NCPUS/$AVAIL_NCPUS sharing=$SHARING -- $VERDICT"
+done
+
+mpirun --version
+
+# Pin Lustre striping explicitly
+mkdir -p "$PAYLOAD_DIR"
+lfs setstripe -c "$STRIPE_COUNT" -S 1m "$PAYLOAD_DIR"
+echo "=== Verifying Lustre Striping Layout for $PAYLOAD_DIR ==="
+lfs getstripe "$PAYLOAD_DIR"
+
+# ----------------------------------------------------------------------
+# TEST CASE 1: Single Shared File
+# 16 processes write to 1 shared file
+# Block Size = 1G per process, Transfer Size = 4M
+# Aggregate File Size = 16 GB (16 ranks * 1 GB)
+# ----------------------------------------------------------------------
+echo "Starting Test case 1: Shared File..."
+TEST_FILE="${PAYLOAD_DIR}/test_shared.dat"
+rm -f "${TEST_FILE}"*
+
+set -x
+mpirun -np "$NP" \
+  --map-by ppr:16:node --bind-to core \
+  --mca opal_common_ucx_opal_mem_hooks 1 \
+  -x UCX_LOG_LEVEL=ERROR \
+  "$IOR_BIN" \
+  -a POSIX \
+  -v \
+  -w -r \
+  -e \
+  -C \
+  --posix.odirect \
+  -b 1G -t 4M \
+  -o "$TEST_FILE" > ior_shared_results_native.txt
+set +x
+
+rm -f "${TEST_FILE}"*
+
+# ----------------------------------------------------------------------
+# TEST CASE 2: File-Per-Process (-F flag)
+# 16 processes write to 16 separate files concurrently
+# ----------------------------------------------------------------------
+echo "Starting Test case 2: File-Per-Process..."
+TEST_FILE="${PAYLOAD_DIR}/test_fpp.dat"
+rm -f "${TEST_FILE}"*
+
+set -x
+mpirun -np "$NP" \
+  --map-by ppr:16:node --bind-to core \
+  --mca opal_common_ucx_opal_mem_hooks 1 \
+  -x UCX_LOG_LEVEL=ERROR \
+  "$IOR_BIN" \
+  -a POSIX \
+  -v \
+  -w -r \
+  -e \
+  -C \
+  --posix.odirect \
+  -F \
+  -b 1G -t 4M \
+  -o "$TEST_FILE" > ior_fpp_results_native.txt
+set +x
+
+rm -f "${TEST_FILE}"*
+
+echo "Experiments Complete!"

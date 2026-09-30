@@ -1,0 +1,99 @@
+=================================================================
+SYSTEM INFO
+=================================================================
+Hostname        : x1003c1s5b0n0
+Cores/node (nproc): 1
+CPU topology (full lscpu -- sockets/cores/threads/NUMA layout):
+Architecture:        x86_64
+CPU op-mode(s):      32-bit, 64-bit
+Byte Order:          Little Endian
+CPU(s):              256
+On-line CPU(s) list: 0-255
+Thread(s) per core:  2
+Core(s) per socket:  64
+Socket(s):           2
+NUMA node(s):        8
+Vendor ID:           AuthenticAMD
+CPU family:          25
+Model:               1
+Model name:          AMD EPYC 7713 64-Core Processor
+Stepping:            1
+CPU MHz:             2344.798
+CPU max MHz:         3720.7029
+CPU min MHz:         1500.0000
+BogoMIPS:            3992.05
+Virtualization:      AMD-V
+L1d cache:           32K
+L1i cache:           32K
+L2 cache:            512K
+L3 cache:            32768K
+NUMA node0 CPU(s):   0-15,128-143
+NUMA node1 CPU(s):   16-31,144-159
+NUMA node2 CPU(s):   32-47,160-175
+NUMA node3 CPU(s):   48-63,176-191
+NUMA node4 CPU(s):   64-79,192-207
+NUMA node5 CPU(s):   80-95,208-223
+NUMA node6 CPU(s):   96-111,224-239
+NUMA node7 CPU(s):   112-127,240-255
+Flags:               fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl nonstop_tsc cpuid extd_apicid aperfmperf pni pclmulqdq monitor ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 invpcid_single hw_pstate ssbd mba ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local clzero irperf xsaveerptr wbnoinvd amd_ppin brs arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold v_vmsave_vmload vgif v_spec_ctrl umip pku ospke vaes vpclmulqdq rdpid overflow_recov succor smca fsrm
+Memory:
+              total        used        free      shared  buff/cache   available
+Mem:          503Gi        80Gi       413Gi       2.6Gi       9.3Gi       416Gi
+Swap:            0B          0B          0B
+=================================================================
+CLUSTER-WIDE NODE AVAILABILITY (condensed -- raw per-vnode dump saved
+to pbsnodes_raw.txt if you need to dig into a specific node)
+=================================================================
+Total vnodes reporting                         : 848
+By state:
+  job-busy        : 593
+  down            : 2
+  job-exclusive   : 25
+  free            : 228
+Fully-idle nodes (state=free, ALL cores free)  : 14   <- these are what a place=excl job needs
+Cluster-wide CPU cores free                    : 13052 / 104448 (12.5% free)
+Cluster-wide GPUs free                         : 46 / 256
+--- Per-queue business summary (qstat -Q), CPU queues used by this project ---
+Queue              Max   Tot Ena Str   Que   Run   Hld   Wat   Trn   Ext Type
+---------------- ----- ----- --- --- ----- ----- ----- ----- ----- ----- ----
+normal               0    12 yes yes     0     0     0    12     0     0 Rou*
+qdev                 0    45 yes yes     0    26    17     0     0     0 Exe*
+gdev                 0   146 yes yes    53    13    80     0     0     0 Exe*
+q1                   0     7 yes yes     0     6     1     0     0     0 Exe*
+q2                   0   569 yes yes    69   475    20     0     0     3 Exe*
+q3                   0    29 yes yes     0    29     0     0     0     0 Exe*
+q4                   0   210 yes yes    22   166    22     0     0     0 Exe*
+q5                   0   137 yes yes    36    87    14     0     0     0 Exe*
+q6                   0    22 yes yes    22     0     0     0     0     0 Exe*
+qlong                0   177 yes yes    27   140     5     0     0     0 Exe*
+=================================================================
+VNODE GRANULARITY CHECK (place=excl vs place=exclhost)
+=================================================================
+Host                        : x1003c1s5b0n0
+Vnode blocks found for host : 1 (full detail in vnode_check_x1003c1s5b0n0.txt)
+resources_available.ncpus   : 128   (nproc inside this job: 1)
+=> Single vnode per host. place=excl == place=exclhost on this cluster; either works.
+=================================================================
+DEPENDENCY VERSIONS
+=================================================================
+--- MPI ---
+/app/apps/openmpi/4.1.2-hpe/bin/mpirun
+mpirun (Open MPI) 4.1.2
+
+Report bugs to http://www.open-mpi.org/community/help/
+/app/apps/openmpi/4.1.2-hpe/bin/mpicc
+gcc (GCC) 8.5.0 20210514 (Red Hat 8.5.0-21)
+Copyright (C) 2018 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+--- MPI library IOR is actually linked against ---
+	libmpi.so.40 => /app/apps/openmpi/4.1.2-hpe/lib/libmpi.so.40 (0x000014945ba38000)
+	libopen-rte.so.40 => /app/apps/openmpi/4.1.2-hpe/lib/libopen-rte.so.40 (0x000014945b11d000)
+	libopen-pal.so.40 => /app/apps/openmpi/4.1.2-hpe/lib/libopen-pal.so.40 (0x000014945a192000)
+--- Lustre client ---
+/bin/lfs
+lfs 2.15.6.1_cray_78_g63f9d29
+--- Kernel / OS ---
+Linux x1003c1s5b0n0 4.18.0-553.125.1.el8_10.x86_64 #1 SMP Mon May 18 09:54:35 EDT 2026 x86_64 x86_64 x86_64 GNU/Linux
+System diagnostics complete.

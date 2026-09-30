@@ -1,0 +1,104 @@
+#!/bin/bash
+#PBS -N system_diagnose
+#PBS -l select=1:ncpus=1:mpiprocs=1:mem=1gb
+#PBS -l walltime=00:03:00
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o system_diagnose.out
+
+cd "$PBS_O_WORKDIR" || exit 1
+
+module swap cray-mpich openmpi
+
+IOR_BIN=$HOME/scratch/fyp/native/ior/ior-4.0.0/src/ior
+
+echo "================================================================="
+echo "SYSTEM INFO"
+echo "================================================================="
+echo "Hostname        : $(hostname)"
+echo "Cores/node (nproc): $(nproc)"
+echo "CPU topology (full lscpu -- sockets/cores/threads/NUMA layout):"
+lscpu
+echo "Memory:"
+free -h
+
+echo "================================================================="
+echo "CLUSTER-WIDE NODE AVAILABILITY (condensed -- raw per-vnode dump saved"
+echo "to pbsnodes_raw.txt if you need to dig into a specific node)"
+echo "================================================================="
+pbsnodes -aSj > pbsnodes_raw.txt
+awk '
+    NR <= 3 { next }               # skip the 2 header lines + dashed rule
+    NF < 10 { next }                # skip anything malformed/blank
+    {
+        state = $2
+        split($7, ncpus, "/"); free_c = ncpus[1] + 0; tot_c = ncpus[2] + 0
+        split($9, ngpus, "/"); free_g = ngpus[1] + 0; tot_g = ngpus[2] + 0
+
+        total_nodes++
+        total_free_cpus += free_c
+        total_cpus       += tot_c
+        total_free_gpus += free_g
+        total_gpus        += tot_g
+        state_count[state]++
+        if (state == "free" && free_c == tot_c) fully_idle++
+    }
+    END {
+        printf "Total vnodes reporting                         : %d\n", total_nodes
+        printf "By state:\n"
+        for (s in state_count) printf "  %-16s: %d\n", s, state_count[s]
+        printf "Fully-idle nodes (state=free, ALL cores free)  : %d   <- these are what a place=excl job needs\n", fully_idle
+        printf "Cluster-wide CPU cores free                    : %d / %d (%.1f%% free)\n", \
+            total_free_cpus, total_cpus, (total_cpus > 0 ? 100.0 * total_free_cpus / total_cpus : 0)
+        printf "Cluster-wide GPUs free                         : %d / %d\n", total_free_gpus, total_gpus
+    }
+' pbsnodes_raw.txt
+
+echo "--- Per-queue business summary (qstat -Q), CPU queues used by this project ---"
+qstat -Q | head -2
+qstat -Q | grep -E '^(normal|qdev|gdev|q[1-6]|qlong) '
+
+echo "================================================================="
+echo "VNODE GRANULARITY CHECK (place=excl vs place=exclhost)"
+echo "================================================================="
+HOST=$(hostname)
+SHORT_HOST="${HOST%%.*}"
+pbsnodes -v "$SHORT_HOST" > "vnode_check_${SHORT_HOST}.txt" 2>&1
+
+if grep -qi "unknown node\|error" "vnode_check_${SHORT_HOST}.txt"; then
+    echo "QUERY FAILED for host $HOST : $(cat "vnode_check_${SHORT_HOST}.txt")"
+    VNODE_COUNT=0
+else
+    VNODE_COUNT=$(grep -c "^${SHORT_HOST}" "vnode_check_${SHORT_HOST}.txt")
+    AVAIL_NCPUS=$(grep "resources_available.ncpus" "vnode_check_${SHORT_HOST}.txt" | head -1 | awk -F'= ' '{print $2}')
+    echo "Host                        : $HOST"
+    echo "Vnode blocks found for host : $VNODE_COUNT (full detail in vnode_check_${SHORT_HOST}.txt)"
+    echo "resources_available.ncpus   : $AVAIL_NCPUS   (nproc inside this job: $(nproc))"
+fi
+if [ "$VNODE_COUNT" -eq 0 ]; then
+    echo "=> Query failed, cannot determine vnode granularity from this run."
+elif [ "$VNODE_COUNT" -eq 1 ]; then
+    echo "=> Single vnode per host. place=excl == place=exclhost on this cluster; either works."
+else
+    echo "=> Host split into $VNODE_COUNT vnodes. place=excl may NOT guarantee whole-host"
+    echo "   exclusivity -- switch to place=exclhost for genuine host-level isolation."
+fi
+
+echo "================================================================="
+echo "DEPENDENCY VERSIONS"
+echo "================================================================="
+echo "--- MPI ---"
+which mpirun
+mpirun --version
+which mpicc
+mpicc --version
+echo "--- MPI library IOR is actually linked against ---"
+ldd "$IOR_BIN" | grep -i mpi
+echo "--- Lustre client ---"
+which lfs
+lfs --version
+echo "--- Kernel / OS ---"
+uname -a
+
+echo "System diagnostics complete."

@@ -1,0 +1,19 @@
+=== Resource Allocation Diagnosis ===
+Job 25640210.pbs101 | nodes: 1 (expected 1) | ranks: 16
+exec_vnode (ground truth of what PBS granted): (x1003c3s4b1n1:ncpus=16:mem=8388608kb)
+  x1003c3s4b1n1.hostmgmt2003.cm.asp2a.nscc.sg : state=job-exclusive ncpus=16/128 sharing=default_shared -- OK: exclusively ours
+mpirun (Open MPI) 4.1.2
+
+Report bugs to http://www.open-mpi.org/community/help/
+apptainer version 1.5.0
+=== Verifying Lustre Striping Layout for container_baseline_stripe_c8 ===
+container_baseline_stripe_c8
+stripe_count:  8 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+Starting Test case 1: Shared File (container)...
++ mpirun -np 16 --map-by ppr:16:node --bind-to core --mca btl vader,self --mca opal_common_ucx_opal_mem_hooks 1 --mca btl_vader_single_copy_mechanism none -x UCX_LOG_LEVEL=ERROR apptainer exec /home/users/ntu/haiyen00/scratch/fyp/container/ior/ior_benchmarks.sif /opt/ior-4.0.0/src/ior -a POSIX -v -w -r -e -C --posix.odirect -b 1G -t 4M -o container_baseline_stripe_c8/test_shared.dat
++ set +x
+Starting Test case 2: File-Per-Process (container)...
++ mpirun -np 16 --map-by ppr:16:node --bind-to core --mca btl vader,self --mca opal_common_ucx_opal_mem_hooks 1 --mca btl_vader_single_copy_mechanism none -x UCX_LOG_LEVEL=ERROR apptainer exec /home/users/ntu/haiyen00/scratch/fyp/container/ior/ior_benchmarks.sif /opt/ior-4.0.0/src/ior -a POSIX -v -w -r -e -C --posix.odirect -F -b 1G -t 4M -o container_baseline_stripe_c8/test_fpp.dat
++ set +x
+Experiments Complete!
