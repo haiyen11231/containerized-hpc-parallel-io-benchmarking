@@ -1,0 +1,40 @@
+=== Verifying Lustre Striping Layout for container/stripe_c8/mpiio_fpp ===
+container/stripe_c8/mpiio_fpp
+stripe_count:  8 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+=================================================================
+ Container Intra-Node Sweep: STRIPE=8 API=MPIIO MODEL=fpp B=64m 
+=================================================================
+-----------------------------------------------------------------
+Running: API=MPIIO | MODEL=fpp | STRIPE=8 | -t 64k | -b 64m
+-----------------------------------------------------------------
++ mpirun -np 64 --map-by ppr:64:node --bind-to core --mca btl vader,self --mca opal_common_ucx_opal_mem_hooks 1 --mca btl_vader_single_copy_mechanism none -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/ior/ior_benchmarks.sif /opt/ior-4.0.0/src/ior -a MPIIO -F -t 64k -b 64m -e -C -i 10 -o container/stripe_c8/mpiio_fpp/testfile_mpiio_fpp_t64k
++ MPIRUN_EXIT=0
++ set +x
+-----------------------------------------------------------------
+Running: API=MPIIO | MODEL=fpp | STRIPE=8 | -t 256k | -b 64m
+-----------------------------------------------------------------
++ mpirun -np 64 --map-by ppr:64:node --bind-to core --mca btl vader,self --mca opal_common_ucx_opal_mem_hooks 1 --mca btl_vader_single_copy_mechanism none -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/ior/ior_benchmarks.sif /opt/ior-4.0.0/src/ior -a MPIIO -F -t 256k -b 64m -e -C -i 10 -o container/stripe_c8/mpiio_fpp/testfile_mpiio_fpp_t256k
++ MPIRUN_EXIT=0
++ set +x
+-----------------------------------------------------------------
+Running: API=MPIIO | MODEL=fpp | STRIPE=8 | -t 1m | -b 64m
+-----------------------------------------------------------------
++ mpirun -np 64 --map-by ppr:64:node --bind-to core --mca btl vader,self --mca opal_common_ucx_opal_mem_hooks 1 --mca btl_vader_single_copy_mechanism none -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/ior/ior_benchmarks.sif /opt/ior-4.0.0/src/ior -a MPIIO -F -t 1m -b 64m -e -C -i 10 -o container/stripe_c8/mpiio_fpp/testfile_mpiio_fpp_t1m
++ MPIRUN_EXIT=0
++ set +x
+-----------------------------------------------------------------
+Running: API=MPIIO | MODEL=fpp | STRIPE=8 | -t 4m | -b 64m
+-----------------------------------------------------------------
++ mpirun -np 64 --map-by ppr:64:node --bind-to core --mca btl vader,self --mca opal_common_ucx_opal_mem_hooks 1 --mca btl_vader_single_copy_mechanism none -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/ior/ior_benchmarks.sif /opt/ior-4.0.0/src/ior -a MPIIO -F -t 4m -b 64m -e -C -i 10 -o container/stripe_c8/mpiio_fpp/testfile_mpiio_fpp_t4m
++ MPIRUN_EXIT=0
++ set +x
+-----------------------------------------------------------------
+Running: API=MPIIO | MODEL=fpp | STRIPE=8 | -t 16m | -b 64m
+-----------------------------------------------------------------
++ mpirun -np 64 --map-by ppr:64:node --bind-to core --mca btl vader,self --mca opal_common_ucx_opal_mem_hooks 1 --mca btl_vader_single_copy_mechanism none -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/ior/ior_benchmarks.sif /opt/ior-4.0.0/src/ior -a MPIIO -F -t 16m -b 64m -e -C -i 10 -o container/stripe_c8/mpiio_fpp/testfile_mpiio_fpp_t16m
++ MPIRUN_EXIT=0
++ set +x
+=================================================================
+ Container Intra-Node Sweep (STRIPE=8 API=MPIIO MODEL=fpp) Completed Successfully! 
+=================================================================

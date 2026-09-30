@@ -1,0 +1,101 @@
+#!/bin/bash
+#PBS -N ior_container_intra
+#PBS -l select=1:ncpus=64:mpiprocs=64:mem=32gb
+#PBS -l walltime=00:30:00
+#PBS -l place=excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/ior_container_intra.out
+
+cd "$PBS_O_WORKDIR"
+
+module swap cray-mpich openmpi
+module load apptainer
+
+SIF=$HOME/scratch/fyp/container/ior/ior_benchmarks.sif
+IOR_BIN=/opt/ior-4.0.0/src/ior
+NP=64
+
+# Validate input variables
+: "${STRIPE_COUNT:?Must pass -v STRIPE_COUNT=<1|8> at submission time}"
+: "${API:?Must pass -v API=<POSIX|MPIIO> at submission time}"
+: "${MODEL:?Must pass -v MODEL=<shared|fpp> at submission time}"
+
+API_LOWER=$(echo "$API" | tr '[:upper:]' '[:lower:]')
+FPP_FLAG=""
+[ "$MODEL" == "fpp" ] && FPP_FLAG="-F"
+
+# Cache Bypass Flags: not sure about MPIIO bypass!!! 
+# Add # $DIRECT_IO_FLAG \ in the mpirun command to test the bypass flags below.
+DIRECT_IO_FLAG=""
+# if [ "$API" == "POSIX" ]; then
+#     DIRECT_IO_FLAG="--posix.odirect"
+# elif [ "$API" == "MPIIO" ]; then
+#     DIRECT_IO_FLAG="-U direct_io=true"
+# fi
+
+PAYLOAD_DIR="container/stripe_c${STRIPE_COUNT}/${API_LOWER}_${MODEL}"
+mkdir -p "$PAYLOAD_DIR"
+lfs setstripe -c "$STRIPE_COUNT" -S 1m "$PAYLOAD_DIR"
+echo "=== Verifying Lustre Striping Layout for $PAYLOAD_DIR ==="
+lfs getstripe "$PAYLOAD_DIR"
+
+# Ensure leftover test payload files are cleaned up even if the script exits early
+trap 'rm -f "${PAYLOAD_DIR}"/testfile_*' EXIT
+
+# Block size fixed at 64m for every transfer size (kilobyte to megabyte scale)
+B=64m
+T_SIZES=(64k 256k 1m 4m 16m)
+
+echo "================================================================="
+echo " Container Intra-Node Sweep: STRIPE=$STRIPE_COUNT API=$API MODEL=$MODEL B=$B "
+echo "================================================================="
+
+ANY_FAILURE=0
+for T in "${T_SIZES[@]}"; do
+    REPORT_DIR="container/${API_LOWER}/${MODEL}/stripe_c${STRIPE_COUNT}"
+    mkdir -p "$REPORT_DIR"
+
+    echo "-----------------------------------------------------------------"
+    echo "Running: API=$API | MODEL=$MODEL | STRIPE=$STRIPE_COUNT | -t $T | -b $B"
+    echo "-----------------------------------------------------------------"
+
+    TEST_FILE="${PAYLOAD_DIR}/testfile_${API_LOWER}_${MODEL}_t${T}"
+    rm -f "${TEST_FILE}"*
+
+    set -x
+    mpirun -np "$NP" \
+      --map-by ppr:64:node --bind-to core \
+      --mca btl vader,self \
+      --mca opal_common_ucx_opal_mem_hooks 1 \
+      --mca btl_vader_single_copy_mechanism none \
+      -x UCX_LOG_LEVEL=ERROR \
+      apptainer exec --bind /scratch "$SIF" "$IOR_BIN" \
+      -a "$API" $FPP_FLAG \
+      -t "$T" -b "$B" \
+      -e -C -i 10 \
+      $DIRECT_IO_FLAG \
+      -o "$TEST_FILE" \
+      > "${REPORT_DIR}/ior_t${T}.txt"
+    MPIRUN_EXIT=$?
+    set +x
+
+    if [ "$MPIRUN_EXIT" -ne 0 ]; then
+        echo "FAILED: API=$API MODEL=$MODEL STRIPE=$STRIPE_COUNT T=$T (mpirun exit code $MPIRUN_EXIT)"
+        ANY_FAILURE=1
+    fi
+
+    rm -f "${TEST_FILE}"*
+done
+
+if [ "$ANY_FAILURE" -eq 1 ]; then
+    echo "================================================================="
+    echo " Container Intra-Node Sweep (STRIPE=$STRIPE_COUNT API=$API MODEL=$MODEL) COMPLETED WITH FAILURES -- see FAILED lines above! "
+    echo "================================================================="
+    exit 1
+fi
+
+echo "================================================================="
+echo " Container Intra-Node Sweep (STRIPE=$STRIPE_COUNT API=$API MODEL=$MODEL) Completed Successfully! "
+echo "================================================================="

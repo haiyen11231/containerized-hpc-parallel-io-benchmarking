@@ -1,0 +1,57 @@
+IOR-4.0.0: MPI Coordinated Test of Parallel I/O
+Began               : Thu Oct  1 03:11:02 2026
+Command line        : /home/users/ntu/haiyen00/scratch/fyp/native/ior/ior-4.0.0/src/ior -a MPIIO -F -t 256k -b 64m -e -C -i 10 -o native/stripe_c1/mpiio_fpp/testfile_mpiio_fpp_t256k
+Machine             : Linux x1001c4s7b1n0
+TestID              : 0
+StartTime           : Thu Oct  1 03:11:02 2026
+Path                : native/stripe_c1/mpiio_fpp/testfile_mpiio_fpp_t256k.00000000
+FS                  : 9695.3 TiB   Used FS: 69.0%   Inodes: 8190.4 Mi   Used Inodes: 36.6%
+
+Options: 
+api                 : MPIIO
+apiVersion          : (3.1)
+test filename       : native/stripe_c1/mpiio_fpp/testfile_mpiio_fpp_t256k
+access              : file-per-process
+type                : independent
+segments            : 1
+ordering in a file  : sequential
+ordering inter file : constant task offset
+task offset         : 1
+nodes               : 1
+tasks               : 64
+clients per node    : 64
+repetitions         : 10
+xfersize            : 262144 bytes
+blocksize           : 64 MiB
+aggregate filesize  : 4 GiB
+
+Results: 
+
+access    bw(MiB/s)  IOPS       Latency(s)  block(KiB) xfer(KiB)  open(s)    wr/rd(s)   close(s)   total(s)   iter
+------    ---------  ----       ----------  ---------- ---------  --------   --------   --------   --------   ----
+write     2504.95    10096      0.001394    65536      256.00     0.041759   1.62       1.26       1.64       0   
+read      89286      481188     0.000104    65536      256.00     0.023054   0.034049   0.013586   0.045875   0   
+write     3979       16132      0.001386    65536      256.00     0.040423   1.02       0.665658   1.03       1   
+read      89257      473333     0.000099    65536      256.00     0.022202   0.034614   0.013674   0.045890   1   
+write     4985       20285      0.001391    65536      256.00     0.050864   0.807698   0.463421   0.821613   2   
+read      87665      366287     0.000073    65536      256.00     0.022817   0.044730   0.036735   0.046723   2   
+write     2252.83    9093       0.001234    65536      256.00     0.342948   1.80       1.59       1.82       3   
+read      89241      398966     0.000105    65536      256.00     0.021603   0.041066   0.033303   0.045898   3   
+write     6049       24905      0.001375    65536      256.00     0.334047   0.657859   0.499132   0.677190   4   
+read      88150      368993     0.000105    65536      256.00     0.023176   0.044402   0.036544   0.046466   4   
+write     3659       14840      0.001522    65536      256.00     0.038591   1.10       0.756457   1.12       5   
+read      84365      439262     0.000102    65536      256.00     0.021039   0.037299   0.017260   0.048551   5   
+write     8241       34021      0.001409    65536      256.00     0.039901   0.481587   0.131218   0.497053   6   
+read      87208      425879     0.000108    65536      256.00     0.022404   0.038471   0.030047   0.046968   6   
+write     4423       18068      0.003390    65536      256.00     0.127215   0.906814   0.567602   0.926068   7   
+read      89675      428787     0.000091    65536      256.00     0.021624   0.038210   0.028647   0.045676   7   
+write     3704       15073      0.001221    65536      256.00     0.832080   1.09       0.935468   1.11       8   
+read      90550      482550     0.000108    65536      256.00     0.021077   0.033953   0.016907   0.045235   8   
+write     2218.54    8960       0.001346    65536      256.00     0.054298   1.83       1.48       1.85       9   
+read      87325      470456     0.000098    65536      256.00     0.022571   0.034826   0.015240   0.046905   9   
+
+Summary of all tests:
+Operation   Max(MiB)   Min(MiB)  Mean(MiB)     StdDev   Max(OPs)   Min(OPs)  Mean(OPs)     StdDev    Mean(s) Stonewall(s) Stonewall(MiB) Test# #Tasks tPN reps fPP reord reordoff reordrand seed segcnt   blksiz    xsize aggs(MiB)   API RefNum
+write        8240.57    2218.54    4201.58    1777.29   32962.29    8874.15   16806.31    7109.18    1.14761         NA            NA     0     64  64   10   1     1        1         0    0      1 67108864   262144    4096.0 MPIIO      0
+read        90549.52   84364.75   88272.24    1666.47  362198.07  337459.00  353088.97    6665.89    0.04642         NA            NA     0     64  64   10   1     1        1         0    0      1 67108864   262144    4096.0 MPIIO      0
+Finished            : Thu Oct  1 03:11:18 2026

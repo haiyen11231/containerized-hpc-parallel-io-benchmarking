@@ -1,0 +1,40 @@
+=== Verifying Lustre Striping Layout for native/stripe_c1/mpiio_shared ===
+native/stripe_c1/mpiio_shared
+stripe_count:  1 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+=================================================================
+ Native Intra-Node Sweep: STRIPE=1 API=MPIIO MODEL=shared B=64m 
+=================================================================
+-----------------------------------------------------------------
+Running: API=MPIIO | MODEL=shared | STRIPE=1 | -t 64k | -b 64m
+-----------------------------------------------------------------
++ mpirun -np 64 --map-by ppr:64:node --bind-to core --mca btl '^openib' --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/ior/ior-4.0.0/src/ior -a MPIIO -t 64k -b 64m -e -C -i 10 -o native/stripe_c1/mpiio_shared/testfile_mpiio_shared_t64k
++ MPIRUN_EXIT=0
++ set +x
+-----------------------------------------------------------------
+Running: API=MPIIO | MODEL=shared | STRIPE=1 | -t 256k | -b 64m
+-----------------------------------------------------------------
++ mpirun -np 64 --map-by ppr:64:node --bind-to core --mca btl '^openib' --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/ior/ior-4.0.0/src/ior -a MPIIO -t 256k -b 64m -e -C -i 10 -o native/stripe_c1/mpiio_shared/testfile_mpiio_shared_t256k
++ MPIRUN_EXIT=0
++ set +x
+-----------------------------------------------------------------
+Running: API=MPIIO | MODEL=shared | STRIPE=1 | -t 1m | -b 64m
+-----------------------------------------------------------------
++ mpirun -np 64 --map-by ppr:64:node --bind-to core --mca btl '^openib' --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/ior/ior-4.0.0/src/ior -a MPIIO -t 1m -b 64m -e -C -i 10 -o native/stripe_c1/mpiio_shared/testfile_mpiio_shared_t1m
++ MPIRUN_EXIT=0
++ set +x
+-----------------------------------------------------------------
+Running: API=MPIIO | MODEL=shared | STRIPE=1 | -t 4m | -b 64m
+-----------------------------------------------------------------
++ mpirun -np 64 --map-by ppr:64:node --bind-to core --mca btl '^openib' --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/ior/ior-4.0.0/src/ior -a MPIIO -t 4m -b 64m -e -C -i 10 -o native/stripe_c1/mpiio_shared/testfile_mpiio_shared_t4m
++ MPIRUN_EXIT=0
++ set +x
+-----------------------------------------------------------------
+Running: API=MPIIO | MODEL=shared | STRIPE=1 | -t 16m | -b 64m
+-----------------------------------------------------------------
++ mpirun -np 64 --map-by ppr:64:node --bind-to core --mca btl '^openib' --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/ior/ior-4.0.0/src/ior -a MPIIO -t 16m -b 64m -e -C -i 10 -o native/stripe_c1/mpiio_shared/testfile_mpiio_shared_t16m
++ MPIRUN_EXIT=0
++ set +x
+=================================================================
+ Native Intra-Node Sweep (STRIPE=1 API=MPIIO MODEL=shared) Completed Successfully! 
+=================================================================
