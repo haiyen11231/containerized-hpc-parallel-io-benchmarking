@@ -1,0 +1,17 @@
+=== Verifying Lustre Striping Layout for native/stripe_c8/posix_fpp_n2 ===
+native/stripe_c8/posix_fpp_n2
+stripe_count:  8 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+=================================================================
+ Native Inter-Node Weak Scaling: API=POSIX MODEL=fpp NODES=2 NP=256 B=128m T=4m 
+=================================================================
++ mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl '^openib' --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/ior/ior-4.0.0/src/ior -a POSIX -F -t 4m -b 128m -e -C -i 10 -o native/stripe_c8/posix_fpp_n2/testfile_weak_posix_fpp_n2
+
+real	1m41.608s
+user	35m58.575s
+sys	66m45.093s
++ MPIRUN_EXIT=0
++ set +x
+=================================================================
+ Native Inter-Node Weak Scaling (NODES=2 API=POSIX MODEL=fpp) Completed Successfully! 
+=================================================================

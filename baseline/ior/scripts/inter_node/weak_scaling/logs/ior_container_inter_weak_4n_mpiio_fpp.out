@@ -1,0 +1,17 @@
+=== Verifying Lustre Striping Layout for container/stripe_c8/mpiio_fpp_n4 ===
+container/stripe_c8/mpiio_fpp_n4
+stripe_count:  8 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+=================================================================
+ Container Inter-Node Weak Scaling: API=MPIIO MODEL=fpp NODES=4 NP=512 B=128m T=4m 
+=================================================================
++ mpirun -np 512 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/ior/ior_benchmarks.sif /opt/ior-4.0.0/src/ior -a MPIIO -F -t 4m -b 128m -e -C -i 10 -o container/stripe_c8/mpiio_fpp_n4/testfile_weak_mpiio_fpp_n4
+
+real	2m9.851s
+user	15m15.055s
+sys	133m31.475s
++ MPIRUN_EXIT=0
++ set +x
+=================================================================
+ Container Inter-Node Weak Scaling (NODES=4 API=MPIIO MODEL=fpp) Completed Successfully! 
+=================================================================
