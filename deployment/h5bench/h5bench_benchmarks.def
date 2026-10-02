@@ -1,0 +1,49 @@
+Bootstrap: docker
+From: ubuntu:22.04
+
+%post
+    # Install build tools, OpenMPI, Parallel HDF5, and python3 (required by CMake)
+    apt-get update
+    apt-get install -y build-essential cmake git openmpi-bin libopenmpi-dev libhdf5-openmpi-dev python3
+
+    # Find HDF5 header and library file that libhdf5-openmpi-dev places inside Ubuntu
+    HDF5_HEADER=$(dpkg -L libhdf5-openmpi-dev | grep -m1 'hdf5\.h$')
+    HDF5_LIBSO=$(dpkg -L libhdf5-openmpi-dev | grep -m1 'libhdf5\.so$')
+    HDF5_INCLUDE_DIR=$(dirname "$HDF5_HEADER")
+    HDF5_LIB_DIR=$(dirname "$HDF5_LIBSO")
+    echo "Resolved HDF5 include dir: $HDF5_INCLUDE_DIR"
+    echo "Resolved HDF5 lib dir:     $HDF5_LIB_DIR"
+
+    export CPATH="$HDF5_INCLUDE_DIR:$CPATH"
+    export LIBRARY_PATH="$HDF5_LIB_DIR:$LIBRARY_PATH"
+    export LD_LIBRARY_PATH="$HDF5_LIB_DIR:$LD_LIBRARY_PATH"
+
+    # Clone h5bench with submodules into /opt
+    cd /opt
+    git clone --recurse-submodules https://github.com/hpc-io/h5bench
+    cd h5bench
+
+    mkdir -p build && cd build
+    cmake .. \
+        -DCMAKE_C_COMPILER=mpicc \
+        -DCMAKE_CXX_COMPILER=mpicxx \
+        -DHDF5_INCLUDE_DIRS="$HDF5_INCLUDE_DIR" \
+        -DHDF5_LIBRARIES="$HDF5_LIBSO" \
+        -DCMAKE_INSTALL_PREFIX=/opt/h5bench/install \
+        -DH5BENCH_ALL=OFF
+
+    # Compile and install
+    make -j
+    make install
+
+    # Record the resolved lib dir for %environment (runtime linking needs
+    # LD_LIBRARY_PATH too, since it's a non-standard path not in the ld cache)
+    echo "$HDF5_LIB_DIR" > /opt/h5bench/hdf5_lib_dir.txt
+
+    # Clean up APT cache to optimize image size
+    apt-get clean
+    rm -rf /var/lib/apt/lists/*
+
+%environment
+    export PATH=/opt/h5bench/install/bin:$PATH
+    export LD_LIBRARY_PATH=$(cat /opt/h5bench/hdf5_lib_dir.txt):$LD_LIBRARY_PATH
