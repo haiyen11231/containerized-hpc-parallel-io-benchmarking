@@ -1,0 +1,101 @@
+#!/bin/bash
+#PBS -N ior_native_inter_strong
+#PBS -l walltime=01:00:00
+#PBS -l place=scatter:excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/ior_native_inter_strong.out
+
+cd "$PBS_O_WORKDIR"
+
+module swap cray-mpich openmpi
+
+IOR_BIN=$HOME/scratch/fyp/native/ior/ior-4.0.0/src/ior
+
+# Validate required input parameters passed via qsub -v
+: "${NODE_COUNT:?Must pass -v NODE_COUNT=<1|2|4|8> at submission time}"
+: "${API:?Must pass -v API=<POSIX|MPIIO> at submission time}"
+: "${MODEL:?Must pass -v MODEL=<shared|fpp> at submission time}"
+
+# Fixed 128 ranks per node matching ncpus=128:mpiprocs=128 (full physical node)
+NP=$((NODE_COUNT * 128))
+
+# Verify the actual number of nodes allocated
+ACTUAL_NODES=$(sort -u "$PBS_NODEFILE" | wc -l)
+if [ "$ACTUAL_NODES" -ne "$NODE_COUNT" ]; then
+    echo "FATAL: Expected $NODE_COUNT node(s), PBS granted $ACTUAL_NODES."
+    exit 1
+fi
+
+# Experimental Fixed Parameters
+STRIPE_COUNT=8
+T=4m      # Transfer size fixed at 4m
+
+# Strong scaling: fixed 64GiB global dataset regardless of node count --
+# per-rank block shrinks as NP grows (unlike weak scaling's fixed B=128m).
+# Heaviest per-rank case: NODES=1 (NP=128) -> B=64GiB/128=512m/rank.
+TOTAL_GLOBAL_MB=$((64 * 1024))
+B_MB=$((TOTAL_GLOBAL_MB / NP))
+B="${B_MB}m"
+
+API_LOWER=$(echo "$API" | tr '[:upper:]' '[:lower:]')
+FPP_FLAG=""
+[ "$MODEL" == "fpp" ] && FPP_FLAG="-F"
+
+# Cache Bypass Flags: not sure about MPIIO bypass!!! 
+# Add # $DIRECT_IO_FLAG \ in the mpirun command to test the bypass flags below.
+DIRECT_IO_FLAG=""
+# if [ "$API" == "POSIX" ]; then
+#     DIRECT_IO_FLAG="--posix.odirect"
+# elif [ "$API" == "MPIIO" ]; then
+#     DIRECT_IO_FLAG="-U direct_io=true"
+# fi
+
+PAYLOAD_DIR="native/stripe_c${STRIPE_COUNT}/${API_LOWER}_${MODEL}_n${NODE_COUNT}"
+mkdir -p "$PAYLOAD_DIR"
+lfs setstripe -c "$STRIPE_COUNT" -S 1m "$PAYLOAD_DIR"
+echo "=== Verifying Lustre Striping Layout for $PAYLOAD_DIR ==="
+lfs getstripe "$PAYLOAD_DIR"
+
+# Cleanup trap for early aborts or execution failure
+trap 'rm -f "${PAYLOAD_DIR}"/testfile_strong_*' EXIT
+
+REPORT_DIR="native/${API_LOWER}/${MODEL}"
+mkdir -p "$REPORT_DIR"
+
+TEST_FILE="${PAYLOAD_DIR}/testfile_strong_${API_LOWER}_${MODEL}_n${NODE_COUNT}"
+rm -f "${TEST_FILE}"*
+
+echo "================================================================="
+echo " Native Inter-Node Strong Scaling: API=$API MODEL=$MODEL NODES=$NODE_COUNT NP=$NP B=$B T=$T "
+echo "================================================================="
+
+set -x
+time mpirun -np "$NP" \
+  --map-by ppr:128:node --bind-to core \
+  --mca btl ^openib \
+  --mca pml ucx \
+  --mca orte_base_help_aggregate 0 \
+  --mca opal_common_ucx_opal_mem_hooks 1 \
+  -x UCX_LOG_LEVEL=ERROR \
+  "$IOR_BIN" \
+  -a "$API" $FPP_FLAG \
+  -t "$T" -b "$B" \
+  -e -C -i 10 \
+  $DIRECT_IO_FLAG \
+  -o "$TEST_FILE" \
+  > "${REPORT_DIR}/ior_n${NODE_COUNT}.txt"
+MPIRUN_EXIT=$?
+set +x
+
+rm -f "${TEST_FILE}"*
+
+if [ "$MPIRUN_EXIT" -ne 0 ]; then
+    echo "FAILED: API=$API MODEL=$MODEL NODES=$NODE_COUNT (mpirun exit code $MPIRUN_EXIT)"
+    exit "$MPIRUN_EXIT"
+fi
+
+echo "================================================================="
+echo " Native Inter-Node Strong Scaling (NODES=$NODE_COUNT API=$API MODEL=$MODEL) Completed Successfully! "
+echo "================================================================="

@@ -1,0 +1,17 @@
+=== Verifying Lustre Striping Layout for native/stripe_c8/posix_shared_n8 ===
+native/stripe_c8/posix_shared_n8
+stripe_count:  8 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+=================================================================
+ Native Inter-Node Strong Scaling: API=POSIX MODEL=shared NODES=8 NP=1024 B=64m T=4m 
+=================================================================
++ mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl '^openib' --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/ior/ior-4.0.0/src/ior -a POSIX -t 4m -b 64m -e -C -i 10 -o native/stripe_c8/posix_shared_n8/testfile_strong_posix_shared_n8
+
+real	3m18.441s
+user	111m36.813s
+sys	139m25.841s
++ MPIRUN_EXIT=0
++ set +x
+=================================================================
+ Native Inter-Node Strong Scaling (NODES=8 API=POSIX MODEL=shared) Completed Successfully! 
+=================================================================
