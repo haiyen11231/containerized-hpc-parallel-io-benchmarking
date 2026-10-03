@@ -1,0 +1,18 @@
+Configuration file: ./h5bench_container_output/c750991a-25664529.pbs101/h5bench.cfg
+Read data file: ./h5bench_container_output/container_test_data.h5
+dims[0] = 4 (total number for the file)
+Total particles in the file: 4
+Number of particles available per rank: 1 
+Opened HDF5 file... [./h5bench_container_output/container_test_data.h5]
+
+=================== Performance Results ==================
+Total number of ranks: 4
+Invalid time unit: read_time_val
+Total emulated compute time: 0.000 s
+Total read size: 511.966 TB
+Raw read time: 0.000 s
+Metadata time: 0.000 s
+Observed read completion time: 0.000 s
+SYNC Raw read rate: 0.000  B/s 
+SYNC Observed read rate: 1861694.250 TB/s
+===========================================================

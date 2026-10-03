@@ -1,0 +1,28 @@
+apptainer version 1.5.0
+=== Verifying Lustre striping layout for h5bench_container_output ===
+h5bench_container_output
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+2026-10-03 06:07:06,639 h5bench - INFO - Starting h5bench Suite
+2026-10-03 06:07:06,647 h5bench - WARNING - Base directory already exists: ./h5bench_container_output
+2026-10-03 06:07:06,648 h5bench - INFO - Lustre support not detected
+2026-10-03 06:07:06,648 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/lib/x86_64-linux-gnu/hdf5/openmpi::/.singularity.d/libs
+2026-10-03 06:07:06,649 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-03 06:07:06,649 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-03 06:07:06,649 h5bench - INFO - JOBID: 25664529.pbs101
+2026-10-03 06:07:06,649 h5bench - INFO - h5bench [write] - Starting
+2026-10-03 06:07:06,649 h5bench - INFO - h5bench [write] - DIR: ./h5bench_container_output/5fcf3f19-25664529.pbs101/
+2026-10-03 06:07:06,649 h5bench - INFO - Parallel setup: mpirun -np 4
+2026-10-03 06:07:06,651 h5bench - INFO - mpirun -np 4 /opt/h5bench/install/bin//h5bench_write ./h5bench_container_output/5fcf3f19-25664529.pbs101/h5bench.cfg ./h5bench_container_output/container_test_data.h5
+2026-10-03 06:07:09,004 h5bench - INFO - SUCCESS (all output files are located at ./h5bench_container_output/5fcf3f19-25664529.pbs101)
+2026-10-03 06:07:09,005 h5bench - INFO - Runtime: 2.3551288 seconds (elapsed time, includes allocation wait time)
+2026-10-03 06:07:09,005 h5bench - INFO - h5bench [write] - Complete
+2026-10-03 06:07:09,005 h5bench - INFO - JOBID: 25664529.pbs101
+2026-10-03 06:07:09,005 h5bench - INFO - h5bench [read] - Starting
+2026-10-03 06:07:09,005 h5bench - INFO - h5bench [read] - DIR: ./h5bench_container_output/c750991a-25664529.pbs101/
+2026-10-03 06:07:09,005 h5bench - INFO - Parallel setup: mpirun -np 4
+2026-10-03 06:07:09,007 h5bench - INFO - mpirun -np 4 /opt/h5bench/install/bin//h5bench_read ./h5bench_container_output/c750991a-25664529.pbs101/h5bench.cfg ./h5bench_container_output/container_test_data.h5
+2026-10-03 06:07:09,493 h5bench - INFO - SUCCESS (all output files are located at ./h5bench_container_output/c750991a-25664529.pbs101)
+2026-10-03 06:07:09,493 h5bench - INFO - Runtime: 0.4878922 seconds (elapsed time, includes allocation wait time)
+2026-10-03 06:07:09,494 h5bench - INFO - h5bench [read] - Complete
+2026-10-03 06:07:09,494 h5bench - INFO - Finishing h5bench Suite

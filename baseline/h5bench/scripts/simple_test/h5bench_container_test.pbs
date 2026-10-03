@@ -1,0 +1,31 @@
+#!/bin/bash
+#PBS -N h5bench_container_test
+#PBS -l select=1:ncpus=4:mpiprocs=4:mem=2gb
+#PBS -l walltime=00:05:00
+#PBS -l place=excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/h5bench_container_test.out
+
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load apptainer
+
+apptainer --version
+
+SIF=$HOME/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+H5BENCH_BIN=/opt/h5bench/install/bin/h5bench
+
+# Pin Lustre striping explicitly 
+OUTPUT_DIR="h5bench_container_output"
+mkdir -p "$OUTPUT_DIR"
+lfs setstripe -c 4 -S 1m "$OUTPUT_DIR"
+echo "=== Verifying Lustre striping layout for $OUTPUT_DIR ==="
+lfs getstripe "$OUTPUT_DIR"
+
+apptainer exec "$SIF" "$H5BENCH_BIN" container_sample_write_read.json --debug
+
+# Move h5bench log to logs/ 
+mv container_sample_write_read-h5bench.log logs/
