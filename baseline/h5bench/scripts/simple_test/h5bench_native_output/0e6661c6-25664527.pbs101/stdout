@@ -1,0 +1,53 @@
+[1791007607.900688] [x1002c7s1b0n1:1186003:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1791007607.900699] [x1002c7s1b0n1:1186004:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1791007607.904551] [x1002c7s1b0n1:1185984:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1791007607.904616] [x1002c7s1b0n1:1186002:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1791007607.916840] [x1002c7s1b0n1:1186004:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1791007607.916845] [x1002c7s1b0n1:1186003:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1791007607.919537] [x1002c7s1b0n1:1186002:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1791007607.919541] [x1002c7s1b0n1:1185984:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+Configuration file: ./h5bench_native_output/0e6661c6-25664527.pbs101/h5bench.cfg
+Output data file: ./h5bench_native_output/native_test_data.h5
+
+================ Benchmark Configuration ==================
+File: ./h5bench_native_output/0e6661c6-25664527.pbs101/h5bench.cfg
+Number of particles per rank: 1
+Number of time steps: 2
+Emulated compute time per timestep: 0
+Mode: SYNC
+Collective metadata operations: NO
+Collective buffering for data operations: NO
+Number of dimensions: 1
+    Dim_1: 1
+Standard deviation for varying particle size in normal distribution = 1
+===========================================================
+
+Start benchmark: h5bench_write
+Number of particles per rank: 0 M
+Total number of particles: 0M
+Collective Metadata operations: OFF
+Opened HDF5 file... 
+Writing Timestep_0 ... 
+    data_write_contig_contig_MD_array: Finished writing time step 
+Invalid sleep time unit.
+Computing...
+Invalid sleep time unit.
+Invalid sleep time unit.
+Invalid sleep time unit.
+Writing Timestep_1 ... 
+    data_write_contig_contig_MD_array: Finished writing time step 
+
+=================== Performance Results ==================
+Total number of ranks: 4
+Invalid time unit: read_time_val
+Total emulated compute time: 0.000 s
+Total write size: 256.000  B
+Raw write time: 0.001 s
+Metadata time: 0.021 s
+H5Fcreate() time: 0.038 s
+H5Fflush() time: 0.038 s
+H5Fclose() time: 0.000 s
+Observed completion time: 0.098 s
+SYNC Raw write rate: 469.043 KB/s 
+SYNC Observed write rate: 2.539 KB/s
+===========================================================

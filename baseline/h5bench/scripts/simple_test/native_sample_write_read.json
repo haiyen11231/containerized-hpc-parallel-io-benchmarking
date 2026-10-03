@@ -1,0 +1,40 @@
+{
+  "vol": "none",
+  "mpi": {
+    "command": "mpirun",
+    "ranks": "4"
+  },
+  "directory": "./h5bench_native_output",
+  "file-system": {
+    "lustre": {
+      "stripe-count": "4",
+      "stripe-size": "1M"
+    }
+  },
+  "benchmarks": [
+    {
+      "benchmark": "write",
+      "file": "native_test_data.h5",
+      "configuration": {
+        "MEM_PATTERN": "CONTIG",
+        "FILE_PATTERN": "CONTIG",
+        "NUM_PARTICLES": "16 M",
+        "TIMESTEPS": "2",
+        "MODE": "SYNC",
+        "CSV_FILE": "native_write_results.csv"
+      }
+    },
+    {
+      "benchmark": "read",
+      "file": "native_test_data.h5",
+      "configuration": {
+        "MEM_PATTERN": "CONTIG",
+        "FILE_PATTERN": "CONTIG",
+        "NUM_PARTICLES": "16 M",
+        "TIMESTEPS": "2",
+        "MODE": "SYNC",
+        "CSV_FILE": "native_read_results.csv"
+      }
+    }
+  ]
+}

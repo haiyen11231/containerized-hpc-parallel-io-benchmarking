@@ -1,0 +1,37 @@
+Currently Loaded Modulefiles:
+  1) libfabric/1.11.0.4.125             3) openmpi/4.1.2-hpe
+  2) intel/2022.0.2                     4) hdf5/1.12.1-parallel-icc22-ompi4
+/app/apps/openmpi/4.1.2-hpe/bin/mpirun
+mpirun (Open MPI) 4.1.2
+
+Report bugs to http://www.open-mpi.org/community/help/
+gcc -I/app/apps/openmpi/4.1.2-hpe/include -pthread -L/app/apps/openmpi/4.1.2-hpe/lib -L/opt/cray/libfabric/1.11.0.4.125/lib64 -L/usr/lib64 -L/opt/pbs/lib -Wl,-rpath -Wl,/app/apps/openmpi/4.1.2-hpe/lib -Wl,-rpath -Wl,/opt/cray/libfabric/1.11.0.4.125/lib64 -Wl,-rpath -Wl,/usr/lib64 -Wl,-rpath -Wl,/opt/pbs/lib -Wl,--enable-new-dtags -lmpi
+/app/apps/openmpi/4.1.2-hpe/bin/mpicc
+gcc (GCC) 8.5.0 20210514 (Red Hat 8.5.0-21)
+Copyright (C) 2018 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+2026-10-03 12:32:25,221 h5bench - INFO - Starting h5bench Suite
+2026-10-03 12:32:25,274 h5bench - INFO - Lustre support detected
+2026-10-03 12:32:25,274 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 ./h5bench_native_output
+2026-10-03 12:32:25,280 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-03 12:32:25,280 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-03 12:32:25,280 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-03 12:32:25,280 h5bench - INFO - JOBID: 25663913.pbs101
+2026-10-03 12:32:25,281 h5bench - INFO - h5bench [write] - Starting
+2026-10-03 12:32:25,281 h5bench - INFO - h5bench [write] - DIR: ./h5bench_native_output/be488928-25663913.pbs101/
+2026-10-03 12:32:25,281 h5bench - INFO - Parallel setup: mpirun -np 4
+2026-10-03 12:32:25,283 h5bench - INFO - mpirun -np 4 /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_write ./h5bench_native_output/be488928-25663913.pbs101/h5bench.cfg ./h5bench_native_output/native_test_data.h5
+2026-10-03 12:32:27,942 h5bench - INFO - SUCCESS (all output files are located at ./h5bench_native_output/be488928-25663913.pbs101)
+2026-10-03 12:32:27,942 h5bench - INFO - Runtime: 2.6612244 seconds (elapsed time, includes allocation wait time)
+2026-10-03 12:32:27,943 h5bench - INFO - h5bench [write] - Complete
+2026-10-03 12:32:27,943 h5bench - INFO - JOBID: 25663913.pbs101
+2026-10-03 12:32:27,943 h5bench - INFO - h5bench [read] - Starting
+2026-10-03 12:32:27,943 h5bench - INFO - h5bench [read] - DIR: ./h5bench_native_output/cf4dd161-25663913.pbs101/
+2026-10-03 12:32:27,944 h5bench - INFO - Parallel setup: mpirun -np 4
+2026-10-03 12:32:27,946 h5bench - INFO - mpirun -np 4 /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_read ./h5bench_native_output/cf4dd161-25663913.pbs101/h5bench.cfg ./h5bench_native_output/native_test_data.h5
+2026-10-03 12:32:29,788 h5bench - INFO - SUCCESS (all output files are located at ./h5bench_native_output/cf4dd161-25663913.pbs101)
+2026-10-03 12:32:29,789 h5bench - INFO - Runtime: 1.8447874 seconds (elapsed time, includes allocation wait time)
+2026-10-03 12:32:29,789 h5bench - INFO - h5bench [read] - Complete
+2026-10-03 12:32:29,789 h5bench - INFO - Finishing h5bench Suite

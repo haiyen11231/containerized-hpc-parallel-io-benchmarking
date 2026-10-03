@@ -1,0 +1,82 @@
+#!/bin/bash
+#PBS -N system_diagnose
+#PBS -l select=1:ncpus=1:mpiprocs=1:mem=1gb
+#PBS -l walltime=00:03:00
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/system_diagnose.out
+
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load libfabric/1.11.0.4.125
+module load intel/2022.0.2
+module load hdf5/1.12.1-parallel-icc22-ompi4
+module swap openmpi/4.1.7-icc24.2.1 openmpi/4.1.2-hpe
+module swap intel/2024.2.1 intel/2022.0.2
+
+module load apptainer
+
+H5BENCH_BIN=$HOME/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench
+SIF_PATH="$HOME/scratch/fyp/container/h5bench/h5bench_benchmarks.sif"
+
+echo "========================================================================"
+echo "                   1. NATIVE HOST ENVIRONMENT                           "
+echo "========================================================================"
+
+echo "--- Loaded Modules ---"
+module list 2>&1
+
+echo -e "\n--- OS / Kernel Info ---"
+cat /etc/os-release | grep -E "PRETTY_NAME|VERSION"
+uname -r
+
+echo -e "\n--- C/C++ Compiler ---"
+gcc --version | head -n 1
+if command -v icc &> /dev/null; then icc --version | head -n 1; fi
+if command -v icx &> /dev/null; then icx --version | head -n 1; fi
+
+echo -e "\n--- OpenMPI Version & Binary Path ---"
+which mpirun
+mpirun --version | head -n 1
+
+echo -e "\n--- Parallel HDF5 Config ---"
+which h5pcc
+h5pcc -showconfig | grep -E "HDF5 Version|Parallel HDF5|C Compiler"
+
+echo -e "\n--- h5bench Executable ---"
+H5BENCH_NATIVE="$HOME/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench"
+if [ -f "$H5BENCH_NATIVE" ]; then
+    $H5BENCH_NATIVE --help | head -n 2
+else
+    echo "Native h5bench binary not found at $H5BENCH_NATIVE"
+fi
+
+echo -e "\n========================================================================"
+echo "                 2. CONTAINER (.SIF) ENVIRONMENT                        "
+echo "========================================================================"
+
+if [ -f "$SIF_PATH" ]; then
+    echo "Container Image: $SIF_PATH"
+    
+    echo -e "\n--- Container OS Release ---"
+    apptainer exec "$SIF_PATH" cat /etc/os-release | grep -E "PRETTY_NAME|VERSION"
+
+    echo -e "\n--- Container GCC Version ---"
+    apptainer exec "$SIF_PATH" gcc --version | head -n 1
+
+    echo -e "\n--- Container OpenMPI Version ---"
+    apptainer exec "$SIF_PATH" mpirun --version | head -n 1
+
+    echo -e "\n--- Container HDF5 APT Package Version ---"
+    apptainer exec "$SIF_PATH" dpkg -s libhdf5-openmpi-dev | grep -i "Version:"
+
+    echo -e "\n--- Container HDF5 Config ---"
+    apptainer exec "$SIF_PATH" h5pcc -showconfig | grep -E "HDF5 Version|Parallel HDF5|C Compiler"
+
+    echo -e "\n--- Container h5bench Binary Test ---"
+    apptainer exec "$SIF_PATH" h5bench --help | head -n 2
+else
+    echo "Container image not found at $SIF_PATH! Please check the SIF_PATH variable."
+fi

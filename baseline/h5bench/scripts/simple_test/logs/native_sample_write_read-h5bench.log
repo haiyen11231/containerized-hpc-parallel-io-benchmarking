@@ -1,0 +1,24 @@
+2026-10-03 14:06:46,614 h5bench - INFO - Starting h5bench Suite
+2026-10-03 14:06:46,624 h5bench - WARNING - Base directory already exists: ./h5bench_native_output
+2026-10-03 14:06:46,629 h5bench - INFO - Lustre support detected
+2026-10-03 14:06:46,629 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 ./h5bench_native_output
+2026-10-03 14:06:46,634 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-03 14:06:46,634 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-03 14:06:46,634 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-03 14:06:46,634 h5bench - INFO - JOBID: 25664527.pbs101
+2026-10-03 14:06:46,635 h5bench - INFO - h5bench [write] - Starting
+2026-10-03 14:06:46,635 h5bench - INFO - h5bench [write] - DIR: ./h5bench_native_output/0e6661c6-25664527.pbs101/
+2026-10-03 14:06:46,635 h5bench - INFO - Parallel setup: mpirun -np 4
+2026-10-03 14:06:46,637 h5bench - INFO - mpirun -np 4 /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_write ./h5bench_native_output/0e6661c6-25664527.pbs101/h5bench.cfg ./h5bench_native_output/native_test_data.h5
+2026-10-03 14:06:49,350 h5bench - INFO - SUCCESS (all output files are located at ./h5bench_native_output/0e6661c6-25664527.pbs101)
+2026-10-03 14:06:49,350 h5bench - INFO - Runtime: 2.7150044 seconds (elapsed time, includes allocation wait time)
+2026-10-03 14:06:49,350 h5bench - INFO - h5bench [write] - Complete
+2026-10-03 14:06:49,351 h5bench - INFO - JOBID: 25664527.pbs101
+2026-10-03 14:06:49,351 h5bench - INFO - h5bench [read] - Starting
+2026-10-03 14:06:49,351 h5bench - INFO - h5bench [read] - DIR: ./h5bench_native_output/4abd3955-25664527.pbs101/
+2026-10-03 14:06:49,351 h5bench - INFO - Parallel setup: mpirun -np 4
+2026-10-03 14:06:49,353 h5bench - INFO - mpirun -np 4 /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_read ./h5bench_native_output/4abd3955-25664527.pbs101/h5bench.cfg ./h5bench_native_output/native_test_data.h5
+2026-10-03 14:06:51,149 h5bench - INFO - SUCCESS (all output files are located at ./h5bench_native_output/4abd3955-25664527.pbs101)
+2026-10-03 14:06:51,149 h5bench - INFO - Runtime: 1.7979748 seconds (elapsed time, includes allocation wait time)
+2026-10-03 14:06:51,150 h5bench - INFO - h5bench [read] - Complete
+2026-10-03 14:06:51,150 h5bench - INFO - Finishing h5bench Suite

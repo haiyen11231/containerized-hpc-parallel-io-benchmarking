@@ -1,0 +1,64 @@
+========================================================================
+                   1. NATIVE HOST ENVIRONMENT                           
+========================================================================
+--- Loaded Modules ---
+Currently Loaded Modulefiles:
+  1) libfabric/1.11.0.4.125             4) hdf5/1.12.1-parallel-icc22-ompi4
+  2) intel/2022.0.2                     5) apptainer/1.5.0
+  3) openmpi/4.1.2-hpe
+
+--- OS / Kernel Info ---
+VERSION="8.10 (Ootpa)"
+VERSION_ID="8.10"
+PRETTY_NAME="Red Hat Enterprise Linux 8.10 (Ootpa)"
+REDHAT_BUGZILLA_PRODUCT_VERSION=8.10
+REDHAT_SUPPORT_PRODUCT_VERSION="8.10"
+4.18.0-553.125.1.el8_10.x86_64
+
+--- C/C++ Compiler ---
+gcc (GCC) 8.5.0 20210514 (Red Hat 8.5.0-21)
+icc (ICC) 2021.5.0 20211109
+Intel(R) oneAPI DPC++/C++ Compiler 2022.0.0 (2022.0.0.20211123)
+
+--- OpenMPI Version & Binary Path ---
+/app/apps/openmpi/4.1.2-hpe/bin/mpirun
+mpirun (Open MPI) 4.1.2
+
+--- Parallel HDF5 Config ---
+/app/libs/hdf5/1.12.1-parallel-icc22-ompi4/bin/h5pcc
+                   HDF5 Version: 1.12.1
+                     C Compiler: /app/apps/openmpi/4.1.5-icc22/bin/mpicc ( built with icc version 2021.6.0 (gcc version 8.4.1 compatibility))
+                   Parallel HDF5: yes
+
+--- h5bench Executable ---
+usage: h5bench [-h] [-a] [-d] [-v] [-p PREFIX] [-f FILTER] [-V] setup
+
+
+========================================================================
+                 2. CONTAINER (.SIF) ENVIRONMENT                        
+========================================================================
+Container Image: /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+
+--- Container OS Release ---
+PRETTY_NAME="Ubuntu 22.04.5 LTS"
+VERSION_ID="22.04"
+VERSION="22.04.5 LTS (Jammy Jellyfish)"
+VERSION_CODENAME=jammy
+
+--- Container GCC Version ---
+gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0
+
+--- Container OpenMPI Version ---
+mpirun (Open MPI) 4.1.2
+
+--- Container HDF5 APT Package Version ---
+Version: 1.10.7+repack-4ubuntu2
+
+--- Container HDF5 Config ---
+                   HDF5 Version: 1.10.7
+                     C Compiler: /usr/bin/mpicc.openmpi ( Configured with: ../src/configure -v --with-pkgversion='Ubuntu 11.2.0-12ubuntu1' --with-bugurl=file:///usr/share/doc/gcc-11/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++,m2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-11 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --enable-cet --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-11-VB3iS9/gcc-11-11.2.0/debian/tmp-nvptx/usr,amdgcn-amdhsa=/build/gcc-11-VB3iS9/gcc-11-11.2.0/debian/tmp-gcn/usr --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu --with-build-config=bootstrap-lto-lean --enable-link-serialization=2 built with gcc version 11.2.0 (Ubuntu 11.2.0-12ubuntu1))
+                   Parallel HDF5: yes
+
+--- Container h5bench Binary Test ---
+usage: h5bench [-h] [-a] [-d] [-v] [-p PREFIX] [-f FILTER] [-V] setup
+

@@ -1,0 +1,26 @@
+[1791007609.925039] [x1002c7s1b0n1:1186213:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1791007609.930800] [x1002c7s1b0n1:1186213:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1791007609.934341] [x1002c7s1b0n1:1186214:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1791007609.939643] [x1002c7s1b0n1:1186214:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1791007609.951633] [x1002c7s1b0n1:1186216:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1791007609.954415] [x1002c7s1b0n1:1186215:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1791007609.963440] [x1002c7s1b0n1:1186216:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1791007609.965588] [x1002c7s1b0n1:1186215:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+Configuration file: ./h5bench_native_output/4abd3955-25664527.pbs101/h5bench.cfg
+Read data file: ./h5bench_native_output/native_test_data.h5
+dims[0] = 4 (total number for the file)
+Total particles in the file: 4
+Number of particles available per rank: 1 
+Opened HDF5 file... [./h5bench_native_output/native_test_data.h5]
+
+=================== Performance Results ==================
+Total number of ranks: 4
+Invalid time unit: read_time_val
+Total emulated compute time: 0.000 s
+Total read size: 6.663 GB
+Raw read time: 0.000 s
+Metadata time: 0.000 s
+Observed read completion time: 0.000 s
+SYNC Raw read rate: 0.000  B/s 
+SYNC Observed read rate: 19.961 TB/s
+===========================================================
