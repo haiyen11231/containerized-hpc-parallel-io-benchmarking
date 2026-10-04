@@ -1,0 +1,54 @@
+{
+  "mpi": {
+    "command": "mpirun",
+    "configuration": "-np 512 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR"
+  },
+  "vol": {},
+  "file-system": {
+    "lustre": {
+      "stripe-count": "4",
+      "stripe-size": "1M"
+    }
+  },
+  "directory": "payload/native/n4",
+  "benchmarks": [
+    {
+      "benchmark": "write",
+      "file": "h5bench_weak_native_n4.h5",
+      "configuration": {
+        "MEM_PATTERN": "CONTIG",
+        "FILE_PATTERN": "CONTIG",
+        "NUM_DIMS": "1",
+        "DIM_1": "1 M",
+        "DIM_2": "1",
+        "DIM_3": "1",
+        "TIMESTEPS": "5",
+        "EMULATED_COMPUTE_TIME_PER_TIMESTEP": "0 s",
+        "MODE": "SYNC",
+        "COLLECTIVE_DATA": "NO",
+        "COLLECTIVE_METADATA": "NO",
+        "CSV_FILE": "write_rep3.csv"
+      }
+    },
+    {
+      "benchmark": "read",
+      "file": "h5bench_weak_native_n4.h5",
+      "configuration": {
+        "MEM_PATTERN": "CONTIG",
+        "FILE_PATTERN": "CONTIG",
+        "READ_OPTION": "FULL",
+        "NUM_DIMS": "1",
+        "DIM_1": "1 M",
+        "DIM_2": "1",
+        "DIM_3": "1",
+        "TIMESTEPS": "5",
+        "EMULATED_COMPUTE_TIME_PER_TIMESTEP": "0 s",
+        "MODE": "SYNC",
+        "COLLECTIVE_DATA": "NO",
+        "COLLECTIVE_METADATA": "NO",
+        "CSV_FILE": "read_rep3.csv"
+      }
+    }
+  ]
+}
+
