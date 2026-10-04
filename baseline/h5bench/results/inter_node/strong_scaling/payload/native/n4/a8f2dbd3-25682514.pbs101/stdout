@@ -1,0 +1,45 @@
+Configuration file: payload/native/n4/a8f2dbd3-25682514.pbs101/h5bench.cfg
+Read data file: payload/native/n4/h5bench_strong_native_n4.h5
+dims[0] = 134217728 (total number for the file)
+Total particles in the file: 134217728
+Number of particles available per rank: 262144 
+Opened HDF5 file... [payload/native/n4/h5bench_strong_native_n4.h5]
+
+================ Benchmark Configuration ==================
+File: payload/native/n4/a8f2dbd3-25682514.pbs101/h5bench.cfg
+Number of particles per rank: 262144
+Number of time steps: 5
+Emulated compute time per timestep: 0
+Mode: SYNC
+Collective metadata operations: NO
+Collective buffering for data operations: NO
+Number of dimensions: 1
+    Dim_1: 262144
+Standard deviation for varying particle size in normal distribution = 1
+===========================================================
+
+Reading Timestep_0 ... 
+  Read 8 variable completed
+Computing... 
+Reading Timestep_1 ... 
+  Read 8 variable completed
+Computing... 
+Reading Timestep_2 ... 
+  Read 8 variable completed
+Computing... 
+Reading Timestep_3 ... 
+  Read 8 variable completed
+Computing... 
+Reading Timestep_4 ... 
+  Read 8 variable completed
+
+=================== Performance Results ==================
+Total number of ranks: 512
+Total emulated compute time: 0.000 s
+Total read size: 20.000 GB
+Raw read time: 4.243 s
+Metadata time: 0.310 s
+Observed read completion time: 4.740 s
+SYNC Raw read rate: 4.713 GB/s 
+SYNC Observed read rate: 4.219 GB/s
+===========================================================
