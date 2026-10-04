@@ -1,0 +1,111 @@
+#!/bin/bash
+#PBS -N h5bench_native_intra
+#PBS -l walltime=00:30:00
+#PBS -l place=excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/h5bench_native_intra.out
+
+# Experiment description: Run h5bench natively on a single node, sweeping the 1-D memory and file layout patterns (CONTIG, INTERLEAVED) in combination.
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load libfabric/1.11.0.4.125
+module load intel/2022.0.2
+module load hdf5/1.12.1-parallel-icc22-ompi4
+module swap openmpi/4.1.7-icc24.2.1 openmpi/4.1.2-hpe
+module swap intel/2024.2.1 intel/2022.0.2
+
+module list
+mpirun --version
+
+H5BENCH_DRIVER=$HOME/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench
+TEMPLATE=h5bench_config.json.template
+
+# Check the required environment variables
+: "${MEM_PATTERN:?Must pass -v MEM_PATTERN=<CONTIG|INTERLEAVED> at submission time}"
+: "${FILE_PATTERN:?Must pass -v FILE_PATTERN=<CONTIG|INTERLEAVED> at submission time}"
+: "${REPS:?Must pass -v REPS=<number> at submission time}"
+
+# Set MPI configuration: 1 node, 128 ranks per node, bind to core, 10 repetitions, memory and file layout patterns
+NODE_COUNT=1
+NP=$((NODE_COUNT * 128))
+
+# Workload size (DIM_1, TIMESTEPS) is fixed in h5bench_config.json.template.
+#   DIM_1 = "1 M" particles/rank x 32 B = 32 MiB per rank per timestep
+#   128 ranks x 5 timesteps x 32 MiB    = 20 GiB per repetition
+
+MPI_CONFIG="-np ${NP} --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR"
+
+MEM_LOWER=$(echo "$MEM_PATTERN" | tr '[:upper:]' '[:lower:]')
+FILE_LOWER=$(echo "$FILE_PATTERN" | tr '[:upper:]' '[:lower:]')
+COMBO="${MEM_LOWER}_${FILE_LOWER}"
+
+PAYLOAD_DIR="payload/native/${COMBO}"
+REPORT_DIR="native/${COMBO}"
+mkdir -p "$PAYLOAD_DIR" "$REPORT_DIR" logs
+
+# Set Lustre striping explicitly for the payload directory 
+lfs setstripe -c 4 -S 1m "$PAYLOAD_DIR"
+echo "=== Verifying Lustre striping layout for $PAYLOAD_DIR ==="
+lfs getstripe "$PAYLOAD_DIR"
+
+
+DATA_FILE_NAME="h5bench_intra_native_${COMBO}.h5"
+# Clean up the data file on exit
+trap 'rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"' EXIT
+
+echo "================================================================="
+echo " Native Intra-Node Pattern Sweep: MEM=$MEM_PATTERN FILE=$FILE_PATTERN NP=$NP REPS=$REPS "
+echo "================================================================="
+
+# Each repetition is a fully independent driver invocation (fresh process,
+# fresh output file) rather than N entries in one benchmarks array, so a warm
+# cache cannot carry across repetitions within a single driver run.
+for REP in $(seq 1 "$REPS"); do
+    echo "--- Repetition ${REP}/${REPS} ---"
+
+    # Generate a JSON config file for each repetition with specific params
+    JSON="${REPORT_DIR}/config_rep${REP}.json"
+
+    sed -e "s|@MPI_CONFIG@|${MPI_CONFIG}|" \
+        -e "s|@DIRECTORY@|${PAYLOAD_DIR}|" \
+        -e "s|@DATA_FILE@|${DATA_FILE_NAME}|" \
+        -e "s|@MEM_PATTERN@|${MEM_PATTERN}|" \
+        -e "s|@FILE_PATTERN@|${FILE_PATTERN}|" \
+        -e "s|@CSV_FILE@|write_rep${REP}.csv|" \
+        "$TEMPLATE" > "$JSON"
+
+    python3 -m json.tool "$JSON" > /dev/null \
+        || { echo "FATAL: generated $JSON is not valid JSON"; exit 1; }
+
+    if grep -q '@[A-Z_]*@' "$JSON"; then
+        echo "FATAL: unsubstituted placeholder left in $JSON:"
+        grep -n '@[A-Z_]*@' "$JSON"
+        exit 1
+    fi
+
+    rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"
+
+    # Run the h5bench driver with the generated JSON config
+    set -x
+    time "$H5BENCH_DRIVER" -a -d "$JSON"
+    H5BENCH_EXIT=$?
+    set +x
+
+    # Check exit status of h5bench driver
+    if [ "$H5BENCH_EXIT" -ne 0 ]; then
+        echo "FAILED: MEM=$MEM_PATTERN FILE=$FILE_PATTERN rep=$REP (h5bench exit $H5BENCH_EXIT)"
+        exit "$H5BENCH_EXIT"
+    fi
+done
+
+# Check the Lustre striping layout for the payload directory after all repetitions
+echo "=== Lustre striping actually applied to $PAYLOAD_DIR ==="
+lfs getstripe "$PAYLOAD_DIR"
+
+# Move all h5bench logs to logs/
+find . -maxdepth 3 -name '*-h5bench.log' -exec mv -f {} logs/ \; 2>/dev/null
+
+echo "Completed Successfully! "

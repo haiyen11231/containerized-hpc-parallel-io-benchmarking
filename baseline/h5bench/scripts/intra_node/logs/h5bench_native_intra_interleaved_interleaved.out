@@ -1,0 +1,301 @@
+Currently Loaded Modulefiles:
+  1) libfabric/1.11.0.4.125             3) openmpi/4.1.2-hpe
+  2) intel/2022.0.2                     4) hdf5/1.12.1-parallel-icc22-ompi4
+mpirun (Open MPI) 4.1.2
+
+Report bugs to http://www.open-mpi.org/community/help/
+=== Verifying Lustre striping layout for payload/native/interleaved_interleaved ===
+payload/native/interleaved_interleaved
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+=================================================================
+ Native Intra-Node Pattern Sweep: MEM=INTERLEAVED FILE=INTERLEAVED NP=128 REPS=10 
+=================================================================
+--- Repetition 1/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d native/interleaved_interleaved/config_rep1.json
+2026-10-04 21:48:14,038 h5bench - INFO - Starting h5bench Suite
+2026-10-04 21:48:14,039 h5bench - WARNING - Base directory already exists: payload/native/interleaved_interleaved
+2026-10-04 21:48:14,044 h5bench - INFO - Lustre support detected
+2026-10-04 21:48:14,044 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/native/interleaved_interleaved
+2026-10-04 21:48:14,049 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-04 21:48:14,050 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-04 21:48:14,050 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-04 21:48:14,050 h5bench - INFO - JOBID: 25681572.pbs101
+2026-10-04 21:48:14,050 h5bench - INFO - h5bench [write] - Starting
+2026-10-04 21:48:14,050 h5bench - INFO - h5bench [write] - DIR: payload/native/interleaved_interleaved/92b62b86-25681572.pbs101/
+2026-10-04 21:48:14,051 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-04 21:48:14,053 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_write payload/native/interleaved_interleaved/92b62b86-25681572.pbs101/h5bench.cfg payload/native/interleaved_interleaved/h5bench_intra_native_interleaved_interleaved.h5
+2026-10-04 21:48:38,896 h5bench - INFO - SUCCESS (all output files are located at payload/native/interleaved_interleaved/92b62b86-25681572.pbs101)
+2026-10-04 21:48:38,896 h5bench - INFO - Runtime: 24.8451526 seconds (elapsed time, includes allocation wait time)
+2026-10-04 21:48:38,896 h5bench - INFO - h5bench [write] - Complete
+2026-10-04 21:48:38,896 h5bench - INFO - Finishing h5bench Suite
+
+real	0m24.986s
+user	5m4.969s
+sys	24m52.398s
++ H5BENCH_EXIT=0
++ set +x
+--- Repetition 2/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d native/interleaved_interleaved/config_rep2.json
+2026-10-04 21:48:43,060 h5bench - INFO - Starting h5bench Suite
+2026-10-04 21:48:43,061 h5bench - WARNING - Base directory already exists: payload/native/interleaved_interleaved
+2026-10-04 21:48:43,066 h5bench - INFO - Lustre support detected
+2026-10-04 21:48:43,067 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/native/interleaved_interleaved
+2026-10-04 21:48:43,072 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-04 21:48:43,073 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-04 21:48:43,073 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-04 21:48:43,073 h5bench - INFO - JOBID: 25681572.pbs101
+2026-10-04 21:48:43,073 h5bench - INFO - h5bench [write] - Starting
+2026-10-04 21:48:43,073 h5bench - INFO - h5bench [write] - DIR: payload/native/interleaved_interleaved/46e89c46-25681572.pbs101/
+2026-10-04 21:48:43,074 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-04 21:48:43,076 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_write payload/native/interleaved_interleaved/46e89c46-25681572.pbs101/h5bench.cfg payload/native/interleaved_interleaved/h5bench_intra_native_interleaved_interleaved.h5
+2026-10-04 21:49:06,113 h5bench - INFO - SUCCESS (all output files are located at payload/native/interleaved_interleaved/46e89c46-25681572.pbs101)
+2026-10-04 21:49:06,113 h5bench - INFO - Runtime: 23.0394840 seconds (elapsed time, includes allocation wait time)
+2026-10-04 21:49:06,113 h5bench - INFO - h5bench [write] - Complete
+2026-10-04 21:49:06,114 h5bench - INFO - Finishing h5bench Suite
+
+real	0m23.113s
+user	5m22.191s
+sys	20m13.720s
++ H5BENCH_EXIT=0
++ set +x
+--- Repetition 3/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d native/interleaved_interleaved/config_rep3.json
+2026-10-04 21:49:10,334 h5bench - INFO - Starting h5bench Suite
+2026-10-04 21:49:10,335 h5bench - WARNING - Base directory already exists: payload/native/interleaved_interleaved
+2026-10-04 21:49:10,341 h5bench - INFO - Lustre support detected
+2026-10-04 21:49:10,342 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/native/interleaved_interleaved
+2026-10-04 21:49:10,348 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-04 21:49:10,348 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-04 21:49:10,348 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-04 21:49:10,348 h5bench - INFO - JOBID: 25681572.pbs101
+2026-10-04 21:49:10,348 h5bench - INFO - h5bench [write] - Starting
+2026-10-04 21:49:10,349 h5bench - INFO - h5bench [write] - DIR: payload/native/interleaved_interleaved/7b3f10db-25681572.pbs101/
+2026-10-04 21:49:10,349 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-04 21:49:10,350 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_write payload/native/interleaved_interleaved/7b3f10db-25681572.pbs101/h5bench.cfg payload/native/interleaved_interleaved/h5bench_intra_native_interleaved_interleaved.h5
+2026-10-04 21:49:35,316 h5bench - INFO - SUCCESS (all output files are located at payload/native/interleaved_interleaved/7b3f10db-25681572.pbs101)
+2026-10-04 21:49:35,317 h5bench - INFO - Runtime: 24.9677248 seconds (elapsed time, includes allocation wait time)
+2026-10-04 21:49:35,317 h5bench - INFO - h5bench [write] - Complete
+2026-10-04 21:49:35,317 h5bench - INFO - Finishing h5bench Suite
+
+real	0m25.048s
+user	5m2.111s
+sys	24m58.167s
++ H5BENCH_EXIT=0
++ set +x
+--- Repetition 4/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d native/interleaved_interleaved/config_rep4.json
+2026-10-04 21:49:39,381 h5bench - INFO - Starting h5bench Suite
+2026-10-04 21:49:39,382 h5bench - WARNING - Base directory already exists: payload/native/interleaved_interleaved
+2026-10-04 21:49:39,388 h5bench - INFO - Lustre support detected
+2026-10-04 21:49:39,388 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/native/interleaved_interleaved
+2026-10-04 21:49:39,393 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-04 21:49:39,394 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-04 21:49:39,394 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-04 21:49:39,394 h5bench - INFO - JOBID: 25681572.pbs101
+2026-10-04 21:49:39,394 h5bench - INFO - h5bench [write] - Starting
+2026-10-04 21:49:39,394 h5bench - INFO - h5bench [write] - DIR: payload/native/interleaved_interleaved/460d8f01-25681572.pbs101/
+2026-10-04 21:49:39,395 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-04 21:49:39,397 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_write payload/native/interleaved_interleaved/460d8f01-25681572.pbs101/h5bench.cfg payload/native/interleaved_interleaved/h5bench_intra_native_interleaved_interleaved.h5
+2026-10-04 21:50:03,193 h5bench - INFO - SUCCESS (all output files are located at payload/native/interleaved_interleaved/460d8f01-25681572.pbs101)
+2026-10-04 21:50:03,194 h5bench - INFO - Runtime: 23.7987919 seconds (elapsed time, includes allocation wait time)
+2026-10-04 21:50:03,194 h5bench - INFO - h5bench [write] - Complete
+2026-10-04 21:50:03,194 h5bench - INFO - Finishing h5bench Suite
+
+real	0m23.874s
+user	4m6.565s
+sys	26m35.733s
++ H5BENCH_EXIT=0
++ set +x
+--- Repetition 5/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d native/interleaved_interleaved/config_rep5.json
+2026-10-04 21:50:07,080 h5bench - INFO - Starting h5bench Suite
+2026-10-04 21:50:07,081 h5bench - WARNING - Base directory already exists: payload/native/interleaved_interleaved
+2026-10-04 21:50:07,087 h5bench - INFO - Lustre support detected
+2026-10-04 21:50:07,088 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/native/interleaved_interleaved
+2026-10-04 21:50:07,093 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-04 21:50:07,094 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-04 21:50:07,094 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-04 21:50:07,094 h5bench - INFO - JOBID: 25681572.pbs101
+2026-10-04 21:50:07,094 h5bench - INFO - h5bench [write] - Starting
+2026-10-04 21:50:07,094 h5bench - INFO - h5bench [write] - DIR: payload/native/interleaved_interleaved/afc12112-25681572.pbs101/
+2026-10-04 21:50:07,094 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-04 21:50:07,096 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_write payload/native/interleaved_interleaved/afc12112-25681572.pbs101/h5bench.cfg payload/native/interleaved_interleaved/h5bench_intra_native_interleaved_interleaved.h5
+2026-10-04 21:50:29,634 h5bench - INFO - SUCCESS (all output files are located at payload/native/interleaved_interleaved/afc12112-25681572.pbs101)
+2026-10-04 21:50:29,634 h5bench - INFO - Runtime: 22.5395014 seconds (elapsed time, includes allocation wait time)
+2026-10-04 21:50:29,634 h5bench - INFO - h5bench [write] - Complete
+2026-10-04 21:50:29,634 h5bench - INFO - Finishing h5bench Suite
+
+real	0m22.614s
+user	5m3.058s
+sys	19m3.466s
++ H5BENCH_EXIT=0
++ set +x
+--- Repetition 6/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d native/interleaved_interleaved/config_rep6.json
+2026-10-04 21:50:33,812 h5bench - INFO - Starting h5bench Suite
+2026-10-04 21:50:33,813 h5bench - WARNING - Base directory already exists: payload/native/interleaved_interleaved
+2026-10-04 21:50:33,821 h5bench - INFO - Lustre support detected
+2026-10-04 21:50:33,821 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/native/interleaved_interleaved
+2026-10-04 21:50:33,827 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-04 21:50:33,828 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-04 21:50:33,828 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-04 21:50:33,828 h5bench - INFO - JOBID: 25681572.pbs101
+2026-10-04 21:50:33,828 h5bench - INFO - h5bench [write] - Starting
+2026-10-04 21:50:33,828 h5bench - INFO - h5bench [write] - DIR: payload/native/interleaved_interleaved/e957c651-25681572.pbs101/
+2026-10-04 21:50:33,829 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-04 21:50:33,830 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_write payload/native/interleaved_interleaved/e957c651-25681572.pbs101/h5bench.cfg payload/native/interleaved_interleaved/h5bench_intra_native_interleaved_interleaved.h5
+2026-10-04 21:50:59,069 h5bench - INFO - SUCCESS (all output files are located at payload/native/interleaved_interleaved/e957c651-25681572.pbs101)
+2026-10-04 21:50:59,069 h5bench - INFO - Runtime: 25.2403357 seconds (elapsed time, includes allocation wait time)
+2026-10-04 21:50:59,070 h5bench - INFO - h5bench [write] - Complete
+2026-10-04 21:50:59,070 h5bench - INFO - Finishing h5bench Suite
+
+real	0m25.319s
+user	5m38.686s
+sys	24m1.493s
++ H5BENCH_EXIT=0
++ set +x
+--- Repetition 7/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d native/interleaved_interleaved/config_rep7.json
+2026-10-04 21:51:03,281 h5bench - INFO - Starting h5bench Suite
+2026-10-04 21:51:03,282 h5bench - WARNING - Base directory already exists: payload/native/interleaved_interleaved
+2026-10-04 21:51:03,289 h5bench - INFO - Lustre support detected
+2026-10-04 21:51:03,289 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/native/interleaved_interleaved
+2026-10-04 21:51:03,295 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-04 21:51:03,296 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-04 21:51:03,296 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-04 21:51:03,296 h5bench - INFO - JOBID: 25681572.pbs101
+2026-10-04 21:51:03,296 h5bench - INFO - h5bench [write] - Starting
+2026-10-04 21:51:03,296 h5bench - INFO - h5bench [write] - DIR: payload/native/interleaved_interleaved/2a724143-25681572.pbs101/
+2026-10-04 21:51:03,297 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-04 21:51:03,299 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_write payload/native/interleaved_interleaved/2a724143-25681572.pbs101/h5bench.cfg payload/native/interleaved_interleaved/h5bench_intra_native_interleaved_interleaved.h5
+2026-10-04 21:51:26,704 h5bench - INFO - SUCCESS (all output files are located at payload/native/interleaved_interleaved/2a724143-25681572.pbs101)
+2026-10-04 21:51:26,705 h5bench - INFO - Runtime: 23.4078982 seconds (elapsed time, includes allocation wait time)
+2026-10-04 21:51:26,705 h5bench - INFO - h5bench [write] - Complete
+2026-10-04 21:51:26,705 h5bench - INFO - Finishing h5bench Suite
+
+real	0m23.484s
+user	5m53.481s
+sys	21m42.070s
++ H5BENCH_EXIT=0
++ set +x
+--- Repetition 8/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d native/interleaved_interleaved/config_rep8.json
+2026-10-04 21:51:31,265 h5bench - INFO - Starting h5bench Suite
+2026-10-04 21:51:31,266 h5bench - WARNING - Base directory already exists: payload/native/interleaved_interleaved
+2026-10-04 21:51:31,274 h5bench - INFO - Lustre support detected
+2026-10-04 21:51:31,274 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/native/interleaved_interleaved
+2026-10-04 21:51:31,280 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-04 21:51:31,280 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-04 21:51:31,281 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-04 21:51:31,281 h5bench - INFO - JOBID: 25681572.pbs101
+2026-10-04 21:51:31,281 h5bench - INFO - h5bench [write] - Starting
+2026-10-04 21:51:31,281 h5bench - INFO - h5bench [write] - DIR: payload/native/interleaved_interleaved/ef05997b-25681572.pbs101/
+2026-10-04 21:51:31,281 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-04 21:51:31,283 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_write payload/native/interleaved_interleaved/ef05997b-25681572.pbs101/h5bench.cfg payload/native/interleaved_interleaved/h5bench_intra_native_interleaved_interleaved.h5
+2026-10-04 21:51:56,553 h5bench - INFO - SUCCESS (all output files are located at payload/native/interleaved_interleaved/ef05997b-25681572.pbs101)
+2026-10-04 21:51:56,554 h5bench - INFO - Runtime: 25.2722359 seconds (elapsed time, includes allocation wait time)
+2026-10-04 21:51:56,554 h5bench - INFO - h5bench [write] - Complete
+2026-10-04 21:51:56,554 h5bench - INFO - Finishing h5bench Suite
+
+real	0m25.350s
+user	6m5.096s
+sys	20m4.416s
++ H5BENCH_EXIT=0
++ set +x
+--- Repetition 9/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d native/interleaved_interleaved/config_rep9.json
+2026-10-04 21:52:00,771 h5bench - INFO - Starting h5bench Suite
+2026-10-04 21:52:00,772 h5bench - WARNING - Base directory already exists: payload/native/interleaved_interleaved
+2026-10-04 21:52:00,780 h5bench - INFO - Lustre support detected
+2026-10-04 21:52:00,780 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/native/interleaved_interleaved
+2026-10-04 21:52:00,785 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-04 21:52:00,786 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-04 21:52:00,786 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-04 21:52:00,786 h5bench - INFO - JOBID: 25681572.pbs101
+2026-10-04 21:52:00,786 h5bench - INFO - h5bench [write] - Starting
+2026-10-04 21:52:00,786 h5bench - INFO - h5bench [write] - DIR: payload/native/interleaved_interleaved/ad7c5344-25681572.pbs101/
+2026-10-04 21:52:00,787 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-04 21:52:00,788 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_write payload/native/interleaved_interleaved/ad7c5344-25681572.pbs101/h5bench.cfg payload/native/interleaved_interleaved/h5bench_intra_native_interleaved_interleaved.h5
+2026-10-04 21:52:25,607 h5bench - INFO - SUCCESS (all output files are located at payload/native/interleaved_interleaved/ad7c5344-25681572.pbs101)
+2026-10-04 21:52:25,607 h5bench - INFO - Runtime: 24.8204868 seconds (elapsed time, includes allocation wait time)
+2026-10-04 21:52:25,607 h5bench - INFO - h5bench [write] - Complete
+2026-10-04 21:52:25,608 h5bench - INFO - Finishing h5bench Suite
+
+real	0m24.895s
+user	5m15.822s
+sys	27m16.822s
++ H5BENCH_EXIT=0
++ set +x
+--- Repetition 10/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d native/interleaved_interleaved/config_rep10.json
+2026-10-04 21:52:30,291 h5bench - INFO - Starting h5bench Suite
+2026-10-04 21:52:30,292 h5bench - WARNING - Base directory already exists: payload/native/interleaved_interleaved
+2026-10-04 21:52:30,300 h5bench - INFO - Lustre support detected
+2026-10-04 21:52:30,300 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/native/interleaved_interleaved
+2026-10-04 21:52:30,305 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-04 21:52:30,306 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-04 21:52:30,306 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-04 21:52:30,306 h5bench - INFO - JOBID: 25681572.pbs101
+2026-10-04 21:52:30,306 h5bench - INFO - h5bench [write] - Starting
+2026-10-04 21:52:30,306 h5bench - INFO - h5bench [write] - DIR: payload/native/interleaved_interleaved/f9697c4b-25681572.pbs101/
+2026-10-04 21:52:30,307 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-04 21:52:30,308 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_write payload/native/interleaved_interleaved/f9697c4b-25681572.pbs101/h5bench.cfg payload/native/interleaved_interleaved/h5bench_intra_native_interleaved_interleaved.h5
+2026-10-04 21:52:56,419 h5bench - INFO - SUCCESS (all output files are located at payload/native/interleaved_interleaved/f9697c4b-25681572.pbs101)
+2026-10-04 21:52:56,420 h5bench - INFO - Runtime: 26.1126897 seconds (elapsed time, includes allocation wait time)
+2026-10-04 21:52:56,420 h5bench - INFO - h5bench [write] - Complete
+2026-10-04 21:52:56,420 h5bench - INFO - Finishing h5bench Suite
+
+real	0m26.190s
+user	6m55.122s
+sys	16m6.481s
++ H5BENCH_EXIT=0
++ set +x
+=== Lustre striping actually applied to payload/native/interleaved_interleaved ===
+payload/native/interleaved_interleaved
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/interleaved_interleaved/ef05997b-25681572.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/interleaved_interleaved/46e89c46-25681572.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/interleaved_interleaved/460d8f01-25681572.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/interleaved_interleaved/ad7c5344-25681572.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/interleaved_interleaved/7b3f10db-25681572.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/interleaved_interleaved/f9697c4b-25681572.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/interleaved_interleaved/afc12112-25681572.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/interleaved_interleaved/h5bench_intra_native_interleaved_interleaved.h5
+lmm_stripe_count:  4
+lmm_stripe_size:   1048576
+lmm_pattern:       raid0
+lmm_layout_gen:    0
+lmm_stripe_offset: 18
+lmm_pool:          disk
+	obdidx		 objid		 objid		 group
+	    18	    1328735174	   0x4f32e3c6	   0x6c0000400
+	    20	    1329092275	   0x4f3856b3	   0x780000400
+	    22	    1329138953	   0x4f390d09	   0x7c0000400
+	    24	    1328940569	   0x4f360619	   0x880000400
+
+payload/native/interleaved_interleaved/e957c651-25681572.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/interleaved_interleaved/2a724143-25681572.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/interleaved_interleaved/92b62b86-25681572.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+Completed Successfully! 

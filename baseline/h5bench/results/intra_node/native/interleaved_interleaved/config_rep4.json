@@ -1,0 +1,35 @@
+{
+  "mpi": {
+    "command": "mpirun",
+    "configuration": "-np 128 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR"
+  },
+  "vol": {},
+  "file-system": {
+    "lustre": {
+      "stripe-count": "4",
+      "stripe-size": "1M"
+    }
+  },
+  "directory": "payload/native/interleaved_interleaved",
+  "benchmarks": [
+    {
+      "benchmark": "write",
+      "file": "h5bench_intra_native_interleaved_interleaved.h5",
+      "configuration": {
+        "MEM_PATTERN": "INTERLEAVED",
+        "FILE_PATTERN": "INTERLEAVED",
+        "NUM_DIMS": "1",
+        "DIM_1": "1 M",
+        "DIM_2": "1",
+        "DIM_3": "1",
+        "TIMESTEPS": "5",
+        "EMULATED_COMPUTE_TIME_PER_TIMESTEP": "0 s",
+        "MODE": "SYNC",
+        "COLLECTIVE_DATA": "NO",
+        "COLLECTIVE_METADATA": "NO",
+        "CSV_FILE": "write_rep4.csv"
+      }
+    }
+  ]
+}
+
