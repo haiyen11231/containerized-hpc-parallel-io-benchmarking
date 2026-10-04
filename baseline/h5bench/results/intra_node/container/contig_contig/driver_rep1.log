@@ -1,0 +1,16 @@
+2026-10-04 22:29:11,038 h5bench - INFO - Starting h5bench Suite
+2026-10-04 22:29:11,039 h5bench - WARNING - Base directory already exists: payload/container/contig_contig
+2026-10-04 22:29:11,043 h5bench - INFO - Lustre support detected
+2026-10-04 22:29:11,044 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/contig_contig
+2026-10-04 22:29:11,048 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-04 22:29:11,048 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-04 22:29:11,048 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-04 22:29:11,049 h5bench - INFO - JOBID: 25682147.pbs101
+2026-10-04 22:29:11,049 h5bench - INFO - h5bench [write] - Starting
+2026-10-04 22:29:11,049 h5bench - INFO - h5bench [write] - DIR: payload/container/contig_contig/67fd2ddb-25682147.pbs101/
+2026-10-04 22:29:11,049 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-04 22:29:11,051 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/contig_contig/67fd2ddb-25682147.pbs101/h5bench.cfg payload/container/contig_contig/h5bench_intra_container_contig_contig.h5
+2026-10-04 22:29:29,315 h5bench - INFO - SUCCESS (all output files are located at payload/container/contig_contig/67fd2ddb-25682147.pbs101)
+2026-10-04 22:29:29,316 h5bench - INFO - Runtime: 18.2662668 seconds (elapsed time, includes allocation wait time)
+2026-10-04 22:29:29,316 h5bench - INFO - h5bench [write] - Complete
+2026-10-04 22:29:29,316 h5bench - INFO - Finishing h5bench Suite
