@@ -1,0 +1,54 @@
+{
+  "mpi": {
+    "command": "mpirun",
+    "configuration": "-np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif"
+  },
+  "vol": {},
+  "file-system": {
+    "lustre": {
+      "stripe-count": "4",
+      "stripe-size": "1M"
+    }
+  },
+  "directory": "payload/container/dyes_myes",
+  "benchmarks": [
+    {
+      "benchmark": "write",
+      "file": "h5bench_collective_container_dyes_myes.h5",
+      "configuration": {
+        "MEM_PATTERN": "CONTIG",
+        "FILE_PATTERN": "CONTIG",
+        "NUM_DIMS": "1",
+        "DIM_1": "1 M",
+        "DIM_2": "1",
+        "DIM_3": "1",
+        "TIMESTEPS": "5",
+        "EMULATED_COMPUTE_TIME_PER_TIMESTEP": "0 s",
+        "MODE": "SYNC",
+        "COLLECTIVE_DATA": "YES",
+        "COLLECTIVE_METADATA": "YES",
+        "CSV_FILE": "write_rep5.csv"
+      }
+    },
+    {
+      "benchmark": "read",
+      "file": "h5bench_collective_container_dyes_myes.h5",
+      "configuration": {
+        "MEM_PATTERN": "CONTIG",
+        "FILE_PATTERN": "CONTIG",
+        "READ_OPTION": "FULL",
+        "NUM_DIMS": "1",
+        "DIM_1": "1 M",
+        "DIM_2": "1",
+        "DIM_3": "1",
+        "TIMESTEPS": "5",
+        "EMULATED_COMPUTE_TIME_PER_TIMESTEP": "0 s",
+        "MODE": "SYNC",
+        "COLLECTIVE_DATA": "YES",
+        "COLLECTIVE_METADATA": "YES",
+        "CSV_FILE": "read_rep5.csv"
+      }
+    }
+  ]
+}
+

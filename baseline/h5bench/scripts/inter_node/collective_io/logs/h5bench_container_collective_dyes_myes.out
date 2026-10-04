@@ -1,0 +1,412 @@
+Currently Loaded Modulefiles:
+  1) libfabric/1.11.0.4.125   3) apptainer/1.5.0
+  2) openmpi/4.1.2-hpe
+mpirun (Open MPI) 4.1.2
+
+Report bugs to http://www.open-mpi.org/community/help/
+apptainer version 1.5.0
+=== Verifying Lustre striping layout for payload/container/dyes_myes ===
+payload/container/dyes_myes
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+=================================================================
+ Container Collective I/O: COLLECTIVE_DATA=YES COLLECTIVE_METADATA=YES NODES=2 NP=256 REPS=10 
+=================================================================
+--- Repetition 1/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/dyes_myes/config_rep1.json
+
+real	0m49.714s
+user	16m57.494s
+sys	64m20.805s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-04 23:15:56,862 h5bench - INFO - Starting h5bench Suite
+2026-10-04 23:15:56,864 h5bench - WARNING - Base directory already exists: payload/container/dyes_myes
+2026-10-04 23:15:56,867 h5bench - INFO - Lustre support detected
+2026-10-04 23:15:56,867 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/dyes_myes
+2026-10-04 23:15:56,871 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-04 23:15:56,871 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-04 23:15:56,871 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-04 23:15:56,871 h5bench - INFO - JOBID: 25682616.pbs101
+2026-10-04 23:15:56,872 h5bench - INFO - h5bench [write] - Starting
+2026-10-04 23:15:56,872 h5bench - INFO - h5bench [write] - DIR: payload/container/dyes_myes/e50ee385-25682616.pbs101/
+2026-10-04 23:15:56,872 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-04 23:15:56,874 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/dyes_myes/e50ee385-25682616.pbs101/h5bench.cfg payload/container/dyes_myes/h5bench_collective_container_dyes_myes.h5
+2026-10-04 23:16:26,505 h5bench - INFO - SUCCESS (all output files are located at payload/container/dyes_myes/e50ee385-25682616.pbs101)
+2026-10-04 23:16:26,505 h5bench - INFO - Runtime: 29.6328974 seconds (elapsed time, includes allocation wait time)
+2026-10-04 23:16:26,505 h5bench - INFO - h5bench [write] - Complete
+2026-10-04 23:16:26,506 h5bench - INFO - JOBID: 25682616.pbs101
+2026-10-04 23:16:26,506 h5bench - INFO - h5bench [read] - Starting
+2026-10-04 23:16:26,506 h5bench - INFO - h5bench [read] - DIR: payload/container/dyes_myes/8d296d72-25682616.pbs101/
+2026-10-04 23:16:26,506 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-04 23:16:26,507 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/dyes_myes/8d296d72-25682616.pbs101/h5bench.cfg payload/container/dyes_myes/h5bench_collective_container_dyes_myes.h5
+2026-10-04 23:16:46,376 h5bench - INFO - SUCCESS (all output files are located at payload/container/dyes_myes/8d296d72-25682616.pbs101)
+2026-10-04 23:16:46,376 h5bench - INFO - Runtime: 19.8699355 seconds (elapsed time, includes allocation wait time)
+2026-10-04 23:16:46,377 h5bench - INFO - h5bench [read] - Complete
+2026-10-04 23:16:46,377 h5bench - INFO - Finishing h5bench Suite
+--- Repetition 2/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/dyes_myes/config_rep2.json
+
+real	0m45.513s
+user	16m23.570s
+sys	62m23.250s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-04 23:16:55,342 h5bench - INFO - Starting h5bench Suite
+2026-10-04 23:16:55,344 h5bench - WARNING - Base directory already exists: payload/container/dyes_myes
+2026-10-04 23:16:55,348 h5bench - INFO - Lustre support detected
+2026-10-04 23:16:55,348 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/dyes_myes
+2026-10-04 23:16:55,352 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-04 23:16:55,352 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-04 23:16:55,352 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-04 23:16:55,352 h5bench - INFO - JOBID: 25682616.pbs101
+2026-10-04 23:16:55,353 h5bench - INFO - h5bench [write] - Starting
+2026-10-04 23:16:55,353 h5bench - INFO - h5bench [write] - DIR: payload/container/dyes_myes/a62ff96e-25682616.pbs101/
+2026-10-04 23:16:55,353 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-04 23:16:55,355 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/dyes_myes/a62ff96e-25682616.pbs101/h5bench.cfg payload/container/dyes_myes/h5bench_collective_container_dyes_myes.h5
+2026-10-04 23:17:21,809 h5bench - INFO - SUCCESS (all output files are located at payload/container/dyes_myes/a62ff96e-25682616.pbs101)
+2026-10-04 23:17:21,809 h5bench - INFO - Runtime: 26.4560406 seconds (elapsed time, includes allocation wait time)
+2026-10-04 23:17:21,809 h5bench - INFO - h5bench [write] - Complete
+2026-10-04 23:17:21,810 h5bench - INFO - JOBID: 25682616.pbs101
+2026-10-04 23:17:21,810 h5bench - INFO - h5bench [read] - Starting
+2026-10-04 23:17:21,810 h5bench - INFO - h5bench [read] - DIR: payload/container/dyes_myes/78361192-25682616.pbs101/
+2026-10-04 23:17:21,810 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-04 23:17:21,812 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/dyes_myes/78361192-25682616.pbs101/h5bench.cfg payload/container/dyes_myes/h5bench_collective_container_dyes_myes.h5
+2026-10-04 23:17:40,797 h5bench - INFO - SUCCESS (all output files are located at payload/container/dyes_myes/78361192-25682616.pbs101)
+2026-10-04 23:17:40,797 h5bench - INFO - Runtime: 18.9865494 seconds (elapsed time, includes allocation wait time)
+2026-10-04 23:17:40,797 h5bench - INFO - h5bench [read] - Complete
+2026-10-04 23:17:40,797 h5bench - INFO - Finishing h5bench Suite
+--- Repetition 3/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/dyes_myes/config_rep3.json
+
+real	0m49.357s
+user	17m50.857s
+sys	62m45.107s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-04 23:17:49,842 h5bench - INFO - Starting h5bench Suite
+2026-10-04 23:17:49,844 h5bench - WARNING - Base directory already exists: payload/container/dyes_myes
+2026-10-04 23:17:49,849 h5bench - INFO - Lustre support detected
+2026-10-04 23:17:49,849 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/dyes_myes
+2026-10-04 23:17:49,853 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-04 23:17:49,854 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-04 23:17:49,854 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-04 23:17:49,854 h5bench - INFO - JOBID: 25682616.pbs101
+2026-10-04 23:17:49,854 h5bench - INFO - h5bench [write] - Starting
+2026-10-04 23:17:49,854 h5bench - INFO - h5bench [write] - DIR: payload/container/dyes_myes/10597668-25682616.pbs101/
+2026-10-04 23:17:49,855 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-04 23:17:49,856 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/dyes_myes/10597668-25682616.pbs101/h5bench.cfg payload/container/dyes_myes/h5bench_collective_container_dyes_myes.h5
+2026-10-04 23:18:17,190 h5bench - INFO - SUCCESS (all output files are located at payload/container/dyes_myes/10597668-25682616.pbs101)
+2026-10-04 23:18:17,190 h5bench - INFO - Runtime: 27.3355193 seconds (elapsed time, includes allocation wait time)
+2026-10-04 23:18:17,191 h5bench - INFO - h5bench [write] - Complete
+2026-10-04 23:18:17,191 h5bench - INFO - JOBID: 25682616.pbs101
+2026-10-04 23:18:17,191 h5bench - INFO - h5bench [read] - Starting
+2026-10-04 23:18:17,191 h5bench - INFO - h5bench [read] - DIR: payload/container/dyes_myes/19749668-25682616.pbs101/
+2026-10-04 23:18:17,191 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-04 23:18:17,193 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/dyes_myes/19749668-25682616.pbs101/h5bench.cfg payload/container/dyes_myes/h5bench_collective_container_dyes_myes.h5
+2026-10-04 23:18:39,142 h5bench - INFO - SUCCESS (all output files are located at payload/container/dyes_myes/19749668-25682616.pbs101)
+2026-10-04 23:18:39,142 h5bench - INFO - Runtime: 21.9507940 seconds (elapsed time, includes allocation wait time)
+2026-10-04 23:18:39,143 h5bench - INFO - h5bench [read] - Complete
+2026-10-04 23:18:39,143 h5bench - INFO - Finishing h5bench Suite
+--- Repetition 4/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/dyes_myes/config_rep4.json
+
+real	0m46.363s
+user	16m46.124s
+sys	64m12.583s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-04 23:18:48,609 h5bench - INFO - Starting h5bench Suite
+2026-10-04 23:18:48,611 h5bench - WARNING - Base directory already exists: payload/container/dyes_myes
+2026-10-04 23:18:48,616 h5bench - INFO - Lustre support detected
+2026-10-04 23:18:48,617 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/dyes_myes
+2026-10-04 23:18:48,621 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-04 23:18:48,621 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-04 23:18:48,621 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-04 23:18:48,621 h5bench - INFO - JOBID: 25682616.pbs101
+2026-10-04 23:18:48,621 h5bench - INFO - h5bench [write] - Starting
+2026-10-04 23:18:48,621 h5bench - INFO - h5bench [write] - DIR: payload/container/dyes_myes/eed9a7b3-25682616.pbs101/
+2026-10-04 23:18:48,622 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-04 23:18:48,623 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/dyes_myes/eed9a7b3-25682616.pbs101/h5bench.cfg payload/container/dyes_myes/h5bench_collective_container_dyes_myes.h5
+2026-10-04 23:19:15,143 h5bench - INFO - SUCCESS (all output files are located at payload/container/dyes_myes/eed9a7b3-25682616.pbs101)
+2026-10-04 23:19:15,143 h5bench - INFO - Runtime: 26.5213575 seconds (elapsed time, includes allocation wait time)
+2026-10-04 23:19:15,143 h5bench - INFO - h5bench [write] - Complete
+2026-10-04 23:19:15,144 h5bench - INFO - JOBID: 25682616.pbs101
+2026-10-04 23:19:15,144 h5bench - INFO - h5bench [read] - Starting
+2026-10-04 23:19:15,144 h5bench - INFO - h5bench [read] - DIR: payload/container/dyes_myes/aefc8e55-25682616.pbs101/
+2026-10-04 23:19:15,144 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-04 23:19:15,146 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/dyes_myes/aefc8e55-25682616.pbs101/h5bench.cfg payload/container/dyes_myes/h5bench_collective_container_dyes_myes.h5
+2026-10-04 23:19:34,914 h5bench - INFO - SUCCESS (all output files are located at payload/container/dyes_myes/aefc8e55-25682616.pbs101)
+2026-10-04 23:19:34,915 h5bench - INFO - Runtime: 19.7701941 seconds (elapsed time, includes allocation wait time)
+2026-10-04 23:19:34,915 h5bench - INFO - h5bench [read] - Complete
+2026-10-04 23:19:34,915 h5bench - INFO - Finishing h5bench Suite
+--- Repetition 5/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/dyes_myes/config_rep5.json
+
+real	0m47.119s
+user	16m44.011s
+sys	62m31.498s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-04 23:19:42,695 h5bench - INFO - Starting h5bench Suite
+2026-10-04 23:19:42,696 h5bench - WARNING - Base directory already exists: payload/container/dyes_myes
+2026-10-04 23:19:42,702 h5bench - INFO - Lustre support detected
+2026-10-04 23:19:42,703 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/dyes_myes
+2026-10-04 23:19:42,707 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-04 23:19:42,707 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-04 23:19:42,707 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-04 23:19:42,707 h5bench - INFO - JOBID: 25682616.pbs101
+2026-10-04 23:19:42,707 h5bench - INFO - h5bench [write] - Starting
+2026-10-04 23:19:42,708 h5bench - INFO - h5bench [write] - DIR: payload/container/dyes_myes/bf3549b6-25682616.pbs101/
+2026-10-04 23:19:42,708 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-04 23:19:42,709 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/dyes_myes/bf3549b6-25682616.pbs101/h5bench.cfg payload/container/dyes_myes/h5bench_collective_container_dyes_myes.h5
+2026-10-04 23:20:10,308 h5bench - INFO - SUCCESS (all output files are located at payload/container/dyes_myes/bf3549b6-25682616.pbs101)
+2026-10-04 23:20:10,308 h5bench - INFO - Runtime: 27.6001215 seconds (elapsed time, includes allocation wait time)
+2026-10-04 23:20:10,308 h5bench - INFO - h5bench [write] - Complete
+2026-10-04 23:20:10,309 h5bench - INFO - JOBID: 25682616.pbs101
+2026-10-04 23:20:10,309 h5bench - INFO - h5bench [read] - Starting
+2026-10-04 23:20:10,309 h5bench - INFO - h5bench [read] - DIR: payload/container/dyes_myes/8593728f-25682616.pbs101/
+2026-10-04 23:20:10,309 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-04 23:20:10,311 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/dyes_myes/8593728f-25682616.pbs101/h5bench.cfg payload/container/dyes_myes/h5bench_collective_container_dyes_myes.h5
+2026-10-04 23:20:29,757 h5bench - INFO - SUCCESS (all output files are located at payload/container/dyes_myes/8593728f-25682616.pbs101)
+2026-10-04 23:20:29,757 h5bench - INFO - Runtime: 19.4477971 seconds (elapsed time, includes allocation wait time)
+2026-10-04 23:20:29,757 h5bench - INFO - h5bench [read] - Complete
+2026-10-04 23:20:29,758 h5bench - INFO - Finishing h5bench Suite
+--- Repetition 6/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/dyes_myes/config_rep6.json
+
+real	0m52.324s
+user	18m38.565s
+sys	69m1.042s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-04 23:20:38,255 h5bench - INFO - Starting h5bench Suite
+2026-10-04 23:20:38,256 h5bench - WARNING - Base directory already exists: payload/container/dyes_myes
+2026-10-04 23:20:38,263 h5bench - INFO - Lustre support detected
+2026-10-04 23:20:38,263 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/dyes_myes
+2026-10-04 23:20:38,267 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-04 23:20:38,268 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-04 23:20:38,268 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-04 23:20:38,268 h5bench - INFO - JOBID: 25682616.pbs101
+2026-10-04 23:20:38,268 h5bench - INFO - h5bench [write] - Starting
+2026-10-04 23:20:38,268 h5bench - INFO - h5bench [write] - DIR: payload/container/dyes_myes/eb219a2b-25682616.pbs101/
+2026-10-04 23:20:38,269 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-04 23:20:38,270 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/dyes_myes/eb219a2b-25682616.pbs101/h5bench.cfg payload/container/dyes_myes/h5bench_collective_container_dyes_myes.h5
+2026-10-04 23:21:07,031 h5bench - INFO - SUCCESS (all output files are located at payload/container/dyes_myes/eb219a2b-25682616.pbs101)
+2026-10-04 23:21:07,031 h5bench - INFO - Runtime: 28.7623143 seconds (elapsed time, includes allocation wait time)
+2026-10-04 23:21:07,032 h5bench - INFO - h5bench [write] - Complete
+2026-10-04 23:21:07,032 h5bench - INFO - JOBID: 25682616.pbs101
+2026-10-04 23:21:07,032 h5bench - INFO - h5bench [read] - Starting
+2026-10-04 23:21:07,032 h5bench - INFO - h5bench [read] - DIR: payload/container/dyes_myes/2144fda7-25682616.pbs101/
+2026-10-04 23:21:07,033 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-04 23:21:07,034 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/dyes_myes/2144fda7-25682616.pbs101/h5bench.cfg payload/container/dyes_myes/h5bench_collective_container_dyes_myes.h5
+2026-10-04 23:21:30,521 h5bench - INFO - SUCCESS (all output files are located at payload/container/dyes_myes/2144fda7-25682616.pbs101)
+2026-10-04 23:21:30,521 h5bench - INFO - Runtime: 23.4886889 seconds (elapsed time, includes allocation wait time)
+2026-10-04 23:21:30,522 h5bench - INFO - h5bench [read] - Complete
+2026-10-04 23:21:30,522 h5bench - INFO - Finishing h5bench Suite
+--- Repetition 7/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/dyes_myes/config_rep7.json
+
+real	0m55.143s
+user	19m32.985s
+sys	73m21.280s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-04 23:21:38,791 h5bench - INFO - Starting h5bench Suite
+2026-10-04 23:21:38,793 h5bench - WARNING - Base directory already exists: payload/container/dyes_myes
+2026-10-04 23:21:38,801 h5bench - INFO - Lustre support detected
+2026-10-04 23:21:38,801 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/dyes_myes
+2026-10-04 23:21:38,805 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-04 23:21:38,806 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-04 23:21:38,806 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-04 23:21:38,806 h5bench - INFO - JOBID: 25682616.pbs101
+2026-10-04 23:21:38,806 h5bench - INFO - h5bench [write] - Starting
+2026-10-04 23:21:38,806 h5bench - INFO - h5bench [write] - DIR: payload/container/dyes_myes/eb8054e5-25682616.pbs101/
+2026-10-04 23:21:38,807 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-04 23:21:38,808 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/dyes_myes/eb8054e5-25682616.pbs101/h5bench.cfg payload/container/dyes_myes/h5bench_collective_container_dyes_myes.h5
+2026-10-04 23:22:07,474 h5bench - INFO - SUCCESS (all output files are located at payload/container/dyes_myes/eb8054e5-25682616.pbs101)
+2026-10-04 23:22:07,475 h5bench - INFO - Runtime: 28.6676414 seconds (elapsed time, includes allocation wait time)
+2026-10-04 23:22:07,475 h5bench - INFO - h5bench [write] - Complete
+2026-10-04 23:22:07,475 h5bench - INFO - JOBID: 25682616.pbs101
+2026-10-04 23:22:07,475 h5bench - INFO - h5bench [read] - Starting
+2026-10-04 23:22:07,475 h5bench - INFO - h5bench [read] - DIR: payload/container/dyes_myes/eb17a90a-25682616.pbs101/
+2026-10-04 23:22:07,476 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-04 23:22:07,477 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/dyes_myes/eb17a90a-25682616.pbs101/h5bench.cfg payload/container/dyes_myes/h5bench_collective_container_dyes_myes.h5
+2026-10-04 23:22:33,876 h5bench - INFO - SUCCESS (all output files are located at payload/container/dyes_myes/eb17a90a-25682616.pbs101)
+2026-10-04 23:22:33,877 h5bench - INFO - Runtime: 26.4007611 seconds (elapsed time, includes allocation wait time)
+2026-10-04 23:22:33,877 h5bench - INFO - h5bench [read] - Complete
+2026-10-04 23:22:33,877 h5bench - INFO - Finishing h5bench Suite
+--- Repetition 8/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/dyes_myes/config_rep8.json
+
+real	0m57.415s
+user	20m57.161s
+sys	78m31.027s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-04 23:22:42,247 h5bench - INFO - Starting h5bench Suite
+2026-10-04 23:22:42,249 h5bench - WARNING - Base directory already exists: payload/container/dyes_myes
+2026-10-04 23:22:42,257 h5bench - INFO - Lustre support detected
+2026-10-04 23:22:42,257 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/dyes_myes
+2026-10-04 23:22:42,261 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-04 23:22:42,262 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-04 23:22:42,262 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-04 23:22:42,262 h5bench - INFO - JOBID: 25682616.pbs101
+2026-10-04 23:22:42,262 h5bench - INFO - h5bench [write] - Starting
+2026-10-04 23:22:42,262 h5bench - INFO - h5bench [write] - DIR: payload/container/dyes_myes/00f53da2-25682616.pbs101/
+2026-10-04 23:22:42,263 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-04 23:22:42,264 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/dyes_myes/00f53da2-25682616.pbs101/h5bench.cfg payload/container/dyes_myes/h5bench_collective_container_dyes_myes.h5
+2026-10-04 23:23:10,666 h5bench - INFO - SUCCESS (all output files are located at payload/container/dyes_myes/00f53da2-25682616.pbs101)
+2026-10-04 23:23:10,666 h5bench - INFO - Runtime: 28.4036703 seconds (elapsed time, includes allocation wait time)
+2026-10-04 23:23:10,667 h5bench - INFO - h5bench [write] - Complete
+2026-10-04 23:23:10,667 h5bench - INFO - JOBID: 25682616.pbs101
+2026-10-04 23:23:10,667 h5bench - INFO - h5bench [read] - Starting
+2026-10-04 23:23:10,667 h5bench - INFO - h5bench [read] - DIR: payload/container/dyes_myes/39b4669e-25682616.pbs101/
+2026-10-04 23:23:10,667 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-04 23:23:10,669 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/dyes_myes/39b4669e-25682616.pbs101/h5bench.cfg payload/container/dyes_myes/h5bench_collective_container_dyes_myes.h5
+2026-10-04 23:23:39,602 h5bench - INFO - SUCCESS (all output files are located at payload/container/dyes_myes/39b4669e-25682616.pbs101)
+2026-10-04 23:23:39,602 h5bench - INFO - Runtime: 28.9346273 seconds (elapsed time, includes allocation wait time)
+2026-10-04 23:23:39,602 h5bench - INFO - h5bench [read] - Complete
+2026-10-04 23:23:39,603 h5bench - INFO - Finishing h5bench Suite
+--- Repetition 9/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/dyes_myes/config_rep9.json
+
+real	0m53.310s
+user	18m9.790s
+sys	69m31.162s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-04 23:23:47,602 h5bench - INFO - Starting h5bench Suite
+2026-10-04 23:23:47,604 h5bench - WARNING - Base directory already exists: payload/container/dyes_myes
+2026-10-04 23:23:47,613 h5bench - INFO - Lustre support detected
+2026-10-04 23:23:47,613 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/dyes_myes
+2026-10-04 23:23:47,617 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-04 23:23:47,618 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-04 23:23:47,618 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-04 23:23:47,618 h5bench - INFO - JOBID: 25682616.pbs101
+2026-10-04 23:23:47,618 h5bench - INFO - h5bench [write] - Starting
+2026-10-04 23:23:47,619 h5bench - INFO - h5bench [write] - DIR: payload/container/dyes_myes/1fa6a119-25682616.pbs101/
+2026-10-04 23:23:47,619 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-04 23:23:47,620 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/dyes_myes/1fa6a119-25682616.pbs101/h5bench.cfg payload/container/dyes_myes/h5bench_collective_container_dyes_myes.h5
+2026-10-04 23:24:17,916 h5bench - INFO - SUCCESS (all output files are located at payload/container/dyes_myes/1fa6a119-25682616.pbs101)
+2026-10-04 23:24:17,917 h5bench - INFO - Runtime: 30.2982140 seconds (elapsed time, includes allocation wait time)
+2026-10-04 23:24:17,918 h5bench - INFO - h5bench [write] - Complete
+2026-10-04 23:24:17,918 h5bench - INFO - JOBID: 25682616.pbs101
+2026-10-04 23:24:17,918 h5bench - INFO - h5bench [read] - Starting
+2026-10-04 23:24:17,918 h5bench - INFO - h5bench [read] - DIR: payload/container/dyes_myes/0cb0873f-25682616.pbs101/
+2026-10-04 23:24:17,919 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-04 23:24:17,920 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/dyes_myes/0cb0873f-25682616.pbs101/h5bench.cfg payload/container/dyes_myes/h5bench_collective_container_dyes_myes.h5
+2026-10-04 23:24:40,846 h5bench - INFO - SUCCESS (all output files are located at payload/container/dyes_myes/0cb0873f-25682616.pbs101)
+2026-10-04 23:24:40,847 h5bench - INFO - Runtime: 22.9278700 seconds (elapsed time, includes allocation wait time)
+2026-10-04 23:24:40,847 h5bench - INFO - h5bench [read] - Complete
+2026-10-04 23:24:40,847 h5bench - INFO - Finishing h5bench Suite
+--- Repetition 10/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/dyes_myes/config_rep10.json
+
+real	0m53.050s
+user	19m16.142s
+sys	70m33.402s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-04 23:24:49,721 h5bench - INFO - Starting h5bench Suite
+2026-10-04 23:24:49,722 h5bench - WARNING - Base directory already exists: payload/container/dyes_myes
+2026-10-04 23:24:49,731 h5bench - INFO - Lustre support detected
+2026-10-04 23:24:49,732 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/dyes_myes
+2026-10-04 23:24:49,736 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-04 23:24:49,737 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-04 23:24:49,737 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-04 23:24:49,737 h5bench - INFO - JOBID: 25682616.pbs101
+2026-10-04 23:24:49,737 h5bench - INFO - h5bench [write] - Starting
+2026-10-04 23:24:49,737 h5bench - INFO - h5bench [write] - DIR: payload/container/dyes_myes/52761e82-25682616.pbs101/
+2026-10-04 23:24:49,738 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-04 23:24:49,739 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/dyes_myes/52761e82-25682616.pbs101/h5bench.cfg payload/container/dyes_myes/h5bench_collective_container_dyes_myes.h5
+2026-10-04 23:25:16,807 h5bench - INFO - SUCCESS (all output files are located at payload/container/dyes_myes/52761e82-25682616.pbs101)
+2026-10-04 23:25:16,821 h5bench - INFO - Runtime: 27.0828729 seconds (elapsed time, includes allocation wait time)
+2026-10-04 23:25:16,821 h5bench - INFO - h5bench [write] - Complete
+2026-10-04 23:25:16,822 h5bench - INFO - JOBID: 25682616.pbs101
+2026-10-04 23:25:16,822 h5bench - INFO - h5bench [read] - Starting
+2026-10-04 23:25:16,822 h5bench - INFO - h5bench [read] - DIR: payload/container/dyes_myes/86334e18-25682616.pbs101/
+2026-10-04 23:25:16,822 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-04 23:25:16,824 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/dyes_myes/86334e18-25682616.pbs101/h5bench.cfg payload/container/dyes_myes/h5bench_collective_container_dyes_myes.h5
+2026-10-04 23:25:42,713 h5bench - INFO - SUCCESS (all output files are located at payload/container/dyes_myes/86334e18-25682616.pbs101)
+2026-10-04 23:25:42,713 h5bench - INFO - Runtime: 25.8905814 seconds (elapsed time, includes allocation wait time)
+2026-10-04 23:25:42,714 h5bench - INFO - h5bench [read] - Complete
+2026-10-04 23:25:42,714 h5bench - INFO - Finishing h5bench Suite
+=== Lustre striping actually applied to payload/container/dyes_myes ===
+payload/container/dyes_myes
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/container/dyes_myes/1fa6a119-25682616.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/container/dyes_myes/h5bench_collective_container_dyes_myes.h5
+lmm_stripe_count:  4
+lmm_stripe_size:   1048576
+lmm_pattern:       raid0
+lmm_layout_gen:    0
+lmm_stripe_offset: 32
+lmm_pool:          disk
+	obdidx		 objid		 objid		 group
+	    32	    1334220745	   0x4f8697c9	   0xa80000400
+	    35	    1329526230	   0x4f3ef5d6	   0xb40000400
+	    37	    1334397684	   0x4f894af4	   0xc00000400
+	    38	    1328982773	   0x4f36aaf5	   0xbc0000400
+
+payload/container/dyes_myes/86334e18-25682616.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/container/dyes_myes/52761e82-25682616.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/container/dyes_myes/10597668-25682616.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/container/dyes_myes/0cb0873f-25682616.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/container/dyes_myes/78361192-25682616.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/container/dyes_myes/19749668-25682616.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/container/dyes_myes/8d296d72-25682616.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/container/dyes_myes/eb8054e5-25682616.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/container/dyes_myes/bf3549b6-25682616.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/container/dyes_myes/a62ff96e-25682616.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/container/dyes_myes/2144fda7-25682616.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/container/dyes_myes/00f53da2-25682616.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/container/dyes_myes/aefc8e55-25682616.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/container/dyes_myes/eb17a90a-25682616.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/container/dyes_myes/eb219a2b-25682616.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/container/dyes_myes/39b4669e-25682616.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/container/dyes_myes/8593728f-25682616.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/container/dyes_myes/eed9a7b3-25682616.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/container/dyes_myes/e50ee385-25682616.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+Completed Successfully! 

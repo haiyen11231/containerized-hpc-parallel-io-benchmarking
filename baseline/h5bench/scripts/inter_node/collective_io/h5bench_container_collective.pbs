@@ -1,0 +1,153 @@
+#!/bin/bash
+#PBS -N h5bench_container_collective
+#PBS -l walltime=01:00:00
+#PBS -l place=scatter:excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/h5bench_container_collective.out
+
+# Experiment description: Run h5bench at a fixed 2-node scale, sweeping the HDF5 collective-I/O switches (COLLECTIVE_DATA x COLLECTIVE_METADATA) to separate the MPI-collective-communication effect from the HDF5-metadata-consolidation effect.
+cd "$PBS_O_WORKDIR"
+
+# Only mpirun is needed from the host -- it launches the ranks, which then
+# enter the container and use its own MPI and HDF5.
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+module load apptainer
+
+module list
+mpirun --version
+apptainer --version
+
+# The driver is the native one: it only builds the mpirun command and shells
+# out, never joining MPI. The container is entered per rank via apptainer exec.
+H5BENCH_DRIVER=$HOME/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench
+SIF=$HOME/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+CONTAINER_BIN_DIR=/opt/h5bench/install/bin
+TEMPLATE=h5bench_config.json.template
+
+# Confirm the container has the expected binaries
+for b in h5bench_write h5bench_read; do
+    apptainer exec "$SIF" sh -c "test -x ${CONTAINER_BIN_DIR}/${b}" \
+        || { echo "FATAL: ${b} not found inside $SIF"; exit 1; }
+done
+
+# Check the required environment variables
+: "${COLL_DATA:?Must pass -v COLL_DATA=<YES|NO> at submission time}"
+: "${COLL_META:?Must pass -v COLL_META=<YES|NO> at submission time}"
+: "${REPS:?Must pass -v REPS=<number> at submission time}"
+
+# Scale is FIXED at 2 nodes -- this case isolates the collective switches, not scale.
+NODE_COUNT=2
+NP=$((NODE_COUNT * 128))
+
+# Verify PBS granted the requested number of nodes
+ACTUAL_NODES=$(sort -u "$PBS_NODEFILE" | wc -l)
+if [ "$ACTUAL_NODES" -ne "$NODE_COUNT" ]; then
+    echo "FATAL: Expected $NODE_COUNT node(s), PBS granted $ACTUAL_NODES."
+    exit 1
+fi
+
+# Workload is fixed in h5bench_config.json.template:
+#   DIM_1 = "1 M" particles/rank x 32 B = 32 MiB per rank per timestep
+#   256 ranks x 5 timesteps x 32 MiB    = 40 GiB per repetition
+#
+# COLLECTIVE_DATA=YES routes data through MPI collective I/O
+#   (MPI_File_*_all), exercising MPI's collective communication path -- where
+#   native UCX+Slingshot and the container's generic OpenMPI should diverge.
+# COLLECTIVE_METADATA=YES consolidates HDF5 metadata through one rank instead
+#   of every rank hitting the MDT, targeting Lustre metadata-server contention.
+# The full 2x2 factorial separates the two mechanisms instead of conflating them.
+
+# vader handles intra-node and tcp cross-node (the container's generic OpenMPI
+# has no UCX); single_copy_mechanism none works around Apptainer's user
+# namespace breaking CMA; the hsn0 pins stop traffic routing via docker0,
+# which has an identical IP on every node.
+MPI_CONFIG="-np ${NP} --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch ${SIF}"
+
+COMBO="d$(echo "$COLL_DATA" | tr '[:upper:]' '[:lower:]')_m$(echo "$COLL_META" | tr '[:upper:]' '[:lower:]')"
+
+PAYLOAD_DIR="payload/container/${COMBO}"
+REPORT_DIR="container/${COMBO}"
+mkdir -p "$PAYLOAD_DIR" "$REPORT_DIR" logs
+
+# Set Lustre striping explicitly for the payload directory
+lfs setstripe -c 4 -S 1m "$PAYLOAD_DIR"
+echo "=== Verifying Lustre striping layout for $PAYLOAD_DIR ==="
+lfs getstripe "$PAYLOAD_DIR"
+
+DATA_FILE_NAME="h5bench_collective_container_${COMBO}.h5"
+# Clean up the data file on exit
+trap 'rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"' EXIT
+
+echo "================================================================="
+echo " Container Collective I/O: COLLECTIVE_DATA=$COLL_DATA COLLECTIVE_METADATA=$COLL_META NODES=$NODE_COUNT NP=$NP REPS=$REPS "
+echo "================================================================="
+
+# Each repetition is a fully independent driver invocation (fresh process,
+# fresh output file). Within a repetition the read follows the write in the
+# same config, so it reads the file the write just produced.
+for REP in $(seq 1 "$REPS"); do
+    echo "--- Repetition ${REP}/${REPS} ---"
+
+    # Generate a JSON config file for each repetition with specific params
+    JSON="${REPORT_DIR}/config_rep${REP}.json"
+
+    sed -e "s|@MPI_CONFIG@|${MPI_CONFIG}|" \
+        -e "s|@COLL_DATA@|${COLL_DATA}|" \
+        -e "s|@COLL_META@|${COLL_META}|" \
+        -e "s|@DIRECTORY@|${PAYLOAD_DIR}|" \
+        -e "s|@DATA_FILE@|${DATA_FILE_NAME}|" \
+        -e "s|@WRITE_CSV@|write_rep${REP}.csv|" \
+        -e "s|@READ_CSV@|read_rep${REP}.csv|" \
+        "$TEMPLATE" > "$JSON"
+
+    python3 -m json.tool "$JSON" > /dev/null \
+        || { echo "FATAL: generated $JSON is not valid JSON"; exit 1; }
+
+    if grep -q '@[A-Z_]*@' "$JSON"; then
+        echo "FATAL: unsubstituted placeholder left in $JSON:"
+        grep -n '@[A-Z_]*@' "$JSON"
+        exit 1
+    fi
+
+    rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"
+
+    # Run the h5bench driver with the generated JSON config
+    # -p points at the container's binary dir, which exists only inside the .sif
+    DRIVER_LOG="${REPORT_DIR}/driver_rep${REP}.log"
+    set -x
+    time "$H5BENCH_DRIVER" -a -d -p "$CONTAINER_BIN_DIR" "$JSON" > "$DRIVER_LOG" 2>&1
+    H5BENCH_EXIT=$?
+    set +x
+    cat "$DRIVER_LOG"
+
+    # -d makes the driver log the exact mpirun command it ran; assert it used
+    # the container binaries and not the native ones.
+    for b in h5bench_write h5bench_read; do
+        if ! grep -Eq "apptainer exec .*${CONTAINER_BIN_DIR}/+${b}" "$DRIVER_LOG"; then
+            echo "FATAL: driver did not invoke the container ${b}"
+            grep -m2 'mpirun' "$DRIVER_LOG"
+            exit 1
+        fi
+    done
+
+    # Check exit status of h5bench driver
+    if [ "$H5BENCH_EXIT" -ne 0 ]; then
+        echo "FAILED: COLL_DATA=$COLL_DATA COLL_META=$COLL_META rep=$REP (h5bench exit $H5BENCH_EXIT)"
+        exit "$H5BENCH_EXIT"
+    fi
+done
+
+# Check the Lustre striping layout for the payload directory after all repetitions
+echo "=== Lustre striping actually applied to $PAYLOAD_DIR ==="
+lfs getstripe "$PAYLOAD_DIR"
+
+# h5bench writes <config>-h5bench.log next to its input, inside the report
+# dir, where it is already scoped per job. Do NOT move it to logs/: every
+# job uses the same config_repN.json names, so flattening them there makes
+# them collide and only the last job's copy survives.
+
+echo "Completed Successfully! "

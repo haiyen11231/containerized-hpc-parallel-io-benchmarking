@@ -1,0 +1,13 @@
+metric, value, unit
+operation, read, 
+ranks, 256, 
+collective data, YES, 
+collective meta, NO, 
+subfiling, NO, 
+total compute time, 0.000, seconds
+total size, 40.000, GB
+raw time, 8.943, seconds
+raw rate, 4.473, GB/s
+metadata time, 0.091, seconds
+observed rate, 4.421, GB/s
+observed time, 9.047, seconds
