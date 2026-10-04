@@ -1,0 +1,133 @@
+#!/bin/bash
+#PBS -N h5bench_coldread_write
+#PBS -l walltime=02:30:00
+#PBS -l place=scatter:excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/h5bench_coldread_write.out
+
+# Phase 1 of the cold-read validation: write FILES separate .h5 files and
+# LEAVE THEM ON LUSTRE. The paired read job then reads each exactly once from
+# a different set of compute nodes, so the page cache is cold.
+#
+# This exists because the main experiments read immediately after writing in
+# the same job, which is served from page cache -- measured read rates reached
+# 167 GB/s, far beyond what the filesystem can deliver.
+
+cd "$PBS_O_WORKDIR"
+
+: "${VARIANT:?Must pass -v VARIANT=<native|container>}"
+: "${CASE:?Must pass -v CASE=<weak|strong|collective>}"
+: "${NODE_COUNT:?Must pass -v NODE_COUNT=<n>}"
+: "${DIM_1:?Must pass -v DIM_1=<particles per rank>}"
+: "${COLL_DATA:?Must pass -v COLL_DATA=<YES|NO>}"
+: "${COLL_META:?Must pass -v COLL_META=<YES|NO>}"
+: "${FILES:?Must pass -v FILES=<count>}"
+
+NP=$((NODE_COUNT * 128))
+
+if [ "$VARIANT" = "container" ]; then
+    module purge
+    module load libfabric/1.11.0.4.125
+    module load openmpi/4.1.2-hpe
+    module load apptainer
+    SIF=$HOME/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+    CONTAINER_BIN_DIR=/opt/h5bench/install/bin
+    PREFIX_ARG=(-p "$CONTAINER_BIN_DIR")
+    MPI_CONFIG="-np ${NP} --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch ${SIF}"
+else
+    module purge
+    module load libfabric/1.11.0.4.125
+    module load intel/2022.0.2
+    module load hdf5/1.12.1-parallel-icc22-ompi4
+    module swap openmpi/4.1.7-icc24.2.1 openmpi/4.1.2-hpe
+    module swap intel/2024.2.1 intel/2022.0.2
+    PREFIX_ARG=()
+    MPI_CONFIG="-np ${NP} --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR"
+fi
+
+module list
+mpirun --version
+
+H5BENCH_DRIVER=$HOME/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench
+
+ACTUAL_NODES=$(sort -u "$PBS_NODEFILE" | wc -l)
+if [ "$ACTUAL_NODES" -ne "$NODE_COUNT" ]; then
+    echo "FATAL: Expected $NODE_COUNT node(s), PBS granted $ACTUAL_NODES."
+    exit 1
+fi
+
+# Scope by EVERY variable this script is looped over -- the four collective
+# cells all share CASE=collective, so without the coll flags in the path they
+# would overwrite each other's payload and results.
+CD_L=$(echo "$COLL_DATA" | tr '[:upper:]' '[:lower:]')
+CM_L=$(echo "$COLL_META" | tr '[:upper:]' '[:lower:]')
+COMBO="${CASE}_n${NODE_COUNT}_d${CD_L}_m${CM_L}"
+TAG="${COMBO}_${VARIANT}"
+PAYLOAD_DIR="payload/${TAG}"
+REPORT_DIR="${VARIANT}/${COMBO}"
+mkdir -p "$PAYLOAD_DIR" "$REPORT_DIR" logs
+
+lfs setstripe -c 4 -S 1m "$PAYLOAD_DIR"
+echo "=== Lustre striping for $PAYLOAD_DIR ==="
+lfs getstripe "$PAYLOAD_DIR"
+
+# Record which nodes wrote the data. The read job compares against this: if the
+# two jobs share any node, that node's cache may still hold the data and the
+# "cold" read is not trustworthy.
+sort -u "$PBS_NODEFILE" > "${REPORT_DIR}/write_nodes.txt"
+echo "=== nodes used for the write ==="
+cat "${REPORT_DIR}/write_nodes.txt"
+
+echo "================================================================="
+echo " COLD-READ VALIDATION (write phase): CASE=$CASE VARIANT=$VARIANT NODES=$NODE_COUNT NP=$NP DIM_1=$DIM_1 FILES=$FILES "
+echo "================================================================="
+
+# One file per planned cold read. Reading a single file N times would only be
+# cold on the first read -- the rest would hit the cache the first read filled.
+for i in $(seq 1 "$FILES"); do
+    echo "--- writing file ${i}/${FILES} ---"
+    JSON="${REPORT_DIR}/write_${i}.json"
+    sed -e "s|@MPI_CONFIG@|${MPI_CONFIG}|" \
+        -e "s|@DIM_1@|${DIM_1}|" \
+        -e "s|@COLL_DATA@|${COLL_DATA}|" \
+        -e "s|@COLL_META@|${COLL_META}|" \
+        -e "s|@DIRECTORY@|${PAYLOAD_DIR}|" \
+        -e "s|@DATA_FILE@|coldread_${TAG}_${i}.h5|" \
+        -e "s|@CSV@|write_${i}.csv|" \
+        write.json.template > "$JSON"
+
+    python3 -m json.tool "$JSON" > /dev/null || { echo "FATAL: $JSON invalid"; exit 1; }
+    if grep -q '@[A-Z_0-9]*@' "$JSON"; then
+        echo "FATAL: unsubstituted placeholder in $JSON"; grep -n '@[A-Z_0-9]*@' "$JSON"; exit 1
+    fi
+
+    rm -f "${PAYLOAD_DIR}/coldread_${TAG}_${i}.h5"
+    # Apptainer sources the image's %environment on every container start, and
+    # this image's block contains a $(cat ...) command substitution. At high
+    # rank counts the resulting in-container command can exceed Apptainer's 60s
+    # deadline ("context deadline exceeded") and abort every rank. It is a
+    # startup race, not a benchmark error, so retry ONLY that signature --
+    # any genuine failure still aborts immediately.
+    LOG="${REPORT_DIR}/write_${i}.log"
+    for attempt in 1 2 3; do
+        time "$H5BENCH_DRIVER" -a -d "${PREFIX_ARG[@]}" "$JSON" > "$LOG" 2>&1
+        rc=$?
+        [ $rc -eq 0 ] && break
+        if grep -q 'context deadline exceeded' "$LOG" \
+           || grep -q 'context deadline exceeded' "${PAYLOAD_DIR}"/*/stderr 2>/dev/null; then
+            echo "  container startup timed out (attempt ${attempt}/3) -- retrying in 30s"
+            sleep 30
+            continue
+        fi
+        break   # a real benchmark failure: do not retry
+    done
+    cat "$LOG"
+    [ $rc -ne 0 ] && { echo "FAILED: write file $i (exit $rc)"; exit $rc; }
+done
+
+echo "=== files left on Lustre for the read job ==="
+ls -la "$PAYLOAD_DIR"/*.h5
+
+echo "Write phase completed successfully!"
