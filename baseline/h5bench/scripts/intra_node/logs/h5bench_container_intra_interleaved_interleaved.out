@@ -15,260 +15,269 @@ stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 p
 --- Repetition 1/10 ---
 + /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/interleaved_interleaved/config_rep1.json
 
-real	0m18.951s
-user	4m26.775s
-sys	24m30.674s
+real	0m23.607s
+user	11m42.027s
+sys	22m37.299s
 + H5BENCH_EXIT=0
 + set +x
-2026-10-04 22:58:58,640 h5bench - INFO - Starting h5bench Suite
-2026-10-04 22:58:58,642 h5bench - WARNING - Base directory already exists: payload/container/interleaved_interleaved
-2026-10-04 22:58:58,645 h5bench - INFO - Lustre support detected
-2026-10-04 22:58:58,646 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/interleaved_interleaved
-2026-10-04 22:58:58,651 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
-2026-10-04 22:58:58,651 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2026-10-04 22:58:58,651 h5bench - DEBUG - LD_PRELOAD: 
-2026-10-04 22:58:58,651 h5bench - INFO - JOBID: 25682150.pbs101
-2026-10-04 22:58:58,652 h5bench - INFO - h5bench [write] - Starting
-2026-10-04 22:58:58,652 h5bench - INFO - h5bench [write] - DIR: payload/container/interleaved_interleaved/2dc66ad3-25682150.pbs101/
-2026-10-04 22:58:58,652 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 22:58:58,653 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/interleaved_interleaved/2dc66ad3-25682150.pbs101/h5bench.cfg payload/container/interleaved_interleaved/h5bench_intra_container_interleaved_interleaved.h5
-2026-10-04 22:59:17,489 h5bench - INFO - SUCCESS (all output files are located at payload/container/interleaved_interleaved/2dc66ad3-25682150.pbs101)
-2026-10-04 22:59:17,489 h5bench - INFO - Runtime: 18.8368201 seconds (elapsed time, includes allocation wait time)
-2026-10-04 22:59:17,489 h5bench - INFO - h5bench [write] - Complete
-2026-10-04 22:59:17,489 h5bench - INFO - Finishing h5bench Suite
+2026-10-05 21:33:25,937 h5bench - INFO - Starting h5bench Suite
+2026-10-05 21:33:25,938 h5bench - WARNING - Base directory already exists: payload/container/interleaved_interleaved
+2026-10-05 21:33:25,942 h5bench - INFO - Lustre support detected
+2026-10-05 21:33:25,942 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/interleaved_interleaved
+2026-10-05 21:33:25,946 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-05 21:33:25,947 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-05 21:33:25,947 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-05 21:33:25,947 h5bench - INFO - JOBID: 25693495.pbs101
+2026-10-05 21:33:25,947 h5bench - INFO - h5bench [write] - Starting
+2026-10-05 21:33:25,947 h5bench - INFO - h5bench [write] - DIR: payload/container/interleaved_interleaved/7aee9c9c-25693495.pbs101/
+2026-10-05 21:33:25,948 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 21:33:25,949 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/interleaved_interleaved/7aee9c9c-25693495.pbs101/h5bench.cfg payload/container/interleaved_interleaved/h5bench_intra_container_interleaved_interleaved.h5
+2026-10-05 21:33:49,468 h5bench - INFO - SUCCESS (all output files are located at payload/container/interleaved_interleaved/7aee9c9c-25693495.pbs101)
+2026-10-05 21:33:49,469 h5bench - INFO - Runtime: 23.5209601 seconds (elapsed time, includes allocation wait time)
+2026-10-05 21:33:49,469 h5bench - INFO - h5bench [write] - Complete
+2026-10-05 21:33:49,469 h5bench - INFO - Finishing h5bench Suite
 --- Repetition 2/10 ---
 + /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/interleaved_interleaved/config_rep2.json
 
-real	0m19.776s
-user	6m13.142s
-sys	20m25.522s
+real	0m22.667s
+user	4m46.520s
+sys	27m46.310s
 + H5BENCH_EXIT=0
 + set +x
-2026-10-04 22:59:21,946 h5bench - INFO - Starting h5bench Suite
-2026-10-04 22:59:21,948 h5bench - WARNING - Base directory already exists: payload/container/interleaved_interleaved
-2026-10-04 22:59:21,952 h5bench - INFO - Lustre support detected
-2026-10-04 22:59:21,953 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/interleaved_interleaved
-2026-10-04 22:59:21,957 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
-2026-10-04 22:59:21,958 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2026-10-04 22:59:21,958 h5bench - DEBUG - LD_PRELOAD: 
-2026-10-04 22:59:21,958 h5bench - INFO - JOBID: 25682150.pbs101
-2026-10-04 22:59:21,958 h5bench - INFO - h5bench [write] - Starting
-2026-10-04 22:59:21,958 h5bench - INFO - h5bench [write] - DIR: payload/container/interleaved_interleaved/6af76742-25682150.pbs101/
-2026-10-04 22:59:21,959 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 22:59:21,960 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/interleaved_interleaved/6af76742-25682150.pbs101/h5bench.cfg payload/container/interleaved_interleaved/h5bench_intra_container_interleaved_interleaved.h5
-2026-10-04 22:59:41,660 h5bench - INFO - SUCCESS (all output files are located at payload/container/interleaved_interleaved/6af76742-25682150.pbs101)
-2026-10-04 22:59:41,661 h5bench - INFO - Runtime: 19.7020900 seconds (elapsed time, includes allocation wait time)
-2026-10-04 22:59:41,661 h5bench - INFO - h5bench [write] - Complete
-2026-10-04 22:59:41,661 h5bench - INFO - Finishing h5bench Suite
+2026-10-05 21:33:53,059 h5bench - INFO - Starting h5bench Suite
+2026-10-05 21:33:53,060 h5bench - WARNING - Base directory already exists: payload/container/interleaved_interleaved
+2026-10-05 21:33:53,064 h5bench - INFO - Lustre support detected
+2026-10-05 21:33:53,065 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/interleaved_interleaved
+2026-10-05 21:33:53,069 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-05 21:33:53,069 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-05 21:33:53,070 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-05 21:33:53,070 h5bench - INFO - JOBID: 25693495.pbs101
+2026-10-05 21:33:53,070 h5bench - INFO - h5bench [write] - Starting
+2026-10-05 21:33:53,070 h5bench - INFO - h5bench [write] - DIR: payload/container/interleaved_interleaved/f09895b7-25693495.pbs101/
+2026-10-05 21:33:53,070 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 21:33:53,072 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/interleaved_interleaved/f09895b7-25693495.pbs101/h5bench.cfg payload/container/interleaved_interleaved/h5bench_intra_container_interleaved_interleaved.h5
+2026-10-05 21:34:15,619 h5bench - INFO - SUCCESS (all output files are located at payload/container/interleaved_interleaved/f09895b7-25693495.pbs101)
+2026-10-05 21:34:15,620 h5bench - INFO - Runtime: 22.5492764 seconds (elapsed time, includes allocation wait time)
+2026-10-05 21:34:15,620 h5bench - INFO - h5bench [write] - Complete
+2026-10-05 21:34:15,620 h5bench - INFO - Finishing h5bench Suite
 --- Repetition 3/10 ---
 + /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/interleaved_interleaved/config_rep3.json
 
-real	0m18.308s
-user	5m3.344s
-sys	24m21.557s
+real	0m20.668s
+user	7m56.757s
+sys	17m34.646s
 + H5BENCH_EXIT=0
 + set +x
-2026-10-04 22:59:45,680 h5bench - INFO - Starting h5bench Suite
-2026-10-04 22:59:45,681 h5bench - WARNING - Base directory already exists: payload/container/interleaved_interleaved
-2026-10-04 22:59:45,686 h5bench - INFO - Lustre support detected
-2026-10-04 22:59:45,686 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/interleaved_interleaved
-2026-10-04 22:59:45,690 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
-2026-10-04 22:59:45,691 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2026-10-04 22:59:45,691 h5bench - DEBUG - LD_PRELOAD: 
-2026-10-04 22:59:45,691 h5bench - INFO - JOBID: 25682150.pbs101
-2026-10-04 22:59:45,691 h5bench - INFO - h5bench [write] - Starting
-2026-10-04 22:59:45,691 h5bench - INFO - h5bench [write] - DIR: payload/container/interleaved_interleaved/99ae418f-25682150.pbs101/
-2026-10-04 22:59:45,692 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 22:59:45,693 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/interleaved_interleaved/99ae418f-25682150.pbs101/h5bench.cfg payload/container/interleaved_interleaved/h5bench_intra_container_interleaved_interleaved.h5
-2026-10-04 23:00:03,925 h5bench - INFO - SUCCESS (all output files are located at payload/container/interleaved_interleaved/99ae418f-25682150.pbs101)
-2026-10-04 23:00:03,925 h5bench - INFO - Runtime: 18.2332580 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:00:03,925 h5bench - INFO - h5bench [write] - Complete
-2026-10-04 23:00:03,926 h5bench - INFO - Finishing h5bench Suite
+2026-10-05 21:34:19,611 h5bench - INFO - Starting h5bench Suite
+2026-10-05 21:34:19,612 h5bench - WARNING - Base directory already exists: payload/container/interleaved_interleaved
+2026-10-05 21:34:19,617 h5bench - INFO - Lustre support detected
+2026-10-05 21:34:19,617 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/interleaved_interleaved
+2026-10-05 21:34:19,622 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-05 21:34:19,623 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-05 21:34:19,623 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-05 21:34:19,623 h5bench - INFO - JOBID: 25693495.pbs101
+2026-10-05 21:34:19,623 h5bench - INFO - h5bench [write] - Starting
+2026-10-05 21:34:19,623 h5bench - INFO - h5bench [write] - DIR: payload/container/interleaved_interleaved/35410ac3-25693495.pbs101/
+2026-10-05 21:34:19,624 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 21:34:19,625 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/interleaved_interleaved/35410ac3-25693495.pbs101/h5bench.cfg payload/container/interleaved_interleaved/h5bench_intra_container_interleaved_interleaved.h5
+2026-10-05 21:34:40,215 h5bench - INFO - SUCCESS (all output files are located at payload/container/interleaved_interleaved/35410ac3-25693495.pbs101)
+2026-10-05 21:34:40,215 h5bench - INFO - Runtime: 20.5913036 seconds (elapsed time, includes allocation wait time)
+2026-10-05 21:34:40,215 h5bench - INFO - h5bench [write] - Complete
+2026-10-05 21:34:40,215 h5bench - INFO - Finishing h5bench Suite
 --- Repetition 4/10 ---
 + /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/interleaved_interleaved/config_rep4.json
 
-real	0m18.623s
-user	7m47.163s
-sys	14m54.738s
+real	0m19.662s
+user	6m11.268s
+sys	21m3.977s
 + H5BENCH_EXIT=0
 + set +x
-2026-10-04 23:00:08,073 h5bench - INFO - Starting h5bench Suite
-2026-10-04 23:00:08,074 h5bench - WARNING - Base directory already exists: payload/container/interleaved_interleaved
-2026-10-04 23:00:08,079 h5bench - INFO - Lustre support detected
-2026-10-04 23:00:08,079 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/interleaved_interleaved
-2026-10-04 23:00:08,084 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
-2026-10-04 23:00:08,084 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2026-10-04 23:00:08,084 h5bench - DEBUG - LD_PRELOAD: 
-2026-10-04 23:00:08,085 h5bench - INFO - JOBID: 25682150.pbs101
-2026-10-04 23:00:08,085 h5bench - INFO - h5bench [write] - Starting
-2026-10-04 23:00:08,085 h5bench - INFO - h5bench [write] - DIR: payload/container/interleaved_interleaved/ad81882c-25682150.pbs101/
-2026-10-04 23:00:08,085 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:00:08,086 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/interleaved_interleaved/ad81882c-25682150.pbs101/h5bench.cfg payload/container/interleaved_interleaved/h5bench_intra_container_interleaved_interleaved.h5
-2026-10-04 23:00:26,628 h5bench - INFO - SUCCESS (all output files are located at payload/container/interleaved_interleaved/ad81882c-25682150.pbs101)
-2026-10-04 23:00:26,629 h5bench - INFO - Runtime: 18.5434663 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:00:26,629 h5bench - INFO - h5bench [write] - Complete
-2026-10-04 23:00:26,629 h5bench - INFO - Finishing h5bench Suite
+2026-10-05 21:34:43,466 h5bench - INFO - Starting h5bench Suite
+2026-10-05 21:34:43,468 h5bench - WARNING - Base directory already exists: payload/container/interleaved_interleaved
+2026-10-05 21:34:43,473 h5bench - INFO - Lustre support detected
+2026-10-05 21:34:43,473 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/interleaved_interleaved
+2026-10-05 21:34:43,478 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-05 21:34:43,478 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-05 21:34:43,478 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-05 21:34:43,478 h5bench - INFO - JOBID: 25693495.pbs101
+2026-10-05 21:34:43,479 h5bench - INFO - h5bench [write] - Starting
+2026-10-05 21:34:43,479 h5bench - INFO - h5bench [write] - DIR: payload/container/interleaved_interleaved/69e6177a-25693495.pbs101/
+2026-10-05 21:34:43,479 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 21:34:43,480 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/interleaved_interleaved/69e6177a-25693495.pbs101/h5bench.cfg payload/container/interleaved_interleaved/h5bench_intra_container_interleaved_interleaved.h5
+2026-10-05 21:35:03,068 h5bench - INFO - SUCCESS (all output files are located at payload/container/interleaved_interleaved/69e6177a-25693495.pbs101)
+2026-10-05 21:35:03,069 h5bench - INFO - Runtime: 19.5892930 seconds (elapsed time, includes allocation wait time)
+2026-10-05 21:35:03,069 h5bench - INFO - h5bench [write] - Complete
+2026-10-05 21:35:03,069 h5bench - INFO - Finishing h5bench Suite
 --- Repetition 5/10 ---
 + /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/interleaved_interleaved/config_rep5.json
 
-real	0m18.286s
-user	5m25.952s
-sys	23m14.353s
+real	0m19.546s
+user	7m39.142s
+sys	15m4.692s
 + H5BENCH_EXIT=0
 + set +x
-2026-10-04 23:00:31,270 h5bench - INFO - Starting h5bench Suite
-2026-10-04 23:00:31,271 h5bench - WARNING - Base directory already exists: payload/container/interleaved_interleaved
-2026-10-04 23:00:31,276 h5bench - INFO - Lustre support detected
-2026-10-04 23:00:31,277 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/interleaved_interleaved
-2026-10-04 23:00:31,281 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
-2026-10-04 23:00:31,282 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2026-10-04 23:00:31,282 h5bench - DEBUG - LD_PRELOAD: 
-2026-10-04 23:00:31,282 h5bench - INFO - JOBID: 25682150.pbs101
-2026-10-04 23:00:31,282 h5bench - INFO - h5bench [write] - Starting
-2026-10-04 23:00:31,282 h5bench - INFO - h5bench [write] - DIR: payload/container/interleaved_interleaved/7c8af14a-25682150.pbs101/
-2026-10-04 23:00:31,283 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:00:31,284 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/interleaved_interleaved/7c8af14a-25682150.pbs101/h5bench.cfg payload/container/interleaved_interleaved/h5bench_intra_container_interleaved_interleaved.h5
-2026-10-04 23:00:49,490 h5bench - INFO - SUCCESS (all output files are located at payload/container/interleaved_interleaved/7c8af14a-25682150.pbs101)
-2026-10-04 23:00:49,491 h5bench - INFO - Runtime: 18.2078784 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:00:49,491 h5bench - INFO - h5bench [write] - Complete
-2026-10-04 23:00:49,491 h5bench - INFO - Finishing h5bench Suite
+2026-10-05 21:35:06,834 h5bench - INFO - Starting h5bench Suite
+2026-10-05 21:35:06,835 h5bench - WARNING - Base directory already exists: payload/container/interleaved_interleaved
+2026-10-05 21:35:06,840 h5bench - INFO - Lustre support detected
+2026-10-05 21:35:06,840 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/interleaved_interleaved
+2026-10-05 21:35:06,845 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-05 21:35:06,845 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-05 21:35:06,845 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-05 21:35:06,846 h5bench - INFO - JOBID: 25693495.pbs101
+2026-10-05 21:35:06,846 h5bench - INFO - h5bench [write] - Starting
+2026-10-05 21:35:06,846 h5bench - INFO - h5bench [write] - DIR: payload/container/interleaved_interleaved/560a6e5f-25693495.pbs101/
+2026-10-05 21:35:06,846 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 21:35:06,851 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/interleaved_interleaved/560a6e5f-25693495.pbs101/h5bench.cfg payload/container/interleaved_interleaved/h5bench_intra_container_interleaved_interleaved.h5
+2026-10-05 21:35:26,321 h5bench - INFO - SUCCESS (all output files are located at payload/container/interleaved_interleaved/560a6e5f-25693495.pbs101)
+2026-10-05 21:35:26,322 h5bench - INFO - Runtime: 19.4753234 seconds (elapsed time, includes allocation wait time)
+2026-10-05 21:35:26,322 h5bench - INFO - h5bench [write] - Complete
+2026-10-05 21:35:26,322 h5bench - INFO - Finishing h5bench Suite
 --- Repetition 6/10 ---
 + /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/interleaved_interleaved/config_rep6.json
 
-real	0m18.700s
-user	4m57.353s
-sys	24m49.809s
+real	0m18.561s
+user	5m19.431s
+sys	21m34.982s
 + H5BENCH_EXIT=0
 + set +x
-2026-10-04 23:00:54,032 h5bench - INFO - Starting h5bench Suite
-2026-10-04 23:00:54,034 h5bench - WARNING - Base directory already exists: payload/container/interleaved_interleaved
-2026-10-04 23:00:54,039 h5bench - INFO - Lustre support detected
-2026-10-04 23:00:54,040 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/interleaved_interleaved
-2026-10-04 23:00:54,044 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
-2026-10-04 23:00:54,045 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2026-10-04 23:00:54,045 h5bench - DEBUG - LD_PRELOAD: 
-2026-10-04 23:00:54,045 h5bench - INFO - JOBID: 25682150.pbs101
-2026-10-04 23:00:54,045 h5bench - INFO - h5bench [write] - Starting
-2026-10-04 23:00:54,045 h5bench - INFO - h5bench [write] - DIR: payload/container/interleaved_interleaved/848adfa5-25682150.pbs101/
-2026-10-04 23:00:54,046 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:00:54,047 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/interleaved_interleaved/848adfa5-25682150.pbs101/h5bench.cfg payload/container/interleaved_interleaved/h5bench_intra_container_interleaved_interleaved.h5
-2026-10-04 23:01:12,672 h5bench - INFO - SUCCESS (all output files are located at payload/container/interleaved_interleaved/848adfa5-25682150.pbs101)
-2026-10-04 23:01:12,673 h5bench - INFO - Runtime: 18.6271403 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:01:12,673 h5bench - INFO - h5bench [write] - Complete
-2026-10-04 23:01:12,673 h5bench - INFO - Finishing h5bench Suite
+2026-10-05 21:35:30,020 h5bench - INFO - Starting h5bench Suite
+2026-10-05 21:35:30,021 h5bench - WARNING - Base directory already exists: payload/container/interleaved_interleaved
+2026-10-05 21:35:30,027 h5bench - INFO - Lustre support detected
+2026-10-05 21:35:30,028 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/interleaved_interleaved
+2026-10-05 21:35:30,032 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-05 21:35:30,032 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-05 21:35:30,032 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-05 21:35:30,033 h5bench - INFO - JOBID: 25693495.pbs101
+2026-10-05 21:35:30,033 h5bench - INFO - h5bench [write] - Starting
+2026-10-05 21:35:30,033 h5bench - INFO - h5bench [write] - DIR: payload/container/interleaved_interleaved/ecd86331-25693495.pbs101/
+2026-10-05 21:35:30,033 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 21:35:30,034 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/interleaved_interleaved/ecd86331-25693495.pbs101/h5bench.cfg payload/container/interleaved_interleaved/h5bench_intra_container_interleaved_interleaved.h5
+2026-10-05 21:35:48,524 h5bench - INFO - SUCCESS (all output files are located at payload/container/interleaved_interleaved/ecd86331-25693495.pbs101)
+2026-10-05 21:35:48,525 h5bench - INFO - Runtime: 18.4912195 seconds (elapsed time, includes allocation wait time)
+2026-10-05 21:35:48,525 h5bench - INFO - h5bench [write] - Complete
+2026-10-05 21:35:48,525 h5bench - INFO - Finishing h5bench Suite
 --- Repetition 7/10 ---
 + /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/interleaved_interleaved/config_rep7.json
 
-real	0m20.450s
-user	7m11.681s
-sys	17m43.239s
+real	0m24.508s
+user	12m4.878s
+sys	17m41.001s
 + H5BENCH_EXIT=0
 + set +x
-2026-10-04 23:01:18,078 h5bench - INFO - Starting h5bench Suite
-2026-10-04 23:01:18,079 h5bench - WARNING - Base directory already exists: payload/container/interleaved_interleaved
-2026-10-04 23:01:18,085 h5bench - INFO - Lustre support detected
-2026-10-04 23:01:18,086 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/interleaved_interleaved
-2026-10-04 23:01:18,090 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
-2026-10-04 23:01:18,090 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2026-10-04 23:01:18,091 h5bench - DEBUG - LD_PRELOAD: 
-2026-10-04 23:01:18,091 h5bench - INFO - JOBID: 25682150.pbs101
-2026-10-04 23:01:18,091 h5bench - INFO - h5bench [write] - Starting
-2026-10-04 23:01:18,091 h5bench - INFO - h5bench [write] - DIR: payload/container/interleaved_interleaved/6657709d-25682150.pbs101/
-2026-10-04 23:01:18,091 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:01:18,093 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/interleaved_interleaved/6657709d-25682150.pbs101/h5bench.cfg payload/container/interleaved_interleaved/h5bench_intra_container_interleaved_interleaved.h5
-2026-10-04 23:01:38,468 h5bench - INFO - SUCCESS (all output files are located at payload/container/interleaved_interleaved/6657709d-25682150.pbs101)
-2026-10-04 23:01:38,469 h5bench - INFO - Runtime: 20.3772917 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:01:38,469 h5bench - INFO - h5bench [write] - Complete
-2026-10-04 23:01:38,469 h5bench - INFO - Finishing h5bench Suite
+2026-10-05 21:35:52,409 h5bench - INFO - Starting h5bench Suite
+2026-10-05 21:35:52,411 h5bench - WARNING - Base directory already exists: payload/container/interleaved_interleaved
+2026-10-05 21:35:52,417 h5bench - INFO - Lustre support detected
+2026-10-05 21:35:52,417 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/interleaved_interleaved
+2026-10-05 21:35:52,421 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-05 21:35:52,422 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-05 21:35:52,422 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-05 21:35:52,422 h5bench - INFO - JOBID: 25693495.pbs101
+2026-10-05 21:35:52,422 h5bench - INFO - h5bench [write] - Starting
+2026-10-05 21:35:52,422 h5bench - INFO - h5bench [write] - DIR: payload/container/interleaved_interleaved/61f62119-25693495.pbs101/
+2026-10-05 21:35:52,423 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 21:35:52,424 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/interleaved_interleaved/61f62119-25693495.pbs101/h5bench.cfg payload/container/interleaved_interleaved/h5bench_intra_container_interleaved_interleaved.h5
+2026-10-05 21:36:16,854 h5bench - INFO - SUCCESS (all output files are located at payload/container/interleaved_interleaved/61f62119-25693495.pbs101)
+2026-10-05 21:36:16,855 h5bench - INFO - Runtime: 24.4318085 seconds (elapsed time, includes allocation wait time)
+2026-10-05 21:36:16,855 h5bench - INFO - h5bench [write] - Complete
+2026-10-05 21:36:16,855 h5bench - INFO - Finishing h5bench Suite
 --- Repetition 8/10 ---
 + /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/interleaved_interleaved/config_rep8.json
 
-real	0m18.122s
-user	4m12.102s
-sys	25m50.606s
+real	0m18.106s
+user	6m40.110s
+sys	21m21.883s
 + H5BENCH_EXIT=0
 + set +x
-2026-10-04 23:01:42,871 h5bench - INFO - Starting h5bench Suite
-2026-10-04 23:01:42,872 h5bench - WARNING - Base directory already exists: payload/container/interleaved_interleaved
-2026-10-04 23:01:42,878 h5bench - INFO - Lustre support detected
-2026-10-04 23:01:42,878 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/interleaved_interleaved
-2026-10-04 23:01:42,882 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
-2026-10-04 23:01:42,883 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2026-10-04 23:01:42,883 h5bench - DEBUG - LD_PRELOAD: 
-2026-10-04 23:01:42,883 h5bench - INFO - JOBID: 25682150.pbs101
-2026-10-04 23:01:42,883 h5bench - INFO - h5bench [write] - Starting
-2026-10-04 23:01:42,883 h5bench - INFO - h5bench [write] - DIR: payload/container/interleaved_interleaved/1e3dbb49-25682150.pbs101/
-2026-10-04 23:01:42,884 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:01:42,885 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/interleaved_interleaved/1e3dbb49-25682150.pbs101/h5bench.cfg payload/container/interleaved_interleaved/h5bench_intra_container_interleaved_interleaved.h5
-2026-10-04 23:02:00,934 h5bench - INFO - SUCCESS (all output files are located at payload/container/interleaved_interleaved/1e3dbb49-25682150.pbs101)
-2026-10-04 23:02:00,934 h5bench - INFO - Runtime: 18.0503666 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:02:00,934 h5bench - INFO - h5bench [write] - Complete
-2026-10-04 23:02:00,934 h5bench - INFO - Finishing h5bench Suite
+2026-10-05 21:36:20,859 h5bench - INFO - Starting h5bench Suite
+2026-10-05 21:36:20,860 h5bench - WARNING - Base directory already exists: payload/container/interleaved_interleaved
+2026-10-05 21:36:20,866 h5bench - INFO - Lustre support detected
+2026-10-05 21:36:20,867 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/interleaved_interleaved
+2026-10-05 21:36:20,871 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-05 21:36:20,871 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-05 21:36:20,872 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-05 21:36:20,872 h5bench - INFO - JOBID: 25693495.pbs101
+2026-10-05 21:36:20,872 h5bench - INFO - h5bench [write] - Starting
+2026-10-05 21:36:20,872 h5bench - INFO - h5bench [write] - DIR: payload/container/interleaved_interleaved/1e66a851-25693495.pbs101/
+2026-10-05 21:36:20,872 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 21:36:20,876 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/interleaved_interleaved/1e66a851-25693495.pbs101/h5bench.cfg payload/container/interleaved_interleaved/h5bench_intra_container_interleaved_interleaved.h5
+2026-10-05 21:36:38,908 h5bench - INFO - SUCCESS (all output files are located at payload/container/interleaved_interleaved/1e66a851-25693495.pbs101)
+2026-10-05 21:36:38,908 h5bench - INFO - Runtime: 18.0356247 seconds (elapsed time, includes allocation wait time)
+2026-10-05 21:36:38,908 h5bench - INFO - h5bench [write] - Complete
+2026-10-05 21:36:38,908 h5bench - INFO - Finishing h5bench Suite
 --- Repetition 9/10 ---
 + /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/interleaved_interleaved/config_rep9.json
 
-real	0m19.436s
-user	5m57.698s
-sys	22m12.123s
+real	0m20.858s
+user	9m9.440s
+sys	17m58.405s
 + H5BENCH_EXIT=0
 + set +x
-2026-10-04 23:02:05,280 h5bench - INFO - Starting h5bench Suite
-2026-10-04 23:02:05,281 h5bench - WARNING - Base directory already exists: payload/container/interleaved_interleaved
-2026-10-04 23:02:05,288 h5bench - INFO - Lustre support detected
-2026-10-04 23:02:05,288 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/interleaved_interleaved
-2026-10-04 23:02:05,293 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
-2026-10-04 23:02:05,294 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2026-10-04 23:02:05,294 h5bench - DEBUG - LD_PRELOAD: 
-2026-10-04 23:02:05,294 h5bench - INFO - JOBID: 25682150.pbs101
-2026-10-04 23:02:05,294 h5bench - INFO - h5bench [write] - Starting
-2026-10-04 23:02:05,294 h5bench - INFO - h5bench [write] - DIR: payload/container/interleaved_interleaved/9f58637b-25682150.pbs101/
-2026-10-04 23:02:05,295 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:02:05,296 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/interleaved_interleaved/9f58637b-25682150.pbs101/h5bench.cfg payload/container/interleaved_interleaved/h5bench_intra_container_interleaved_interleaved.h5
-2026-10-04 23:02:24,651 h5bench - INFO - SUCCESS (all output files are located at payload/container/interleaved_interleaved/9f58637b-25682150.pbs101)
-2026-10-04 23:02:24,651 h5bench - INFO - Runtime: 19.3563826 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:02:24,651 h5bench - INFO - h5bench [write] - Complete
-2026-10-04 23:02:24,651 h5bench - INFO - Finishing h5bench Suite
+2026-10-05 21:36:43,926 h5bench - INFO - Starting h5bench Suite
+2026-10-05 21:36:43,927 h5bench - WARNING - Base directory already exists: payload/container/interleaved_interleaved
+2026-10-05 21:36:43,933 h5bench - INFO - Lustre support detected
+2026-10-05 21:36:43,934 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/interleaved_interleaved
+2026-10-05 21:36:43,938 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-05 21:36:43,939 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-05 21:36:43,939 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-05 21:36:43,939 h5bench - INFO - JOBID: 25693495.pbs101
+2026-10-05 21:36:43,939 h5bench - INFO - h5bench [write] - Starting
+2026-10-05 21:36:43,939 h5bench - INFO - h5bench [write] - DIR: payload/container/interleaved_interleaved/9ce66efc-25693495.pbs101/
+2026-10-05 21:36:43,940 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 21:36:43,941 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/interleaved_interleaved/9ce66efc-25693495.pbs101/h5bench.cfg payload/container/interleaved_interleaved/h5bench_intra_container_interleaved_interleaved.h5
+2026-10-05 21:37:04,722 h5bench - INFO - SUCCESS (all output files are located at payload/container/interleaved_interleaved/9ce66efc-25693495.pbs101)
+2026-10-05 21:37:04,723 h5bench - INFO - Runtime: 20.7832217 seconds (elapsed time, includes allocation wait time)
+2026-10-05 21:37:04,723 h5bench - INFO - h5bench [write] - Complete
+2026-10-05 21:37:04,723 h5bench - INFO - Finishing h5bench Suite
 --- Repetition 10/10 ---
 + /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/interleaved_interleaved/config_rep10.json
 
-real	0m17.893s
-user	5m44.108s
-sys	17m0.008s
+real	0m21.114s
+user	6m2.237s
+sys	19m18.752s
 + H5BENCH_EXIT=0
 + set +x
-2026-10-04 23:02:28,893 h5bench - INFO - Starting h5bench Suite
-2026-10-04 23:02:28,895 h5bench - WARNING - Base directory already exists: payload/container/interleaved_interleaved
-2026-10-04 23:02:28,902 h5bench - INFO - Lustre support detected
-2026-10-04 23:02:28,902 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/interleaved_interleaved
-2026-10-04 23:02:28,906 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
-2026-10-04 23:02:28,907 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2026-10-04 23:02:28,907 h5bench - DEBUG - LD_PRELOAD: 
-2026-10-04 23:02:28,907 h5bench - INFO - JOBID: 25682150.pbs101
-2026-10-04 23:02:28,907 h5bench - INFO - h5bench [write] - Starting
-2026-10-04 23:02:28,907 h5bench - INFO - h5bench [write] - DIR: payload/container/interleaved_interleaved/e8e56328-25682150.pbs101/
-2026-10-04 23:02:28,908 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:02:28,909 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/interleaved_interleaved/e8e56328-25682150.pbs101/h5bench.cfg payload/container/interleaved_interleaved/h5bench_intra_container_interleaved_interleaved.h5
-2026-10-04 23:02:46,722 h5bench - INFO - SUCCESS (all output files are located at payload/container/interleaved_interleaved/e8e56328-25682150.pbs101)
-2026-10-04 23:02:46,723 h5bench - INFO - Runtime: 17.8147707 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:02:46,723 h5bench - INFO - h5bench [write] - Complete
-2026-10-04 23:02:46,723 h5bench - INFO - Finishing h5bench Suite
+2026-10-05 21:37:08,089 h5bench - INFO - Starting h5bench Suite
+2026-10-05 21:37:08,091 h5bench - WARNING - Base directory already exists: payload/container/interleaved_interleaved
+2026-10-05 21:37:08,110 h5bench - INFO - Lustre support detected
+2026-10-05 21:37:08,110 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/interleaved_interleaved
+2026-10-05 21:37:08,116 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-05 21:37:08,116 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-05 21:37:08,116 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-05 21:37:08,116 h5bench - INFO - JOBID: 25693495.pbs101
+2026-10-05 21:37:08,116 h5bench - INFO - h5bench [write] - Starting
+2026-10-05 21:37:08,117 h5bench - INFO - h5bench [write] - DIR: payload/container/interleaved_interleaved/496a69a3-25693495.pbs101/
+2026-10-05 21:37:08,118 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 21:37:08,124 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/interleaved_interleaved/496a69a3-25693495.pbs101/h5bench.cfg payload/container/interleaved_interleaved/h5bench_intra_container_interleaved_interleaved.h5
+2026-10-05 21:37:29,133 h5bench - INFO - SUCCESS (all output files are located at payload/container/interleaved_interleaved/496a69a3-25693495.pbs101)
+2026-10-05 21:37:29,133 h5bench - INFO - Runtime: 21.0154037 seconds (elapsed time, includes allocation wait time)
+2026-10-05 21:37:29,133 h5bench - INFO - h5bench [write] - Complete
+2026-10-05 21:37:29,133 h5bench - INFO - Finishing h5bench Suite
 === Lustre striping actually applied to payload/container/interleaved_interleaved ===
 payload/container/interleaved_interleaved
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
-payload/container/interleaved_interleaved/6657709d-25682150.pbs101
+payload/container/interleaved_interleaved/35410ac3-25693495.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
-payload/container/interleaved_interleaved/ad81882c-25682150.pbs101
+payload/container/interleaved_interleaved/7aee9c9c-25693495.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
-payload/container/interleaved_interleaved/99ae418f-25682150.pbs101
+payload/container/interleaved_interleaved/1e66a851-25693495.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
-payload/container/interleaved_interleaved/1e3dbb49-25682150.pbs101
+payload/container/interleaved_interleaved/61f62119-25693495.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
-payload/container/interleaved_interleaved/9f58637b-25682150.pbs101
+payload/container/interleaved_interleaved/9ce66efc-25693495.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/container/interleaved_interleaved/69e6177a-25693495.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/container/interleaved_interleaved/560a6e5f-25693495.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/container/interleaved_interleaved/f09895b7-25693495.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
 payload/container/interleaved_interleaved/h5bench_intra_container_interleaved_interleaved.h5
@@ -276,27 +285,18 @@ lmm_stripe_count:  4
 lmm_stripe_size:   1048576
 lmm_pattern:       raid0
 lmm_layout_gen:    0
-lmm_stripe_offset: 25
+lmm_stripe_offset: 37
 lmm_pool:          disk
 	obdidx		 objid		 objid		 group
-	    25	    1329218114	   0x4f3a4242	   0x900000400
-	    26	    1333147919	   0x4f76390f	   0x8c0000400
-	    28	    1334312013	   0x4f87fc4d	   0x980000400
-	    30	    1329179533	   0x4f39ab8d	   0x9c0000400
+	    37	    1336125004	   0x4fa3a64c	   0xc00000400
+	    38	    1330710019	   0x4f510603	   0xbc0000400
+	    17	    1331207415	   0x4f589cf7	   0x700000400
+	    19	    1330677925	   0x4f5088a5	   0x740000400
 
-payload/container/interleaved_interleaved/6af76742-25682150.pbs101
+payload/container/interleaved_interleaved/496a69a3-25693495.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
-payload/container/interleaved_interleaved/848adfa5-25682150.pbs101
-stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
-
-payload/container/interleaved_interleaved/2dc66ad3-25682150.pbs101
-stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
-
-payload/container/interleaved_interleaved/7c8af14a-25682150.pbs101
-stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
-
-payload/container/interleaved_interleaved/e8e56328-25682150.pbs101
+payload/container/interleaved_interleaved/ecd86331-25693495.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
 Completed Successfully! 

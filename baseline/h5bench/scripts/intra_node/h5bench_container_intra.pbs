@@ -1,6 +1,6 @@
 #!/bin/bash
 #PBS -N h5bench_container_intra
-#PBS -l walltime=00:30:00
+#PBS -l walltime=02:30:00
 #PBS -l place=excl
 #PBS -q normal
 #PBS -P personal-haiyen02
@@ -126,10 +126,5 @@ done
 # Check the Lustre striping layout for the payload directory after all repetitions
 echo "=== Lustre striping actually applied to $PAYLOAD_DIR ==="
 lfs getstripe "$PAYLOAD_DIR"
-
-# h5bench writes <config>-h5bench.log next to its input, inside the report
-# dir, where it is already scoped per job. Do NOT move it to logs/: every
-# job uses the same config_repN.json names, so flattening them there makes
-# them collide and only the last job's copy survives.
 
 echo "Completed Successfully! "

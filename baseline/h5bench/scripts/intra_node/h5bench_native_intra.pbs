@@ -1,6 +1,6 @@
 #!/bin/bash
 #PBS -N h5bench_native_intra
-#PBS -l walltime=00:30:00
+#PBS -l walltime=02:30:00
 #PBS -l place=excl
 #PBS -q normal
 #PBS -P personal-haiyen02
@@ -104,8 +104,5 @@ done
 # Check the Lustre striping layout for the payload directory after all repetitions
 echo "=== Lustre striping actually applied to $PAYLOAD_DIR ==="
 lfs getstripe "$PAYLOAD_DIR"
-
-# Move all h5bench logs to logs/
-find . -maxdepth 3 -name '*-h5bench.log' -exec mv -f {} logs/ \; 2>/dev/null
 
 echo "Completed Successfully! "

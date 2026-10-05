@@ -1,0 +1,49 @@
+Configuration file: payload/native/contig_interleaved/9062e940-25693489.pbs101/h5bench.cfg
+Output data file: payload/native/contig_interleaved/h5bench_intra_native_contig_interleaved.h5
+
+================ Benchmark Configuration ==================
+File: payload/native/contig_interleaved/9062e940-25693489.pbs101/h5bench.cfg
+Number of particles per rank: 1048576
+Number of time steps: 5
+Emulated compute time per timestep: 0
+Mode: SYNC
+Collective metadata operations: NO
+Collective buffering for data operations: NO
+Number of dimensions: 1
+    Dim_1: 1048576
+Standard deviation for varying particle size in normal distribution = 1
+===========================================================
+
+Start benchmark: h5bench_write
+Number of particles per rank: 1 M
+Total number of particles: 128M
+Collective Metadata operations: OFF
+Opened HDF5 file... 
+Writing Timestep_0 ... 
+    data_write_contig_to_interleaved: Finished writing time step 
+Computing...
+Writing Timestep_1 ... 
+    data_write_contig_to_interleaved: Finished writing time step 
+Computing...
+Writing Timestep_2 ... 
+    data_write_contig_to_interleaved: Finished writing time step 
+Computing...
+Writing Timestep_3 ... 
+    data_write_contig_to_interleaved: Finished writing time step 
+Computing...
+Writing Timestep_4 ... 
+    data_write_contig_to_interleaved: Finished writing time step 
+
+=================== Performance Results ==================
+Total number of ranks: 128
+Total emulated compute time: 0.000 s
+Total write size: 20.000 GB
+Raw write time: 96.074 s
+Metadata time: 0.011 s
+H5Fcreate() time: 0.085 s
+H5Fflush() time: 17.682 s
+H5Fclose() time: 0.006 s
+Observed completion time: 113.863 s
+SYNC Raw write rate: 213.169 MB/s 
+SYNC Observed write rate: 179.865 MB/s
+===========================================================
