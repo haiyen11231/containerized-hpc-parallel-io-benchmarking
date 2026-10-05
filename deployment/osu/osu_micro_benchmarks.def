@@ -10,18 +10,19 @@ From: ubuntu:22.04
     
     # Download and install OSU Micro-Benchmarks
     cd /opt
-    wget https://mvapich.cse.ohio-state.edu/download/mvapich/osu-micro-benchmarks-7.5.2.tar.gz
-    tar -xvf osu-micro-benchmarks-7.5.2.tar.gz
-    cd osu-micro-benchmarks-7.5.2
-    ./configure CC=mpicc CXX=mpicxx
+    wget https://mvapich.cse.ohio-state.edu/download/mvapich/osu-micro-benchmarks-8.0rc.tar.gz  
+    tar -xvf osu-micro-benchmarks-8.0rc.tar.gz
+    cd osu-micro-benchmarks-8.0rc 
+    ./configure CC=mpicc CXX=mpicxx --prefix=$(pwd)/install
     make
     make install
     
     # Clean up
-    rm -f /opt/osu-micro-benchmarks-7.5.2.tar.gz
+    rm -f /opt/osu-micro-benchmarks-8.0rc.tar.gz
     apt-get clean
     rm -rf /var/lib/apt/lists/*
 
 %environment
-    export PATH=/opt/osu-micro-benchmarks-7.5.2/c/mpi/pt2pt/standard:$PATH
-    export PATH=/opt/osu-micro-benchmarks-7.5.2/c/mpi/collective/blocking:$PATH
+    export PATH=/opt/osu-micro-benchmarks-8.0rc/c/mpi/pt2pt/standard:$PATH
+    export PATH=/opt/osu-micro-benchmarks-8.0rc/c/mpi/collective/blocking:$PATH
+    export PATH=/opt/osu-micro-benchmarks-8.0rc/c/mpi/collective/non_blocking:$PATH
