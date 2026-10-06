@@ -1,0 +1,90 @@
+#!/bin/bash
+#PBS -N osu_native_pt2pt_inter
+#PBS -l walltime=00:30:00
+#PBS -l place=scatter:excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/osu_native_pt2pt_inter.out
+
+# Experiment description: OSU point-to-point latency and bandwidth between two ranks on DIFFERENT nodes, native. Every message crosses the Slingshot fabric, so this measures the inter-node MPI transport (native: UCX over Slingshot).
+
+cd "$PBS_O_WORKDIR"
+
+# Same native MPI stack as IOR and h5bench. libfabric must be loaded BEFORE openmpi: mpirun is dynamically linked against libfabric.so.1 and will not start without it.
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+
+module list
+mpirun --version
+
+OSU_DIR=$HOME/scratch/fyp/native/osu/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt
+
+# Check the required environment variables
+: "${BENCH:?Must pass -v BENCH=<latency|bw> at submission time}"
+: "${REPS:?Must pass -v REPS=<number> at submission time}"
+
+BIN="${OSU_DIR}/osu_${BENCH}"
+[ -x "$BIN" ] || { echo "FATAL: $BIN not found or not executable"; exit 1; }
+
+# pt2pt is a two-rank benchmark. Here the two ranks must be on SEPARATE nodes, which is what makes this the inter-node case: 2 chunks, 1 MPI process each.
+NP=2
+NODE_COUNT=2
+
+ACTUAL_NODES=$(sort -u "$PBS_NODEFILE" | wc -l)
+if [ "$ACTUAL_NODES" -ne "$NODE_COUNT" ]; then
+    echo "FATAL: Expected $NODE_COUNT distinct nodes, PBS granted $ACTUAL_NODES."
+    echo "       Both ranks on one node would silently measure shared memory instead of the network."
+    exit 1
+fi
+
+REPORT_DIR="native/${BENCH}"
+mkdir -p "$REPORT_DIR" logs
+
+# --map-by ppr:1:node forces exactly one rank per node, so rank 0 and rank 1 cannot share a host. Without it OpenMPI would fill the first node's cores first and put both ranks there -- which would measure shared memory and look like a spectacularly fast network.
+MPI_CONFIG=(
+  -np "$NP"
+  --map-by ppr:1:node --bind-to core
+  --mca btl ^openib
+  --mca pml ucx
+  --mca orte_base_help_aggregate 0
+  --mca opal_common_ucx_opal_mem_hooks 1
+  -x UCX_LOG_LEVEL=ERROR
+)
+
+echo "================================================================="
+echo " Native Inter-Node pt2pt: BENCH=$BENCH NP=$NP REPS=$REPS "
+echo " one rank per node, message crosses the Slingshot fabric "
+echo "================================================================="
+
+sort -u "$PBS_NODEFILE" > "${REPORT_DIR}/nodes.txt"
+echo "=== nodes used (must be 2 distinct hosts) ==="
+cat "${REPORT_DIR}/nodes.txt"
+
+for REP in $(seq 1 "$REPS"); do
+    echo "--- Repetition ${REP}/${REPS} ---"
+    OUT="${REPORT_DIR}/osu_${BENCH}_rep${REP}.txt"
+
+    set -x
+    mpirun "${MPI_CONFIG[@]}" "$BIN" > "$OUT" 2>&1
+    RC=$?
+    set +x
+
+    if [ "$RC" -ne 0 ]; then
+        echo "FAILED: BENCH=$BENCH rep=$REP (exit $RC)"
+        sed 's/^/    /' "$OUT" | head -20
+        exit "$RC"
+    fi
+
+    # OSU prints a table of "size value". A run that exits 0 with no data rows is a silent failure -- catch it here, not during analysis.
+    rows=$(grep -cE '^[0-9]' "$OUT")
+    if [ "$rows" -lt 2 ]; then
+        echo "FATAL: $OUT has only $rows data rows -- benchmark produced no table"
+        sed 's/^/    /' "$OUT" | head -20
+        exit 1
+    fi
+    echo "  ok: $rows message sizes recorded"
+done
+
+echo "Completed Successfully! "

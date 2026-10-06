@@ -1,0 +1,99 @@
+#!/bin/bash
+#PBS -N osu_container_pt2pt_inter
+#PBS -l walltime=00:30:00
+#PBS -l place=scatter:excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/osu_container_pt2pt_inter.out
+
+# Experiment description: OSU point-to-point latency and bandwidth between two ranks on DIFFERENT nodes, in an Apptainer container. Every message crosses the Slingshot fabric, so this measures the inter-node MPI transport (container: TCP over hsn0, since the apt OpenMPI has no UCX).
+
+cd "$PBS_O_WORKDIR"
+
+# Only mpirun comes from the host -- it launches the ranks, which then enter the container and use its own MPI. The container's generic OpenMPI has no PBS 'tm' support and could not spawn a rank on a second node by itself. libfabric must be loaded BEFORE openmpi: mpirun is dynamically linked against libfabric.so.1 and will not start without it.
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+module load apptainer
+
+module list
+mpirun --version
+apptainer --version
+
+SIF=$HOME/scratch/fyp/container/osu/osu_micro_benchmarks.sif
+OSU_DIR=/opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt
+
+# Check the required environment variables
+: "${BENCH:?Must pass -v BENCH=<latency|bw> at submission time}"
+: "${REPS:?Must pass -v REPS=<number> at submission time}"
+
+BIN="${OSU_DIR}/osu_${BENCH}"
+apptainer exec "$SIF" sh -c "test -x $BIN" \
+    || { echo "FATAL: $BIN not found inside $SIF"; exit 1; }
+
+# pt2pt is a two-rank benchmark. Here the two ranks must be on SEPARATE nodes, which is what makes this the inter-node case: 2 chunks, 1 MPI process each.
+NP=2
+NODE_COUNT=2
+
+ACTUAL_NODES=$(sort -u "$PBS_NODEFILE" | wc -l)
+if [ "$ACTUAL_NODES" -ne "$NODE_COUNT" ]; then
+    echo "FATAL: Expected $NODE_COUNT distinct nodes, PBS granted $ACTUAL_NODES."
+    echo "       Both ranks on one node would silently measure shared memory instead of the network."
+    exit 1
+fi
+
+REPORT_DIR="container/${BENCH}"
+mkdir -p "$REPORT_DIR" logs
+
+# The container's apt OpenMPI has no UCX, so tcp replaces the ucx pml. Traffic is pinned to hsn0 (the Slingshot interface); without that pin the container's OpenMPI can try to route over docker0, which has an IDENTICAL IP on every node, and the job hangs. Confirmed empirically during OSU container debugging earlier in this project.
+#
+# Note there is no btl_vader_single_copy_mechanism flag here, unlike the intra-node script: with one rank per node no shared-memory transfer ever happens, so Apptainer's CMA breakage is irrelevant to this case.
+#
+# --map-by ppr:1:node forces exactly one rank per node, so rank 0 and rank 1 cannot share a host. Without it OpenMPI would fill the first node's cores first and put both ranks there -- which would measure shared memory and look like a spectacularly fast network.
+MPI_CONFIG=(
+  -np "$NP"
+  --map-by ppr:1:node --bind-to core
+  --mca btl tcp,self
+  --mca btl_tcp_if_include hsn0
+  --mca oob_tcp_if_include hsn0
+  --mca orte_base_help_aggregate 0
+  --mca opal_common_ucx_opal_mem_hooks 1
+  -x UCX_LOG_LEVEL=ERROR
+)
+
+echo "================================================================="
+echo " Container Inter-Node pt2pt: BENCH=$BENCH NP=$NP REPS=$REPS "
+echo " one rank per node, message crosses the fabric via TCP over hsn0 "
+echo "================================================================="
+
+sort -u "$PBS_NODEFILE" > "${REPORT_DIR}/nodes.txt"
+echo "=== nodes used (must be 2 distinct hosts) ==="
+cat "${REPORT_DIR}/nodes.txt"
+
+for REP in $(seq 1 "$REPS"); do
+    echo "--- Repetition ${REP}/${REPS} ---"
+    OUT="${REPORT_DIR}/osu_${BENCH}_rep${REP}.txt"
+
+    set -x
+    mpirun "${MPI_CONFIG[@]}" apptainer exec "$SIF" "$BIN" > "$OUT" 2>&1
+    RC=$?
+    set +x
+
+    if [ "$RC" -ne 0 ]; then
+        echo "FAILED: BENCH=$BENCH rep=$REP (exit $RC)"
+        sed 's/^/    /' "$OUT" | head -20
+        exit "$RC"
+    fi
+
+    # OSU prints a table of "size value". A run that exits 0 with no data rows is a silent failure -- catch it here, not during analysis.
+    rows=$(grep -cE '^[0-9]' "$OUT")
+    if [ "$rows" -lt 2 ]; then
+        echo "FATAL: $OUT has only $rows data rows -- benchmark produced no table"
+        sed 's/^/    /' "$OUT" | head -20
+        exit 1
+    fi
+    echo "  ok: $rows message sizes recorded"
+done
+
+echo "Completed Successfully! "
