@@ -1,0 +1,135 @@
+#!/bin/bash
+#PBS -N osu_container_collective_weak
+#PBS -l walltime=00:30:00
+#PBS -l place=excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/osu_container_collective_weak.out
+
+# Experiment: OSU collective latency (weak scaling) across a varying number of
+# ranks, ALL ON ONE NODE. No network is involved -- every rank communicates
+# through shared memory, so this isolates the intra-node MPI transport
+# (container: OpenMPI vader, since the apt build has no UCX) as rank count grows.
+#
+# WEAK scaling: the per-rank message size is held CONSTANT at 64 KiB while the
+# rank count grows. Total data therefore grows with NP. This asks how the
+# collective's own coordination cost scales -- for Allreduce roughly O(log P)
+# communication rounds, for Alltoall O(P) traffic per rank.
+
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+module load apptainer
+
+module list
+mpirun --version
+apptainer --version
+
+SIF=$HOME/scratch/fyp/container/osu/osu_micro_benchmarks.sif
+OSU_DIR=/opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/collective
+
+# Required variables, passed with -v at submission time.
+: "${BENCH:?Must pass -v BENCH=<allreduce|alltoall>}"
+: "${NP:?Must pass -v NP=<rank count>}"
+: "${REPS:?Must pass -v REPS=<number>}"
+
+BIN="${OSU_DIR}/osu_${BENCH}"
+apptainer exec "$SIF" sh -c "test -x $BIN" \
+    || { echo "FATAL: $BIN not found inside $SIF"; exit 1; }
+
+case "$BENCH" in
+  allreduce|alltoall) ;;
+  *) echo "FATAL: unknown BENCH='$BENCH'"; exit 1 ;;
+esac
+
+# Every rank must be on ONE node -- that is what makes this intra-node.
+NODE_COUNT=1
+ACTUAL_NODES=$(sort -u "$PBS_NODEFILE" | wc -l)
+if [ "$ACTUAL_NODES" -ne "$NODE_COUNT" ]; then
+    echo "FATAL: Expected $NODE_COUNT node, PBS granted $ACTUAL_NODES."
+    echo "       More than one node would make this an inter-node measurement."
+    exit 1
+fi
+
+# PBS_NODEFILE must list exactly NP slots, or mpirun would launch a different
+# rank count than the one this job is labelled with -- silently invalidating
+# the scaling curve.
+SLOTS=$(wc -l < "$PBS_NODEFILE")
+if [ "$SLOTS" -ne "$NP" ]; then
+    echo "FATAL: PBS_NODEFILE has $SLOTS slots but NP=$NP."
+    exit 1
+fi
+
+# WEAK scaling: per-rank message size is fixed (64 KiB); total volume grows with NP.
+MSG=65536
+
+REPORT_DIR="container/${BENCH}/np${NP}"
+mkdir -p "$REPORT_DIR" logs
+
+# -f prints MIN/MAX/ITERATIONS alongside the average. For a collective the
+# spread across ranks exposes load imbalance, which an average alone hides.
+# -i 100 fixes the iteration count so runtime is predictable and so weak and
+# strong scaling remain directly comparable to each other.
+BENCH_ARGS=(-f -i 100 -m "${MSG}:${MSG}")
+
+# --map-by core --bind-to core pins ranks to cores 0..NP-1 in order. On a
+# dual-socket EPYC 7713 the collective cost depends strongly on how ranks map
+# onto core complexes and NUMA domains, so pinning is what makes the scaling
+# curve reproducible and the native/container comparison fair.
+MPI_CONFIG=(
+  -np "$NP"
+  --map-by core --bind-to core
+  --mca btl vader,self
+  --mca btl_vader_single_copy_mechanism none
+  --mca orte_base_help_aggregate 0
+  --mca opal_common_ucx_opal_mem_hooks 1
+  -x UCX_LOG_LEVEL=ERROR
+)
+
+echo "================================================================="
+echo " Intra-Node collective WEAK scaling: BENCH=$BENCH NP=$NP MSG=${MSG}B REPS=$REPS "
+echo " all $NP ranks on one exclusive node -- shared memory, no network "
+echo "================================================================="
+
+sort -u "$PBS_NODEFILE" > "${REPORT_DIR}/nodes.txt"
+echo "=== node used ==="; cat "${REPORT_DIR}/nodes.txt"
+echo "$MSG" > "${REPORT_DIR}/msgsize_bytes.txt"
+
+# Record where the ranks actually landed. On a dual-socket EPYC 7713, NP=64 fits
+# within one socket while NP=128 spans both, so the 64->128 step adds
+# inter-socket traffic on top of doubling the ranks. Capturing the binding once
+# makes that provable from the results rather than assumed. Run separately from
+# the timed loop so --report-bindings output never pollutes a measurement.
+mpirun "${MPI_CONFIG[@]}" --report-bindings true \
+    > "${REPORT_DIR}/bindings.txt" 2>&1 || echo "  (binding capture failed, non-fatal)"
+grep -c 'MCW rank' "${REPORT_DIR}/bindings.txt" 2>/dev/null \
+    | xargs -I{} echo "  bindings recorded for {} ranks"
+
+for REP in $(seq 1 "$REPS"); do
+    echo "--- Repetition ${REP}/${REPS} ---"
+    OUT="${REPORT_DIR}/osu_${BENCH}_rep${REP}.txt"
+
+    set -x
+    mpirun "${MPI_CONFIG[@]}" apptainer exec "$SIF" "$BIN" "${BENCH_ARGS[@]}" > "$OUT" 2>&1
+    RC=$?
+    set +x
+
+    if [ "$RC" -ne 0 ]; then
+        echo "FAILED: BENCH=$BENCH NP=$NP rep=$REP (exit $RC)"
+        sed 's/^/    /' "$OUT" | head -20
+        exit "$RC"
+    fi
+
+    rows=$(grep -cE '^[0-9]' "$OUT")
+    if [ "$rows" -lt 1 ]; then
+        echo "FATAL: $OUT has no data rows -- benchmark produced no table"
+        sed 's/^/    /' "$OUT" | head -20
+        exit 1
+    fi
+    echo "  ok: $rows data row(s) recorded"
+done
+
+echo "Completed Successfully! "
