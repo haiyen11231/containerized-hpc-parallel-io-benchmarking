@@ -1,0 +1,13 @@
+metric, value, unit
+operation, write, 
+ranks, 512, 
+collective data, NO, 
+collective meta, NO, 
+subfiling, NO, 
+total compute time, 0.000, seconds
+total size, 20.000, GB
+raw time, 5.180, seconds
+raw rate, 3.860, GB/s
+metadata time, 0.013, seconds
+observed rate, 1.644, GB/s
+observed time, 12.164, seconds

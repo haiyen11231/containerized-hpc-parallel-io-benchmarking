@@ -15,355 +15,358 @@ stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 p
 --- Repetition 1/10 ---
 + /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/n1/config_rep1.json
 
-real	0m21.599s
-user	3m30.199s
-sys	25m9.441s
+real	0m32.459s
+user	13m0.556s
+sys	31m35.085s
 + H5BENCH_EXIT=0
 + set +x
-2026-10-04 23:28:01,095 h5bench - INFO - Starting h5bench Suite
-2026-10-04 23:28:01,097 h5bench - WARNING - Base directory already exists: payload/container/n1
-2026-10-04 23:28:01,100 h5bench - INFO - Lustre support detected
-2026-10-04 23:28:01,100 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/n1
-2026-10-04 23:28:01,104 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
-2026-10-04 23:28:01,104 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2026-10-04 23:28:01,104 h5bench - DEBUG - LD_PRELOAD: 
-2026-10-04 23:28:01,105 h5bench - INFO - JOBID: 25682516.pbs101
-2026-10-04 23:28:01,105 h5bench - INFO - h5bench [write] - Starting
-2026-10-04 23:28:01,105 h5bench - INFO - h5bench [write] - DIR: payload/container/n1/6bdf3178-25682516.pbs101/
-2026-10-04 23:28:01,105 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:28:01,107 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n1/6bdf3178-25682516.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
-2026-10-04 23:28:19,808 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/6bdf3178-25682516.pbs101)
-2026-10-04 23:28:19,809 h5bench - INFO - Runtime: 18.7033865 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:28:19,809 h5bench - INFO - h5bench [write] - Complete
-2026-10-04 23:28:19,809 h5bench - INFO - JOBID: 25682516.pbs101
-2026-10-04 23:28:19,809 h5bench - INFO - h5bench [read] - Starting
-2026-10-04 23:28:19,809 h5bench - INFO - h5bench [read] - DIR: payload/container/n1/c0fe74ce-25682516.pbs101/
-2026-10-04 23:28:19,810 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:28:19,859 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/n1/c0fe74ce-25682516.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
-2026-10-04 23:28:22,588 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/c0fe74ce-25682516.pbs101)
-2026-10-04 23:28:22,589 h5bench - INFO - Runtime: 2.7788804 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:28:22,589 h5bench - INFO - h5bench [read] - Complete
-2026-10-04 23:28:22,589 h5bench - INFO - Finishing h5bench Suite
+2026-10-05 23:55:08,866 h5bench - INFO - Starting h5bench Suite
+2026-10-05 23:55:08,868 h5bench - WARNING - Base directory already exists: payload/container/n1
+2026-10-05 23:55:08,871 h5bench - INFO - Lustre support detected
+2026-10-05 23:55:08,872 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/n1
+2026-10-05 23:55:08,876 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-05 23:55:08,876 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-05 23:55:08,877 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-05 23:55:08,877 h5bench - INFO - JOBID: 25694909.pbs101
+2026-10-05 23:55:08,877 h5bench - INFO - h5bench [write] - Starting
+2026-10-05 23:55:08,877 h5bench - INFO - h5bench [write] - DIR: payload/container/n1/8cc2da19-25694909.pbs101/
+2026-10-05 23:55:08,877 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 23:55:08,879 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n1/8cc2da19-25694909.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
+2026-10-05 23:55:33,406 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/8cc2da19-25694909.pbs101)
+2026-10-05 23:55:33,406 h5bench - INFO - Runtime: 24.5289607 seconds (elapsed time, includes allocation wait time)
+2026-10-05 23:55:33,407 h5bench - INFO - h5bench [write] - Complete
+2026-10-05 23:55:33,407 h5bench - INFO - JOBID: 25694909.pbs101
+2026-10-05 23:55:33,407 h5bench - INFO - h5bench [read] - Starting
+2026-10-05 23:55:33,407 h5bench - INFO - h5bench [read] - DIR: payload/container/n1/ed9ba031-25694909.pbs101/
+2026-10-05 23:55:33,408 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 23:55:33,409 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/n1/ed9ba031-25694909.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
+2026-10-05 23:55:41,212 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/ed9ba031-25694909.pbs101)
+2026-10-05 23:55:41,212 h5bench - INFO - Runtime: 7.8045185 seconds (elapsed time, includes allocation wait time)
+2026-10-05 23:55:41,213 h5bench - INFO - h5bench [read] - Complete
+2026-10-05 23:55:41,213 h5bench - INFO - Finishing h5bench Suite
 --- Repetition 2/10 ---
 + /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/n1/config_rep2.json
 
-real	0m21.079s
-user	3m22.604s
-sys	26m55.217s
+real	0m24.448s
+user	2m38.111s
+sys	34m40.343s
 + H5BENCH_EXIT=0
 + set +x
-2026-10-04 23:28:26,980 h5bench - INFO - Starting h5bench Suite
-2026-10-04 23:28:26,982 h5bench - WARNING - Base directory already exists: payload/container/n1
-2026-10-04 23:28:26,986 h5bench - INFO - Lustre support detected
-2026-10-04 23:28:26,987 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/n1
-2026-10-04 23:28:26,991 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
-2026-10-04 23:28:26,991 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2026-10-04 23:28:26,992 h5bench - DEBUG - LD_PRELOAD: 
-2026-10-04 23:28:26,992 h5bench - INFO - JOBID: 25682516.pbs101
-2026-10-04 23:28:26,992 h5bench - INFO - h5bench [write] - Starting
-2026-10-04 23:28:26,992 h5bench - INFO - h5bench [write] - DIR: payload/container/n1/575934a3-25682516.pbs101/
-2026-10-04 23:28:26,992 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:28:26,994 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n1/575934a3-25682516.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
-2026-10-04 23:28:45,167 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/575934a3-25682516.pbs101)
-2026-10-04 23:28:45,168 h5bench - INFO - Runtime: 18.1754203 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:28:45,168 h5bench - INFO - h5bench [write] - Complete
-2026-10-04 23:28:45,168 h5bench - INFO - JOBID: 25682516.pbs101
-2026-10-04 23:28:45,168 h5bench - INFO - h5bench [read] - Starting
-2026-10-04 23:28:45,169 h5bench - INFO - h5bench [read] - DIR: payload/container/n1/0d656ba3-25682516.pbs101/
-2026-10-04 23:28:45,169 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:28:45,170 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/n1/0d656ba3-25682516.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
-2026-10-04 23:28:47,999 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/0d656ba3-25682516.pbs101)
-2026-10-04 23:28:48,000 h5bench - INFO - Runtime: 2.8305814 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:28:48,000 h5bench - INFO - h5bench [read] - Complete
-2026-10-04 23:28:48,000 h5bench - INFO - Finishing h5bench Suite
+2026-10-05 23:55:45,872 h5bench - INFO - Starting h5bench Suite
+2026-10-05 23:55:45,874 h5bench - WARNING - Base directory already exists: payload/container/n1
+2026-10-05 23:55:45,879 h5bench - INFO - Lustre support detected
+2026-10-05 23:55:45,879 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/n1
+2026-10-05 23:55:45,883 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-05 23:55:45,884 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-05 23:55:45,884 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-05 23:55:45,884 h5bench - INFO - JOBID: 25694909.pbs101
+2026-10-05 23:55:45,884 h5bench - INFO - h5bench [write] - Starting
+2026-10-05 23:55:45,884 h5bench - INFO - h5bench [write] - DIR: payload/container/n1/eece7414-25694909.pbs101/
+2026-10-05 23:55:45,885 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 23:55:45,887 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n1/eece7414-25694909.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
+2026-10-05 23:56:06,292 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/eece7414-25694909.pbs101)
+2026-10-05 23:56:06,292 h5bench - INFO - Runtime: 20.4072304 seconds (elapsed time, includes allocation wait time)
+2026-10-05 23:56:06,292 h5bench - INFO - h5bench [write] - Complete
+2026-10-05 23:56:06,293 h5bench - INFO - JOBID: 25694909.pbs101
+2026-10-05 23:56:06,293 h5bench - INFO - h5bench [read] - Starting
+2026-10-05 23:56:06,293 h5bench - INFO - h5bench [read] - DIR: payload/container/n1/5d7491ad-25694909.pbs101/
+2026-10-05 23:56:06,293 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 23:56:06,294 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/n1/5d7491ad-25694909.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
+2026-10-05 23:56:10,259 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/5d7491ad-25694909.pbs101)
+2026-10-05 23:56:10,259 h5bench - INFO - Runtime: 3.9657865 seconds (elapsed time, includes allocation wait time)
+2026-10-05 23:56:10,259 h5bench - INFO - h5bench [read] - Complete
+2026-10-05 23:56:10,260 h5bench - INFO - Finishing h5bench Suite
 --- Repetition 3/10 ---
 + /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/n1/config_rep3.json
 
-real	0m26.365s
-user	10m9.066s
-sys	29m8.034s
+real	0m23.343s
+user	2m58.193s
+sys	31m32.590s
 + H5BENCH_EXIT=0
 + set +x
-2026-10-04 23:28:52,120 h5bench - INFO - Starting h5bench Suite
-2026-10-04 23:28:52,121 h5bench - WARNING - Base directory already exists: payload/container/n1
-2026-10-04 23:28:52,127 h5bench - INFO - Lustre support detected
-2026-10-04 23:28:52,128 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/n1
-2026-10-04 23:28:52,132 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
-2026-10-04 23:28:52,133 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2026-10-04 23:28:52,133 h5bench - DEBUG - LD_PRELOAD: 
-2026-10-04 23:28:52,133 h5bench - INFO - JOBID: 25682516.pbs101
-2026-10-04 23:28:52,133 h5bench - INFO - h5bench [write] - Starting
-2026-10-04 23:28:52,133 h5bench - INFO - h5bench [write] - DIR: payload/container/n1/e1b28554-25682516.pbs101/
-2026-10-04 23:28:52,134 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:28:52,135 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n1/e1b28554-25682516.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
-2026-10-04 23:29:12,325 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/e1b28554-25682516.pbs101)
-2026-10-04 23:29:12,325 h5bench - INFO - Runtime: 20.1913500 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:29:12,325 h5bench - INFO - h5bench [write] - Complete
-2026-10-04 23:29:12,326 h5bench - INFO - JOBID: 25682516.pbs101
-2026-10-04 23:29:12,326 h5bench - INFO - h5bench [read] - Starting
-2026-10-04 23:29:12,326 h5bench - INFO - h5bench [read] - DIR: payload/container/n1/41fa8918-25682516.pbs101/
-2026-10-04 23:29:12,326 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:29:12,328 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/n1/41fa8918-25682516.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
-2026-10-04 23:29:18,423 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/41fa8918-25682516.pbs101)
-2026-10-04 23:29:18,424 h5bench - INFO - Runtime: 6.0971565 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:29:18,424 h5bench - INFO - h5bench [read] - Complete
-2026-10-04 23:29:18,424 h5bench - INFO - Finishing h5bench Suite
+2026-10-05 23:56:14,509 h5bench - INFO - Starting h5bench Suite
+2026-10-05 23:56:14,510 h5bench - WARNING - Base directory already exists: payload/container/n1
+2026-10-05 23:56:14,516 h5bench - INFO - Lustre support detected
+2026-10-05 23:56:14,516 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/n1
+2026-10-05 23:56:14,520 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-05 23:56:14,521 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-05 23:56:14,521 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-05 23:56:14,521 h5bench - INFO - JOBID: 25694909.pbs101
+2026-10-05 23:56:14,521 h5bench - INFO - h5bench [write] - Starting
+2026-10-05 23:56:14,521 h5bench - INFO - h5bench [write] - DIR: payload/container/n1/d79f6066-25694909.pbs101/
+2026-10-05 23:56:14,522 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 23:56:14,523 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n1/d79f6066-25694909.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
+2026-10-05 23:56:33,988 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/d79f6066-25694909.pbs101)
+2026-10-05 23:56:33,988 h5bench - INFO - Runtime: 19.4663925 seconds (elapsed time, includes allocation wait time)
+2026-10-05 23:56:33,989 h5bench - INFO - h5bench [write] - Complete
+2026-10-05 23:56:33,989 h5bench - INFO - JOBID: 25694909.pbs101
+2026-10-05 23:56:33,989 h5bench - INFO - h5bench [read] - Starting
+2026-10-05 23:56:33,989 h5bench - INFO - h5bench [read] - DIR: payload/container/n1/211cf7d8-25694909.pbs101/
+2026-10-05 23:56:33,990 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 23:56:33,991 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/n1/211cf7d8-25694909.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
+2026-10-05 23:56:37,794 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/211cf7d8-25694909.pbs101)
+2026-10-05 23:56:37,795 h5bench - INFO - Runtime: 3.8047781 seconds (elapsed time, includes allocation wait time)
+2026-10-05 23:56:37,795 h5bench - INFO - h5bench [read] - Complete
+2026-10-05 23:56:37,795 h5bench - INFO - Finishing h5bench Suite
 --- Repetition 4/10 ---
 + /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/n1/config_rep4.json
 
-real	0m20.672s
-user	2m20.967s
-sys	34m14.059s
+real	0m24.341s
+user	4m37.117s
+sys	28m7.921s
 + H5BENCH_EXIT=0
 + set +x
-2026-10-04 23:29:23,142 h5bench - INFO - Starting h5bench Suite
-2026-10-04 23:29:23,144 h5bench - WARNING - Base directory already exists: payload/container/n1
-2026-10-04 23:29:23,150 h5bench - INFO - Lustre support detected
-2026-10-04 23:29:23,150 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/n1
-2026-10-04 23:29:23,154 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
-2026-10-04 23:29:23,155 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2026-10-04 23:29:23,155 h5bench - DEBUG - LD_PRELOAD: 
-2026-10-04 23:29:23,155 h5bench - INFO - JOBID: 25682516.pbs101
-2026-10-04 23:29:23,155 h5bench - INFO - h5bench [write] - Starting
-2026-10-04 23:29:23,155 h5bench - INFO - h5bench [write] - DIR: payload/container/n1/ca45b97c-25682516.pbs101/
-2026-10-04 23:29:23,156 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:29:23,157 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n1/ca45b97c-25682516.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
-2026-10-04 23:29:40,987 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/ca45b97c-25682516.pbs101)
-2026-10-04 23:29:40,988 h5bench - INFO - Runtime: 17.8319261 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:29:40,988 h5bench - INFO - h5bench [write] - Complete
-2026-10-04 23:29:40,988 h5bench - INFO - JOBID: 25682516.pbs101
-2026-10-04 23:29:40,988 h5bench - INFO - h5bench [read] - Starting
-2026-10-04 23:29:40,988 h5bench - INFO - h5bench [read] - DIR: payload/container/n1/af263778-25682516.pbs101/
-2026-10-04 23:29:40,989 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:29:40,991 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/n1/af263778-25682516.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
-2026-10-04 23:29:43,746 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/af263778-25682516.pbs101)
-2026-10-04 23:29:43,747 h5bench - INFO - Runtime: 2.7573524 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:29:43,747 h5bench - INFO - h5bench [read] - Complete
-2026-10-04 23:29:43,747 h5bench - INFO - Finishing h5bench Suite
+2026-10-05 23:56:42,154 h5bench - INFO - Starting h5bench Suite
+2026-10-05 23:56:42,155 h5bench - WARNING - Base directory already exists: payload/container/n1
+2026-10-05 23:56:42,162 h5bench - INFO - Lustre support detected
+2026-10-05 23:56:42,162 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/n1
+2026-10-05 23:56:42,166 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-05 23:56:42,167 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-05 23:56:42,167 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-05 23:56:42,167 h5bench - INFO - JOBID: 25694909.pbs101
+2026-10-05 23:56:42,167 h5bench - INFO - h5bench [write] - Starting
+2026-10-05 23:56:42,167 h5bench - INFO - h5bench [write] - DIR: payload/container/n1/0e72067a-25694909.pbs101/
+2026-10-05 23:56:42,168 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 23:56:42,169 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n1/0e72067a-25694909.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
+2026-10-05 23:57:01,901 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/0e72067a-25694909.pbs101)
+2026-10-05 23:57:01,901 h5bench - INFO - Runtime: 19.7331266 seconds (elapsed time, includes allocation wait time)
+2026-10-05 23:57:01,901 h5bench - INFO - h5bench [write] - Complete
+2026-10-05 23:57:01,902 h5bench - INFO - JOBID: 25694909.pbs101
+2026-10-05 23:57:01,902 h5bench - INFO - h5bench [read] - Starting
+2026-10-05 23:57:01,902 h5bench - INFO - h5bench [read] - DIR: payload/container/n1/9773f373-25694909.pbs101/
+2026-10-05 23:57:01,902 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 23:57:01,903 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/n1/9773f373-25694909.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
+2026-10-05 23:57:06,435 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/9773f373-25694909.pbs101)
+2026-10-05 23:57:06,436 h5bench - INFO - Runtime: 4.5334082 seconds (elapsed time, includes allocation wait time)
+2026-10-05 23:57:06,436 h5bench - INFO - h5bench [read] - Complete
+2026-10-05 23:57:06,436 h5bench - INFO - Finishing h5bench Suite
 --- Repetition 5/10 ---
 + /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/n1/config_rep5.json
 
-real	0m20.836s
-user	2m31.558s
-sys	32m18.588s
+real	0m27.555s
+user	3m53.292s
+sys	32m33.570s
 + H5BENCH_EXIT=0
 + set +x
-2026-10-04 23:29:48,144 h5bench - INFO - Starting h5bench Suite
-2026-10-04 23:29:48,146 h5bench - WARNING - Base directory already exists: payload/container/n1
-2026-10-04 23:29:48,152 h5bench - INFO - Lustre support detected
-2026-10-04 23:29:48,152 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/n1
-2026-10-04 23:29:48,157 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
-2026-10-04 23:29:48,157 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2026-10-04 23:29:48,157 h5bench - DEBUG - LD_PRELOAD: 
-2026-10-04 23:29:48,157 h5bench - INFO - JOBID: 25682516.pbs101
-2026-10-04 23:29:48,158 h5bench - INFO - h5bench [write] - Starting
-2026-10-04 23:29:48,158 h5bench - INFO - h5bench [write] - DIR: payload/container/n1/6ccaa74d-25682516.pbs101/
-2026-10-04 23:29:48,158 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:29:48,160 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n1/6ccaa74d-25682516.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
-2026-10-04 23:30:06,256 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/6ccaa74d-25682516.pbs101)
-2026-10-04 23:30:06,257 h5bench - INFO - Runtime: 18.0986440 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:30:06,257 h5bench - INFO - h5bench [write] - Complete
-2026-10-04 23:30:06,257 h5bench - INFO - JOBID: 25682516.pbs101
-2026-10-04 23:30:06,257 h5bench - INFO - h5bench [read] - Starting
-2026-10-04 23:30:06,258 h5bench - INFO - h5bench [read] - DIR: payload/container/n1/f061f72a-25682516.pbs101/
-2026-10-04 23:30:06,258 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:30:06,259 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/n1/f061f72a-25682516.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
-2026-10-04 23:30:08,919 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/f061f72a-25682516.pbs101)
-2026-10-04 23:30:08,920 h5bench - INFO - Runtime: 2.6618216 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:30:08,920 h5bench - INFO - h5bench [read] - Complete
-2026-10-04 23:30:08,920 h5bench - INFO - Finishing h5bench Suite
+2026-10-05 23:57:10,493 h5bench - INFO - Starting h5bench Suite
+2026-10-05 23:57:10,494 h5bench - WARNING - Base directory already exists: payload/container/n1
+2026-10-05 23:57:10,500 h5bench - INFO - Lustre support detected
+2026-10-05 23:57:10,500 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/n1
+2026-10-05 23:57:10,504 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-05 23:57:10,505 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-05 23:57:10,505 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-05 23:57:10,505 h5bench - INFO - JOBID: 25694909.pbs101
+2026-10-05 23:57:10,505 h5bench - INFO - h5bench [write] - Starting
+2026-10-05 23:57:10,505 h5bench - INFO - h5bench [write] - DIR: payload/container/n1/be983e37-25694909.pbs101/
+2026-10-05 23:57:10,506 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 23:57:10,507 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n1/be983e37-25694909.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
+2026-10-05 23:57:33,150 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/be983e37-25694909.pbs101)
+2026-10-05 23:57:33,151 h5bench - INFO - Runtime: 22.6449602 seconds (elapsed time, includes allocation wait time)
+2026-10-05 23:57:33,151 h5bench - INFO - h5bench [write] - Complete
+2026-10-05 23:57:33,151 h5bench - INFO - JOBID: 25694909.pbs101
+2026-10-05 23:57:33,151 h5bench - INFO - h5bench [read] - Starting
+2026-10-05 23:57:33,151 h5bench - INFO - h5bench [read] - DIR: payload/container/n1/34b205ea-25694909.pbs101/
+2026-10-05 23:57:33,152 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 23:57:33,153 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/n1/34b205ea-25694909.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
+2026-10-05 23:57:37,989 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/34b205ea-25694909.pbs101)
+2026-10-05 23:57:37,990 h5bench - INFO - Runtime: 4.8377213 seconds (elapsed time, includes allocation wait time)
+2026-10-05 23:57:37,990 h5bench - INFO - h5bench [read] - Complete
+2026-10-05 23:57:37,990 h5bench - INFO - Finishing h5bench Suite
 --- Repetition 6/10 ---
 + /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/n1/config_rep6.json
 
-real	0m26.733s
-user	14m4.066s
-sys	21m47.366s
+real	0m32.083s
+user	17m32.858s
+sys	22m57.210s
 + H5BENCH_EXIT=0
 + set +x
-2026-10-04 23:30:13,136 h5bench - INFO - Starting h5bench Suite
-2026-10-04 23:30:13,137 h5bench - WARNING - Base directory already exists: payload/container/n1
-2026-10-04 23:30:13,145 h5bench - INFO - Lustre support detected
-2026-10-04 23:30:13,145 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/n1
-2026-10-04 23:30:13,150 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
-2026-10-04 23:30:13,151 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2026-10-04 23:30:13,151 h5bench - DEBUG - LD_PRELOAD: 
-2026-10-04 23:30:13,151 h5bench - INFO - JOBID: 25682516.pbs101
-2026-10-04 23:30:13,151 h5bench - INFO - h5bench [write] - Starting
-2026-10-04 23:30:13,151 h5bench - INFO - h5bench [write] - DIR: payload/container/n1/2b599861-25682516.pbs101/
-2026-10-04 23:30:13,152 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:30:13,153 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n1/2b599861-25682516.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
-2026-10-04 23:30:33,870 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/2b599861-25682516.pbs101)
-2026-10-04 23:30:33,870 h5bench - INFO - Runtime: 20.7183712 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:30:33,870 h5bench - INFO - h5bench [write] - Complete
-2026-10-04 23:30:33,871 h5bench - INFO - JOBID: 25682516.pbs101
-2026-10-04 23:30:33,871 h5bench - INFO - h5bench [read] - Starting
-2026-10-04 23:30:33,871 h5bench - INFO - h5bench [read] - DIR: payload/container/n1/aec6b6f6-25682516.pbs101/
-2026-10-04 23:30:33,871 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:30:33,873 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/n1/aec6b6f6-25682516.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
-2026-10-04 23:30:39,807 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/aec6b6f6-25682516.pbs101)
-2026-10-04 23:30:39,808 h5bench - INFO - Runtime: 5.9365380 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:30:39,808 h5bench - INFO - h5bench [read] - Complete
-2026-10-04 23:30:39,808 h5bench - INFO - Finishing h5bench Suite
+2026-10-05 23:57:42,336 h5bench - INFO - Starting h5bench Suite
+2026-10-05 23:57:42,337 h5bench - WARNING - Base directory already exists: payload/container/n1
+2026-10-05 23:57:42,344 h5bench - INFO - Lustre support detected
+2026-10-05 23:57:42,345 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/n1
+2026-10-05 23:57:42,349 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-05 23:57:42,349 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-05 23:57:42,350 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-05 23:57:42,350 h5bench - INFO - JOBID: 25694909.pbs101
+2026-10-05 23:57:42,350 h5bench - INFO - h5bench [write] - Starting
+2026-10-05 23:57:42,350 h5bench - INFO - h5bench [write] - DIR: payload/container/n1/1a148af9-25694909.pbs101/
+2026-10-05 23:57:42,350 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 23:57:42,352 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n1/1a148af9-25694909.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
+2026-10-05 23:58:04,391 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/1a148af9-25694909.pbs101)
+2026-10-05 23:58:04,392 h5bench - INFO - Runtime: 22.0413625 seconds (elapsed time, includes allocation wait time)
+2026-10-05 23:58:04,392 h5bench - INFO - h5bench [write] - Complete
+2026-10-05 23:58:04,392 h5bench - INFO - JOBID: 25694909.pbs101
+2026-10-05 23:58:04,392 h5bench - INFO - h5bench [read] - Starting
+2026-10-05 23:58:04,393 h5bench - INFO - h5bench [read] - DIR: payload/container/n1/258cd989-25694909.pbs101/
+2026-10-05 23:58:04,393 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 23:58:04,394 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/n1/258cd989-25694909.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
+2026-10-05 23:58:14,360 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/258cd989-25694909.pbs101)
+2026-10-05 23:58:14,361 h5bench - INFO - Runtime: 9.9675274 seconds (elapsed time, includes allocation wait time)
+2026-10-05 23:58:14,361 h5bench - INFO - h5bench [read] - Complete
+2026-10-05 23:58:14,361 h5bench - INFO - Finishing h5bench Suite
 --- Repetition 7/10 ---
 + /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/n1/config_rep7.json
 
-real	0m25.768s
-user	8m56.106s
-sys	28m54.706s
+real	0m24.209s
+user	4m13.727s
+sys	30m42.739s
 + H5BENCH_EXIT=0
 + set +x
-2026-10-04 23:30:44,585 h5bench - INFO - Starting h5bench Suite
-2026-10-04 23:30:44,586 h5bench - WARNING - Base directory already exists: payload/container/n1
-2026-10-04 23:30:44,593 h5bench - INFO - Lustre support detected
-2026-10-04 23:30:44,593 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/n1
-2026-10-04 23:30:44,598 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
-2026-10-04 23:30:44,598 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2026-10-04 23:30:44,598 h5bench - DEBUG - LD_PRELOAD: 
-2026-10-04 23:30:44,599 h5bench - INFO - JOBID: 25682516.pbs101
-2026-10-04 23:30:44,599 h5bench - INFO - h5bench [write] - Starting
-2026-10-04 23:30:44,599 h5bench - INFO - h5bench [write] - DIR: payload/container/n1/ee439f0d-25682516.pbs101/
-2026-10-04 23:30:44,599 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:30:44,601 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n1/ee439f0d-25682516.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
-2026-10-04 23:31:04,312 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/ee439f0d-25682516.pbs101)
-2026-10-04 23:31:04,313 h5bench - INFO - Runtime: 19.7132440 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:31:04,313 h5bench - INFO - h5bench [write] - Complete
-2026-10-04 23:31:04,313 h5bench - INFO - JOBID: 25682516.pbs101
-2026-10-04 23:31:04,313 h5bench - INFO - h5bench [read] - Starting
-2026-10-04 23:31:04,313 h5bench - INFO - h5bench [read] - DIR: payload/container/n1/ccceec78-25682516.pbs101/
-2026-10-04 23:31:04,314 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:31:04,315 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/n1/ccceec78-25682516.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
-2026-10-04 23:31:10,292 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/ccceec78-25682516.pbs101)
-2026-10-04 23:31:10,293 h5bench - INFO - Runtime: 5.9787946 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:31:10,293 h5bench - INFO - h5bench [read] - Complete
-2026-10-04 23:31:10,293 h5bench - INFO - Finishing h5bench Suite
+2026-10-05 23:58:19,636 h5bench - INFO - Starting h5bench Suite
+2026-10-05 23:58:19,638 h5bench - WARNING - Base directory already exists: payload/container/n1
+2026-10-05 23:58:19,646 h5bench - INFO - Lustre support detected
+2026-10-05 23:58:19,646 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/n1
+2026-10-05 23:58:19,650 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-05 23:58:19,651 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-05 23:58:19,651 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-05 23:58:19,651 h5bench - INFO - JOBID: 25694909.pbs101
+2026-10-05 23:58:19,651 h5bench - INFO - h5bench [write] - Starting
+2026-10-05 23:58:19,651 h5bench - INFO - h5bench [write] - DIR: payload/container/n1/f83c4fdd-25694909.pbs101/
+2026-10-05 23:58:19,652 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 23:58:19,653 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n1/f83c4fdd-25694909.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
+2026-10-05 23:58:39,948 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/f83c4fdd-25694909.pbs101)
+2026-10-05 23:58:39,949 h5bench - INFO - Runtime: 20.2965848 seconds (elapsed time, includes allocation wait time)
+2026-10-05 23:58:39,949 h5bench - INFO - h5bench [write] - Complete
+2026-10-05 23:58:39,949 h5bench - INFO - JOBID: 25694909.pbs101
+2026-10-05 23:58:39,949 h5bench - INFO - h5bench [read] - Starting
+2026-10-05 23:58:39,949 h5bench - INFO - h5bench [read] - DIR: payload/container/n1/bfe9cd5b-25694909.pbs101/
+2026-10-05 23:58:39,950 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 23:58:39,951 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/n1/bfe9cd5b-25694909.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
+2026-10-05 23:58:43,786 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/bfe9cd5b-25694909.pbs101)
+2026-10-05 23:58:43,787 h5bench - INFO - Runtime: 3.8368385 seconds (elapsed time, includes allocation wait time)
+2026-10-05 23:58:43,787 h5bench - INFO - h5bench [read] - Complete
+2026-10-05 23:58:43,787 h5bench - INFO - Finishing h5bench Suite
 --- Repetition 8/10 ---
 + /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/n1/config_rep8.json
 
-real	0m21.475s
-user	3m40.997s
-sys	23m20.644s
+real	0m32.759s
+user	13m4.325s
+sys	27m33.891s
 + H5BENCH_EXIT=0
 + set +x
-2026-10-04 23:31:15,159 h5bench - INFO - Starting h5bench Suite
-2026-10-04 23:31:15,160 h5bench - WARNING - Base directory already exists: payload/container/n1
-2026-10-04 23:31:15,169 h5bench - INFO - Lustre support detected
-2026-10-04 23:31:15,169 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/n1
-2026-10-04 23:31:15,173 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
-2026-10-04 23:31:15,174 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2026-10-04 23:31:15,174 h5bench - DEBUG - LD_PRELOAD: 
-2026-10-04 23:31:15,174 h5bench - INFO - JOBID: 25682516.pbs101
-2026-10-04 23:31:15,174 h5bench - INFO - h5bench [write] - Starting
-2026-10-04 23:31:15,174 h5bench - INFO - h5bench [write] - DIR: payload/container/n1/9f240f07-25682516.pbs101/
-2026-10-04 23:31:15,175 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:31:15,176 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n1/9f240f07-25682516.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
-2026-10-04 23:31:33,687 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/9f240f07-25682516.pbs101)
-2026-10-04 23:31:33,687 h5bench - INFO - Runtime: 18.5122178 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:31:33,688 h5bench - INFO - h5bench [write] - Complete
-2026-10-04 23:31:33,688 h5bench - INFO - JOBID: 25682516.pbs101
-2026-10-04 23:31:33,688 h5bench - INFO - h5bench [read] - Starting
-2026-10-04 23:31:33,688 h5bench - INFO - h5bench [read] - DIR: payload/container/n1/17002953-25682516.pbs101/
-2026-10-04 23:31:33,689 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:31:33,690 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/n1/17002953-25682516.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
-2026-10-04 23:31:36,576 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/17002953-25682516.pbs101)
-2026-10-04 23:31:36,577 h5bench - INFO - Runtime: 2.8880706 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:31:36,577 h5bench - INFO - h5bench [read] - Complete
-2026-10-04 23:31:36,577 h5bench - INFO - Finishing h5bench Suite
+2026-10-05 23:58:48,068 h5bench - INFO - Starting h5bench Suite
+2026-10-05 23:58:48,069 h5bench - WARNING - Base directory already exists: payload/container/n1
+2026-10-05 23:58:48,077 h5bench - INFO - Lustre support detected
+2026-10-05 23:58:48,077 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/n1
+2026-10-05 23:58:48,082 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-05 23:58:48,082 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-05 23:58:48,082 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-05 23:58:48,083 h5bench - INFO - JOBID: 25694909.pbs101
+2026-10-05 23:58:48,083 h5bench - INFO - h5bench [write] - Starting
+2026-10-05 23:58:48,083 h5bench - INFO - h5bench [write] - DIR: payload/container/n1/0e5c35a4-25694909.pbs101/
+2026-10-05 23:58:48,083 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 23:58:48,085 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n1/0e5c35a4-25694909.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
+2026-10-05 23:59:10,864 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/0e5c35a4-25694909.pbs101)
+2026-10-05 23:59:10,865 h5bench - INFO - Runtime: 22.7816958 seconds (elapsed time, includes allocation wait time)
+2026-10-05 23:59:10,865 h5bench - INFO - h5bench [write] - Complete
+2026-10-05 23:59:10,865 h5bench - INFO - JOBID: 25694909.pbs101
+2026-10-05 23:59:10,866 h5bench - INFO - h5bench [read] - Starting
+2026-10-05 23:59:10,866 h5bench - INFO - h5bench [read] - DIR: payload/container/n1/46b42573-25694909.pbs101/
+2026-10-05 23:59:10,866 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 23:59:10,868 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/n1/46b42573-25694909.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
+2026-10-05 23:59:20,766 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/46b42573-25694909.pbs101)
+2026-10-05 23:59:20,767 h5bench - INFO - Runtime: 9.9002869 seconds (elapsed time, includes allocation wait time)
+2026-10-05 23:59:20,767 h5bench - INFO - h5bench [read] - Complete
+2026-10-05 23:59:20,767 h5bench - INFO - Finishing h5bench Suite
 --- Repetition 9/10 ---
 + /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/n1/config_rep9.json
 
-real	0m26.876s
-user	10m20.584s
-sys	29m26.590s
+real	0m33.841s
+user	18m10.482s
+sys	21m31.896s
 + H5BENCH_EXIT=0
 + set +x
-2026-10-04 23:31:41,488 h5bench - INFO - Starting h5bench Suite
-2026-10-04 23:31:41,489 h5bench - WARNING - Base directory already exists: payload/container/n1
-2026-10-04 23:31:41,499 h5bench - INFO - Lustre support detected
-2026-10-04 23:31:41,499 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/n1
-2026-10-04 23:31:41,504 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
-2026-10-04 23:31:41,504 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2026-10-04 23:31:41,504 h5bench - DEBUG - LD_PRELOAD: 
-2026-10-04 23:31:41,504 h5bench - INFO - JOBID: 25682516.pbs101
-2026-10-04 23:31:41,504 h5bench - INFO - h5bench [write] - Starting
-2026-10-04 23:31:41,505 h5bench - INFO - h5bench [write] - DIR: payload/container/n1/c4e23519-25682516.pbs101/
-2026-10-04 23:31:41,505 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:31:41,506 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n1/c4e23519-25682516.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
-2026-10-04 23:32:02,051 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/c4e23519-25682516.pbs101)
-2026-10-04 23:32:02,051 h5bench - INFO - Runtime: 20.5458694 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:32:02,051 h5bench - INFO - h5bench [write] - Complete
-2026-10-04 23:32:02,051 h5bench - INFO - JOBID: 25682516.pbs101
-2026-10-04 23:32:02,052 h5bench - INFO - h5bench [read] - Starting
-2026-10-04 23:32:02,052 h5bench - INFO - h5bench [read] - DIR: payload/container/n1/47bdf8f6-25682516.pbs101/
-2026-10-04 23:32:02,052 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:32:02,075 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/n1/47bdf8f6-25682516.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
-2026-10-04 23:32:08,301 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/47bdf8f6-25682516.pbs101)
-2026-10-04 23:32:08,302 h5bench - INFO - Runtime: 6.2494123 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:32:08,302 h5bench - INFO - h5bench [read] - Complete
-2026-10-04 23:32:08,302 h5bench - INFO - Finishing h5bench Suite
+2026-10-05 23:59:25,292 h5bench - INFO - Starting h5bench Suite
+2026-10-05 23:59:25,293 h5bench - WARNING - Base directory already exists: payload/container/n1
+2026-10-05 23:59:25,302 h5bench - INFO - Lustre support detected
+2026-10-05 23:59:25,302 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/n1
+2026-10-05 23:59:25,307 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-05 23:59:25,307 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-05 23:59:25,307 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-05 23:59:25,308 h5bench - INFO - JOBID: 25694909.pbs101
+2026-10-05 23:59:25,308 h5bench - INFO - h5bench [write] - Starting
+2026-10-05 23:59:25,308 h5bench - INFO - h5bench [write] - DIR: payload/container/n1/9eb313cc-25694909.pbs101/
+2026-10-05 23:59:25,308 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 23:59:25,310 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n1/9eb313cc-25694909.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
+2026-10-05 23:59:47,976 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/9eb313cc-25694909.pbs101)
+2026-10-05 23:59:47,977 h5bench - INFO - Runtime: 22.6682451 seconds (elapsed time, includes allocation wait time)
+2026-10-05 23:59:47,977 h5bench - INFO - h5bench [write] - Complete
+2026-10-05 23:59:47,977 h5bench - INFO - JOBID: 25694909.pbs101
+2026-10-05 23:59:47,977 h5bench - INFO - h5bench [read] - Starting
+2026-10-05 23:59:47,977 h5bench - INFO - h5bench [read] - DIR: payload/container/n1/cb02f996-25694909.pbs101/
+2026-10-05 23:59:47,978 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-05 23:59:47,990 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/n1/cb02f996-25694909.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
+2026-10-05 23:59:59,074 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/cb02f996-25694909.pbs101)
+2026-10-05 23:59:59,075 h5bench - INFO - Runtime: 11.0969396 seconds (elapsed time, includes allocation wait time)
+2026-10-05 23:59:59,075 h5bench - INFO - h5bench [read] - Complete
+2026-10-05 23:59:59,075 h5bench - INFO - Finishing h5bench Suite
 --- Repetition 10/10 ---
 + /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/n1/config_rep10.json
 
-real	0m22.313s
-user	2m31.645s
-sys	36m37.189s
+real	0m23.067s
+user	2m53.631s
+sys	33m28.533s
 + H5BENCH_EXIT=0
 + set +x
-2026-10-04 23:32:12,808 h5bench - INFO - Starting h5bench Suite
-2026-10-04 23:32:12,810 h5bench - WARNING - Base directory already exists: payload/container/n1
-2026-10-04 23:32:12,819 h5bench - INFO - Lustre support detected
-2026-10-04 23:32:12,819 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/n1
-2026-10-04 23:32:12,823 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
-2026-10-04 23:32:12,824 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2026-10-04 23:32:12,824 h5bench - DEBUG - LD_PRELOAD: 
-2026-10-04 23:32:12,824 h5bench - INFO - JOBID: 25682516.pbs101
-2026-10-04 23:32:12,824 h5bench - INFO - h5bench [write] - Starting
-2026-10-04 23:32:12,824 h5bench - INFO - h5bench [write] - DIR: payload/container/n1/9ca32720-25682516.pbs101/
-2026-10-04 23:32:12,825 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:32:12,845 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n1/9ca32720-25682516.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
-2026-10-04 23:32:31,005 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/9ca32720-25682516.pbs101)
-2026-10-04 23:32:31,005 h5bench - INFO - Runtime: 18.1802800 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:32:31,006 h5bench - INFO - h5bench [write] - Complete
-2026-10-04 23:32:31,006 h5bench - INFO - JOBID: 25682516.pbs101
-2026-10-04 23:32:31,006 h5bench - INFO - h5bench [read] - Starting
-2026-10-04 23:32:31,006 h5bench - INFO - h5bench [read] - DIR: payload/container/n1/fa7fbae9-25682516.pbs101/
-2026-10-04 23:32:31,007 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
-2026-10-04 23:32:31,008 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/n1/fa7fbae9-25682516.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
-2026-10-04 23:32:34,959 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/fa7fbae9-25682516.pbs101)
-2026-10-04 23:32:34,959 h5bench - INFO - Runtime: 3.9524043 seconds (elapsed time, includes allocation wait time)
-2026-10-04 23:32:34,959 h5bench - INFO - h5bench [read] - Complete
-2026-10-04 23:32:34,959 h5bench - INFO - Finishing h5bench Suite
+2026-10-06 00:00:03,265 h5bench - INFO - Starting h5bench Suite
+2026-10-06 00:00:03,266 h5bench - WARNING - Base directory already exists: payload/container/n1
+2026-10-06 00:00:03,276 h5bench - INFO - Lustre support detected
+2026-10-06 00:00:03,276 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/n1
+2026-10-06 00:00:03,280 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-06 00:00:03,281 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-06 00:00:03,281 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-06 00:00:03,281 h5bench - INFO - JOBID: 25694909.pbs101
+2026-10-06 00:00:03,281 h5bench - INFO - h5bench [write] - Starting
+2026-10-06 00:00:03,281 h5bench - INFO - h5bench [write] - DIR: payload/container/n1/2a4a952a-25694909.pbs101/
+2026-10-06 00:00:03,282 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-06 00:00:03,283 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n1/2a4a952a-25694909.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
+2026-10-06 00:00:22,554 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/2a4a952a-25694909.pbs101)
+2026-10-06 00:00:22,554 h5bench - INFO - Runtime: 19.2719326 seconds (elapsed time, includes allocation wait time)
+2026-10-06 00:00:22,554 h5bench - INFO - h5bench [write] - Complete
+2026-10-06 00:00:22,554 h5bench - INFO - JOBID: 25694909.pbs101
+2026-10-06 00:00:22,555 h5bench - INFO - h5bench [read] - Starting
+2026-10-06 00:00:22,555 h5bench - INFO - h5bench [read] - DIR: payload/container/n1/1f43c948-25694909.pbs101/
+2026-10-06 00:00:22,555 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-06 00:00:22,556 h5bench - INFO - mpirun -np 128 --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_read payload/container/n1/1f43c948-25694909.pbs101/h5bench.cfg payload/container/n1/h5bench_strong_container_n1.h5
+2026-10-06 00:00:26,274 h5bench - INFO - SUCCESS (all output files are located at payload/container/n1/1f43c948-25694909.pbs101)
+2026-10-06 00:00:26,274 h5bench - INFO - Runtime: 3.7188616 seconds (elapsed time, includes allocation wait time)
+2026-10-06 00:00:26,274 h5bench - INFO - h5bench [read] - Complete
+2026-10-06 00:00:26,275 h5bench - INFO - Finishing h5bench Suite
 === Lustre striping actually applied to payload/container/n1 ===
 payload/container/n1
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
-payload/container/n1/ca45b97c-25682516.pbs101
+payload/container/n1/34b205ea-25694909.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
-payload/container/n1/575934a3-25682516.pbs101
+payload/container/n1/9eb313cc-25694909.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
-payload/container/n1/fa7fbae9-25682516.pbs101
+payload/container/n1/bfe9cd5b-25694909.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
-payload/container/n1/e1b28554-25682516.pbs101
+payload/container/n1/be983e37-25694909.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
-payload/container/n1/aec6b6f6-25682516.pbs101
+payload/container/n1/ed9ba031-25694909.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
-payload/container/n1/c4e23519-25682516.pbs101
+payload/container/n1/46b42573-25694909.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
-payload/container/n1/41fa8918-25682516.pbs101
+payload/container/n1/5d7491ad-25694909.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
-payload/container/n1/47bdf8f6-25682516.pbs101
+payload/container/n1/0e72067a-25694909.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
-payload/container/n1/0d656ba3-25682516.pbs101
+payload/container/n1/f83c4fdd-25694909.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
-payload/container/n1/ee439f0d-25682516.pbs101
+payload/container/n1/258cd989-25694909.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/container/n1/cb02f996-25694909.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
 payload/container/n1/h5bench_strong_container_n1.h5
@@ -371,42 +374,39 @@ lmm_stripe_count:  4
 lmm_stripe_size:   1048576
 lmm_pattern:       raid0
 lmm_layout_gen:    0
-lmm_stripe_offset: 36
+lmm_stripe_offset: 38
 lmm_pool:          disk
 	obdidx		 objid		 objid		 group
-	    36	    1334312573	   0x4f87fe7d	   0xb80000400
-	    39	    1328725171	   0x4f32bcb3	   0xc40000400
-	    16	    1329289516	   0x4f3b592c	   0x680000400
-	    18	    1329038214	   0x4f378386	   0x6c0000400
+	    38	    1331124992	   0x4f575b00	   0xbc0000400
+	    17	    1331622432	   0x4f5ef220	   0x700000400
+	    19	    1331092915	   0x4f56ddb3	   0x740000400
+	    21	    1331356228	   0x4f5ae244	   0x800000400
 
-payload/container/n1/af263778-25682516.pbs101
+payload/container/n1/8cc2da19-25694909.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
-payload/container/n1/17002953-25682516.pbs101
+payload/container/n1/211cf7d8-25694909.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
-payload/container/n1/9ca32720-25682516.pbs101
+payload/container/n1/1f43c948-25694909.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
-payload/container/n1/ccceec78-25682516.pbs101
+payload/container/n1/1a148af9-25694909.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
-payload/container/n1/6bdf3178-25682516.pbs101
+payload/container/n1/9773f373-25694909.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
-payload/container/n1/6ccaa74d-25682516.pbs101
+payload/container/n1/2a4a952a-25694909.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
-payload/container/n1/2b599861-25682516.pbs101
+payload/container/n1/0e5c35a4-25694909.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
-payload/container/n1/9f240f07-25682516.pbs101
+payload/container/n1/d79f6066-25694909.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
-payload/container/n1/c0fe74ce-25682516.pbs101
-stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
-
-payload/container/n1/f061f72a-25682516.pbs101
+payload/container/n1/eece7414-25694909.pbs101
 stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
 
 Completed Successfully! 
