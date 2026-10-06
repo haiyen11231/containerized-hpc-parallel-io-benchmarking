@@ -1,0 +1,102 @@
+#!/bin/bash
+#PBS -N osu_native_pt2pt_intra
+#PBS -l walltime=00:30:00
+#PBS -l place=excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/osu_native_pt2pt_intra.out
+
+# Experiment description: OSU point-to-point latency and bandwidth between two
+# ranks on the SAME node, native. Both ranks share memory, so this measures the
+# intra-node MPI transport (native: UCX shared memory) with no network involved.
+
+cd "$PBS_O_WORKDIR"
+
+# Same native MPI stack as IOR and h5bench, so the three benchmarks are
+# directly comparable. libfabric must be loaded BEFORE openmpi: mpicc/mpirun
+# are dynamically linked against libfabric.so.1 and will not even start
+# without it ("error while loading shared libraries").
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+
+module list
+mpirun --version
+
+OSU_DIR=$HOME/scratch/fyp/native/osu/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt
+
+# Check the required environment variables
+: "${BENCH:?Must pass -v BENCH=<latency|bw> at submission time}"
+: "${REPS:?Must pass -v REPS=<number> at submission time}"
+
+BIN="${OSU_DIR}/osu_${BENCH}"
+[ -x "$BIN" ] || { echo "FATAL: $BIN not found or not executable"; exit 1; }
+
+# pt2pt is a TWO-rank benchmark by definition. The full node is still
+# requested (ncpus=128) with place=excl so no other job shares the hardware --
+# a noisy neighbour would contaminate latency measurements far more than
+# bandwidth ones.
+NP=2
+NODE_COUNT=1
+
+ACTUAL_NODES=$(sort -u "$PBS_NODEFILE" | wc -l)
+if [ "$ACTUAL_NODES" -ne "$NODE_COUNT" ]; then
+    echo "FATAL: Expected $NODE_COUNT node, PBS granted $ACTUAL_NODES."
+    exit 1
+fi
+
+REPORT_DIR="native/${BENCH}"
+mkdir -p "$REPORT_DIR" logs
+
+# --map-by core --bind-to core places rank 0 on core 0 and rank 1 on core 1,
+# deterministically. Intra-node latency depends strongly on where the two
+# ranks land (same core complex vs different socket), so pinning them is what
+# makes the measurement reproducible and the native/container comparison fair.
+MPI_CONFIG=(
+  -np "$NP"
+  --map-by core --bind-to core
+  --mca btl ^openib
+  --mca pml ucx
+  --mca orte_base_help_aggregate 0
+  --mca opal_common_ucx_opal_mem_hooks 1
+  -x UCX_LOG_LEVEL=ERROR
+)
+
+echo "================================================================="
+echo " Native Intra-Node pt2pt: BENCH=$BENCH NP=$NP REPS=$REPS "
+echo " ranks pinned to cores 0 and 1 on a single exclusive node "
+echo "================================================================="
+
+# Record which node and cores were used -- intra-node latency varies with
+# placement, so this belongs in the results, not just the log.
+sort -u "$PBS_NODEFILE" > "${REPORT_DIR}/nodes.txt"
+echo "=== node used ==="; cat "${REPORT_DIR}/nodes.txt"
+
+for REP in $(seq 1 "$REPS"); do
+    echo "--- Repetition ${REP}/${REPS} ---"
+    OUT="${REPORT_DIR}/osu_${BENCH}_rep${REP}.txt"
+
+    set -x
+    mpirun "${MPI_CONFIG[@]}" "$BIN" > "$OUT" 2>&1
+    RC=$?
+    set +x
+
+    if [ "$RC" -ne 0 ]; then
+        echo "FAILED: BENCH=$BENCH rep=$REP (exit $RC)"
+        sed 's/^/    /' "$OUT" | head -20
+        exit "$RC"
+    fi
+
+    # OSU prints a table of "size value". A run that produced no data rows is
+    # a silent failure -- catch it here rather than during analysis.
+    rows=$(grep -cE '^[0-9]' "$OUT")
+    if [ "$rows" -lt 2 ]; then
+        echo "FATAL: $OUT has only $rows data rows -- benchmark produced no table"
+        sed 's/^/    /' "$OUT" | head -20
+        exit 1
+    fi
+    echo "  ok: $rows message sizes recorded"
+done
+
+echo "Completed Successfully! "

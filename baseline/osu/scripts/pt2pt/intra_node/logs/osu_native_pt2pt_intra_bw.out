@@ -1,0 +1,62 @@
+Currently Loaded Modulefiles:
+  1) libfabric/1.11.0.4.125   2) openmpi/4.1.2-hpe
+mpirun (Open MPI) 4.1.2
+
+Report bugs to http://www.open-mpi.org/community/help/
+=================================================================
+ Native Intra-Node pt2pt: BENCH=bw NP=2 REPS=10 
+ ranks pinned to cores 0 and 1 on a single exclusive node 
+=================================================================
+=== node used ===
+x1002c7s1b1n1.hostmgmt2002.cm.asp2a.nscc.sg
+--- Repetition 1/10 ---
++ mpirun -np 2 --map-by core --bind-to core --mca btl '^openib' --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/osu/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw
++ RC=0
++ set +x
+  ok: 23 message sizes recorded
+--- Repetition 2/10 ---
++ mpirun -np 2 --map-by core --bind-to core --mca btl '^openib' --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/osu/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw
++ RC=0
++ set +x
+  ok: 23 message sizes recorded
+--- Repetition 3/10 ---
++ mpirun -np 2 --map-by core --bind-to core --mca btl '^openib' --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/osu/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw
++ RC=0
++ set +x
+  ok: 23 message sizes recorded
+--- Repetition 4/10 ---
++ mpirun -np 2 --map-by core --bind-to core --mca btl '^openib' --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/osu/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw
++ RC=0
++ set +x
+  ok: 23 message sizes recorded
+--- Repetition 5/10 ---
++ mpirun -np 2 --map-by core --bind-to core --mca btl '^openib' --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/osu/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw
++ RC=0
++ set +x
+  ok: 23 message sizes recorded
+--- Repetition 6/10 ---
++ mpirun -np 2 --map-by core --bind-to core --mca btl '^openib' --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/osu/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw
++ RC=0
++ set +x
+  ok: 23 message sizes recorded
+--- Repetition 7/10 ---
++ mpirun -np 2 --map-by core --bind-to core --mca btl '^openib' --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/osu/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw
++ RC=0
++ set +x
+  ok: 23 message sizes recorded
+--- Repetition 8/10 ---
++ mpirun -np 2 --map-by core --bind-to core --mca btl '^openib' --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/osu/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw
++ RC=0
++ set +x
+  ok: 23 message sizes recorded
+--- Repetition 9/10 ---
++ mpirun -np 2 --map-by core --bind-to core --mca btl '^openib' --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/osu/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw
++ RC=0
++ set +x
+  ok: 23 message sizes recorded
+--- Repetition 10/10 ---
++ mpirun -np 2 --map-by core --bind-to core --mca btl '^openib' --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/osu/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw
++ RC=0
++ set +x
+  ok: 23 message sizes recorded
+Completed Successfully! 
