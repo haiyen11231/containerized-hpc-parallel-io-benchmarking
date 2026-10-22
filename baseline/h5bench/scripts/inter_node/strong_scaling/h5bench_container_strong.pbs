@@ -1,0 +1,116 @@
+#!/bin/bash
+#PBS -N h5bench_container_strong
+#PBS -l walltime=02:30:00
+#PBS -l place=scatter:excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/h5bench_container_strong.out
+
+# Experiment description: Run h5bench in an Apptainer container across 1/2/4/8
+# nodes with 64 ranks/node, fixed MEM_PATTERN=CONTIG / FILE_PATTERN=CONTIG,
+# 2D dataset with 10 timesteps and 10 independent runs.
+# Strong scaling: TOTAL problem size is fixed, so per-rank workload shrinks as node count grows.
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+module load apptainer
+
+module list
+mpirun --version
+apptainer --version
+
+H5BENCH_DRIVER=$HOME/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench
+SIF=$HOME/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+CONTAINER_BIN_DIR=/opt/h5bench/install/bin
+TEMPLATE=h5bench_config.json.template
+
+# Check the required environment variables
+: "${NODE_COUNT:?Must pass -v NODE_COUNT=<1|2|4|8> at submission time}"
+
+# Verify PBS granted the requested number of nodes
+ACTUAL_NODES=$(sort -u "$PBS_NODEFILE" | wc -l)
+if [ "$ACTUAL_NODES" -ne "$NODE_COUNT" ]; then
+    echo "FATAL: Expected $NODE_COUNT node(s), PBS granted $ACTUAL_NODES."
+    exit 1
+fi
+
+# STRONG SCALING: TOTAL problem size is FIXED at 80 GB (the 1-node/64-rank
+# baseline, identical to intra_node/write/contig_contig), so DIM_1 halves as
+# node count doubles, keeping ranks * DIM_1 * DIM_2 constant.
+#   1 node (64 ranks): DIM_1=2048, 2 nodes (128): DIM_1=1024,
+#   4 nodes (256): DIM_1=512, 8 nodes (512): DIM_1=256 -- always 80 GB total
+NP=$((NODE_COUNT * 64))
+REPS=10
+DIM_1=$((2048 / NODE_COUNT))
+MPI_CONFIG="-np ${NP} --map-by ppr:64:node --bind-to core --mca pml ucx -x UCX_TLS=^cma --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch ${SIF}"
+STRIPE_COUNT=$((NODE_COUNT * 2))
+
+PAYLOAD_DIR="payload/container/n${NODE_COUNT}"
+REPORT_DIR="container/n${NODE_COUNT}"
+mkdir -p "$PAYLOAD_DIR" "$REPORT_DIR" logs
+
+# Set Lustre striping explicitly for the payload directory
+lfs setstripe -c "$STRIPE_COUNT" -S 1m "$PAYLOAD_DIR"
+echo "=== Verifying Lustre striping layout for $PAYLOAD_DIR (requested count=$STRIPE_COUNT) ==="
+lfs getstripe "$PAYLOAD_DIR"
+
+DATA_FILE_NAME="h5bench_strong_container_n${NODE_COUNT}.h5"
+# Clean up the data file on exit
+trap 'rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"' EXIT
+
+for REP in $(seq 1 "$REPS"); do
+    echo "--- Repetition ${REP}/${REPS} ---"
+
+    # Generate a JSON config file for each repetition with specific params
+    JSON="${REPORT_DIR}/config_rep${REP}.json"
+
+    sed -e "s|@MPI_CONFIG@|${MPI_CONFIG}|" \
+        -e "s|@DIRECTORY@|${PAYLOAD_DIR}|" \
+        -e "s|@DATA_FILE@|${DATA_FILE_NAME}|" \
+        -e "s|@STRIPE_COUNT@|${STRIPE_COUNT}|" \
+        -e "s|@DIM_1@|${DIM_1}|" \
+        -e "s|@CSV_FILE@|write_rep${REP}.csv|" \
+        "$TEMPLATE" > "$JSON"
+
+    python3 -m json.tool "$JSON" > /dev/null \
+        || { echo "FATAL: generated $JSON is not valid JSON"; exit 1; }
+
+    if grep -q '@[A-Z_]*@' "$JSON"; then
+        echo "FATAL: unsubstituted placeholder left in $JSON:"
+        grep -n '@[A-Z_]*@' "$JSON"
+        exit 1
+    fi
+
+    # Clean previous dataset file and flush system buffers
+    rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"
+    sync
+
+    # Run the h5bench driver with the generated JSON config
+    # -p points at the container's binary dir, which exists only inside the .sif
+    DRIVER_LOG="${REPORT_DIR}/driver_rep${REP}.log"
+    set -x
+    time "$H5BENCH_DRIVER" -a -d -p "$CONTAINER_BIN_DIR" "$JSON" > "$DRIVER_LOG" 2>&1
+    H5BENCH_EXIT=$?
+    set +x
+    cat "$DRIVER_LOG"
+
+    if ! grep -Eq "apptainer exec .*${CONTAINER_BIN_DIR}/+h5bench_write" "$DRIVER_LOG"; then
+        echo "FATAL: driver did not invoke the container binary"
+        grep -m1 'mpirun' "$DRIVER_LOG"
+        exit 1
+    fi
+
+    # Check exit status of h5bench driver
+    if [ "$H5BENCH_EXIT" -ne 0 ]; then
+        echo "FAILED: NODES=$NODE_COUNT rep=$REP (h5bench exit $H5BENCH_EXIT)"
+        exit "$H5BENCH_EXIT"
+    fi
+
+    # Brief pause between reps to let I/O buffers drain
+    sleep 5
+done
+
+echo "Completed Successfully! "
