@@ -1,0 +1,100 @@
+#!/bin/bash
+#PBS -N h5bench_container_intra_write_cc
+#PBS -l select=1:ncpus=64:mpiprocs=64:mem=64gb
+#PBS -l walltime=02:30:00
+#PBS -l place=excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/h5bench_container_intra_write_cc.out
+
+# Experiment description: Run h5bench in an Apptainer container on a single
+# node with 64 ranks, fixed MEM_PATTERN=CONTIG / FILE_PATTERN=CONTIG, 2D
+# dataset with 10 timesteps and 10 independent runs. 
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+module load apptainer
+
+module list
+mpirun --version
+apptainer --version
+
+H5BENCH_DRIVER=$HOME/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench
+SIF=$HOME/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+CONTAINER_BIN_DIR=/opt/h5bench/install/bin
+TEMPLATE=h5bench_write_cc.json.template
+
+MPI_CONFIG="-np 64 --map-by ppr:64:node --bind-to core --mca pml ucx -x UCX_TLS=^cma --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch ${SIF}"
+
+COMBO="write_contig_contig"
+REPS=10
+PAYLOAD_DIR="payload/container"
+REPORT_DIR="container"
+mkdir -p "$PAYLOAD_DIR" "$REPORT_DIR" logs
+
+# Set Lustre striping explicitly for the payload directory
+lfs setstripe -c 4 -S 1m "$PAYLOAD_DIR"
+echo "=== Verifying Lustre striping layout for $PAYLOAD_DIR ==="
+lfs getstripe "$PAYLOAD_DIR"
+
+
+DATA_FILE_NAME="h5bench_intra_container_${COMBO}.h5"
+# Clean up the data file on exit
+trap 'rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"' EXIT
+
+for REP in $(seq 1 "$REPS"); do
+    echo "--- Repetition ${REP}/${REPS} ---"
+
+    # Generate a JSON config file for each repetition with specific params
+    JSON="${REPORT_DIR}/config_rep${REP}.json"
+
+    sed -e "s|@MPI_CONFIG@|${MPI_CONFIG}|" \
+        -e "s|@DIRECTORY@|${PAYLOAD_DIR}|" \
+        -e "s|@DATA_FILE@|${DATA_FILE_NAME}|" \
+        -e "s|@CSV_FILE@|write_rep${REP}.csv|" \
+        "$TEMPLATE" > "$JSON"
+
+    python3 -m json.tool "$JSON" > /dev/null \
+        || { echo "FATAL: generated $JSON is not valid JSON"; exit 1; }
+
+    if grep -q '@[A-Z_]*@' "$JSON"; then
+        echo "FATAL: unsubstituted placeholder left in $JSON:"
+        grep -n '@[A-Z_]*@' "$JSON"
+        exit 1
+    fi
+
+    # Clean previous dataset file and flush system buffers
+    rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"
+    sync
+
+    # Run the h5bench driver with the generated JSON config
+    # -p points at the container's binary dir, which exists only inside the .sif
+    DRIVER_LOG="${REPORT_DIR}/driver_rep${REP}.log"
+    set -x
+    time "$H5BENCH_DRIVER" -a -d -p "$CONTAINER_BIN_DIR" "$JSON" > "$DRIVER_LOG" 2>&1
+    H5BENCH_EXIT=$?
+    set +x
+    cat "$DRIVER_LOG"
+
+    # -d makes the driver log the exact mpirun command it ran; assert it used
+    # the container binary and not the native one.
+    if ! grep -Eq "apptainer exec .*${CONTAINER_BIN_DIR}/+h5bench_write" "$DRIVER_LOG"; then
+        echo "FATAL: driver did not invoke the container binary"
+        grep -m1 'mpirun' "$DRIVER_LOG"
+        exit 1
+    fi
+
+    # Check exit status of h5bench driver
+    if [ "$H5BENCH_EXIT" -ne 0 ]; then
+        echo "FAILED: rep=$REP (h5bench exit $H5BENCH_EXIT)"
+        exit "$H5BENCH_EXIT"
+    fi
+
+    # Brief pause between reps to let I/O buffers drain
+    sleep 5
+done
+
+echo "Completed Successfully! "
