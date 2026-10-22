@@ -2,4 +2,4 @@
 # OSU MPI Allreduce Latency Test v8.0rc
 # Datatype: MPI_INT.
 # Size       Avg Latency(us)   Min Latency(us)   Max Latency(us)  Iterations
-131072                851.55            800.48            898.25         100
+131072                838.58            791.51            861.08         100

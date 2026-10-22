@@ -1,0 +1,12 @@
+[1791931283.921624] [x1001c1s1b0n1:4193485:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791931284.478608] [x1002c4s1b0n1:2665845:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791931284.523264] [x1002c4s1b0n1:2665842:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791931284.556746] [x1001c1s1b0n1:4192346:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791931284.599869] [x1002c4s1b0n1:2665818:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791931284.786722] [x1001c1s1b0n1:4193832:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791931284.914935] [x1001c1s1b0n1:4193864:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791931284.917263] [x1001c1s1b0n1:4193873:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791931284.985564] [x1001c1s1b0n1:4193587:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791931284.998748] [x1003c5s4b1n0:1072563:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791931284.998719] [x1001c3s2b1n1:357603:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791931285.009900] [x1002c4s1b0n1:2665817:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma

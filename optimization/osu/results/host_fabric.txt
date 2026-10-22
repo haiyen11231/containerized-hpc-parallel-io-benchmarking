@@ -1,0 +1,36 @@
+--- libfabric providers (Slingshot needs cxi) ---
+verbs:
+    version: 111.0
+ofi_rxm:
+    version: 111.0
+sockets:
+    version: 111.0
+ofi_hook_perf:
+    version: 111.0
+ofi_hook_debug:
+    version: 111.0
+ofi_hook_noop:
+    version: 111.0
+--- UCX transports (want rc/ud/dc, not just tcp) ---
+#      Transport: self
+#         Device: memory
+#      Transport: tcp
+#         Device: bond0
+#      Transport: tcp
+#         Device: hsn0
+#      Transport: tcp
+#         Device: lo
+#      Transport: sysv
+#         Device: memory
+#      Transport: posix
+#         Device: memory
+#      Transport: rc_verbs
+#         Device: mlx5_0:1
+#      Transport: ud_verbs
+#         Device: mlx5_0:1
+#      Transport: cma
+#         Device: memory
+--- hsn0 present? ---
+1
+5: hsn0    inet 10.150.4.247/16 brd 10.150.255.255 scope global noprefixroute hsn0\       valid_lft forever preferred_lft forever
+5: hsn0    inet6 fe80::ff:fe00:4911/64 scope link noprefixroute \       valid_lft forever preferred_lft forever

@@ -1,0 +1,77 @@
+=================================================================
+ Container inter-node Allreduce, UCX + algorithm locked: MODE=weak NODES=8 NP=1024 ALG=6 MSG=65536B REPS=10 
+=================================================================
+=== nodes used (8 distinct) ===
+x1001c0s0b0n0.hostmgmt2001.cm.asp2a.nscc.sg
+x1001c4s4b1n0.hostmgmt2001.cm.asp2a.nscc.sg
+x1001c6s3b0n1.hostmgmt2001.cm.asp2a.nscc.sg
+x1001c6s3b1n1.hostmgmt2001.cm.asp2a.nscc.sg
+x1001c6s5b0n1.hostmgmt2001.cm.asp2a.nscc.sg
+x1001c6s6b0n1.hostmgmt2001.cm.asp2a.nscc.sg
+x1001c6s7b1n0.hostmgmt2001.cm.asp2a.nscc.sg
+x1002c3s1b1n1.hostmgmt2002.cm.asp2a.nscc.sg
+=== transport actually used (UCX_LOG_LEVEL=info, 1 rep) ===
+[1791931185.827084] [x1002c3s1b1n1:1149961:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791931185.831151] [x1002c3s1b1n1:1149959:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791931185.831301] [x1002c3s1b1n1:1149963:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791931185.838963] [x1001c6s7b1n0:2030435:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791931185.845149] [x1001c6s7b1n0:2030431:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791931185.886868] [x1001c6s7b1n0:2030434:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791931185.887617] [x1001c6s7b1n0:2030432:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791931185.890295] [x1001c6s7b1n0:2030427:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791931185.891505] [x1002c3s1b1n1:1149960:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791931185.942349] [x1002c3s1b1n1:1149962:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791931185.942933] [x1002c3s1b1n1:1149958:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791931185.946226] [x1002c3s1b1n1:1149957:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+(null): Forwarding signal 18 to job
+--- Repetition 1/10 ---
++ mpirun -np 1024 --map-by core --bind-to core --mca pml ucx -x 'UCX_TLS=^cma' --mca orte_base_help_aggregate 0 --mca coll_tuned_use_dynamic_rules 1 --mca coll_tuned_allreduce_algorithm 6 -x UCX_LOG_LEVEL=ERROR apptainer exec /home/users/ntu/haiyen00/scratch/fyp/container/osu/osu_micro_benchmarks.sif /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/collective/osu_allreduce -f -i 100 -m 65536:65536
++ RC=0
++ set +x
+  ok: 1 data row(s) recorded
+--- Repetition 2/10 ---
++ mpirun -np 1024 --map-by core --bind-to core --mca pml ucx -x 'UCX_TLS=^cma' --mca orte_base_help_aggregate 0 --mca coll_tuned_use_dynamic_rules 1 --mca coll_tuned_allreduce_algorithm 6 -x UCX_LOG_LEVEL=ERROR apptainer exec /home/users/ntu/haiyen00/scratch/fyp/container/osu/osu_micro_benchmarks.sif /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/collective/osu_allreduce -f -i 100 -m 65536:65536
++ RC=0
++ set +x
+  ok: 1 data row(s) recorded
+--- Repetition 3/10 ---
++ mpirun -np 1024 --map-by core --bind-to core --mca pml ucx -x 'UCX_TLS=^cma' --mca orte_base_help_aggregate 0 --mca coll_tuned_use_dynamic_rules 1 --mca coll_tuned_allreduce_algorithm 6 -x UCX_LOG_LEVEL=ERROR apptainer exec /home/users/ntu/haiyen00/scratch/fyp/container/osu/osu_micro_benchmarks.sif /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/collective/osu_allreduce -f -i 100 -m 65536:65536
++ RC=0
++ set +x
+  ok: 1 data row(s) recorded
+--- Repetition 4/10 ---
++ mpirun -np 1024 --map-by core --bind-to core --mca pml ucx -x 'UCX_TLS=^cma' --mca orte_base_help_aggregate 0 --mca coll_tuned_use_dynamic_rules 1 --mca coll_tuned_allreduce_algorithm 6 -x UCX_LOG_LEVEL=ERROR apptainer exec /home/users/ntu/haiyen00/scratch/fyp/container/osu/osu_micro_benchmarks.sif /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/collective/osu_allreduce -f -i 100 -m 65536:65536
++ RC=0
++ set +x
+  ok: 2 data row(s) recorded
+--- Repetition 5/10 ---
++ mpirun -np 1024 --map-by core --bind-to core --mca pml ucx -x 'UCX_TLS=^cma' --mca orte_base_help_aggregate 0 --mca coll_tuned_use_dynamic_rules 1 --mca coll_tuned_allreduce_algorithm 6 -x UCX_LOG_LEVEL=ERROR apptainer exec /home/users/ntu/haiyen00/scratch/fyp/container/osu/osu_micro_benchmarks.sif /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/collective/osu_allreduce -f -i 100 -m 65536:65536
++ RC=0
++ set +x
+  ok: 1 data row(s) recorded
+--- Repetition 6/10 ---
++ mpirun -np 1024 --map-by core --bind-to core --mca pml ucx -x 'UCX_TLS=^cma' --mca orte_base_help_aggregate 0 --mca coll_tuned_use_dynamic_rules 1 --mca coll_tuned_allreduce_algorithm 6 -x UCX_LOG_LEVEL=ERROR apptainer exec /home/users/ntu/haiyen00/scratch/fyp/container/osu/osu_micro_benchmarks.sif /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/collective/osu_allreduce -f -i 100 -m 65536:65536
++ RC=0
++ set +x
+  ok: 1 data row(s) recorded
+--- Repetition 7/10 ---
++ mpirun -np 1024 --map-by core --bind-to core --mca pml ucx -x 'UCX_TLS=^cma' --mca orte_base_help_aggregate 0 --mca coll_tuned_use_dynamic_rules 1 --mca coll_tuned_allreduce_algorithm 6 -x UCX_LOG_LEVEL=ERROR apptainer exec /home/users/ntu/haiyen00/scratch/fyp/container/osu/osu_micro_benchmarks.sif /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/collective/osu_allreduce -f -i 100 -m 65536:65536
++ RC=0
++ set +x
+  ok: 1 data row(s) recorded
+--- Repetition 8/10 ---
++ mpirun -np 1024 --map-by core --bind-to core --mca pml ucx -x 'UCX_TLS=^cma' --mca orte_base_help_aggregate 0 --mca coll_tuned_use_dynamic_rules 1 --mca coll_tuned_allreduce_algorithm 6 -x UCX_LOG_LEVEL=ERROR apptainer exec /home/users/ntu/haiyen00/scratch/fyp/container/osu/osu_micro_benchmarks.sif /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/collective/osu_allreduce -f -i 100 -m 65536:65536
++ RC=0
++ set +x
+  ok: 1 data row(s) recorded
+--- Repetition 9/10 ---
++ mpirun -np 1024 --map-by core --bind-to core --mca pml ucx -x 'UCX_TLS=^cma' --mca orte_base_help_aggregate 0 --mca coll_tuned_use_dynamic_rules 1 --mca coll_tuned_allreduce_algorithm 6 -x UCX_LOG_LEVEL=ERROR apptainer exec /home/users/ntu/haiyen00/scratch/fyp/container/osu/osu_micro_benchmarks.sif /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/collective/osu_allreduce -f -i 100 -m 65536:65536
++ RC=0
++ set +x
+  ok: 1 data row(s) recorded
+--- Repetition 10/10 ---
++ mpirun -np 1024 --map-by core --bind-to core --mca pml ucx -x 'UCX_TLS=^cma' --mca orte_base_help_aggregate 0 --mca coll_tuned_use_dynamic_rules 1 --mca coll_tuned_allreduce_algorithm 6 -x UCX_LOG_LEVEL=ERROR apptainer exec /home/users/ntu/haiyen00/scratch/fyp/container/osu/osu_micro_benchmarks.sif /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/collective/osu_allreduce -f -i 100 -m 65536:65536
++ RC=0
++ set +x
+  ok: 1 data row(s) recorded
+ Container inter-node Allreduce, UCX + algorithm locked (MODE=weak, NODES=8, ALG=6) Completed Successfully! 

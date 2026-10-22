@@ -1,0 +1,131 @@
+#!/bin/bash
+#PBS -N osu_fabric_feasibility
+#PBS -l select=2:ncpus=1:mpiprocs=1:mem=8gb
+#PBS -l walltime=00:30:00
+#PBS -l place=scatter:excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/osu_fabric_feasibility.out
+
+# STEP 0 for the OSU optimization stage. Run before writing experiment scripts.
+#
+# WHAT THE FIRST ATTEMPT ESTABLISHED (and corrected):
+#
+#   * The container's OpenMPI DOES have `MCA pml: ucx` and `MCA mtl: ofi`
+#     compiled in. An earlier claim that it "has no UCX" was WRONG.
+#   * The fabric is MELLANOX VERBS, not Cray CXI. On a compute node the host
+#     shows UCX transports rc_verbs/ud_verbs on mlx5_0:1, and libfabric
+#     providers verbs/ofi_rxm/sockets -- there is no cxi provider.
+#   * hsn0 is just the IP interface over that NIC. TCP-over-hsn0 is what the
+#     container falls back to; rc_verbs is the RDMA path it should be using.
+#   * The container ALREADY ships libibverbs.so.1, libmlx5.so.1 and libucp.so.0.
+#
+# So the question is not "can we add UCX" but "can the container's UCX reach
+# the mlx5 device". Candidate blockers: a version-mismatched verbs provider
+# plugin, missing UCX transport modules, or no /dev/infiniband visibility.
+#
+# The first attempt died at exit 1 because it bind-mounted /opt/cray
+# unconditionally. Every bind below is guarded.
+
+cd "$PBS_O_WORKDIR"
+mkdir -p logs results
+OUT=results
+
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+module load apptainer
+
+SIF=$HOME/scratch/fyp/container/osu/osu_micro_benchmarks.sif
+COSU=/opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt
+NOSU=$HOME/scratch/fyp/native/osu/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt
+
+# Bind only what exists. A missing path here killed the previous run.
+BINDS=""
+for d in /usr/lib64/libibverbs /usr/lib64/ucx /etc/libibverbs.d /dev/infiniband; do
+    [ -e "$d" ] && BINDS="$BINDS --bind $d:$d"
+done
+echo "guarded binds: ${BINDS:-<none available>}" | tee "$OUT/binds.txt"
+
+echo ""
+echo "################ 1. Can the container see the RDMA device? ################"
+{
+  echo "--- host /dev/infiniband ---"; ls /dev/infiniband 2>&1 | head -5
+  echo "--- container /dev/infiniband (no binds) ---"
+  apptainer exec "$SIF" ls /dev/infiniband 2>&1 | head -5
+  echo "--- container verbs devices (no binds) ---"
+  apptainer exec "$SIF" bash -lc 'ls /sys/class/infiniband 2>&1' | head -5
+} | tee "$OUT/device_visibility.txt"
+
+echo ""
+echo "################ 2. Transport probes ################"
+# A failing arm is a RESULT. Never abort.
+run_arm () {
+    local label="$1"; shift
+    echo "--- $label ---"
+    set +e
+    timeout 150 "$@" > "$OUT/${label}.log" 2>&1
+    local rc=$?
+    set -e
+    local rows; rows=$(grep -cE '^[0-9]' "$OUT/${label}.log" 2>/dev/null); rows=${rows:-0}
+    local lat; lat=$(grep -E '^1[[:space:]]' "$OUT/${label}.log" 2>/dev/null | awk '{print $2}' | head -1)
+    echo "    exit=$rc rows=$rows 1B-latency=${lat:-n/a}  -> $([ "$rc" -eq 0 ] && [ "$rows" -ge 1 ] && echo PASS || echo FAIL)"
+    # NOTE: this guard must not be a bare `[ ] && pipeline`. With `set -e`
+    # active, a grep that finds nothing returns non-zero and kills the whole
+    # script -- which is exactly what truncated the first run after
+    # container_ucx_bound failed, so container_ofi and native_ucx never ran.
+    if [ "$rc" -ne 0 ]; then
+        grep -iE 'error|not available|no components|unable|failed' \
+            "$OUT/${label}.log" 2>/dev/null | head -3 | sed 's/^/      /' || true
+    fi
+    return 0
+}
+
+# today's baseline
+run_arm container_tcp mpirun -np 2 --map-by ppr:1:node \
+  --mca pml ob1 --mca btl tcp,self --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 \
+  apptainer exec "$SIF" "$COSU/osu_latency" -m 1:1024
+
+# PROPOSAL A -- force UCX, container unmodified
+run_arm container_ucx_plain mpirun -np 2 --map-by ppr:1:node \
+  --mca pml ucx -x UCX_LOG_LEVEL=ERROR \
+  apptainer exec "$SIF" "$COSU/osu_latency" -m 1:1024
+
+# PROPOSAL A' -- force UCX and demand an RDMA transport, so a silent TCP
+# fallback shows up as a failure instead of a slow "success"
+run_arm container_ucx_rdma mpirun -np 2 --map-by ppr:1:node \
+  --mca pml ucx -x UCX_TLS=rc_verbs,ud_verbs,sm,self -x UCX_LOG_LEVEL=ERROR \
+  apptainer exec "$SIF" "$COSU/osu_latency" -m 1:1024
+
+# PROPOSAL B -- host fabric stack exposed to the container
+run_arm container_ucx_bound mpirun -np 2 --map-by ppr:1:node \
+  --mca pml ucx -x UCX_TLS=rc_verbs,ud_verbs,sm,self -x UCX_LOG_LEVEL=ERROR \
+  apptainer exec $BINDS "$SIF" "$COSU/osu_latency" -m 1:1024
+
+# PROPOSAL C -- the libfabric/OFI route instead of UCX
+run_arm container_ofi mpirun -np 2 --map-by ppr:1:node \
+  --mca pml cm --mca mtl ofi \
+  apptainer exec $BINDS "$SIF" "$COSU/osu_latency" -m 1:1024
+
+# control
+run_arm native_ucx mpirun -np 2 --map-by ppr:1:node \
+  --mca btl ^openib --mca pml ucx -x UCX_LOG_LEVEL=ERROR \
+  "$NOSU/osu_latency" -m 1:1024
+
+echo ""
+echo "################ 3. SUMMARY ################"
+printf "  %-24s %14s\n" "arm" "1-byte latency"
+for n in container_tcp container_ucx_plain container_ucx_rdma container_ucx_bound container_ofi native_ucx; do
+  f="$OUT/${n}.log"
+  lat=$(grep -E '^1[[:space:]]' "$f" 2>/dev/null | awk '{print $2}' | head -1)
+  printf "  %-24s %14s\n" "$n" "${lat:-FAILED}"
+done
+echo ""
+echo "DECISION:"
+echo "  any container arm near native_ucx (~1.5 us) -> RDMA reached. That flag set"
+echo "     is the optimization; rerun the pt2pt and collective suites with it."
+echo "  container arms all ~13-17 us -> still TCP. UCX loaded but fell back;"
+echo "     check UCX_LOG_LEVEL=info output for which transports it rejected."
+echo "  ucx arms FAIL outright -> no usable device inside the container;"
+echo "     the remaining option is rebuilding the image against the host stack."

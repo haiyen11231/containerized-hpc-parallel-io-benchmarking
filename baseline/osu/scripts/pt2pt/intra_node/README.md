@@ -43,7 +43,7 @@ That is not a workaround detail to hide; it is likely a real part of the measure
 
 **`ncpus` matches `mpiprocs`** — the convention used throughout this project (IOR's 16- and 64-rank jobs do the same). Declare the cores you actually launch on; don't inflate the request.
 
-**Exclusivity comes from `place=excl`, not from a large `ncpus`.** This was verified empirically: a job submitted as `ncpus=2:place=excl` reports `state = job-exclusive` with `jobs = <this job only>`, so no other job shares the hardware. That matters because a noisy neighbour perturbs latency far more than bandwidth — a few microseconds of interference is invisible in an I/O benchmark and fatal in a sub-microsecond latency measurement.
+**Exclusivity comes from `place=excl`, not from a large `ncpus`.** This was verified empirically: a job submitted as `ncpus=2:place=excl` reports `state = job-exclusive` with `jobs = <this job only>`, so no other job shares the hardware. That matters because a noisy neighbor perturbs latency far more than bandwidth — a few microseconds of interference is invisible in an I/O benchmark and fatal in a sub-microsecond latency measurement.
 
 **Why not request 128 anyway?** Because it costs scheduling time for nothing. The same probe measured a `ncpus=2` job starting **16 seconds** after submission while an otherwise identical `ncpus=128` job was still queued many minutes later — qdev's 256-ncpu cap is cluster-wide, so a 128-core request takes half of it. PBS confines the job to an `ncpus`-sized cpuset either way (`cpuset.cpus = 0-1,128-129` for `ncpus=2`), and since OpenMPI pins the two ranks to cores 0 and 1 regardless, the measurement is unchanged.
 

@@ -1,0 +1,4 @@
+[1791884084.424572] [x1003c2s5b0n1:251926:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 cma/memory rc_mlx5/mlx5_0:1); 
+[1791884084.424597] [x1003c2s5b0n1:251927:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 cma/memory rc_mlx5/mlx5_0:1); 
+[1791884084.435713] [x1003c2s5b0n1:251926:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory cma/memory rc_mlx5/mlx5_0:1); 
+[1791884084.435746] [x1003c2s5b0n1:251927:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory cma/memory rc_mlx5/mlx5_0:1); 

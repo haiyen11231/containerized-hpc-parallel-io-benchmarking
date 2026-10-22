@@ -1,0 +1,34 @@
+=================================================================
+ OPTIMIZED (UCX) container intra-node pt2pt: BENCH=bw REPS=10 
+=================================================================
+x1003c2s5b0n1.hostmgmt2003.cm.asp2a.nscc.sg
+=== transport actually used (UCX_LOG_LEVEL=info, 1 rep) ===
+[1791884099.175374] [x1003c2s5b0n1:252388:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 cma/memory rc_mlx5/mlx5_0:1); 
+[1791884099.175464] [x1003c2s5b0n1:252389:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 cma/memory rc_mlx5/mlx5_0:1); 
+[1791884099.186389] [x1003c2s5b0n1:252388:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory cma/memory rc_mlx5/mlx5_0:1); 
+[1791884099.186385] [x1003c2s5b0n1:252389:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory cma/memory rc_mlx5/mlx5_0:1); 
+--- Repetition 1/10 ---
++ mpirun -np 2 --map-by core --bind-to core --mca pml ucx --mca orte_base_help_aggregate 0 -x UCX_LOG_LEVEL=ERROR apptainer exec /home/users/ntu/haiyen00/scratch/fyp/container/osu/osu_micro_benchmarks.sif /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw
++ RC=134
++ set +x
+FAILED: BENCH=bw rep=1 (exit 134)
+    
+    # OSU MPI Bandwidth Test v8.0rc
+    # Datatype: MPI_CHAR.
+    # Size      Bandwidth (MB/s)
+    1                      17.68
+    2                      29.87
+    4                      59.49
+    8                     116.35
+    16                    221.16
+    32                    567.43
+    64                    989.63
+    128                  1250.44
+    256                  2435.23
+    512                  4474.73
+    1024                 7233.38
+    2048                11123.03
+    4096                15653.83
+    8192                18774.50
+    [x1003c2s5b0n1:252503:0:252503]      cma_ep.c:81   process_vm_readv(pid=252504 {0x14a55b0ef000,8192}-->{0x14deac27d000,8192}) returned -1: Operation not permitted
+    ==== backtrace (tid: 252503) ====

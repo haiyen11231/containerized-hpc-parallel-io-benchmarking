@@ -1,0 +1,6 @@
+2026/10/14 06:40:33 client connect timeout: rpc error: code = DeadlineExceeded desc = received context error while waiting for new LB policy update: context deadline exceeded
+
+# OSU MPI Allreduce Latency Test v8.0rc
+# Datatype: MPI_INT.
+# Size       Avg Latency(us)   Min Latency(us)   Max Latency(us)  Iterations
+65536                 168.11            161.76            176.94         100

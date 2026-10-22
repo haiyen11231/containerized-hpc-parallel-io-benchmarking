@@ -1,0 +1,11 @@
+arm:                  container_rpn64
+ranks_per_node:       64
+total_ranks:          256
+predicted_conns_node: 16320
+ports_available:      28232
+over_subscription:    0.58x
+exit_code:            0
+port_errors:          0
+0
+data_rows:            1
+verdict:              PASS

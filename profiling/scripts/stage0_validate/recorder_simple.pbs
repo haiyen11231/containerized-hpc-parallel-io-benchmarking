@@ -1,0 +1,116 @@
+#!/bin/bash
+#PBS -N recorder_simple
+#PBS -l select=1:ncpus=4:mpiprocs=4:mem=8gb
+#PBS -l walltime=00:20:00
+#PBS -l place=excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/recorder_simple.out
+
+# Simple Recorder profiling run: 4 ranks, one small IOR write, on LUSTRE.
+#
+# Recorder differs from Darshan in what it produces, and that difference is the
+# whole reason to have both:
+#
+#   Darshan   per-job AGGREGATES  -- "128 writes totalling 128 MiB, 0.36 s"
+#   Recorder  a full CALL TRACE   -- every call, in order, with timestamps
+#
+# Recorder's traces are therefore much larger and only worth collecting once a
+# specific question needs the sequence rather than the totals. This job keeps
+# the run tiny (-i 1) precisely because a trace of a big run is unwieldy.
+#
+# MPI-IO is traced here (RECORDER_MPIIO_TRACING=1) because the question Recorder
+# is held in reserve for is H3: whether MPI-IO collective aggregation behaves
+# differently inside the container.
+
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+
+RI=$HOME/scratch/fyp/native/recorder/Recorder/install
+RECORDER_LIB=$RI/lib/librecorder.so
+IOR=$HOME/scratch/fyp/native/ior/ior-4.0.0/src/ior
+
+WORK=$HOME/scratch/fyp/profiling/payload          # ~/scratch = Lustre
+TRACEBASE=$HOME/scratch/fyp/profiling/recorder-traces/$PBS_JOBID
+OUT=results
+mkdir -p "$WORK" "$TRACEBASE" "$OUT" logs
+
+echo "=== pre-flight ==="
+[ -r "$RECORDER_LIB" ] || { echo "FATAL: $RECORDER_LIB not readable"; exit 1; }
+[ -x "$IOR" ]          || { echo "FATAL: $IOR not found"; exit 1; }
+echo "  recorder lib: $RECORDER_LIB"
+echo "  linked MPI  : $(ldd "$RECORDER_LIB" 2>/dev/null | grep -oE 'libmpi[^ ]*\.so[^ ]*' | head -1)"
+echo "  (want libmpi.so.40 = OpenMPI, NOT libmpi_cray.so.12)"
+echo "  tools       : $(ls "$RI/bin" 2>/dev/null | tr '\n' ' ')"
+
+lfs setstripe -c 4 -S 1m "$WORK" 2>/dev/null
+
+# Recorder writes its traces into the CURRENT WORKING DIRECTORY, so run from a
+# dedicated empty dir rather than letting it scatter files into the job dir.
+cd "$TRACEBASE"
+
+echo ""
+echo "=== run (traces land in $TRACEBASE) ==="
+set +e
+mpirun -np 4 \
+  -x LD_PRELOAD="$RECORDER_LIB" \
+  -x RECORDER_MPI_TRACING=1 \
+  -x RECORDER_MPIIO_TRACING=1 \
+  -x RECORDER_DEBUG_LEVEL=0 \
+  --mca btl ^openib --mca pml ucx -x UCX_LOG_LEVEL=ERROR \
+  "$IOR" -a MPIIO -t 1m -b 16m -e -i 1 -o "$WORK/recorder_simple_testfile" \
+  > "$PBS_O_WORKDIR/$OUT/ior.log" 2>&1
+RC=$?
+set -e
+cd "$PBS_O_WORKDIR"
+echo "  ior exit: $RC"
+[ "$RC" -ne 0 ] && { echo "  --- ior output ---"; tail -15 "$OUT/ior.log" | sed 's/^/    /'; }
+
+echo ""
+echo "=== what did Recorder produce? ==="
+find "$TRACEBASE" -maxdepth 2 | head -15 | sed 's/^/  /'
+TRACEDIR=$(find "$TRACEBASE" -maxdepth 2 -type d -name '*recorder*' 2>/dev/null | head -1)
+[ -z "$TRACEDIR" ] && TRACEDIR="$TRACEBASE"
+echo "  trace dir: $TRACEDIR"
+echo "  size:      $(du -sh "$TRACEBASE" 2>/dev/null | awk '{print $1}')"
+
+if [ -z "$(find "$TRACEBASE" -type f 2>/dev/null | head -1)" ]; then
+    echo "  NO TRACE FILES -- Recorder did not write anything."
+    echo "  Most likely: LD_PRELOAD did not reach the ranks."
+    exit 1
+fi
+
+echo ""
+echo "=== human-readable summary ==="
+"$RI/bin/recorder-summary" "$TRACEDIR" > "$OUT/recorder_summary.txt" 2>&1
+echo "  recorder-summary exit: $?"
+head -25 "$OUT/recorder_summary.txt" 2>/dev/null | sed 's/^/  /'
+
+echo ""
+echo "=== convert the trace to text (this is the call sequence) ==="
+"$RI/bin/recorder2text" "$TRACEDIR" > "$OUT/recorder2text.log" 2>&1
+echo "  recorder2text exit: $?"
+TEXTDIR=$(find "$TRACEBASE" -maxdepth 3 -type d -name '*text*' 2>/dev/null | head -1)
+if [ -n "$TEXTDIR" ]; then
+    echo "  text output: $TEXTDIR"
+    f=$(find "$TEXTDIR" -type f 2>/dev/null | head -1)
+    echo "  --- first 20 calls from $(basename "$f") ---"
+    head -20 "$f" 2>/dev/null | sed 's/^/    /'
+else
+    tail -10 "$OUT/recorder2text.log" 2>/dev/null | sed 's/^/    /'
+fi
+
+echo ""
+echo "=== MPI-IO calls captured? (this is what H3 needs) ==="
+if [ -n "$TEXTDIR" ]; then
+    grep -rhoE 'MPI_File_[a-z_]+' "$TEXTDIR" 2>/dev/null | sort | uniq -c | sort -rn | head -10 | sed 's/^/  /'
+fi
+
+echo ""
+echo "================================================================="
+[ "$RC" -eq 0 ] && echo " RECORDER RUN OK" || echo " SOMETHING FAILED -- see above"
+echo "================================================================="

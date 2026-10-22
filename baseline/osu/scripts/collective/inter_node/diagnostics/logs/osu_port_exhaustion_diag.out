@@ -1,0 +1,64 @@
+ephemeral_port_range: 32768	60999
+ports_available:      28232
+tcp_tw_reuse:         2
+nodes:                4
+
+=================================================================
+ ARM: container_rpn128
+   ranks/node=128  total ranks=512
+   predicted outbound TCP conns per node: 65408  (ports: 28232)
+=================================================================
+arm:                  container_rpn128
+ranks_per_node:       128
+total_ranks:          512
+predicted_conns_node: 65408
+ports_available:      28232
+over_subscription:    2.32x
+exit_code:            16
+port_errors:          512
+data_rows:            0
+0
+verdict:              FAIL
+
+=================================================================
+ ARM: container_rpn64
+   ranks/node=64  total ranks=256
+   predicted outbound TCP conns per node: 16320  (ports: 28232)
+=================================================================
+arm:                  container_rpn64
+ranks_per_node:       64
+total_ranks:          256
+predicted_conns_node: 16320
+ports_available:      28232
+over_subscription:    0.58x
+exit_code:            0
+port_errors:          0
+0
+data_rows:            1
+verdict:              PASS
+
+=================================================================
+ ARM: native_rpn128
+   ranks/node=128  total ranks=512
+   predicted outbound TCP conns per node: 65408  (ports: 28232)
+=================================================================
+arm:                  native_rpn128
+ranks_per_node:       128
+total_ranks:          512
+predicted_conns_node: 65408
+ports_available:      28232
+over_subscription:    2.32x
+exit_code:            0
+port_errors:          0
+0
+data_rows:            1
+verdict:              PASS
+
+=================================================================
+ DIAGNOSTIC SUMMARY 
+=================================================================
+container_rpn128.summary:verdict:              FAIL
+container_rpn64.summary:verdict:              PASS
+native_rpn128.summary:verdict:              PASS
+
+Hypothesis confirmed if: container_rpn128=FAIL, container_rpn64=PASS, native_rpn128=PASS

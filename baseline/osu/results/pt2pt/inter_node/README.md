@@ -67,8 +67,8 @@ This directly confirms **leading hypothesis #1** from the research plan: the con
 
 It also sets up the contrast with the I/O benchmarks. h5bench found **no measurable container write penalty**, because bulk data transfer to Lustre dominates and dilutes the transport difference. Here, with nothing but transport, the same underlying defect costs 2–12×. Those results are not in conflict — together they say *the container's MPI stack is badly handicapped, but most I/O workloads are not transport-bound enough to expose it.*
 
-That framing is what makes **Phase 3's bind-mount optimisation** worth doing and worth measuring: this study gives the upper bound on how much it could recover.
+That framing is what makes **Phase 3's bind-mount optimization** worth doing and worth measuring: this study gives the upper bound on how much it could recover.
 
 ## 6. Compare with intra-node
 
-Intra-node ([`../intra_node/README.md`](../intra_node/README.md)) removes the network entirely, and the container penalty collapses from 2–12× to 1.0–1.9× — reversing sign at large messages. The network path, not containerisation as such, is where the damage is.
+Intra-node ([`../intra_node/README.md`](../intra_node/README.md)) removes the network entirely, and the container penalty collapses from 2–12× to 1.0–1.9× — reversing sign at large messages. The network path, not containerization as such, is where the damage is.

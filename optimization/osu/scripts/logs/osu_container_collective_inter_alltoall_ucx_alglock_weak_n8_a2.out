@@ -1,0 +1,60 @@
+=================================================================
+ Container inter-node Alltoall, UCX + algorithm locked: MODE=weak NODES=8 NP=1024 ALG=2 MSG=65536B REPS=10 
+=================================================================
+=== nodes used (8 distinct) ===
+x1001c1s1b0n1.hostmgmt2001.cm.asp2a.nscc.sg
+x1001c3s2b1n1.hostmgmt2001.cm.asp2a.nscc.sg
+x1002c3s1b1n1.hostmgmt2002.cm.asp2a.nscc.sg
+x1002c4s1b0n1.hostmgmt2002.cm.asp2a.nscc.sg
+x1002c4s7b0n0.hostmgmt2002.cm.asp2a.nscc.sg
+x1002c6s6b0n1.hostmgmt2002.cm.asp2a.nscc.sg
+x1002c7s4b1n0.hostmgmt2002.cm.asp2a.nscc.sg
+x1003c1s1b1n0.hostmgmt2003.cm.asp2a.nscc.sg
+=== transport actually used (UCX_LOG_LEVEL=info, 1 rep) ===
+2026/10/14 06:49:45 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+2026/10/14 06:49:45 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+2026/10/14 06:49:45 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+2026/10/14 06:49:45 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+2026/10/14 06:49:45 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+2026/10/14 06:49:45 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+2026/10/14 06:49:45 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+2026/10/14 06:49:45 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+2026/10/14 06:49:45 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+2026/10/14 06:49:45 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+2026/10/14 06:49:45 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+2026/10/14 06:49:45 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+--- Repetition 1/10 ---
++ mpirun -np 1024 --map-by core --bind-to core --mca pml ucx -x 'UCX_TLS=^cma' --mca orte_base_help_aggregate 0 --mca coll_tuned_use_dynamic_rules 1 --mca coll_tuned_alltoall_algorithm 2 -x UCX_LOG_LEVEL=ERROR apptainer exec /home/users/ntu/haiyen00/scratch/fyp/container/osu/osu_micro_benchmarks.sif /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/collective/osu_alltoall -f -i 100 -m 65536:65536
++ RC=1
++ set +x
+FAILED: MODE=weak NODES=8 ALG=2 rep=1 (exit 1)
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"
+    2026/10/14 06:49:56 client connect timeout: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp 172.23.1.12:50051: connect: cannot assign requested address"

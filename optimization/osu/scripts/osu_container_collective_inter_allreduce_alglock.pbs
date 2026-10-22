@@ -1,0 +1,142 @@
+#!/bin/bash
+#PBS -N osu_container_collective_inter_allreduce_alglock
+#PBS -l walltime=02:30:00
+#PBS -l place=scatter:excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/osu_container_collective_inter_allreduce_alglock.out
+
+# Isolates the collective-ALGORITHM variable from the transport variable.
+# Network transport is UNCHANGED from the baseline container inter-node
+# collective script (vader,tcp,self + hsn0 pins) -- this script does NOT test
+# UCX/RDMA. The only addition is forcing a single Allreduce algorithm via
+# OpenMPI's coll_tuned component instead of letting it dynamically switch
+# algorithms by rank count, the same intervention already being tested
+# intra-node in osu_native_allreduce_algorithm_lock_diag.pbs.
+#
+#   baseline this script starts from : --mca btl vader,tcp,self
+#                                       --mca btl_vader_single_copy_mechanism none
+#                                       --mca btl_tcp_if_include hsn0
+#                                       --mca oob_tcp_if_include hsn0
+#   addition under test               : --mca coll_tuned_use_dynamic_rules 1
+#                                        --mca coll_tuned_allreduce_algorithm <ALG>
+#
+# ALG=0 is NOT run here -- it would just reproduce the already-collected
+# baseline inter-node Allreduce data (same transport, same message sizes),
+# which already exists in baseline/osu/results/collective/inter_node/.
+
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+module load apptainer
+
+SIF=$HOME/scratch/fyp/container/osu/osu_micro_benchmarks.sif
+OSU_DIR=/opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/collective
+
+: "${MODE:?Must pass -v MODE=<weak|strong>}"
+: "${NODES:?Must pass -v NODES=<node count>}"
+: "${ALG:?Must pass -v ALG=<3|6|...>}"
+: "${REPS:?Must pass -v REPS=<number>}"
+
+BIN="${OSU_DIR}/osu_allreduce"
+apptainer exec "$SIF" sh -c "test -x $BIN" \
+    || { echo "FATAL: $BIN not found inside $SIF"; exit 1; }
+
+RANKS_PER_NODE=128
+NP=$(( NODES * RANKS_PER_NODE ))
+
+ACTUAL_NODES=$(sort -u "$PBS_NODEFILE" | wc -l)
+if [ "$ACTUAL_NODES" -ne "$NODES" ]; then
+    echo "FATAL: Expected $NODES distinct nodes, PBS granted $ACTUAL_NODES."
+    exit 1
+fi
+
+SLOTS=$(wc -l < "$PBS_NODEFILE")
+if [ "$SLOTS" -ne "$NP" ]; then
+    echo "FATAL: PBS_NODEFILE has $SLOTS slots but NODES=$NODES implies NP=$NP."
+    exit 1
+fi
+
+UNEVEN=$(awk '{c[$1]++} END {for (h in c) if (c[h] != 128) print h, c[h]}' "$PBS_NODEFILE")
+if [ -n "$UNEVEN" ]; then
+    echo "FATAL: uneven ranks per node (expected $RANKS_PER_NODE):"
+    echo "$UNEVEN"
+    exit 1
+fi
+
+case "$MODE" in
+  weak)
+    MSG=65536
+    ;;
+  strong)
+    TOTAL=8388608
+    if [ $(( TOTAL % NP )) -ne 0 ]; then
+        echo "FATAL: TOTAL=$TOTAL is not divisible by NP=$NP -- per-rank size would be truncated"
+        exit 1
+    fi
+    MSG=$(( TOTAL / NP ))
+    ;;
+  *) echo "FATAL: unknown MODE='$MODE' (expected weak|strong)"; exit 1 ;;
+esac
+
+REPORT_DIR="collective_alglock/${MODE}/alg${ALG}/n${NODES}"
+mkdir -p "$REPORT_DIR" logs
+
+BENCH_ARGS=(-f -i 100 -m "${MSG}:${MSG}")
+
+# Baseline transport, unchanged -- plus the forced algorithm.
+MPI_CONFIG=(
+  -np "$NP"
+  --map-by core --bind-to core
+  --mca btl vader,tcp,self
+  --mca btl_vader_single_copy_mechanism none
+  --mca btl_tcp_if_include hsn0
+  --mca oob_tcp_if_include hsn0
+  --mca orte_base_help_aggregate 0
+  --mca opal_common_ucx_opal_mem_hooks 1
+  --mca coll_tuned_use_dynamic_rules 1
+  --mca coll_tuned_allreduce_algorithm "$ALG"
+  -x UCX_LOG_LEVEL=ERROR
+)
+
+echo "================================================================="
+echo " Container inter-node Allreduce, algorithm locked: MODE=$MODE NODES=$NODES NP=$NP ALG=$ALG MSG=${MSG}B REPS=$REPS "
+echo "================================================================="
+
+sort -u "$PBS_NODEFILE" > "${REPORT_DIR}/nodes.txt"
+echo "=== nodes used ($ACTUAL_NODES distinct) ==="; cat "${REPORT_DIR}/nodes.txt"
+echo "$MSG" > "${REPORT_DIR}/msgsize_bytes.txt"
+echo "$NP"  > "${REPORT_DIR}/ranks.txt"
+echo "$ALG" > "${REPORT_DIR}/algorithm.txt"
+
+mpirun "${MPI_CONFIG[@]}" --report-bindings true \
+    > "${REPORT_DIR}/bindings.txt" 2>&1 || echo "  (binding capture failed, non-fatal)"
+
+for REP in $(seq 1 "$REPS"); do
+    echo "--- Repetition ${REP}/${REPS} ---"
+    OUT="${REPORT_DIR}/osu_allreduce_rep${REP}.txt"
+
+    set -x
+    mpirun "${MPI_CONFIG[@]}" apptainer exec "$SIF" "$BIN" "${BENCH_ARGS[@]}" > "$OUT" 2>&1
+    RC=$?
+    set +x
+
+    if [ "$RC" -ne 0 ]; then
+        echo "FAILED: MODE=$MODE NODES=$NODES ALG=$ALG rep=$REP (exit $RC)"
+        sed 's/^/    /' "$OUT" | head -20
+        exit "$RC"
+    fi
+
+    rows=$(grep -cE '^[0-9]' "$OUT")
+    if [ "$rows" -lt 1 ]; then
+        echo "FATAL: $OUT has no data rows -- benchmark produced no table"
+        sed 's/^/    /' "$OUT" | head -20
+        exit 1
+    fi
+    echo "  ok: $rows data row(s) recorded"
+done
+
+echo " Container inter-node Allreduce, algorithm locked (MODE=$MODE, NODES=$NODES, ALG=$ALG) Completed Successfully! "

@@ -1,0 +1,83 @@
+#!/bin/bash
+#PBS -N darshan_simple
+#PBS -l select=1:ncpus=4:mpiprocs=4:mem=8gb
+#PBS -l walltime=00:15:00
+#PBS -l place=excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/darshan_simple.out
+
+# Simple Darshan profiling run: 4 ranks, one small IOR write, on LUSTRE.
+#
+# Two things this gets right that the first smoke test did not:
+#   1. writes to ~/scratch (Lustre), not $HOME (GPFS). Every baseline number
+#      was measured on Lustre, so profiling anywhere else would not correspond.
+#   2. uses YOUR Darshan build, not the module's. The module's libdarshan.so is
+#      linked against cray-mpich; these jobs run OpenMPI. The module is loaded
+#      only for darshan-parser, which does not care which MPI wrote the log.
+
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+module load darshan/3.4.6          # darshan-parser ONLY
+
+DARSHAN_LIB=$HOME/scratch/fyp/native/darshan/darshan/install/lib/libdarshan.so
+IOR=$HOME/scratch/fyp/native/ior/ior-4.0.0/src/ior
+
+WORK=$HOME/scratch/fyp/profiling/payload          # ~/scratch = Lustre
+LOGDIR=$HOME/scratch/fyp/profiling/darshan-logs
+OUT=results
+mkdir -p "$WORK" "$LOGDIR" "$OUT" logs
+
+DLOG=$LOGDIR/simple_$PBS_JOBID.darshan
+rm -f "$DLOG"
+
+# Pin striping so this matches the baseline's conditions, and prove it was applied.
+lfs setstripe -c 4 -S 1m "$WORK" 2>/dev/null
+echo "=== striping on the payload dir ==="
+lfs getstripe "$WORK" 2>/dev/null | head -5 | sed 's/^/  /'
+
+echo ""
+echo "=== run ==="
+set +e
+mpirun -np 4 \
+  -x LD_PRELOAD="$DARSHAN_LIB" \
+  -x DARSHAN_LOGFILE="$DLOG" \
+  --mca btl ^openib --mca pml ucx -x UCX_LOG_LEVEL=ERROR \
+  "$IOR" -a POSIX -t 1m -b 32m -e -i 3 -o "$WORK/darshan_simple_testfile" \
+  > "$OUT/ior.log" 2>&1
+RC=$?
+set -e
+echo "  ior exit: $RC"
+grep -E '^(write|read)' "$OUT/ior.log" 2>/dev/null | tail -4 | sed 's/^/  /'
+
+echo ""
+echo "=== parse ==="
+[ -s "$DLOG" ] || { echo "  FATAL: no darshan log written"; exit 1; }
+darshan-parser "$DLOG" > "$OUT/simple.parsed" 2>/dev/null || { echo "  FATAL: parser failed"; exit 1; }
+echo "  log: $(ls -lh "$DLOG" | awk '{print $5}')   parsed lines: $(wc -l < "$OUT/simple.parsed")"
+
+# Counter lines start with "POSIX<TAB>", not "POSIX_". Matching on the field is
+# what makes these greps reliable.
+show () { echo "  --- $1 ---"; grep -P "\t$2" "$OUT/simple.parsed" 2>/dev/null | awk -F'\t' '{printf "    %-26s %s\n", $4, $5}' | head -8; }
+
+echo ""
+echo "=== H1: where did the time go? ==="
+show "time breakdown" 'POSIX_F_(WRITE|READ|META)_TIME'
+
+echo ""
+echo "=== H2: what calls were issued? ==="
+show "call counts" 'POSIX_(OPENS|WRITES|READS|SEEKS)\b'
+show "alignment"   'POSIX_(FILE|MEM)_ALIGNMENT'
+
+echo ""
+echo "=== filesystem Darshan saw (must say lustre) ==="
+grep -P '\tPOSIX_OPENS' "$OUT/simple.parsed" 2>/dev/null | awk -F'\t' '{print "    mount:", $6, " type:", $7}' | head -3
+
+echo ""
+echo "================================================================="
+[ "$RC" -eq 0 ] && [ -s "$DLOG" ] && echo " DARSHAN RUN OK" || echo " SOMETHING FAILED -- see above"
+echo "================================================================="

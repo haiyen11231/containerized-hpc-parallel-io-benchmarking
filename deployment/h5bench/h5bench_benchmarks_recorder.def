@@ -1,0 +1,137 @@
+Bootstrap: docker
+From: ubuntu:22.04
+
+# Separate image from h5bench_benchmarks.def, built specifically for the
+# Recorder profiling work (profiling/h5bench/GUIDE.md, H7). It is NOT a
+# drop-in replacement for the baseline image -- every baseline/optimization
+# h5bench result in this project was produced by h5bench_benchmarks.def, and
+# that file is deliberately left untouched so those results stay reproducible
+# against the exact image that generated them. This image adds Recorder on
+# top of an otherwise identical h5bench build.
+
+%post
+    # Install build tools, OpenMPI, Parallel HDF5, python3 (required by CMake),
+    # and zlib dev headers (Recorder's lib/CMakeLists.txt has find_package(ZLIB
+    # REQUIRED) -- the runtime .so is already pulled in transitively, but the
+    # dev package with zlib.h is not, and the build fails without it).
+    apt-get update
+    apt-get install -y build-essential cmake git openmpi-bin libopenmpi-dev libhdf5-openmpi-dev python3 zlib1g-dev
+
+    # Find HDF5 header and library file that libhdf5-openmpi-dev places inside Ubuntu
+    HDF5_HEADER=$(dpkg -L libhdf5-openmpi-dev | grep -m1 'hdf5\.h$')
+    HDF5_LIBSO=$(dpkg -L libhdf5-openmpi-dev | grep -m1 'libhdf5\.so$')
+    HDF5_INCLUDE_DIR=$(dirname "$HDF5_HEADER")
+    HDF5_LIB_DIR=$(dirname "$HDF5_LIBSO")
+    echo "Resolved HDF5 include dir: $HDF5_INCLUDE_DIR"
+    echo "Resolved HDF5 lib dir:     $HDF5_LIB_DIR"
+
+    export CPATH="$HDF5_INCLUDE_DIR:$CPATH"
+    export LIBRARY_PATH="$HDF5_LIB_DIR:$LIBRARY_PATH"
+    export LD_LIBRARY_PATH="$HDF5_LIB_DIR:$LD_LIBRARY_PATH"
+
+    # Clone h5bench with submodules into /opt -- identical to the baseline image
+    cd /opt
+    git clone --recurse-submodules https://github.com/hpc-io/h5bench
+    cd h5bench
+
+    mkdir -p build && cd build
+    cmake .. \
+        -DCMAKE_C_COMPILER=mpicc \
+        -DCMAKE_CXX_COMPILER=mpicxx \
+        -DHDF5_INCLUDE_DIRS="$HDF5_INCLUDE_DIR" \
+        -DHDF5_LIBRARIES="$HDF5_LIBSO" \
+        -DCMAKE_INSTALL_PREFIX=/opt/h5bench/install \
+        -DH5BENCH_ALL=OFF
+
+    # Compile and install
+    make -j
+    make install
+
+    # No LD_LIBRARY_PATH is recorded for runtime: the runtime library
+    # (libhdf5_openmpi.so.103) lives in /lib/x86_64-linux-gnu and is already in
+    # the linker cache. Only the DEVELOPMENT symlink sits under the
+    # multiarch hdf5/openmpi path, and LIBRARY_PATH above covers that at build
+    # time. Verified with: ldd h5bench_read | grep hdf5  (with LD_LIBRARY_PATH unset).
+
+    # --- Recorder, built against THIS container's own OpenMPI ---
+    #
+    # Why this exists: a host-built librecorder.so (linked against the host's
+    # HPE/Cray OpenMPI + parallel HDF5 module) cannot be bind-mounted into the
+    # baseline image the way the Darshan POSIX-only build can. LD_PRELOAD-ing
+    # it pulls in a chain of host-only transitive dependencies -- HDF5 1.12.1,
+    # then the host's OpenMPI libmpi.so.40, then PBS Pro's libpbs.so.0, and
+    # from there Cray PE / libfabric / Mellanox verbs libraries with no
+    # equivalent inside a generic Ubuntu image. Confirmed interactively
+    # (profiling/h5bench/GUIDE.md H7): each bind-mounted fix just uncovered the
+    # next missing library. Building against the container's OWN OpenMPI
+    # avoids the whole chain -- which is the entire reason this is a separate
+    # image rather than an addition to the baseline one.
+    #
+    # HDF5 tracing IS enabled, matching the native install recipe
+    # (-DRECORDER_WITH_HDF5=$HDF5_DIR there). lib/CMakeLists.txt expects a
+    # single <root> with <root>/include/hdf5.h and <root>/lib/libhdf5.so;
+    # Ubuntu's libhdf5-openmpi-dev package splits these across separate
+    # multiarch directories instead ($HDF5_INCLUDE_DIR / $HDF5_LIB_DIR,
+    # already resolved above for h5bench's own build). A synthetic root is
+    # built to present that layout -- as DIRECTORY symlinks, not a symlink of
+    # hdf5.h alone: hdf5.h #includes sibling headers (H5public.h,
+    # H5pubconf.h, ...) from its own directory via quoted includes, which
+    # resolve relative to the directory the compiler was TOLD the file is in
+    # -- symlinking only hdf5.h itself would leave those unresolvable.
+    # Symlinking the whole directory makes every sibling header visible too.
+    mkdir -p /opt/recorder-hdf5-root
+    ln -s "$HDF5_INCLUDE_DIR" /opt/recorder-hdf5-root/include
+    ln -s "$HDF5_LIB_DIR" /opt/recorder-hdf5-root/lib
+    echo "=== synthetic HDF5 root for Recorder ==="
+    ls -la /opt/recorder-hdf5-root/
+    ls /opt/recorder-hdf5-root/include/hdf5.h /opt/recorder-hdf5-root/lib/libhdf5.so
+    #
+    # Pinned to the exact commit the native build used (profiling/SETUP.md),
+    # so native and container traces come from identical Recorder logic --
+    # a version drift between the two would be a confound in any native vs
+    # container trace comparison.
+    cd /opt
+    git clone https://github.com/uiuc-hpc/Recorder.git
+    cd Recorder
+    git checkout 8ad273e2aa7531b8463b445dffe6d7cecd8f45dd
+    git submodule update --init --recursive
+
+    mkdir -p build && cd build
+    cmake .. \
+        -DCMAKE_C_COMPILER=mpicc \
+        -DCMAKE_INSTALL_PREFIX=/opt/recorder/install \
+        -DRECORDER_WITH_HDF5=/opt/recorder-hdf5-root
+    make -j
+    make install
+
+    # Verify the build actually linked against THIS container's OpenMPI, not
+    # something left over from the host environment -- the entire point of
+    # building it here instead of bind-mounting. Also confirm HDF5 tracing
+    # actually compiled in (the CMake fallback is to silently build WITHOUT
+    # it if the synthetic root above didn't satisfy find_path, which would
+    # otherwise go unnoticed until a trace turns out to lack HDF5 calls).
+    echo "=== Recorder build -- MPI linkage check ==="
+    ldd /opt/recorder/install/lib/librecorder.so | grep -i mpi
+    echo "=== Recorder build -- HDF5 tracing check ==="
+    ldd /opt/recorder/install/lib/librecorder.so | grep -i hdf5 \
+        && echo "HDF5 tracing: linked" || echo "HDF5 tracing: NOT linked -- check the synthetic root above"
+
+    # Clean up APT cache to optimize image size
+    apt-get clean
+    rm -rf /var/lib/apt/lists/*
+
+%environment
+    # Keep this block free of command substitution. It is sourced on EVERY
+    # container start, so a $(...) forces a process to run inside the container
+    # before the benchmark can exec. At 256 ranks that meant 256 concurrent
+    # in-container commands, which exceeded Apptainer's 60s deadline and killed
+    # the job ("context deadline exceeded"). Plain assignments only.
+    export PATH=/opt/h5bench/install/bin:$PATH
+
+    # Recorder's own GOTCHA dependency (libgotcha.so) is needed whenever
+    # librecorder.so is LD_PRELOAD-ed, which happens from OUTSIDE this
+    # container's normal exec path -- include both lib and lib64 since
+    # CMake's default install libdir differs by distro (the host build put
+    # it under lib64; this Ubuntu-based image may use plain lib instead, and
+    # listing both is harmless either way).
+    export LD_LIBRARY_PATH=/opt/recorder/install/lib:/opt/recorder/install/lib64:$LD_LIBRARY_PATH

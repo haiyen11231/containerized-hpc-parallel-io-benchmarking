@@ -1,152 +1,117 @@
-# OSU collective — intra-node
+# OSU collectives — intra-node scaling
 
-All **128 ranks on one node**, running `osu_allreduce` and `osu_alltoall`. Every rank shares memory with every other, so no network is involved — this measures the intra-node MPI transport at full node concurrency.
+Allreduce and Alltoall across **8 → 128 ranks, all on one node**. Every message goes through shared memory; no network is involved. Two scaling studies in parallel subdirectories:
 
-Compare with `../../pt2pt/intra_node/`, which uses the same shared-memory path but only **two** ranks.
+```
+weak_scaling/     message size per peer fixed at 64 KiB
+strong_scaling/   total problem fixed at 8 MiB, split across ranks
+```
+
+40 jobs per study-pair (2 modes × 2 variants × 2 benchmarks × 5 rank counts), 10 repetitions each.
 
 ---
 
-## 1. Why collectives after pt2pt
+## 1. Why rank count is the scaling variable here
 
-pt2pt answers "how fast is one message between two ranks". That is the right first question, but no real application is two ranks exchanging one message. Applications call **collectives** — every rank participating in one coordinated operation — and a collective's cost is not simply the pt2pt latency times the number of ranks.
+pt2pt is always two ranks, so its only axis is message size. A **collective's cost is intrinsically a function of P** — Allreduce needs `O(log P)` communication rounds, Alltoall moves `O(P)` traffic per rank — so you cannot characterize one without varying the rank count.
 
-Two things only appear once more than two ranks take part:
+That is why this study differs in shape from h5bench's and IOR's intra-node studies, which fix concurrency and sweep an I/O configuration instead. For those, rank count is not the interesting variable; here it is the only one that matters.
 
-- **Algorithmic structure.** MPI implements a collective as a tree, a ring, or a pairwise exchange. The number of steps and their shape determine the cost, and different MPI builds choose different algorithms.
-- **Concurrency.** 128 ranks hitting shared memory at once contend for memory bandwidth and cache in a way two ranks never do.
-
-That second point is the important one for this project, and it is why this case study exists.
-
-## 2. The two kernels, and why this specific pair
-
-They were chosen because their cost scales differently with rank count — one is latency-bound, the other bandwidth-bound. A gap that appears in one but not the other tells you *which* part of the transport is responsible.
-
-### `osu_allreduce` — latency-dominated
-
-Every rank contributes a buffer; every rank receives the combined result.
-
-```
-      rank 0  ─┐
-      rank 1  ─┤
-        …      ├──  reduce  ──→  result  ──→  broadcast back to all 128
-      rank 127─┘
-```
-
-Traffic per rank is **O(message size)** — it does not grow with P. Cost is dominated by the **number of communication steps**, roughly `log2(128) = 7` rounds. Small messages therefore expose per-message overhead, which is exactly where a weaker transport hurts.
-
-This is the single most important collective in HPC: it sits inside every iterative solver's convergence check, every dot product, and every synchronous gradient averaging step in distributed training.
-
-### `osu_alltoall` — bandwidth-dominated
-
-Every rank sends a **distinct** buffer to every other rank. This is the heaviest standard collective.
-
-```
-rank 0   sends a different chunk to each of 128 ranks
-rank 1   sends a different chunk to each of 128 ranks
-  …                     (128 x 128 distinct transfers)
-rank 127 sends a different chunk to each of 128 ranks
-```
-
-Traffic per rank is **message size × P** — it grows linearly with rank count. At 128 ranks a 1 MB message means 128 MB out and 128 MB in *per rank*, roughly 32 GB moved across the node per iteration.
-
-This is the pattern behind FFTs, matrix transposes, and particle redistribution — and it is the worst case for any transport.
-
-### What the pair buys you
+## 2. The two kernels
 
 | | Allreduce | Alltoall |
 |---|---|---|
-| traffic per rank | O(msg) | O(msg × P) |
-| bound by | per-message overhead | memory/copy bandwidth |
-| a gap here means | the transport's fixed cost per message is higher | the transport's bulk copy path is slower |
+| pattern | all ranks contribute, all receive the result | every rank sends **distinct** data to every peer |
+| traffic per rank | `O(S)` — flat in P | `S × P` — grows with P |
+| bound by | per-message overhead, `log P` rounds | copy bandwidth and message count |
+| a gap here means | the transport's fixed per-message cost is higher | the transport's bulk copy path is slower |
 
-If the container is slower on Alltoall but not Allreduce, the copy mechanism is the culprit. If it is slower on Allreduce at small sizes, the per-message overhead is. Running only one of the two would leave that ambiguous.
+Running both is what makes the result diagnostic rather than descriptive: the container turns out to be *faster* on one and much slower on the other, which localizes its handicap to message **count** rather than bytes moved.
 
-## 3. The expected result, and why this case study matters most for the container
+## 3. Weak vs strong — and a warning about Alltoall
 
-The container's MPI differs from native in two ways here:
-
-| | native | container |
+| | weak | strong |
 |---|---|---|
-| transport | **UCX shared memory** | **vader** (apt OpenMPI has no UCX) |
-| single-copy | CMA — one copy, kernel-assisted | **disabled** — `btl_vader_single_copy_mechanism none` |
+| held fixed | 64 KiB per peer | 8 MiB total |
+| per-rank message | constant | shrinks 1024 → 64 KiB |
 
-That second row is the one to watch. Apptainer's user namespace breaks OpenMPI's CMA path, so the container must fall back to a **two-copy** shared-memory transfer: sender copies into a shared buffer, receiver copies out, instead of the kernel moving it once directly.
+**For Allreduce these labels mean what you expect.** Per-rank traffic is `O(S)`, so fixed-S really is constant work per rank (weak), and `T/P` really does shrink it (strong).
 
-In pt2pt that penalty is paid by two ranks. **Here it is paid by all 128 simultaneously**, and Alltoall makes every rank do it to every other rank. If the CMA fallback has a measurable cost anywhere in this project, this is where it will show.
+**For Alltoall they are effectively inverted, and this must be stated when reporting.** Per-rank traffic is `S × P`, so:
 
-That makes this case study the direct intra-node counterpart to the inter-node UCX-vs-TCP story — mechanism #1, measured where the container's handicap is structural rather than incidental.
-
-## 4. Per-benchmark arguments
-
-The two kernels cannot share one setting, because at the same message size Alltoall moves P times more data.
-
-| | arguments | why |
+| at NP | weak per-rank | strong per-rank |
 |---|---|---|
-| `allreduce` | `-f` | full default sweep; traffic does not grow with P, so it is cheap |
-| `alltoall` | `-f -m 1:262144 -i 100` | capped at 256 KB and 100 iterations |
+| 8 | 0.5 MiB | 8 MiB |
+| 128 | **8 MiB** | **8 MiB** |
 
-**Why Alltoall is capped:** at the 1 MB default and 128 ranks, a single iteration moves ~32 GB across the node. Left uncapped the job would not fit a 30-minute walltime, and the container — doing two copies instead of one — would be the one to time out, which would lose the very measurement the study is for. 256 KB is already far past the latency-to-bandwidth crossover, so the shape of the curve is preserved. `-i 100` fixes the iteration count so runtime is predictable rather than size-dependent.
+Under *weak* scaling Alltoall's per-rank work **grows 16×** across the sweep — it is "fixed message size per peer", not "fixed work". Under *strong* scaling it is pinned at exactly 8 MiB, so a perfectly scaling implementation would be **flat**, and any rise is pure coordination overhead. That makes strong-scaling Alltoall the sharper of the two experiments.
 
-The cap is **identical in both scripts**. If it were not, the two variants would be measuring different workloads.
+## 4. A built-in consistency check
 
-**Why `-f`:** it prints MIN, MAX and ITERATIONS alongside the average. For a collective the spread between MIN and MAX across ranks is itself a result — it exposes load imbalance and stragglers that an average alone hides. This costs nothing and is worth having in the thesis.
+At NP=128 the strong-scaling message size works out to `8 MiB / 128 = 65536` bytes — **identical to the weak-scaling size**. The two independent sets of 20 jobs must therefore agree at that point, and they do, to within 0.3%. That is a free validation that both studies are measuring the same thing.
 
-## 5. Rank placement
+## 5. Configuration
 
 ```bash
--l select=1:ncpus=128:mpiprocs=128:mem=64gb   # all 128 ranks, one node
--l place=excl                                  # no other job on the hardware
---map-by core --bind-to core                   # ranks pinned to cores 0..127
+-l select=1:ncpus=${NP}:mpiprocs=${NP}:mem=16gb
+#PBS -l place=excl
+#PBS -l walltime=00:30:00
+BENCH_ARGS=(-f -i 100 -m "${MSG}:${MSG}")
 ```
 
-Note `mpiprocs=128`, not `2` as in pt2pt — a collective needs every rank, so the full node is genuinely used rather than merely reserved.
+| choice | why |
+|---|---|
+| `ncpus` = `mpiprocs` = NP | project convention — declare the cores you launch on. `place=excl` provides isolation; inflating `ncpus` would only make small-NP jobs harder to schedule (measured: 16 s to start at `ncpus=2`, >25 min at 128) |
+| `-m MSG:MSG` | pins **one** message size, so each job emits a single data row — the x-axis is rank count, not message size |
+| `-i 100` | fixed iteration count so weak and strong remain comparable; matches OSU's own default at these sizes |
+| `-f` | adds MIN/MAX/ITERATIONS. For a collective the **spread across ranks is a load-imbalance measurement**, which an average alone hides |
+| `mem=16gb` | worst case is Alltoall at NP=128 weak, ~2 GiB/node |
 
-Pinning matters more here than in pt2pt. These are dual-socket EPYC 7713 nodes, so collective cost depends heavily on how ranks map onto core complexes and NUMA domains. Without `--bind-to core` the OS could migrate ranks mid-run and the repetitions would not be comparable — nor would native be comparable to container.
+## 6. Topology the curve crosses
 
-## 6. Guards
+These are dual-socket EPYC 7713 nodes — 8 cores per CCD (shared L3), 64 per socket:
+
+| NP | cores | topology |
+|---|---|---|
+| 8 | 0–7 | 1 CCD, one shared L3 |
+| 16–64 | 0–63 | multiple CCDs, socket 0 only |
+| **128** | 0–127 | **both sockets** — inter-socket traffic appears |
+
+So "scaling" here conflates rank count with memory hierarchy. That is unavoidable physics, and both variants cross the same boundaries, so the native/container *ratio* stays clean even where the absolute curve kinks. Each job writes `bindings.txt` (via a `--report-bindings` run outside the timed loop) so this is **provable from the results rather than assumed**.
+
+## 7. Guards
 
 | guard | catches |
 |---|---|
-| `: "${BENCH:?…}"`, `: "${REPS:?…}"` | job submitted without required variables |
-| `case "$BENCH"` with a `*)` branch | a typo in the benchmark name, before any run starts |
+| `BENCH`/`NP`/`REPS` unset | job submitted without required variables |
+| `case "$BENCH"` with `*)` branch | typo'd benchmark name, before any run starts |
 | `test -x` on the binary (inside the `.sif` for the container) | wrong path or missing build |
-| `ACTUAL_NODES -ne 1` | PBS spread the ranks over more than one node, which would make this an inter-node measurement |
-| `grep -cE '^[0-9]'` on the output | a run that exits 0 but prints no data table |
+| `ACTUAL_NODES -ne 1` | PBS spread ranks over more than one node — would make this inter-node |
+| **`SLOTS -ne NP`** | `PBS_NODEFILE` has a different rank count than the job's label — would silently corrupt the scaling curve |
+| `TOTAL % NP` (strong only) | 8 MiB not divisible by NP, so per-rank size would truncate |
+| `rows -lt 1` | run exited 0 but produced no data table |
 
-## 7. Output
+## 8. Output
 
 ```
-logs/osu_<variant>_collective_intra_<bench>.out   PBS job output
-<variant>/<bench>/osu_<bench>_rep<N>.txt          one OSU table per repetition
-<variant>/<bench>/nodes.txt                       the node used
+<mode>_scaling/logs/<job>.out                          PBS output
+<mode>_scaling/<variant>/<bench>/np<N>/osu_<bench>_rep<R>.txt
+<mode>_scaling/<variant>/<bench>/np<N>/nodes.txt        node used
+<mode>_scaling/<variant>/<bench>/np<N>/bindings.txt     rank -> core placement
+<mode>_scaling/<variant>/<bench>/np<N>/msgsize_bytes.txt
 ```
 
-Every path carries both the variant and the benchmark, so the four jobs write to disjoint trees and cannot overwrite one another. This directory is separate from `../../pt2pt/`, so the two studies cannot mix either.
+Every path carries mode, variant, benchmark and rank count, so all 40 jobs write to disjoint trees.
 
-`REPS=10`, matching pt2pt, h5bench and IOR.
-
-**On a rerun:** `.txt` files and `logs/*.out` are overwritten. Wipe `native/`, `container/` and `logs/*.out` first, after copying anything worth keeping.
-
-## 8. Running it
+## 9. Running it
 
 ```bash
-./submit_native_collective_intra_job.sh       # 2 jobs (allreduce, alltoall)
-./submit_container_collective_intra_job.sh    # 2 jobs
-REPS=1 ./submit_native_collective_intra_job.sh   # smoke test
+cd weak_scaling   && ./submit_native_collective_weak_job.sh   && ./submit_container_collective_weak_job.sh
+cd strong_scaling && ./submit_native_collective_strong_job.sh && ./submit_container_collective_strong_job.sh
 ```
 
-### Choosing the queue
+Small-NP jobs schedule almost immediately; the four NP=128 jobs are the slow ones. The whole 40-job set completed in roughly 10–20 minutes when the queue was healthy.
 
-Walltime is **not** fixed in the `.pbs` files — it is passed by the submit script, because PBS routes on ncpus *and* walltime:
+## 10. Results
 
-```bash
-./submit_native_collective_intra_job.sh                  # 00:30:00 -> qdev
-WALLTIME=02:30:00 ./submit_native_collective_intra_job.sh  # -> q4
-```
-
-| | qdev | q4 |
-|---|---|---|
-| walltime | ≤ 02:00:00 | > 02:00:01 |
-| capacity | **256 ncpus cluster-wide, shared by all users** | far larger |
-
-The default is `00:30:00` (qdev) since 30 minutes is ample for these runs, but note the trade-off: qdev's 256-ncpu cap is **cluster-wide**, so a 128-ncpu job takes half of it and at most two can run anywhere at once. If qdev's queue is long, `WALLTIME=02:30:00` routes to q4 instead. Check with `qstat -Q` before deciding.
+[`../../../results/collective/intra_node/README.md`](../../../results/collective/intra_node/README.md) — including why the container is ~20% *faster* on Allreduce, 1.7–4.9× slower on Alltoall, and why the NP=64 Allreduce spike is OpenMPI's doing rather than the container's.

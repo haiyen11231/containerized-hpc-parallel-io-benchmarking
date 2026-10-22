@@ -1,0 +1,13 @@
+[1791884099.073273] [x1003c2s5b0n1:252389:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791884099.083611] [x1003c2s5b0n1:252388:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791884099.165779] [x1003c2s5b0n1:252389:0]          parser.c:1914 UCX  INFO  UCX_* env variable: UCX_LOG_LEVEL=info
+[1791884099.174454] [x1003c2s5b0n1:252388:0]          parser.c:1914 UCX  INFO  UCX_* env variable: UCX_LOG_LEVEL=info
+[1791884099.175374] [x1003c2s5b0n1:252388:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 cma/memory rc_mlx5/mlx5_0:1); 
+[1791884099.175464] [x1003c2s5b0n1:252389:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 cma/memory rc_mlx5/mlx5_0:1); 
+[1791884099.186389] [x1003c2s5b0n1:252388:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory cma/memory rc_mlx5/mlx5_0:1); 
+[1791884099.186385] [x1003c2s5b0n1:252389:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory cma/memory rc_mlx5/mlx5_0:1); 
+
+# OSU MPI Bandwidth Test v8.0rc
+# Datatype: MPI_CHAR.
+# Size      Bandwidth (MB/s)
+1                      18.00

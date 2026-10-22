@@ -1,0 +1,10 @@
+--- host /dev/infiniband ---
+rdma_cm
+umad0
+uverbs0
+--- container /dev/infiniband (no binds) ---
+rdma_cm
+umad0
+uverbs0
+--- container verbs devices (no binds) ---
+mlx5_0

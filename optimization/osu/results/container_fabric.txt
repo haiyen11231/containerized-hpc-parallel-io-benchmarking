@@ -1,0 +1,3 @@
+--- libfabric providers inside the .sif ---
+/usr/bin/bash: line 1: fi_info: command not found
+--- UCX transports inside the .sif ---

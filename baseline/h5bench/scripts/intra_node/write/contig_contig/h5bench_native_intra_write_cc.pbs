@@ -1,0 +1,92 @@
+#!/bin/bash
+#PBS -N h5bench_native_intra_write_cc
+#PBS -l walltime=02:30:00
+#PBS -l place=excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/h5bench_native_intra_write_cc.pbs.out
+
+# Experiment description: Run h5bench natively on a single node with 64 ranks, sweeping 2D.
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load libfabric/1.11.0.4.125
+module load intel/2022.0.2
+
+# Custom HDF5 1.10.7 build (matches container's HDF5 version), not the module
+export LD_LIBRARY_PATH=$HOME/scratch/fyp/native/hdf5/hdf5-1.10.7/build/install/lib:$LD_LIBRARY_PATH
+
+module list
+mpirun --version
+
+H5BENCH_DRIVER=$HOME/scratch/fyp/native/h5bench/h5bench/build_hdf5_1107/install/bin/h5bench
+TEMPLATE=h5bench_write_cc.json.template
+
+# Workload size (DIM_1, TIMESTEPS) is fixed in h5bench_write_cc.json.template.
+#   DIM_1 = "1 M" particles/rank x 32 B = 32 MiB per rank per timestep
+#   64 ranks x 5 timesteps x 32 MiB    = 10 GiB per repetition
+
+MPI_CONFIG="-np 64 --map-by ppr:64:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR"
+
+PAYLOAD_DIR="payload/native/${COMBO}"
+REPORT_DIR="native/${COMBO}"
+mkdir -p "$PAYLOAD_DIR" "$REPORT_DIR" logs
+
+# Set Lustre striping explicitly for the payload directory 
+lfs setstripe -c 4 -S 1m "$PAYLOAD_DIR"
+echo "=== Verifying Lustre striping layout for $PAYLOAD_DIR ==="
+lfs getstripe "$PAYLOAD_DIR"
+
+
+DATA_FILE_NAME="h5bench_intra_native_${COMBO}.h5"
+# Clean up the data file on exit
+trap 'rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"' EXIT
+
+echo "================================================================="
+echo " Native Intra-Node Pattern Sweep: MEM=$MEM_PATTERN FILE=$FILE_PATTERN NP=$NP REPS=$REPS "
+echo "================================================================="
+
+# Each repetition is a fully independent driver invocation (fresh process,
+# fresh output file) rather than N entries in one benchmarks array, so a warm
+# cache cannot carry across repetitions within a single driver run.
+for REP in $(seq 1 "$REPS"); do
+    echo "--- Repetition ${REP}/${REPS} ---"
+
+    # Generate a JSON config file for each repetition with specific params
+    JSON="${REPORT_DIR}/config_rep${REP}.json"
+
+    sed -e "s|@MPI_CONFIG@|${MPI_CONFIG}|" \
+        -e "s|@DIRECTORY@|${PAYLOAD_DIR}|" \
+        -e "s|@DATA_FILE@|${DATA_FILE_NAME}|" \
+        -e "s|@CSV_FILE@|write_rep${REP}.csv|" \
+        "$TEMPLATE" > "$JSON"
+
+    python3 -m json.tool "$JSON" > /dev/null \
+        || { echo "FATAL: generated $JSON is not valid JSON"; exit 1; }
+
+    if grep -q '@[A-Z_]*@' "$JSON"; then
+        echo "FATAL: unsubstituted placeholder left in $JSON:"
+        grep -n '@[A-Z_]*@' "$JSON"
+        exit 1
+    fi
+
+    rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"
+
+    # Run the h5bench driver with the generated JSON config
+    set -x
+    time "$H5BENCH_DRIVER" -a -d "$JSON"
+    H5BENCH_EXIT=$?
+    set +x
+
+    # Check exit status of h5bench driver
+    if [ "$H5BENCH_EXIT" -ne 0 ]; then
+        echo "FAILED: MEM=$MEM_PATTERN FILE=$FILE_PATTERN rep=$REP (h5bench exit $H5BENCH_EXIT)"
+        exit "$H5BENCH_EXIT"
+    fi
+
+    # Brief pause between reps to let I/O buffers drain
+    sleep 5
+done
+
+echo "Completed Successfully! "

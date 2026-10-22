@@ -1,0 +1,135 @@
+#!/bin/bash
+#PBS -N osu_container_collective_inter_strong
+#PBS -l walltime=02:30:00
+#PBS -l place=scatter:excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/osu_container_collective_inter_strong.out
+
+# Experiment: OSU collective latency (strong scaling) ACROSS MULTIPLE NODES, with
+# all 128 cores of every node in use. Unlike the intra-node study, the collective
+# now has to cross the Slingshot fabric, so this measures the combined cost of
+# shared-memory AND network transport (container: vader for on-node, TCP over hsn0 between nodes).
+#
+# STRONG scaling: the TOTAL problem is held CONSTANT at 8 MiB -- the same total as
+# the intra-node strong study -- and divided among the ranks, so the per-rank
+# message SHRINKS as nodes are added. Together the two studies form one
+# continuous curve from 8 ranks (1 MiB each) to 1024 ranks (8 KiB each).
+
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+module load apptainer
+
+module list
+mpirun --version
+apptainer --version
+
+SIF=$HOME/scratch/fyp/container/osu/osu_micro_benchmarks.sif
+OSU_DIR=/opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/collective
+
+# Required variables, passed with -v at submission time.
+: "${BENCH:?Must pass -v BENCH=<allreduce|alltoall>}"
+: "${NODES:?Must pass -v NODES=<node count>}"
+: "${REPS:?Must pass -v REPS=<number>}"
+
+BIN="${OSU_DIR}/osu_${BENCH}"
+apptainer exec "$SIF" sh -c "test -x $BIN" \
+    || { echo "FATAL: $BIN not found inside $SIF"; exit 1; }
+
+case "$BENCH" in
+  allreduce|alltoall) ;;
+  *) echo "FATAL: unknown BENCH='$BENCH'"; exit 1 ;;
+esac
+
+RANKS_PER_NODE=128
+NP=$(( NODES * RANKS_PER_NODE ))
+
+# The whole point of this study is that the collective spans several nodes. If
+# PBS granted fewer than requested, the job would quietly measure a smaller
+# scale than its own label claims and corrupt the scaling curve.
+ACTUAL_NODES=$(sort -u "$PBS_NODEFILE" | wc -l)
+if [ "$ACTUAL_NODES" -ne "$NODES" ]; then
+    echo "FATAL: Expected $NODES distinct nodes, PBS granted $ACTUAL_NODES."
+    exit 1
+fi
+
+SLOTS=$(wc -l < "$PBS_NODEFILE")
+if [ "$SLOTS" -ne "$NP" ]; then
+    echo "FATAL: PBS_NODEFILE has $SLOTS slots but NODES=$NODES implies NP=$NP."
+    exit 1
+fi
+
+# Ranks must be spread EVENLY. An uneven split would put more shared-memory
+# traffic on one node than another and distort the collective's cost.
+UNEVEN=$(awk '{c[$1]++} END {for (h in c) if (c[h] != 128) print h, c[h]}' "$PBS_NODEFILE")
+if [ -n "$UNEVEN" ]; then
+    echo "FATAL: uneven ranks per node (expected $RANKS_PER_NODE):"
+    echo "$UNEVEN"
+    exit 1
+fi
+
+TOTAL=8388608
+if [ $(( TOTAL % NP )) -ne 0 ]; then
+    echo "FATAL: TOTAL=$TOTAL is not divisible by NP=$NP -- per-rank size would be truncated"
+    exit 1
+fi
+MSG=$(( TOTAL / NP ))
+
+REPORT_DIR="container/${BENCH}/n${NODES}"
+mkdir -p "$REPORT_DIR" logs
+
+BENCH_ARGS=(-f -i 100 -m "${MSG}:${MSG}")
+
+MPI_CONFIG=(
+  -np "$NP"
+  --map-by core --bind-to core
+  --mca btl vader,tcp,self
+  --mca btl_vader_single_copy_mechanism none
+  --mca btl_tcp_if_include hsn0
+  --mca oob_tcp_if_include hsn0
+  --mca orte_base_help_aggregate 0
+  --mca opal_common_ucx_opal_mem_hooks 1
+  -x UCX_LOG_LEVEL=ERROR
+)
+
+echo "================================================================="
+echo " Inter-Node collective STRONG scaling: BENCH=$BENCH NODES=$NODES NP=$NP MSG=${MSG}B REPS=$REPS "
+echo "================================================================="
+
+sort -u "$PBS_NODEFILE" > "${REPORT_DIR}/nodes.txt"
+echo "=== nodes used ($ACTUAL_NODES distinct) ==="; cat "${REPORT_DIR}/nodes.txt"
+echo "$MSG" > "${REPORT_DIR}/msgsize_bytes.txt"
+echo "$NP"  > "${REPORT_DIR}/ranks.txt"
+
+mpirun "${MPI_CONFIG[@]}" --report-bindings true \
+    > "${REPORT_DIR}/bindings.txt" 2>&1 || echo "  (binding capture failed, non-fatal)"
+
+for REP in $(seq 1 "$REPS"); do
+    echo "--- Repetition ${REP}/${REPS} ---"
+    OUT="${REPORT_DIR}/osu_${BENCH}_rep${REP}.txt"
+
+    set -x
+    mpirun "${MPI_CONFIG[@]}" apptainer exec "$SIF" "$BIN" "${BENCH_ARGS[@]}" > "$OUT" 2>&1
+    RC=$?
+    set +x
+
+    if [ "$RC" -ne 0 ]; then
+        echo "FAILED: BENCH=$BENCH NODES=$NODES rep=$REP (exit $RC)"
+        sed 's/^/    /' "$OUT" | head -20
+        exit "$RC"
+    fi
+
+    rows=$(grep -cE '^[0-9]' "$OUT")
+    if [ "$rows" -lt 1 ]; then
+        echo "FATAL: $OUT has no data rows -- benchmark produced no table"
+        sed 's/^/    /' "$OUT" | head -20
+        exit 1
+    fi
+    echo "  ok: $rows data row(s) recorded"
+done
+
+echo "Completed Successfully! "

@@ -1,0 +1,149 @@
+#!/bin/bash
+#PBS -N h5bench_native_intra_darshan
+#PBS -l walltime=02:05:00
+#PBS -l place=excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/h5bench_native_intra_darshan.out
+
+# Darshan-instrumented version of baseline/h5bench/scripts/intra_node/
+# h5bench_native_intra.pbs. Tests H1 (time breakdown), H2 (call pattern),
+# H3 (metadata share), H4 (write-size histogram for CONTIG->INTERLEAVED) --
+# see ../../GUIDE.md.
+#
+# Path A (profiling/SETUP.md): DARSHAN_MOD_ENABLE=POSIX only, no MPI-IO
+# module. No MPI-ABI dependency at all, and H1-H4 are all POSIX counters, so
+# this is sufficient -- MPI-IO detail (H7) is Recorder's job, not Darshan's,
+# and not needed here.
+#
+# DARSHAN_ENABLE_NONMPI is deliberately NOT also set, despite SETUP.md's
+# Path A recipe mentioning it: h5bench_write is a real MPI program, and that
+# env var fires an unconditional constructor that calls
+# darshan_core_initialize() at process start, IN ADDITION to the normal
+# MPI_Init wrapper that also calls it (darshan-core-init-finalize.c) -- a
+# real double-initialization, not a hypothetical one. The constructor runs
+# first (with no argc/argv) and appears to claim initialization, so the
+# MPI_Init-triggered init is silently skipped and no POSIX records ever
+# materialize -- confirmed empirically (a 3.6K log with zero POSIX counter
+# lines) before this flag was removed. DARSHAN_ENABLE_NONMPI is for genuinely
+# non-MPI (serial) programs only.
+#
+# VERIFY BEFORE RUNNING: this path assumes the native Darshan build already
+# validated in profiling/scripts/stage0_validate/. If that build lives
+# somewhere other than DARSHAN_LIB below (e.g. an "install-ompi" prefix per
+# profiling/SETUP.md's Path B instructions), update the path and re-check
+# with `ldd $DARSHAN_LIB | grep -i mpi` before trusting any output --
+# expect libmpi.so.40 (OpenMPI), never libmpi_cray.so.12.
+
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load libfabric/1.11.0.4.125
+module load intel/2022.0.2
+module load hdf5/1.12.1-parallel-icc22-ompi4
+module swap openmpi/4.1.7-icc24.2.1 openmpi/4.1.2-hpe
+module swap intel/2024.2.1 intel/2022.0.2
+module load darshan/3.4.6          # darshan-parser ONLY, not the .so
+
+H5BENCH_DRIVER=$HOME/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench
+TEMPLATE=h5bench_config_intra.json.template
+DARSHAN_LIB=$HOME/scratch/fyp/native/darshan/darshan/install/lib/libdarshan.so
+
+[ -r "$DARSHAN_LIB" ] || { echo "FATAL: $DARSHAN_LIB not readable -- build it first (profiling/SETUP.md Path B)"; exit 1; }
+
+: "${MEM_PATTERN:?Must pass -v MEM_PATTERN=<CONTIG|INTERLEAVED> at submission time}"
+: "${FILE_PATTERN:?Must pass -v FILE_PATTERN=<CONTIG|INTERLEAVED> at submission time}"
+: "${REPS:?Must pass -v REPS=<number> at submission time}"
+
+NODE_COUNT=1
+NP=$((NODE_COUNT * 128))
+
+# Same MPI_CONFIG as the baseline, plus Darshan preload. LD_PRELOAD/DARSHAN_*
+# are exported via -x so every rank inherits them, not just rank 0.
+MPI_CONFIG="-np ${NP} --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR -x LD_PRELOAD=${DARSHAN_LIB} -x DARSHAN_MOD_ENABLE=POSIX"
+
+MEM_LOWER=$(echo "$MEM_PATTERN" | tr '[:upper:]' '[:lower:]')
+FILE_LOWER=$(echo "$FILE_PATTERN" | tr '[:upper:]' '[:lower:]')
+COMBO="${MEM_LOWER}_${FILE_LOWER}"
+
+PAYLOAD_DIR="payload/native/${COMBO}"
+REPORT_DIR="native/${COMBO}"
+LOGDIR="darshan-logs/native/${COMBO}"
+mkdir -p "$PAYLOAD_DIR" "$REPORT_DIR" "$LOGDIR" logs
+
+lfs setstripe -c 4 -S 1m "$PAYLOAD_DIR"
+echo "=== Lustre striping on $PAYLOAD_DIR ==="
+lfs getstripe "$PAYLOAD_DIR"
+
+DATA_FILE_NAME="h5bench_intra_native_darshan_${COMBO}.h5"
+trap 'rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"' EXIT
+
+echo "================================================================="
+echo " Native Intra-Node Pattern Sweep, Darshan-instrumented: MEM=$MEM_PATTERN FILE=$FILE_PATTERN NP=$NP REPS=$REPS "
+echo "================================================================="
+
+for REP in $(seq 1 "$REPS"); do
+    echo "--- Repetition ${REP}/${REPS} ---"
+
+    # DARSHAN_LOGFILE must be an exact filename and must change every
+    # repetition, or later reps silently overwrite earlier logs.
+    DLOG="${LOGDIR}/${COMBO}_rep${REP}_${PBS_JOBID}.darshan"
+    rm -f "$DLOG"
+    RUN_MPI_CONFIG="${MPI_CONFIG} -x DARSHAN_LOGFILE=${DLOG}"
+
+    JSON="${REPORT_DIR}/config_rep${REP}.json"
+    sed -e "s|@MPI_CONFIG@|${RUN_MPI_CONFIG}|" \
+        -e "s|@DIRECTORY@|${PAYLOAD_DIR}|" \
+        -e "s|@DATA_FILE@|${DATA_FILE_NAME}|" \
+        -e "s|@MEM_PATTERN@|${MEM_PATTERN}|" \
+        -e "s|@FILE_PATTERN@|${FILE_PATTERN}|" \
+        -e "s|@CSV_FILE@|write_rep${REP}.csv|" \
+        "$TEMPLATE" > "$JSON"
+
+    python3 -m json.tool "$JSON" > /dev/null \
+        || { echo "FATAL: generated $JSON is not valid JSON"; exit 1; }
+    if grep -q '@[A-Z_]*@' "$JSON"; then
+        echo "FATAL: unsubstituted placeholder left in $JSON:"; grep -n '@[A-Z_]*@' "$JSON"; exit 1
+    fi
+
+    rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"
+
+    DRIVER_LOG="${REPORT_DIR}/driver_rep${REP}.log"
+    set -x
+    time "$H5BENCH_DRIVER" -a -d "$JSON" > "$DRIVER_LOG" 2>&1
+    H5BENCH_EXIT=$?
+    set +x
+    cat "$DRIVER_LOG"
+
+    if [ "$H5BENCH_EXIT" -ne 0 ]; then
+        echo "FAILED: MEM=$MEM_PATTERN FILE=$FILE_PATTERN rep=$REP (h5bench exit $H5BENCH_EXIT)"
+        exit "$H5BENCH_EXIT"
+    fi
+
+    if [ ! -s "$DLOG" ]; then
+        echo "FATAL: no Darshan log written to $DLOG -- LD_PRELOAD likely did not reach the ranks"
+        exit 1
+    fi
+
+    PARSED="${REPORT_DIR}/darshan_rep${REP}.parsed"
+    # Retry parse+count up to 3x before declaring FATAL -- a prior full run
+    # hit a transient Lustre read-after-write visibility lag under heavy
+    # cluster congestion where this exact check read 0 POSIX lines on the
+    # first attempt despite the underlying .darshan log being complete and
+    # correct (confirmed by re-parsing the same file minutes later). A short
+    # retry absorbs that lag instead of false-FATALing the whole job.
+    POSIX_N=0
+    for ATTEMPT in 1 2 3; do
+        darshan-parser "$DLOG" > "$PARSED" 2>/dev/null \
+            || { echo "FATAL: darshan-parser failed on $DLOG"; exit 1; }
+        POSIX_N=$(grep -cP '^POSIX\t' "$PARSED" 2>/dev/null); POSIX_N=${POSIX_N:-0}
+        [ "$POSIX_N" -gt 0 ] && break
+        echo "  rep${REP}: attempt ${ATTEMPT} saw 0 POSIX counter lines -- retrying in 3s"
+        sleep 3
+    done
+    echo "  rep${REP}: darshan log $(ls -lh "$DLOG" | awk '{print $5}'), $POSIX_N POSIX counter lines"
+    [ "$POSIX_N" -gt 0 ] || { echo "FATAL: Darshan log parsed but has no POSIX counters after 3 attempts"; exit 1; }
+done
+
+echo " Native intra-node Darshan sweep (MEM=$MEM_PATTERN FILE=$FILE_PATTERN) Completed Successfully! "

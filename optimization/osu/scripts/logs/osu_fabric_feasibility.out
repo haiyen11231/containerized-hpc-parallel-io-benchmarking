@@ -1,0 +1,22 @@
+guarded binds:  --bind /usr/lib64/libibverbs:/usr/lib64/libibverbs --bind /usr/lib64/ucx:/usr/lib64/ucx --bind /etc/libibverbs.d:/etc/libibverbs.d --bind /dev/infiniband:/dev/infiniband
+
+################ 1. Can the container see the RDMA device? ################
+--- host /dev/infiniband ---
+rdma_cm
+umad0
+uverbs0
+--- container /dev/infiniband (no binds) ---
+rdma_cm
+umad0
+uverbs0
+--- container verbs devices (no binds) ---
+mlx5_0
+
+################ 2. Transport probes ################
+--- container_tcp ---
+    exit=0 rows=11 1B-latency=13.10  -> PASS
+--- container_ucx_plain ---
+    exit=0 rows=11 1B-latency=1.67  -> PASS
+--- container_ucx_rdma ---
+    exit=0 rows=11 1B-latency=1.75  -> PASS
+--- container_ucx_bound ---

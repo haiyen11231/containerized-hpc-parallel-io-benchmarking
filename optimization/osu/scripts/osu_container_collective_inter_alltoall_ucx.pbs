@@ -1,0 +1,162 @@
+#!/bin/bash
+#PBS -N osu_container_collective_inter_alltoall_ucx
+#PBS -l walltime=02:30:00
+#PBS -l place=scatter:excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/osu_container_collective_inter_alltoall_ucx.out
+
+# "Experiment 1" / "Prediction 1" from optimization/osu/GUIDE.md -- the single
+# highest-value test in the whole optimization stage: does Alltoall at >=512
+# ranks RUN at all once the container gets RDMA instead of TCP?
+#
+# Baseline root cause (baseline/osu/scripts/collective/inter_node/diagnostics/):
+# the container's TCP BTL builds a full O(P^2) mesh of per-rank-pair sockets.
+# At 512 ranks (128/node) that is 65,408 connections/node against a measured
+# ip_local_port_range of only 28,232 ports -- confirmed via port-error counts
+# in a controlled 3-arm diagnostic, not inferred.
+#
+#   baseline  : --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none
+#               --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0
+#   optimized : --mca pml ucx -x UCX_TLS=^cma
+#
+# UCX's RDMA transports (rc_verbs/ud_verbs) do not open one OS socket per rank
+# pair, so the O(P^2) TCP mesh -- and the port-exhaustion failure mode -- do
+# not apply once pml=ucx replaces the tcp btl. (UCX also auto-selects UD over
+# RC once scale makes per-pair RC queue pairs expensive, which is exactly
+# designed for all-to-all-shaped traffic; no manual tuning needed for that.)
+#
+# UCX_TLS=^cma is carried over from the pt2pt and Allreduce UCX experiments:
+# Alltoall moves MORE intra-node shared-memory traffic per rank (O(P) vs
+# Allreduce's O(1)), so without excluding cma this would hit the identical
+# CMA/Apptainer permission-denied crash (exit 134) already seen twice.
+
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+module load apptainer
+
+SIF=$HOME/scratch/fyp/container/osu/osu_micro_benchmarks.sif
+OSU_DIR=/opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/collective
+
+: "${MODE:?Must pass -v MODE=<weak|strong>}"
+: "${NODES:?Must pass -v NODES=<node count>}"
+: "${REPS:?Must pass -v REPS=<number>}"
+
+BIN="${OSU_DIR}/osu_alltoall"
+apptainer exec "$SIF" sh -c "test -x $BIN" \
+    || { echo "FATAL: $BIN not found inside $SIF"; exit 1; }
+
+RANKS_PER_NODE=128
+NP=$(( NODES * RANKS_PER_NODE ))
+
+ACTUAL_NODES=$(sort -u "$PBS_NODEFILE" | wc -l)
+if [ "$ACTUAL_NODES" -ne "$NODES" ]; then
+    echo "FATAL: Expected $NODES distinct nodes, PBS granted $ACTUAL_NODES."
+    exit 1
+fi
+
+SLOTS=$(wc -l < "$PBS_NODEFILE")
+if [ "$SLOTS" -ne "$NP" ]; then
+    echo "FATAL: PBS_NODEFILE has $SLOTS slots but NODES=$NODES implies NP=$NP."
+    exit 1
+fi
+
+UNEVEN=$(awk '{c[$1]++} END {for (h in c) if (c[h] != 128) print h, c[h]}' "$PBS_NODEFILE")
+if [ -n "$UNEVEN" ]; then
+    echo "FATAL: uneven ranks per node (expected $RANKS_PER_NODE):"
+    echo "$UNEVEN"
+    exit 1
+fi
+
+case "$MODE" in
+  weak)
+    MSG=65536
+    ;;
+  strong)
+    TOTAL=8388608
+    if [ $(( TOTAL % NP )) -ne 0 ]; then
+        echo "FATAL: TOTAL=$TOTAL is not divisible by NP=$NP -- per-rank size would be truncated"
+        exit 1
+    fi
+    MSG=$(( TOTAL / NP ))
+    ;;
+  *) echo "FATAL: unknown MODE='$MODE' (expected weak|strong)"; exit 1 ;;
+esac
+
+REPORT_DIR="collective_ucx/${MODE}/alltoall/n${NODES}"
+mkdir -p "$REPORT_DIR" logs
+
+BENCH_ARGS=(-f -i 100 -m "${MSG}:${MSG}")
+
+# The transport change under test, plus the CMA exclusion explained above.
+# Record socket/port state before and after -- if this works, there should be
+# ~zero TCP connections for the data plane, provable rather than assumed.
+MPI_CONFIG=(
+  -np "$NP"
+  --map-by core --bind-to core
+  --mca pml ucx
+  -x UCX_TLS=^cma
+  --mca orte_base_help_aggregate 0
+  -x UCX_LOG_LEVEL=ERROR
+)
+
+echo "================================================================="
+echo " OPTIMIZED (UCX) container inter-node Alltoall: MODE=$MODE NODES=$NODES NP=$NP MSG=${MSG}B REPS=$REPS "
+echo "================================================================="
+
+sort -u "$PBS_NODEFILE" > "${REPORT_DIR}/nodes.txt"
+echo "=== nodes used ($ACTUAL_NODES distinct) ==="; cat "${REPORT_DIR}/nodes.txt"
+echo "$MSG" > "${REPORT_DIR}/msgsize_bytes.txt"
+echo "$NP"  > "${REPORT_DIR}/ranks.txt"
+
+echo "=== ephemeral port range on this node (for comparison with the baseline diagnostic) ==="
+cat /proc/sys/net/ipv4/ip_local_port_range | tee "${REPORT_DIR}/port_range.txt"
+
+# Transport verification, raw + filtered.
+echo "=== transport actually used (UCX_LOG_LEVEL=info, 1 rep) ==="
+mpirun -np "$NP" --map-by core --bind-to core --mca pml ucx -x UCX_TLS=^cma -x UCX_LOG_LEVEL=info \
+  apptainer exec "$SIF" "$BIN" -f -i 1 -m "${MSG}:${MSG}" \
+  > "${REPORT_DIR}/transport_raw.txt" 2>&1
+grep -iE 'selected transport|support_level|rc_verbs|ud_verbs|sysv|posix|mm/|tcp|cma' \
+  "${REPORT_DIR}/transport_raw.txt" | head -12 | tee "${REPORT_DIR}/transport.txt"
+
+mpirun "${MPI_CONFIG[@]}" --report-bindings true \
+    > "${REPORT_DIR}/bindings.txt" 2>&1 || echo "  (binding capture failed, non-fatal)"
+
+for REP in $(seq 1 "$REPS"); do
+    echo "--- Repetition ${REP}/${REPS} ---"
+    OUT="${REPORT_DIR}/osu_alltoall_rep${REP}.txt"
+
+    set -x
+    mpirun "${MPI_CONFIG[@]}" apptainer exec "$SIF" "$BIN" "${BENCH_ARGS[@]}" > "$OUT" 2>&1
+    RC=$?
+    set +x
+
+    if [ "$RC" -ne 0 ]; then
+        echo "FAILED: MODE=$MODE NODES=$NODES rep=$REP (exit $RC)"
+        sed 's/^/    /' "$OUT" | head -30
+        # Count port errors specifically, same signature as the baseline
+        # diagnostic, so a failure here is still comparable to that evidence.
+        # "Address already in use" (EADDRINUSE, errno 98) is the exact string
+        # the baseline port-exhaustion diagnostic observed and grepped for
+        # (scripts/collective/inter_node/diagnostics/port_exhaustion_diag.pbs)
+        # -- not EADDRNOTAVAIL, which this cluster's bind() calls do not emit.
+        x=$(grep -ci 'Address already in use\|Cannot assign requested address\|EADDRNOTAVAIL' "$OUT"); x=${x:-0}
+        echo "  port-error lines in this output: $x"
+        exit "$RC"
+    fi
+
+    rows=$(grep -cE '^[0-9]' "$OUT")
+    if [ "$rows" -lt 1 ]; then
+        echo "FATAL: $OUT has no data rows -- benchmark produced no table"
+        sed 's/^/    /' "$OUT" | head -20
+        exit 1
+    fi
+    echo "  ok: $rows data row(s) recorded"
+done
+
+echo " OPTIMIZED container inter-node Alltoall ($MODE, NODES=$NODES) Completed Successfully! "

@@ -1,0 +1,1 @@
+guarded binds:  --bind /usr/lib64/libibverbs:/usr/lib64/libibverbs --bind /usr/lib64/ucx:/usr/lib64/ucx --bind /etc/libibverbs.d:/etc/libibverbs.d --bind /dev/infiniband:/dev/infiniband

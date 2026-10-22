@@ -54,7 +54,7 @@ Native drops to **55% of its 16 KB value at 32 KB**, then climbs back — with a
 
 This is UCX switching from its eager protocol to rendezvous at the 32 KB threshold. Rendezvous exchanges control messages and then uses CMA (`process_vm_readv`) for a single kernel-assisted copy — more efficient for very large transfers, but carrying setup cost not yet amortised right at the crossover. The container never pays it because, with CMA disabled, it has one path and copies through shared memory throughout.
 
-So the `0.483` slowdown factor at 32 KB — the largest apparent "container win" — is **native's protocol-switch artefact, not a container advantage**, and must be described that way.
+So the `0.483` slowdown factor at 32 KB — the largest apparent "container win" — is **native's protocol-switch artifact, not a container advantage**, and must be described that way.
 
 ## 4. Large messages: the finding is instability, not a container win
 
@@ -89,6 +89,6 @@ Resolving the mechanism would need `--report-bindings` plus a native comparison 
 
 ## 6. What this means for the project
 
-Intra-node is the control for the inter-node experiment. Removing the network shows that **containerisation itself costs little** — 1.0–1.9× at worst, sub-microsecond latency preserved. The 2–12× penalty in [`../inter_node/README.md`](../inter_node/README.md) is therefore attributable to the network transport specifically, not to Apptainer's isolation, process launch, or library loading.
+Intra-node is the control for the inter-node experiment. Removing the network shows that **containerization itself costs little** — 1.0–1.9× at worst, sub-microsecond latency preserved. The 2–12× penalty in [`../inter_node/README.md`](../inter_node/README.md) is therefore attributable to the network transport specifically, not to Apptainer's isolation, process launch, or library loading.
 
-That is a sharper root-cause statement than either study could make alone, and it points Phase 3's optimisation effort at the MPI/UCX stack rather than at container configuration in general.
+That is a sharper root-cause statement than either study could make alone, and it points Phase 3's optimization effort at the MPI/UCX stack rather than at container configuration in general.

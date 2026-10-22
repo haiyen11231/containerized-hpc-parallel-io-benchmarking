@@ -35,7 +35,7 @@ Aspire 2A's Lustre cannot deliver 167 GB/s. That is memory bandwidth.
 
 ### It checks its own assumption
 
-"Different nodes" is PBS's normal behaviour, not a guarantee. Both jobs dump `$PBS_NODEFILE`; the read job compares them:
+"Different nodes" is PBS's normal behavior, not a guarantee. Both jobs dump `$PBS_NODEFILE`; the read job compares them:
 
 ```
 === node overlap check ===
@@ -72,8 +72,7 @@ Per config, under `<variant>/weak_n<N>_dno_mno/`:
 | `write_nodes.txt` / `read_nodes.txt` | the node lists being compared |
 | `read_<i>.log` / `write_<i>.log` | driver output per file |
 
-Measurements are the CSVs under
-`payload/weak_n<N>_dno_mno_<variant>/<uuid>/read_<i>.csv`.
+Measurements are the CSVs under `payload/weak_n<N>_dno_mno_<variant>/<uuid>/read_<i>.csv`.
 
 ## 5. Running it
 

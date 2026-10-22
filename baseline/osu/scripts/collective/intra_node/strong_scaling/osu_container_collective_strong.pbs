@@ -54,7 +54,7 @@ if [ "$ACTUAL_NODES" -ne "$NODE_COUNT" ]; then
 fi
 
 # PBS_NODEFILE must list exactly NP slots, or mpirun would launch a different
-# rank count than the one this job is labelled with -- silently invalidating
+# rank count than the one this job is labeled with -- silently invalidating
 # the scaling curve.
 SLOTS=$(wc -l < "$PBS_NODEFILE")
 if [ "$SLOTS" -ne "$NP" ]; then

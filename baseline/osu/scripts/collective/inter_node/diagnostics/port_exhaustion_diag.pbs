@@ -1,0 +1,146 @@
+#!/bin/bash
+#PBS -N osu_port_exhaustion_diag
+#PBS -l select=4:ncpus=128:mpiprocs=128:mem=64gb
+#PBS -l walltime=01:00:00
+#PBS -l place=scatter:excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/osu_port_exhaustion_diag.out
+
+# SUPPLEMENTARY DIAGNOSTIC -- not a measurement.
+#
+# The inter-node collective sweep showed container Alltoall failing at 4 and 8
+# nodes with:
+#     bind on local address (...) failed: Address already in use (98)
+#
+# The hypothesis is ephemeral-port exhaustion. Alltoall needs every rank to
+# connect to every peer, and all ranks on a node share that node's single hsn0
+# IP, so a node needs RANKS_PER_NODE x (TOTAL_RANKS - 1) outbound TCP
+# connections against a ~28,232-port ephemeral range.
+#
+# This job tests that hypothesis by changing ONE variable -- the number of
+# connections -- while holding the nodes, the binary, the message size and the
+# MPI flags constant. All three arms run inside ONE allocation, so they share
+# the same four nodes and the same moment in time; nothing else differs.
+#
+#   ARM 1  container, 128 ranks/node (512 total)  -> 65,408 conns/node  EXPECT FAIL
+#   ARM 2  container,  64 ranks/node (256 total)  -> 16,320 conns/node  EXPECT PASS
+#   ARM 3  native,    128 ranks/node (512 total)  -> UCX/RDMA, no sockets  EXPECT PASS
+#
+# Arm 2 isolates the connection count. Arm 3 is the control proving the failure
+# is specific to the container's TCP transport and not to the scale itself.
+
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+module load apptainer
+
+SIF=$HOME/scratch/fyp/container/osu/osu_micro_benchmarks.sif
+CBIN=/opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/collective/osu_alltoall
+NBIN=$HOME/scratch/fyp/native/osu/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/collective/osu_alltoall
+
+OUT=results
+mkdir -p "$OUT" logs
+
+NODES=$(sort -u "$PBS_NODEFILE" | wc -l)
+if [ "$NODES" -ne 4 ]; then
+    echo "FATAL: expected 4 nodes, PBS granted $NODES"; exit 1
+fi
+sort -u "$PBS_NODEFILE" > "$OUT/nodes.txt"
+
+# Record the system limit the hypothesis depends on, from a compute node rather
+# than assuming the login node's value applies.
+PORT_RANGE=$(cat /proc/sys/net/ipv4/ip_local_port_range 2>/dev/null)
+LO=$(echo "$PORT_RANGE" | awk '{print $1}')
+HI=$(echo "$PORT_RANGE" | awk '{print $2}')
+PORTS=$(( HI - LO + 1 ))
+{
+  echo "ephemeral_port_range: $PORT_RANGE"
+  echo "ports_available:      $PORTS"
+  echo "tcp_tw_reuse:         $(cat /proc/sys/net/ipv4/tcp_tw_reuse 2>/dev/null)"
+  echo "nodes:                $NODES"
+} | tee "$OUT/system_limits.txt"
+
+# Diagnostic only: -i 20 instead of the sweep's 100. Whether the job RUNS is
+# the measurement here, not how fast it is.
+MSG=65536
+ARGS=(-f -i 20 -m "${MSG}:${MSG}")
+
+CONTAINER_MPI=(
+  --mca btl vader,tcp,self
+  --mca btl_vader_single_copy_mechanism none
+  --mca btl_tcp_if_include hsn0
+  --mca oob_tcp_if_include hsn0
+  --mca orte_base_help_aggregate 0
+)
+NATIVE_MPI=(
+  --mca btl ^openib
+  --mca pml ucx
+  --mca orte_base_help_aggregate 0
+  -x UCX_LOG_LEVEL=ERROR
+)
+
+# A failing arm is an expected RESULT, not a job error -- so never abort here.
+run_arm () {
+    local label="$1" rpn="$2" np="$3"; shift 3
+    local conns=$(( rpn * (np - 1) ))
+    local log="$OUT/${label}.log"
+
+    echo ""
+    echo "================================================================="
+    echo " ARM: $label"
+    echo "   ranks/node=$rpn  total ranks=$np"
+    echo "   predicted outbound TCP conns per node: $conns  (ports: $PORTS)"
+    echo "================================================================="
+
+    set +e
+    "$@" > "$log" 2>&1
+    local rc=$?
+    set -e
+
+    local porterr
+    porterr=$(grep -c "Address already in use" "$log" 2>/dev/null); porterr=${porterr:-0}
+    local rows
+    rows=$(grep -cE '^[0-9]' "$log" 2>/dev/null); rows=${rows:-0}
+
+    {
+      echo "arm:                  $label"
+      echo "ranks_per_node:       $rpn"
+      echo "total_ranks:          $np"
+      echo "predicted_conns_node: $conns"
+      echo "ports_available:      $PORTS"
+      echo "over_subscription:    $(awk -v c=$conns -v p=$PORTS 'BEGIN{printf "%.2fx", c/p}')"
+      echo "exit_code:            $rc"
+      echo "port_errors:          $porterr"
+      echo "data_rows:            $rows"
+      echo "verdict:              $( [ "$rc" -eq 0 ] && [ "$rows" -ge 1 ] && echo PASS || echo FAIL )"
+    } | tee "$OUT/${label}.summary"
+}
+
+# ARM 1 -- container at full concurrency. Expected to fail.
+run_arm container_rpn128 128 512 \
+  mpirun -np 512 --map-by core --bind-to core "${CONTAINER_MPI[@]}" \
+    apptainer exec "$SIF" "$CBIN" "${ARGS[@]}"
+
+# ARM 2 -- container, half the ranks per node. Only the connection count
+# changes; same nodes, same binary, same message size.
+run_arm container_rpn64 64 256 \
+  mpirun -np 256 --map-by ppr:64:node --bind-to core "${CONTAINER_MPI[@]}" \
+    apptainer exec "$SIF" "$CBIN" "${ARGS[@]}"
+
+# ARM 3 -- native at the SAME 512 ranks that broke the container. Control:
+# if this passes, the failure is the TCP transport, not the scale.
+run_arm native_rpn128 128 512 \
+  mpirun -np 512 --map-by core --bind-to core "${NATIVE_MPI[@]}" \
+    "$NBIN" "${ARGS[@]}"
+
+echo ""
+echo "================================================================="
+echo " DIAGNOSTIC SUMMARY "
+echo "================================================================="
+grep -H 'verdict' "$OUT"/*.summary 2>/dev/null | sed 's|.*/||'
+echo ""
+echo "Hypothesis confirmed if: container_rpn128=FAIL, container_rpn64=PASS, native_rpn128=PASS"

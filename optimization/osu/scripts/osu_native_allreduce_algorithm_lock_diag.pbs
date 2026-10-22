@@ -1,0 +1,127 @@
+#!/bin/bash
+#PBS -N osu_native_allreduce_algorithm_lock_diag
+#PBS -l walltime=02:05:00
+#PBS -l place=excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/osu_native_allreduce_algorithm_lock_diag.out
+
+# Root-cause diagnostic for the NP=64 Allreduce anomaly (baseline/osu/GUIDE.md,
+# "both variants inherit it" -- costs ~4-6x its neighbors at NP=64, reproduced
+# across five independent batches). The suspected cause is OpenMPI's
+# coll_tuned component dynamically switching Allreduce ALGORITHMS at different
+# rank counts, not a hardware or container effect (both native and container
+# show the same spike, so it is upstream of either MPI stack's transport).
+#
+# This FORCES one fixed algorithm across NP=32/64/128 via
+#   --mca coll_tuned_use_dynamic_rules 1 --mca coll_tuned_allreduce_algorithm <N>
+# instead of letting OpenMPI's dynamic rule table choose per rank count. If the
+# NP=64 spike is algorithm-selection, forcing the SAME algorithm everywhere
+# should remove it (all three points fall on one smooth curve); if the spike
+# survives under a forced algorithm too, the explanation is wrong and the
+# cause lies elsewhere (e.g. genuine EPYC NUMA/CCD topology effect at that
+# specific rank count).
+#
+# ALG=0 reproduces the baseline exactly (no coll_tuned override) -- that IS
+# the already-measured anomaly, included here as the control, not re-derived.
+# ALG=3 (recursive doubling) and ALG=6 (Rabenseifner) are representative
+# non-default choices spanning OpenMPI 4.1's tuned Allreduce algorithm set.
+
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+
+OSU_DIR=$HOME/scratch/fyp/native/osu/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/collective
+
+: "${NP:?Must pass -v NP=<32|64|128>}"
+: "${ALG:?Must pass -v ALG=<0|3|6|...> (0 = default dynamic rules, the baseline)}"
+: "${REPS:?Must pass -v REPS=<number>}"
+
+BIN="${OSU_DIR}/osu_allreduce"
+[ -x "$BIN" ] || { echo "FATAL: $BIN not found or not executable"; exit 1; }
+
+NODE_COUNT=1
+ACTUAL_NODES=$(sort -u "$PBS_NODEFILE" | wc -l)
+if [ "$ACTUAL_NODES" -ne "$NODE_COUNT" ]; then
+    echo "FATAL: Expected $NODE_COUNT node, PBS granted $ACTUAL_NODES."
+    exit 1
+fi
+
+SLOTS=$(wc -l < "$PBS_NODEFILE")
+if [ "$SLOTS" -ne "$NP" ]; then
+    echo "FATAL: PBS_NODEFILE has $SLOTS slots but NP=$NP."
+    exit 1
+fi
+
+# Same fixed per-rank size as the baseline weak-scaling study, so these
+# numbers are directly comparable to the original anomaly measurement.
+MSG=65536
+
+REPORT_DIR="allreduce_algorithm_lock/alg${ALG}/np${NP}"
+mkdir -p "$REPORT_DIR" logs
+
+BENCH_ARGS=(-f -i 100 -m "${MSG}:${MSG}")
+
+MPI_CONFIG=(
+  -np "$NP"
+  --map-by core --bind-to core
+  --mca btl ^openib
+  --mca pml ucx
+  --mca orte_base_help_aggregate 0
+  --mca opal_common_ucx_opal_mem_hooks 1
+  -x UCX_LOG_LEVEL=ERROR
+)
+
+# ALG=0 is the control: identical to the baseline script, no coll_tuned
+# override. Any other value forces that fixed algorithm everywhere.
+if [ "$ALG" != "0" ]; then
+    MPI_CONFIG+=(
+      --mca coll_tuned_use_dynamic_rules 1
+      --mca coll_tuned_allreduce_algorithm "$ALG"
+    )
+fi
+
+echo "================================================================="
+echo " Allreduce algorithm-lock diagnostic: NP=$NP ALG=$ALG MSG=${MSG}B REPS=$REPS "
+echo "================================================================="
+
+sort -u "$PBS_NODEFILE" > "${REPORT_DIR}/nodes.txt"
+echo "$MSG" > "${REPORT_DIR}/msgsize_bytes.txt"
+echo "$ALG" > "${REPORT_DIR}/algorithm.txt"
+
+# Verify which algorithm actually ran -- coll_base_verbose names the decision.
+mpirun "${MPI_CONFIG[@]}" --mca coll_base_verbose 10 "$BIN" -f -i 1 -m "${MSG}:${MSG}" \
+    > "${REPORT_DIR}/algorithm_selection.txt" 2>&1 || true
+grep -iE 'allreduce.*algorithm|using algorithm' "${REPORT_DIR}/algorithm_selection.txt" \
+    | head -5 || echo "  (no algorithm line matched -- see algorithm_selection.txt raw)"
+
+mpirun "${MPI_CONFIG[@]}" --report-bindings true \
+    > "${REPORT_DIR}/bindings.txt" 2>&1 || echo "  (binding capture failed, non-fatal)"
+
+for REP in $(seq 1 "$REPS"); do
+    echo "--- Repetition ${REP}/${REPS} ---"
+    OUT="${REPORT_DIR}/osu_allreduce_rep${REP}.txt"
+
+    set -x
+    mpirun "${MPI_CONFIG[@]}" "$BIN" "${BENCH_ARGS[@]}" > "$OUT" 2>&1
+    RC=$?
+    set +x
+
+    if [ "$RC" -ne 0 ]; then
+        echo "FAILED: NP=$NP ALG=$ALG rep=$REP (exit $RC)"
+        sed 's/^/    /' "$OUT" | head -20
+        exit "$RC"
+    fi
+
+    rows=$(grep -cE '^[0-9]' "$OUT")
+    if [ "$rows" -lt 1 ]; then
+        echo "FATAL: $OUT has no data rows -- benchmark produced no table"
+        exit 1
+    fi
+    echo "  ok: $rows data row(s) recorded"
+done
+
+echo " Allreduce algorithm-lock diagnostic (NP=$NP, ALG=$ALG) Completed Successfully! "

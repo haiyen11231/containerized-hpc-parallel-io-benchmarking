@@ -1,0 +1,148 @@
+#!/bin/bash
+#PBS -N osu_container_collective_inter_allreduce_ucx
+#PBS -l walltime=02:30:00
+#PBS -l place=scatter:excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/osu_container_collective_inter_allreduce_ucx.out
+
+# OPTIMIZED container inter-node Allreduce: identical to the baseline script
+# in every respect EXCEPT the transport selection.
+#
+#   baseline  : --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none
+#               --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0
+#   optimized : --mca pml ucx -x UCX_TLS=^cma
+#
+# This is "Experiment 2" from optimization/osu/README.md's still-to-run list:
+# does the 3.5-6x inter-node Allreduce slowdown collapse toward 1x once the
+# container gets RDMA instead of TCP, the same way pt2pt did?
+#
+# UCX_TLS=^cma is NOT optional here, even though this script never touched
+# pt2pt. 128 ranks/node means every Allreduce step does an intra-node
+# shared-memory reduction phase before the inter-node exchange, at a 64 KiB
+# message size -- well past the threshold where UCX's rendezvous protocol
+# invokes CMA (process_vm_readv). The sibling pt2pt intra-node UCX experiment
+# (same container, same host) crashed with exactly this error (exit 134,
+# "Operation not permitted") the first time it was tried without this flag --
+# see optimization/osu/README.md's pt2pt intra-node section. Excluding cma
+# keeps UCX on sysv/posix shared memory intra-node, matching what the
+# baseline's vader+CMA-disabled config already does, so this script tests the
+# transport difference alone rather than re-discovering the same crash.
+
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+module load apptainer
+
+SIF=$HOME/scratch/fyp/container/osu/osu_micro_benchmarks.sif
+OSU_DIR=/opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/collective
+
+: "${MODE:?Must pass -v MODE=<weak|strong>}"
+: "${NODES:?Must pass -v NODES=<node count>}"
+: "${REPS:?Must pass -v REPS=<number>}"
+
+BIN="${OSU_DIR}/osu_allreduce"
+apptainer exec "$SIF" sh -c "test -x $BIN" \
+    || { echo "FATAL: $BIN not found inside $SIF"; exit 1; }
+
+RANKS_PER_NODE=128
+NP=$(( NODES * RANKS_PER_NODE ))
+
+ACTUAL_NODES=$(sort -u "$PBS_NODEFILE" | wc -l)
+if [ "$ACTUAL_NODES" -ne "$NODES" ]; then
+    echo "FATAL: Expected $NODES distinct nodes, PBS granted $ACTUAL_NODES."
+    exit 1
+fi
+
+SLOTS=$(wc -l < "$PBS_NODEFILE")
+if [ "$SLOTS" -ne "$NP" ]; then
+    echo "FATAL: PBS_NODEFILE has $SLOTS slots but NODES=$NODES implies NP=$NP."
+    exit 1
+fi
+
+UNEVEN=$(awk '{c[$1]++} END {for (h in c) if (c[h] != 128) print h, c[h]}' "$PBS_NODEFILE")
+if [ -n "$UNEVEN" ]; then
+    echo "FATAL: uneven ranks per node (expected $RANKS_PER_NODE):"
+    echo "$UNEVEN"
+    exit 1
+fi
+
+case "$MODE" in
+  weak)
+    MSG=65536
+    ;;
+  strong)
+    TOTAL=8388608
+    if [ $(( TOTAL % NP )) -ne 0 ]; then
+        echo "FATAL: TOTAL=$TOTAL is not divisible by NP=$NP -- per-rank size would be truncated"
+        exit 1
+    fi
+    MSG=$(( TOTAL / NP ))
+    ;;
+  *) echo "FATAL: unknown MODE='$MODE' (expected weak|strong)"; exit 1 ;;
+esac
+
+REPORT_DIR="collective_ucx/${MODE}/allreduce/n${NODES}"
+mkdir -p "$REPORT_DIR" logs
+
+BENCH_ARGS=(-f -i 100 -m "${MSG}:${MSG}")
+
+# The transport change under test, plus the CMA exclusion explained above.
+MPI_CONFIG=(
+  -np "$NP"
+  --map-by core --bind-to core
+  --mca pml ucx
+  -x UCX_TLS=^cma
+  --mca orte_base_help_aggregate 0
+  -x UCX_LOG_LEVEL=ERROR
+)
+
+echo "================================================================="
+echo " OPTIMIZED (UCX) container inter-node Allreduce: MODE=$MODE NODES=$NODES NP=$NP MSG=${MSG}B REPS=$REPS "
+echo "================================================================="
+
+sort -u "$PBS_NODEFILE" > "${REPORT_DIR}/nodes.txt"
+echo "=== nodes used ($ACTUAL_NODES distinct) ==="; cat "${REPORT_DIR}/nodes.txt"
+echo "$MSG" > "${REPORT_DIR}/msgsize_bytes.txt"
+echo "$NP"  > "${REPORT_DIR}/ranks.txt"
+
+# Transport verification, raw + filtered (the filtered version came back
+# empty on the pt2pt inter-node probe -- keep the raw log too).
+echo "=== transport actually used (UCX_LOG_LEVEL=info, 1 rep) ==="
+mpirun -np "$NP" --map-by core --bind-to core --mca pml ucx -x UCX_TLS=^cma -x UCX_LOG_LEVEL=info \
+  apptainer exec "$SIF" "$BIN" -f -i 1 -m "${MSG}:${MSG}" \
+  > "${REPORT_DIR}/transport_raw.txt" 2>&1
+grep -iE 'selected transport|support_level|rc_verbs|ud_verbs|sysv|posix|mm/|tcp|cma' \
+  "${REPORT_DIR}/transport_raw.txt" | head -12 | tee "${REPORT_DIR}/transport.txt"
+
+mpirun "${MPI_CONFIG[@]}" --report-bindings true \
+    > "${REPORT_DIR}/bindings.txt" 2>&1 || echo "  (binding capture failed, non-fatal)"
+
+for REP in $(seq 1 "$REPS"); do
+    echo "--- Repetition ${REP}/${REPS} ---"
+    OUT="${REPORT_DIR}/osu_allreduce_rep${REP}.txt"
+
+    set -x
+    mpirun "${MPI_CONFIG[@]}" apptainer exec "$SIF" "$BIN" "${BENCH_ARGS[@]}" > "$OUT" 2>&1
+    RC=$?
+    set +x
+
+    if [ "$RC" -ne 0 ]; then
+        echo "FAILED: MODE=$MODE NODES=$NODES rep=$REP (exit $RC)"
+        sed 's/^/    /' "$OUT" | head -20
+        exit "$RC"
+    fi
+
+    rows=$(grep -cE '^[0-9]' "$OUT")
+    if [ "$rows" -lt 1 ]; then
+        echo "FATAL: $OUT has no data rows -- benchmark produced no table"
+        sed 's/^/    /' "$OUT" | head -20
+        exit 1
+    fi
+    echo "  ok: $rows data row(s) recorded"
+done
+
+echo " OPTIMIZED container inter-node Allreduce ($MODE, NODES=$NODES) Completed Successfully! "

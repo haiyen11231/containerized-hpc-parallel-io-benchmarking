@@ -1,0 +1,13 @@
+[1791903521.293007] [x1002c5s6b0n0:137784:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791903521.293275] [x1002c5s6b0n0:137785:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791903521.396264] [x1002c5s6b0n0:137785:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791903521.396407] [x1002c5s6b0n0:137784:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791903521.397346] [x1002c5s6b0n0:137785:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 rc_mlx5/mlx5_0:1); 
+[1791903521.397366] [x1002c5s6b0n0:137784:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 rc_mlx5/mlx5_0:1); 
+[1791903521.408195] [x1002c5s6b0n0:137784:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory rc_mlx5/mlx5_0:1); 
+[1791903521.408286] [x1002c5s6b0n0:137785:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory rc_mlx5/mlx5_0:1); 
+
+# OSU MPI Latency Test v8.0rc
+# Datatype: MPI_CHAR.
+# Size       Avg Latency(us)
+1                       0.14

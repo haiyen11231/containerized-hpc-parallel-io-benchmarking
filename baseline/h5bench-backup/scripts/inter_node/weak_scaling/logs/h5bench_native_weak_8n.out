@@ -1,0 +1,411 @@
+Currently Loaded Modulefiles:
+  1) libfabric/1.11.0.4.125             3) openmpi/4.1.2-hpe
+  2) intel/2022.0.2                     4) hdf5/1.12.1-parallel-icc22-ompi4
+mpirun (Open MPI) 4.1.2
+
+Report bugs to http://www.open-mpi.org/community/help/
+=== Verifying Lustre striping layout for payload/native/n8 ===
+payload/native/n8
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+=================================================================
+ Native Inter-Node Weak Scaling: NODES=8 NP=1024 REPS=10 
+=================================================================
+--- Repetition 1/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d native/n8/config_rep1.json
+
+real	2m9.091s
+user	89m57.059s
+sys	17m10.585s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-06 00:25:43,403 h5bench - INFO - Starting h5bench Suite
+2026-10-06 00:25:43,405 h5bench - WARNING - Base directory already exists: payload/native/n8
+2026-10-06 00:25:43,410 h5bench - INFO - Lustre support detected
+2026-10-06 00:25:43,410 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/native/n8
+2026-10-06 00:25:43,415 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-06 00:25:43,416 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-06 00:25:43,416 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-06 00:25:43,416 h5bench - INFO - JOBID: 25694139.pbs101
+2026-10-06 00:25:43,416 h5bench - INFO - h5bench [write] - Starting
+2026-10-06 00:25:43,416 h5bench - INFO - h5bench [write] - DIR: payload/native/n8/534b606b-25694139.pbs101/
+2026-10-06 00:25:43,417 h5bench - INFO - Parallel setup: mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 00:25:43,419 h5bench - INFO - mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_write payload/native/n8/534b606b-25694139.pbs101/h5bench.cfg payload/native/n8/h5bench_weak_native_n8.h5
+2026-10-06 00:27:10,533 h5bench - INFO - SUCCESS (all output files are located at payload/native/n8/534b606b-25694139.pbs101)
+2026-10-06 00:27:10,534 h5bench - INFO - Runtime: 87.1170645 seconds (elapsed time, includes allocation wait time)
+2026-10-06 00:27:10,534 h5bench - INFO - h5bench [write] - Complete
+2026-10-06 00:27:10,534 h5bench - INFO - JOBID: 25694139.pbs101
+2026-10-06 00:27:10,535 h5bench - INFO - h5bench [read] - Starting
+2026-10-06 00:27:10,535 h5bench - INFO - h5bench [read] - DIR: payload/native/n8/69511834-25694139.pbs101/
+2026-10-06 00:27:10,535 h5bench - INFO - Parallel setup: mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 00:27:10,537 h5bench - INFO - mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_read payload/native/n8/69511834-25694139.pbs101/h5bench.cfg payload/native/n8/h5bench_weak_native_n8.h5
+2026-10-06 00:27:52,379 h5bench - INFO - SUCCESS (all output files are located at payload/native/n8/69511834-25694139.pbs101)
+2026-10-06 00:27:52,380 h5bench - INFO - Runtime: 41.8442080 seconds (elapsed time, includes allocation wait time)
+2026-10-06 00:27:52,380 h5bench - INFO - h5bench [read] - Complete
+2026-10-06 00:27:52,380 h5bench - INFO - Finishing h5bench Suite
+--- Repetition 2/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d native/n8/config_rep2.json
+
+real	1m42.934s
+user	85m32.827s
+sys	16m22.918s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-06 00:27:57,536 h5bench - INFO - Starting h5bench Suite
+2026-10-06 00:27:57,537 h5bench - WARNING - Base directory already exists: payload/native/n8
+2026-10-06 00:27:57,543 h5bench - INFO - Lustre support detected
+2026-10-06 00:27:57,544 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/native/n8
+2026-10-06 00:27:57,550 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-06 00:27:57,550 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-06 00:27:57,550 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-06 00:27:57,550 h5bench - INFO - JOBID: 25694139.pbs101
+2026-10-06 00:27:57,550 h5bench - INFO - h5bench [write] - Starting
+2026-10-06 00:27:57,551 h5bench - INFO - h5bench [write] - DIR: payload/native/n8/6468ffec-25694139.pbs101/
+2026-10-06 00:27:57,551 h5bench - INFO - Parallel setup: mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 00:27:57,552 h5bench - INFO - mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_write payload/native/n8/6468ffec-25694139.pbs101/h5bench.cfg payload/native/n8/h5bench_weak_native_n8.h5
+2026-10-06 00:29:05,339 h5bench - INFO - SUCCESS (all output files are located at payload/native/n8/6468ffec-25694139.pbs101)
+2026-10-06 00:29:05,339 h5bench - INFO - Runtime: 67.7881174 seconds (elapsed time, includes allocation wait time)
+2026-10-06 00:29:05,339 h5bench - INFO - h5bench [write] - Complete
+2026-10-06 00:29:05,340 h5bench - INFO - JOBID: 25694139.pbs101
+2026-10-06 00:29:05,340 h5bench - INFO - h5bench [read] - Starting
+2026-10-06 00:29:05,340 h5bench - INFO - h5bench [read] - DIR: payload/native/n8/59b55e48-25694139.pbs101/
+2026-10-06 00:29:05,340 h5bench - INFO - Parallel setup: mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 00:29:05,342 h5bench - INFO - mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_read payload/native/n8/59b55e48-25694139.pbs101/h5bench.cfg payload/native/n8/h5bench_weak_native_n8.h5
+2026-10-06 00:29:40,399 h5bench - INFO - SUCCESS (all output files are located at payload/native/n8/59b55e48-25694139.pbs101)
+2026-10-06 00:29:40,400 h5bench - INFO - Runtime: 35.0594311 seconds (elapsed time, includes allocation wait time)
+2026-10-06 00:29:40,400 h5bench - INFO - h5bench [read] - Complete
+2026-10-06 00:29:40,400 h5bench - INFO - Finishing h5bench Suite
+--- Repetition 3/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d native/n8/config_rep3.json
+
+real	1m40.159s
+user	89m13.660s
+sys	14m19.018s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-06 00:29:45,470 h5bench - INFO - Starting h5bench Suite
+2026-10-06 00:29:45,471 h5bench - WARNING - Base directory already exists: payload/native/n8
+2026-10-06 00:29:45,477 h5bench - INFO - Lustre support detected
+2026-10-06 00:29:45,478 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/native/n8
+2026-10-06 00:29:45,484 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-06 00:29:45,484 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-06 00:29:45,484 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-06 00:29:45,485 h5bench - INFO - JOBID: 25694139.pbs101
+2026-10-06 00:29:45,485 h5bench - INFO - h5bench [write] - Starting
+2026-10-06 00:29:45,485 h5bench - INFO - h5bench [write] - DIR: payload/native/n8/68bfd653-25694139.pbs101/
+2026-10-06 00:29:45,485 h5bench - INFO - Parallel setup: mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 00:29:45,486 h5bench - INFO - mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_write payload/native/n8/68bfd653-25694139.pbs101/h5bench.cfg payload/native/n8/h5bench_weak_native_n8.h5
+2026-10-06 00:30:49,062 h5bench - INFO - SUCCESS (all output files are located at payload/native/n8/68bfd653-25694139.pbs101)
+2026-10-06 00:30:49,062 h5bench - INFO - Runtime: 63.5769596 seconds (elapsed time, includes allocation wait time)
+2026-10-06 00:30:49,063 h5bench - INFO - h5bench [write] - Complete
+2026-10-06 00:30:49,063 h5bench - INFO - JOBID: 25694139.pbs101
+2026-10-06 00:30:49,063 h5bench - INFO - h5bench [read] - Starting
+2026-10-06 00:30:49,063 h5bench - INFO - h5bench [read] - DIR: payload/native/n8/9c5c1916-25694139.pbs101/
+2026-10-06 00:30:49,064 h5bench - INFO - Parallel setup: mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 00:30:49,065 h5bench - INFO - mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_read payload/native/n8/9c5c1916-25694139.pbs101/h5bench.cfg payload/native/n8/h5bench_weak_native_n8.h5
+2026-10-06 00:31:25,558 h5bench - INFO - SUCCESS (all output files are located at payload/native/n8/9c5c1916-25694139.pbs101)
+2026-10-06 00:31:25,559 h5bench - INFO - Runtime: 36.4947588 seconds (elapsed time, includes allocation wait time)
+2026-10-06 00:31:25,559 h5bench - INFO - h5bench [read] - Complete
+2026-10-06 00:31:25,559 h5bench - INFO - Finishing h5bench Suite
+--- Repetition 4/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d native/n8/config_rep4.json
+
+real	2m11.947s
+user	120m36.420s
+sys	14m14.441s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-06 00:31:30,850 h5bench - INFO - Starting h5bench Suite
+2026-10-06 00:31:30,851 h5bench - WARNING - Base directory already exists: payload/native/n8
+2026-10-06 00:31:30,858 h5bench - INFO - Lustre support detected
+2026-10-06 00:31:30,859 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/native/n8
+2026-10-06 00:31:30,865 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-06 00:31:30,865 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-06 00:31:30,865 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-06 00:31:30,865 h5bench - INFO - JOBID: 25694139.pbs101
+2026-10-06 00:31:30,866 h5bench - INFO - h5bench [write] - Starting
+2026-10-06 00:31:30,866 h5bench - INFO - h5bench [write] - DIR: payload/native/n8/f6dd608a-25694139.pbs101/
+2026-10-06 00:31:30,866 h5bench - INFO - Parallel setup: mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 00:31:30,867 h5bench - INFO - mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_write payload/native/n8/f6dd608a-25694139.pbs101/h5bench.cfg payload/native/n8/h5bench_weak_native_n8.h5
+2026-10-06 00:32:55,112 h5bench - INFO - SUCCESS (all output files are located at payload/native/n8/f6dd608a-25694139.pbs101)
+2026-10-06 00:32:55,113 h5bench - INFO - Runtime: 84.2465310 seconds (elapsed time, includes allocation wait time)
+2026-10-06 00:32:55,113 h5bench - INFO - h5bench [write] - Complete
+2026-10-06 00:32:55,113 h5bench - INFO - JOBID: 25694139.pbs101
+2026-10-06 00:32:55,113 h5bench - INFO - h5bench [read] - Starting
+2026-10-06 00:32:55,113 h5bench - INFO - h5bench [read] - DIR: payload/native/n8/c6f8110c-25694139.pbs101/
+2026-10-06 00:32:55,114 h5bench - INFO - Parallel setup: mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 00:32:55,116 h5bench - INFO - mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_read payload/native/n8/c6f8110c-25694139.pbs101/h5bench.cfg payload/native/n8/h5bench_weak_native_n8.h5
+2026-10-06 00:33:42,723 h5bench - INFO - SUCCESS (all output files are located at payload/native/n8/c6f8110c-25694139.pbs101)
+2026-10-06 00:33:42,724 h5bench - INFO - Runtime: 47.6101282 seconds (elapsed time, includes allocation wait time)
+2026-10-06 00:33:42,724 h5bench - INFO - h5bench [read] - Complete
+2026-10-06 00:33:42,725 h5bench - INFO - Finishing h5bench Suite
+--- Repetition 5/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d native/n8/config_rep5.json
+
+real	1m55.393s
+user	80m8.874s
+sys	15m46.399s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-06 00:33:47,947 h5bench - INFO - Starting h5bench Suite
+2026-10-06 00:33:47,948 h5bench - WARNING - Base directory already exists: payload/native/n8
+2026-10-06 00:33:47,956 h5bench - INFO - Lustre support detected
+2026-10-06 00:33:47,956 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/native/n8
+2026-10-06 00:33:47,963 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-06 00:33:47,964 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-06 00:33:47,964 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-06 00:33:47,964 h5bench - INFO - JOBID: 25694139.pbs101
+2026-10-06 00:33:47,965 h5bench - INFO - h5bench [write] - Starting
+2026-10-06 00:33:47,965 h5bench - INFO - h5bench [write] - DIR: payload/native/n8/fb14e1cb-25694139.pbs101/
+2026-10-06 00:33:47,965 h5bench - INFO - Parallel setup: mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 00:33:47,973 h5bench - INFO - mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_write payload/native/n8/fb14e1cb-25694139.pbs101/h5bench.cfg payload/native/n8/h5bench_weak_native_n8.h5
+2026-10-06 00:35:03,774 h5bench - INFO - SUCCESS (all output files are located at payload/native/n8/fb14e1cb-25694139.pbs101)
+2026-10-06 00:35:03,775 h5bench - INFO - Runtime: 75.8094969 seconds (elapsed time, includes allocation wait time)
+2026-10-06 00:35:03,775 h5bench - INFO - h5bench [write] - Complete
+2026-10-06 00:35:03,775 h5bench - INFO - JOBID: 25694139.pbs101
+2026-10-06 00:35:03,775 h5bench - INFO - h5bench [read] - Starting
+2026-10-06 00:35:03,775 h5bench - INFO - h5bench [read] - DIR: payload/native/n8/c9e5123e-25694139.pbs101/
+2026-10-06 00:35:03,776 h5bench - INFO - Parallel setup: mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 00:35:03,777 h5bench - INFO - mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_read payload/native/n8/c9e5123e-25694139.pbs101/h5bench.cfg payload/native/n8/h5bench_weak_native_n8.h5
+2026-10-06 00:35:43,252 h5bench - INFO - SUCCESS (all output files are located at payload/native/n8/c9e5123e-25694139.pbs101)
+2026-10-06 00:35:43,252 h5bench - INFO - Runtime: 39.4761965 seconds (elapsed time, includes allocation wait time)
+2026-10-06 00:35:43,253 h5bench - INFO - h5bench [read] - Complete
+2026-10-06 00:35:43,253 h5bench - INFO - Finishing h5bench Suite
+--- Repetition 6/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d native/n8/config_rep6.json
+
+real	1m39.578s
+user	84m21.720s
+sys	15m30.308s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-06 00:35:48,379 h5bench - INFO - Starting h5bench Suite
+2026-10-06 00:35:48,380 h5bench - WARNING - Base directory already exists: payload/native/n8
+2026-10-06 00:35:48,389 h5bench - INFO - Lustre support detected
+2026-10-06 00:35:48,389 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/native/n8
+2026-10-06 00:35:48,395 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-06 00:35:48,396 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-06 00:35:48,396 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-06 00:35:48,396 h5bench - INFO - JOBID: 25694139.pbs101
+2026-10-06 00:35:48,396 h5bench - INFO - h5bench [write] - Starting
+2026-10-06 00:35:48,396 h5bench - INFO - h5bench [write] - DIR: payload/native/n8/be8c7edf-25694139.pbs101/
+2026-10-06 00:35:48,397 h5bench - INFO - Parallel setup: mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 00:35:48,398 h5bench - INFO - mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_write payload/native/n8/be8c7edf-25694139.pbs101/h5bench.cfg payload/native/n8/h5bench_weak_native_n8.h5
+2026-10-06 00:36:50,268 h5bench - INFO - SUCCESS (all output files are located at payload/native/n8/be8c7edf-25694139.pbs101)
+2026-10-06 00:36:50,269 h5bench - INFO - Runtime: 61.8716300 seconds (elapsed time, includes allocation wait time)
+2026-10-06 00:36:50,269 h5bench - INFO - h5bench [write] - Complete
+2026-10-06 00:36:50,269 h5bench - INFO - JOBID: 25694139.pbs101
+2026-10-06 00:36:50,269 h5bench - INFO - h5bench [read] - Starting
+2026-10-06 00:36:50,269 h5bench - INFO - h5bench [read] - DIR: payload/native/n8/576bb6b1-25694139.pbs101/
+2026-10-06 00:36:50,270 h5bench - INFO - Parallel setup: mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 00:36:50,271 h5bench - INFO - mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_read payload/native/n8/576bb6b1-25694139.pbs101/h5bench.cfg payload/native/n8/h5bench_weak_native_n8.h5
+2026-10-06 00:37:27,883 h5bench - INFO - SUCCESS (all output files are located at payload/native/n8/576bb6b1-25694139.pbs101)
+2026-10-06 00:37:27,883 h5bench - INFO - Runtime: 37.6134486 seconds (elapsed time, includes allocation wait time)
+2026-10-06 00:37:27,883 h5bench - INFO - h5bench [read] - Complete
+2026-10-06 00:37:27,884 h5bench - INFO - Finishing h5bench Suite
+--- Repetition 7/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d native/n8/config_rep7.json
+
+real	2m13.908s
+user	104m12.257s
+sys	15m44.951s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-06 00:37:33,210 h5bench - INFO - Starting h5bench Suite
+2026-10-06 00:37:33,211 h5bench - WARNING - Base directory already exists: payload/native/n8
+2026-10-06 00:37:33,220 h5bench - INFO - Lustre support detected
+2026-10-06 00:37:33,221 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/native/n8
+2026-10-06 00:37:33,227 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-06 00:37:33,227 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-06 00:37:33,227 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-06 00:37:33,228 h5bench - INFO - JOBID: 25694139.pbs101
+2026-10-06 00:37:33,228 h5bench - INFO - h5bench [write] - Starting
+2026-10-06 00:37:33,228 h5bench - INFO - h5bench [write] - DIR: payload/native/n8/e589bb3e-25694139.pbs101/
+2026-10-06 00:37:33,228 h5bench - INFO - Parallel setup: mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 00:37:33,229 h5bench - INFO - mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_write payload/native/n8/e589bb3e-25694139.pbs101/h5bench.cfg payload/native/n8/h5bench_weak_native_n8.h5
+2026-10-06 00:38:56,714 h5bench - INFO - SUCCESS (all output files are located at payload/native/n8/e589bb3e-25694139.pbs101)
+2026-10-06 00:38:56,715 h5bench - INFO - Runtime: 83.4861395 seconds (elapsed time, includes allocation wait time)
+2026-10-06 00:38:56,715 h5bench - INFO - h5bench [write] - Complete
+2026-10-06 00:38:56,715 h5bench - INFO - JOBID: 25694139.pbs101
+2026-10-06 00:38:56,715 h5bench - INFO - h5bench [read] - Starting
+2026-10-06 00:38:56,715 h5bench - INFO - h5bench [read] - DIR: payload/native/n8/665eae74-25694139.pbs101/
+2026-10-06 00:38:56,716 h5bench - INFO - Parallel setup: mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 00:38:56,717 h5bench - INFO - mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_read payload/native/n8/665eae74-25694139.pbs101/h5bench.cfg payload/native/n8/h5bench_weak_native_n8.h5
+2026-10-06 00:39:47,047 h5bench - INFO - SUCCESS (all output files are located at payload/native/n8/665eae74-25694139.pbs101)
+2026-10-06 00:39:47,048 h5bench - INFO - Runtime: 50.3320413 seconds (elapsed time, includes allocation wait time)
+2026-10-06 00:39:47,048 h5bench - INFO - h5bench [read] - Complete
+2026-10-06 00:39:47,048 h5bench - INFO - Finishing h5bench Suite
+--- Repetition 8/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d native/n8/config_rep8.json
+
+real	1m59.500s
+user	112m27.850s
+sys	17m1.580s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-06 00:39:52,283 h5bench - INFO - Starting h5bench Suite
+2026-10-06 00:39:52,284 h5bench - WARNING - Base directory already exists: payload/native/n8
+2026-10-06 00:39:52,295 h5bench - INFO - Lustre support detected
+2026-10-06 00:39:52,295 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/native/n8
+2026-10-06 00:39:52,301 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-06 00:39:52,302 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-06 00:39:52,302 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-06 00:39:52,302 h5bench - INFO - JOBID: 25694139.pbs101
+2026-10-06 00:39:52,302 h5bench - INFO - h5bench [write] - Starting
+2026-10-06 00:39:52,302 h5bench - INFO - h5bench [write] - DIR: payload/native/n8/612383c9-25694139.pbs101/
+2026-10-06 00:39:52,303 h5bench - INFO - Parallel setup: mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 00:39:52,304 h5bench - INFO - mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_write payload/native/n8/612383c9-25694139.pbs101/h5bench.cfg payload/native/n8/h5bench_weak_native_n8.h5
+2026-10-06 00:41:10,026 h5bench - INFO - SUCCESS (all output files are located at payload/native/n8/612383c9-25694139.pbs101)
+2026-10-06 00:41:10,027 h5bench - INFO - Runtime: 77.7238946 seconds (elapsed time, includes allocation wait time)
+2026-10-06 00:41:10,027 h5bench - INFO - h5bench [write] - Complete
+2026-10-06 00:41:10,027 h5bench - INFO - JOBID: 25694139.pbs101
+2026-10-06 00:41:10,028 h5bench - INFO - h5bench [read] - Starting
+2026-10-06 00:41:10,028 h5bench - INFO - h5bench [read] - DIR: payload/native/n8/687bfd8c-25694139.pbs101/
+2026-10-06 00:41:10,028 h5bench - INFO - Parallel setup: mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 00:41:10,029 h5bench - INFO - mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_read payload/native/n8/687bfd8c-25694139.pbs101/h5bench.cfg payload/native/n8/h5bench_weak_native_n8.h5
+2026-10-06 00:41:51,711 h5bench - INFO - SUCCESS (all output files are located at payload/native/n8/687bfd8c-25694139.pbs101)
+2026-10-06 00:41:51,712 h5bench - INFO - Runtime: 41.6836255 seconds (elapsed time, includes allocation wait time)
+2026-10-06 00:41:51,712 h5bench - INFO - h5bench [read] - Complete
+2026-10-06 00:41:51,712 h5bench - INFO - Finishing h5bench Suite
+--- Repetition 9/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d native/n8/config_rep9.json
+
+real	1m39.292s
+user	83m8.504s
+sys	19m48.353s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-06 00:41:56,923 h5bench - INFO - Starting h5bench Suite
+2026-10-06 00:41:56,924 h5bench - WARNING - Base directory already exists: payload/native/n8
+2026-10-06 00:41:56,934 h5bench - INFO - Lustre support detected
+2026-10-06 00:41:56,935 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/native/n8
+2026-10-06 00:41:56,941 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-06 00:41:56,942 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-06 00:41:56,942 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-06 00:41:56,942 h5bench - INFO - JOBID: 25694139.pbs101
+2026-10-06 00:41:56,942 h5bench - INFO - h5bench [write] - Starting
+2026-10-06 00:41:56,942 h5bench - INFO - h5bench [write] - DIR: payload/native/n8/058a3ef3-25694139.pbs101/
+2026-10-06 00:41:56,943 h5bench - INFO - Parallel setup: mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 00:41:56,944 h5bench - INFO - mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_write payload/native/n8/058a3ef3-25694139.pbs101/h5bench.cfg payload/native/n8/h5bench_weak_native_n8.h5
+2026-10-06 00:43:02,501 h5bench - INFO - SUCCESS (all output files are located at payload/native/n8/058a3ef3-25694139.pbs101)
+2026-10-06 00:43:02,501 h5bench - INFO - Runtime: 65.5582421 seconds (elapsed time, includes allocation wait time)
+2026-10-06 00:43:02,501 h5bench - INFO - h5bench [write] - Complete
+2026-10-06 00:43:02,502 h5bench - INFO - JOBID: 25694139.pbs101
+2026-10-06 00:43:02,502 h5bench - INFO - h5bench [read] - Starting
+2026-10-06 00:43:02,502 h5bench - INFO - h5bench [read] - DIR: payload/native/n8/de4b3a15-25694139.pbs101/
+2026-10-06 00:43:02,502 h5bench - INFO - Parallel setup: mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 00:43:02,504 h5bench - INFO - mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_read payload/native/n8/de4b3a15-25694139.pbs101/h5bench.cfg payload/native/n8/h5bench_weak_native_n8.h5
+2026-10-06 00:43:36,135 h5bench - INFO - SUCCESS (all output files are located at payload/native/n8/de4b3a15-25694139.pbs101)
+2026-10-06 00:43:36,136 h5bench - INFO - Runtime: 33.6330972 seconds (elapsed time, includes allocation wait time)
+2026-10-06 00:43:36,136 h5bench - INFO - h5bench [read] - Complete
+2026-10-06 00:43:36,136 h5bench - INFO - Finishing h5bench Suite
+--- Repetition 10/10 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d native/n8/config_rep10.json
+
+real	2m21.549s
+user	126m10.874s
+sys	17m58.572s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-06 00:43:41,623 h5bench - INFO - Starting h5bench Suite
+2026-10-06 00:43:41,624 h5bench - WARNING - Base directory already exists: payload/native/n8
+2026-10-06 00:43:41,635 h5bench - INFO - Lustre support detected
+2026-10-06 00:43:41,635 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/native/n8
+2026-10-06 00:43:41,641 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-06 00:43:41,641 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-06 00:43:41,642 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-06 00:43:41,642 h5bench - INFO - JOBID: 25694139.pbs101
+2026-10-06 00:43:41,642 h5bench - INFO - h5bench [write] - Starting
+2026-10-06 00:43:41,642 h5bench - INFO - h5bench [write] - DIR: payload/native/n8/f42f0795-25694139.pbs101/
+2026-10-06 00:43:41,642 h5bench - INFO - Parallel setup: mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 00:43:41,643 h5bench - INFO - mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_write payload/native/n8/f42f0795-25694139.pbs101/h5bench.cfg payload/native/n8/h5bench_weak_native_n8.h5
+2026-10-06 00:45:12,987 h5bench - INFO - SUCCESS (all output files are located at payload/native/n8/f42f0795-25694139.pbs101)
+2026-10-06 00:45:12,987 h5bench - INFO - Runtime: 91.3448758 seconds (elapsed time, includes allocation wait time)
+2026-10-06 00:45:12,988 h5bench - INFO - h5bench [write] - Complete
+2026-10-06 00:45:12,988 h5bench - INFO - JOBID: 25694139.pbs101
+2026-10-06 00:45:12,988 h5bench - INFO - h5bench [read] - Starting
+2026-10-06 00:45:12,988 h5bench - INFO - h5bench [read] - DIR: payload/native/n8/e9a39853-25694139.pbs101/
+2026-10-06 00:45:12,989 h5bench - INFO - Parallel setup: mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 00:45:12,990 h5bench - INFO - mpirun -np 1024 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_read payload/native/n8/e9a39853-25694139.pbs101/h5bench.cfg payload/native/n8/h5bench_weak_native_n8.h5
+2026-10-06 00:46:03,100 h5bench - INFO - SUCCESS (all output files are located at payload/native/n8/e9a39853-25694139.pbs101)
+2026-10-06 00:46:03,100 h5bench - INFO - Runtime: 50.1115642 seconds (elapsed time, includes allocation wait time)
+2026-10-06 00:46:03,100 h5bench - INFO - h5bench [read] - Complete
+2026-10-06 00:46:03,101 h5bench - INFO - Finishing h5bench Suite
+=== Lustre striping actually applied to payload/native/n8 ===
+payload/native/n8
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/n8/687bfd8c-25694139.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/n8/665eae74-25694139.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/n8/h5bench_weak_native_n8.h5
+lmm_stripe_count:  4
+lmm_stripe_size:   1048576
+lmm_pattern:       raid0
+lmm_layout_gen:    0
+lmm_stripe_offset: 23
+lmm_pool:          disk
+	obdidx		 objid		 objid		 group
+	    23	    1331241159	   0x4f5920c7	   0x840000400
+	    25	    1331765331	   0x4f612053	   0x900000400
+	    26	    1335695109	   0x4f9d1705	   0x8c0000400
+	    28	    1336859309	   0x4faedaad	   0x980000400
+
+payload/native/n8/9c5c1916-25694139.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/n8/576bb6b1-25694139.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/n8/612383c9-25694139.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/n8/f6dd608a-25694139.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/n8/de4b3a15-25694139.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/n8/c6f8110c-25694139.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/n8/f42f0795-25694139.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/n8/c9e5123e-25694139.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/n8/e9a39853-25694139.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/n8/fb14e1cb-25694139.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/n8/534b606b-25694139.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/n8/be8c7edf-25694139.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/n8/68bfd653-25694139.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/n8/69511834-25694139.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/n8/59b55e48-25694139.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/n8/6468ffec-25694139.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/n8/e589bb3e-25694139.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+payload/native/n8/058a3ef3-25694139.pbs101
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+Completed Successfully! 

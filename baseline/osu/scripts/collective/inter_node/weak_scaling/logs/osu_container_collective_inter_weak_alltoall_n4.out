@@ -1,0 +1,40 @@
+Currently Loaded Modulefiles:
+  1) libfabric/1.11.0.4.125   3) apptainer/1.5.0
+  2) openmpi/4.1.2-hpe
+mpirun (Open MPI) 4.1.2
+
+Report bugs to http://www.open-mpi.org/community/help/
+apptainer version 1.5.0
+=================================================================
+ Inter-Node collective WEAK scaling: BENCH=alltoall NODES=4 NP=512 MSG=65536B REPS=10 
+=================================================================
+=== nodes used (4 distinct) ===
+x1001c0s2b1n1.hostmgmt2001.cm.asp2a.nscc.sg
+x1002c0s4b0n1.hostmgmt2002.cm.asp2a.nscc.sg
+x1002c0s4b1n0.hostmgmt2002.cm.asp2a.nscc.sg
+x1002c6s5b1n1.hostmgmt2002.cm.asp2a.nscc.sg
+--- Repetition 1/10 ---
++ mpirun -np 512 --map-by core --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec /home/users/ntu/haiyen00/scratch/fyp/container/osu/osu_micro_benchmarks.sif /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/collective/osu_alltoall -f -i 100 -m 65536:65536
++ RC=16
++ set +x
+FAILED: BENCH=alltoall NODES=4 rep=1 (exit 16)
+    
+    # OSU MPI All-to-All Personalized Exchange Latency Test v8.0rc
+    # Datatype: MPI_CHAR.
+    # Size       Avg Latency(us)   Min Latency(us)   Max Latency(us)  Iterations
+    [x1002c6s5b1n1][[1702,1],410][../../../../../../opal/mca/btl/tcp/btl_tcp_endpoint.c:730:mca_btl_tcp_endpoint_start_connect] bind on local address (10.150.10.245:0) failed: Address already in use (98)
+    [x1002c0s4b0n1][[1702,1],151][../../../../../../opal/mca/btl/tcp/btl_tcp_endpoint.c:730:mca_btl_tcp_endpoint_start_connect] bind on local address (10.150.2.70:0) failed: Address already in use (98)
+    [x1002c6s5b1n1][[1702,1],444][../../../../../../opal/mca/btl/tcp/btl_tcp_endpoint.c:730:mca_btl_tcp_endpoint_start_connect] bind on local address (10.150.10.245:0) failed: Address already in use (98)
+    [x1002c0s4b0n1][[1702,1],244][../../../../../../opal/mca/btl/tcp/btl_tcp_endpoint.c:730:mca_btl_tcp_endpoint_start_connect] bind on local address (10.150.2.70:0) failed: Address already in use (98)
+    [x1002c6s5b1n1][[1702,1],411][../../../../../../opal/mca/btl/tcp/btl_tcp_endpoint.c:730:mca_btl_tcp_endpoint_start_connect] bind on local address (10.150.10.245:0) failed: Address already in use (98)
+    [x1002c0s4b0n1][[1702,1],139][../../../../../../opal/mca/btl/tcp/btl_tcp_endpoint.c:730:mca_btl_tcp_endpoint_start_connect] bind on local address (10.150.2.70:0) failed: Address already in use (98)
+    [x1002c6s5b1n1][[1702,1],491][../../../../../../opal/mca/btl/tcp/btl_tcp_endpoint.c:730:mca_btl_tcp_endpoint_start_connect] bind on local address (10.150.10.245:0) failed: Address already in use (98)
+    [x1002c0s4b0n1][[1702,1],181][../../../../../../opal/mca/btl/tcp/btl_tcp_endpoint.c:730:mca_btl_tcp_endpoint_start_connect] bind on local address (10.150.2.70:0) failed: Address already in use (98)
+    [x1002c6s5b1n1][[1702,1],460][../../../../../../opal/mca/btl/tcp/btl_tcp_endpoint.c:730:mca_btl_tcp_endpoint_start_connect] bind on local address (10.150.10.245:0) failed: Address already in use (98)
+    [x1002c0s4b0n1][[1702,1],220][../../../../../../opal/mca/btl/tcp/btl_tcp_endpoint.c:730:mca_btl_tcp_endpoint_start_connect] bind on local address (10.150.2.70:0) failed: Address already in use (98)
+    [x1002c6s5b1n1][[1702,1],492][../../../../../../opal/mca/btl/tcp/btl_tcp_endpoint.c:730:mca_btl_tcp_endpoint_start_connect] bind on local address (10.150.10.245:0) failed: Address already in use (98)
+    [x1002c0s4b1n0][[1702,1],265][../../../../../../opal/mca/btl/tcp/btl_tcp_endpoint.c:730:mca_btl_tcp_endpoint_start_connect] bind on local address (10.150.10.54:0) failed: Address already in use (98)
+    [x1002c0s4b0n1][[1702,1],225][../../../../../../opal/mca/btl/tcp/btl_tcp_endpoint.c:730:mca_btl_tcp_endpoint_start_connect] bind on local address (10.150.2.70:0) failed: Address already in use (98)
+    [x1002c6s5b1n1][[1702,1],451][../../../../../../opal/mca/btl/tcp/btl_tcp_endpoint.c:730:mca_btl_tcp_endpoint_start_connect] bind on local address (10.150.10.245:0) failed: Address already in use (98)
+    [x1002c0s4b1n0][[1702,1],303][../../../../../../opal/mca/btl/tcp/btl_tcp_endpoint.c:730:mca_btl_tcp_endpoint_start_connect] bind on local address (10.150.10.54:0) failed: Address already in use (98)
+    [x1002c0s4b0n1][[1702,1],219][../../../../../../opal/mca/btl/tcp/btl_tcp_endpoint.c:730:mca_btl_tcp_endpoint_start_connect] bind on local address (10.150.2.70:0) failed: Address already in use (98)

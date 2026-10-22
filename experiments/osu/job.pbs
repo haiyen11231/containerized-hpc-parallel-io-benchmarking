@@ -1,0 +1,58 @@
+#!/bin/bash
+#PBS -N OSU_Benchmark
+#PBS -q normal
+#PBS -l select=4:ncpus=128:mpiprocs=128:mem=220gb
+#PBS -l place=:excl
+#PBS -l walltime=00:30:00
+#PBS -P personal-stiang00
+#PBS -j oe
+
+# 1. Navigate to your project directory on ASPIRE 2A
+cd $PBS_O_WORKDIR
+
+# 1. Load the CORRECT module for ABI swap
+module swap cray-mpich openmpi
+module load apptainer
+
+apptainer --version
+mpirun --version
+
+# Compile Host Workloads using the currently loaded MPI
+# This ensures the 'Host' binary matches the 'Container' logic
+mpicc ./src/mpihello.c -o ./bin/mpihello.out
+mpicc ./src/workload.c -o ./bin/workload.out
+
+# Verify the binaries exist before proceeding
+chmod +x ./bin/*.out
+
+# --- Automated Resource Detection ---
+QSTAT_OUT=$(qstat -f $PBS_JOBID)
+export MAX_NP=$(echo "$QSTAT_OUT" | grep "Resource_List.mpiprocs" | awk '{print $3}')
+export NUM_NODES=$(echo "$QSTAT_OUT" | grep "Resource_List.nodect" | awk '{print $3}')
+# ... [Keep the rest of the detection] ...
+
+export ITERATIONS=100
+export NUM_RUNS=10
+
+# --mca opal_warn_on_missing_libcuda 0 \
+# --mca pml ucx \
+# --mca btl ^vader,tcp,openib,sm \
+# --mca ucx_tls ^mm,shm \
+# IMPROVED FLAGS: Disables problematic shared memory for multi-node stability
+export MPI_FLAGS=" \
+--mca btl_vader_single_copy_mechanism none"
+
+export CONTAINER_IMAGE="./container/app_openmpi.sif"
+export HOST_WORKLOAD="./bin/workload.out"
+export CONT_WORKLOAD="/usr/bin/workload.out"
+export HOST_OSU_DIR="$HOME/osu/libexec/osu-micro-benchmarks/mpi"
+export CONT_OSU_DIR="/usr/local/osu/libexec/osu-micro-benchmarks/mpi"
+
+# Ensure hostfile is used in sub-scripts (passed via environment)
+export HOSTFILE=$PBS_NODEFILE
+
+# Run scripts
+chmod +x ./scripts/*.sh
+./scripts/benchmark_basic.sh
+./scripts/benchmark_scaling_latency.sh
+./scripts/benchmark_scaling_runtime.sh

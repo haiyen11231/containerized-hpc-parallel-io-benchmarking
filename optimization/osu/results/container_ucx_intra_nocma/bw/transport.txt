@@ -1,0 +1,4 @@
+[1791903553.713157] [x1003c0s5b1n1:3931725:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791903553.722313] [x1003c0s5b1n1:3931726:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791903553.733782] [x1003c0s5b1n1:3931725:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory rc_mlx5/mlx5_0:1); 
+[1791903553.734639] [x1003c0s5b1n1:3931726:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory rc_mlx5/mlx5_0:1); 

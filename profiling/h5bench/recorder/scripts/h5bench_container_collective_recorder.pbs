@@ -1,0 +1,186 @@
+#!/bin/bash
+#PBS -N h5bench_container_collective_recorder
+#PBS -l walltime=02:05:00
+#PBS -l place=scatter:excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/h5bench_container_collective_recorder.out
+
+# Container counterpart to h5bench_native_collective_recorder.pbs -- see that
+# script and ../../GUIDE.md (H7) for the question this answers.
+#
+# Uses the DEDICATED h5bench_benchmarks_recorder.sif image
+# (deployment/h5bench/h5bench_benchmarks_recorder.def), not the baseline
+# h5bench_benchmarks.sif. The original bind-mount approach (preloading the
+# host's Recorder build, linked against the host's HPE/Cray OpenMPI + HDF5,
+# into the container) failed with a cascading chain of missing host-only
+# libraries (HDF5 -> OpenMPI -> PBS Pro client libs -> next would have been
+# Cray PE/libfabric/verbs) -- the same class of failure already hit and
+# abandoned for OSU's bind-mount attempt. This image instead builds Recorder
+# INSIDE the container against its own apt OpenMPI and HDF5, which resolves
+# cleanly with zero host dependencies -- confirmed via
+#   apptainer exec ... ldd /opt/recorder/install/lib/librecorder.so
+# showing both libmpi.so.40 and libhdf5_openmpi.so.103 resolving to
+# /lib/x86_64-linux-gnu INSIDE the container, not a host path.
+
+cd "$PBS_O_WORKDIR"
+WORKDIR=$(pwd)
+
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+module load apptainer
+
+H5BENCH_DRIVER=$HOME/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench
+SIF=$HOME/scratch/fyp/container/h5bench/h5bench_benchmarks_recorder.sif
+CONTAINER_BIN_DIR=/opt/h5bench/install/bin
+TEMPLATE="${WORKDIR}/h5bench_config_collective.json.template"
+RECORDER_LIB_IN_CONTAINER=/opt/recorder/install/lib/librecorder.so
+
+# recorder-summary/recorder2text are read with the HOST's native Recorder
+# build, not the container's own copy of the same binaries -- simpler than
+# invoking them via apptainer exec, and valid because both are built from the
+# identical pinned commit (8ad273e, see the .def and
+# h5bench_native_collective_recorder.pbs), so the trace FORMAT VERSION
+# check_version() verifies matches either way.
+RECORDER_TOOLS_INSTALL=$HOME/scratch/fyp/native/recorder/Recorder/install
+
+[ -r "${RECORDER_TOOLS_INSTALL}/bin/recorder-summary" ] \
+    || { echo "FATAL: ${RECORDER_TOOLS_INSTALL}/bin/recorder-summary not readable"; exit 1; }
+apptainer exec "$SIF" sh -c "test -r ${RECORDER_LIB_IN_CONTAINER}" \
+    || { echo "FATAL: ${RECORDER_LIB_IN_CONTAINER} not found inside $SIF -- wrong image?"; exit 1; }
+for b in h5bench_write h5bench_read; do
+    apptainer exec "$SIF" sh -c "test -x ${CONTAINER_BIN_DIR}/${b}" \
+        || { echo "FATAL: ${b} not found inside $SIF"; exit 1; }
+done
+
+: "${COLL_DATA:?Must pass -v COLL_DATA=<YES|NO> at submission time}"
+REPS=1
+COLL_META=NO
+
+NODE_COUNT=2
+NP=$((NODE_COUNT * 128))
+ACTUAL_NODES=$(sort -u "$PBS_NODEFILE" | wc -l)
+if [ "$ACTUAL_NODES" -ne "$NODE_COUNT" ]; then
+    echo "FATAL: Expected $NODE_COUNT node(s), PBS granted $ACTUAL_NODES."
+    exit 1
+fi
+
+# No host bind-mount for Recorder anymore -- the image's own /opt/recorder
+# resolves entirely within the container's own filesystem. /scratch is still
+# bound for the payload and traces.
+#
+# LD_PRELOAD and RECORDER_* go through apptainer's OWN --env flag, not
+# mpirun's -x (see profiling/h5bench/darshan/scripts/
+# h5bench_container_intra_darshan.pbs for the full explanation): "-x" exports
+# into the environment of "apptainer" itself, the host process mpirun
+# launches directly, so the dynamic linker tries to preload
+# /opt/recorder/install/lib/librecorder.so for THAT process before any
+# bind/namespace setup happens -- and even though that path now lives inside
+# this image rather than being host bind-mounted, apptainer-the-host-binary
+# still doesn't have it (it only exists once INSIDE the container), so the
+# same failure mode applies. --env sets it for the in-container process only.
+MPI_CONFIG="-np ${NP} --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch --env LD_PRELOAD=${RECORDER_LIB_IN_CONTAINER} --env RECORDER_MPI_TRACING=1 --env RECORDER_MPIIO_TRACING=1 --env RECORDER_DEBUG_LEVEL=0 ${SIF}"
+
+COMBO="d$(echo "$COLL_DATA" | tr '[:upper:]' '[:lower:]')_m$(echo "$COLL_META" | tr '[:upper:]' '[:lower:]')"
+
+PAYLOAD_DIR="${WORKDIR}/payload/container/${COMBO}"
+REPORT_DIR="${WORKDIR}/container/${COMBO}"
+# Recorder traces land in CWD at MPI_Init time. Because the container only
+# has /scratch bound, the trace dir must live under /scratch too, not under
+# $PBS_O_WORKDIR (which may be elsewhere, e.g. a home/GPFS area).
+TRACEBASE="${WORKDIR}/recorder-traces/container/${COMBO}_${PBS_JOBID}"
+mkdir -p "$PAYLOAD_DIR" "$REPORT_DIR" "$TRACEBASE" logs
+
+lfs setstripe -c 4 -S 1m "$PAYLOAD_DIR"
+echo "=== Lustre striping on $PAYLOAD_DIR ==="
+lfs getstripe "$PAYLOAD_DIR"
+
+DATA_FILE_NAME="h5bench_collective_container_recorder_${COMBO}.h5"
+trap 'rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"' EXIT
+
+echo "================================================================="
+echo " Container Collective I/O, Recorder-instrumented: COLLECTIVE_DATA=$COLL_DATA (METADATA fixed NO) NODES=$NODE_COUNT NP=$NP "
+echo "================================================================="
+
+JSON="${REPORT_DIR}/config.json"
+sed -e "s|@MPI_CONFIG@|${MPI_CONFIG}|" \
+    -e "s|@COLL_DATA@|${COLL_DATA}|" \
+    -e "s|@COLL_META@|${COLL_META}|" \
+    -e "s|@DIRECTORY@|${PAYLOAD_DIR}|" \
+    -e "s|@DATA_FILE@|${DATA_FILE_NAME}|" \
+    -e "s|@WRITE_CSV@|write_rep1.csv|" \
+    -e "s|@READ_CSV@|read_rep1.csv|" \
+    "$TEMPLATE" > "$JSON"
+
+python3 -m json.tool "$JSON" > /dev/null \
+    || { echo "FATAL: generated $JSON is not valid JSON"; exit 1; }
+if grep -q '@[A-Z_]*@' "$JSON"; then
+    echo "FATAL: unsubstituted placeholder left in $JSON:"; grep -n '@[A-Z_]*@' "$JSON"; exit 1
+fi
+
+rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"
+
+cd "$TRACEBASE"
+DRIVER_LOG="${REPORT_DIR}/driver.log"
+set -x
+time "$H5BENCH_DRIVER" -a -d -p "$CONTAINER_BIN_DIR" "$JSON" > "$DRIVER_LOG" 2>&1
+H5BENCH_EXIT=$?
+set +x
+cd "$WORKDIR"
+cat "$DRIVER_LOG"
+
+if ! grep -Eq "apptainer exec .*${CONTAINER_BIN_DIR}/+h5bench_write" "$DRIVER_LOG"; then
+    echo "FATAL: driver did not invoke the container binary"
+    grep -m1 'mpirun' "$DRIVER_LOG"
+    exit 1
+fi
+
+if [ "$H5BENCH_EXIT" -ne 0 ]; then
+    echo "FAILED: COLL_DATA=$COLL_DATA (h5bench exit $H5BENCH_EXIT)"
+    exit "$H5BENCH_EXIT"
+fi
+
+echo ""
+echo "=== what did Recorder produce? ==="
+find "$TRACEBASE" -maxdepth 2 | head -20 | sed 's/^/  /'
+echo "  size: $(du -sh "$TRACEBASE" 2>/dev/null | awk '{print $1}')"
+if [ -z "$(find "$TRACEBASE" -type f 2>/dev/null | head -1)" ]; then
+    echo "FATAL: no trace files -- LD_PRELOAD likely did not reach the ranks"
+    exit 1
+fi
+
+# See h5bench_native_collective_recorder.pbs for why this must locate
+# recorder.dat directly rather than a directory merely named "*recorder*" --
+# the shallower match segfaults recorder-summary/recorder2text (a NULL FILE*
+# dereferenced past a compiled-out assert()), not a graceful error.
+WRITE_TRACEDIR=$(find "$TRACEBASE" -type f -name 'recorder.dat' -path '*h5bench_write*' 2>/dev/null | head -1 | xargs -r dirname)
+if [ -z "$WRITE_TRACEDIR" ]; then
+    echo "FATAL: no recorder.dat found under an h5bench_write directory in $TRACEBASE"
+    find "$TRACEBASE" -name 'recorder.dat' 2>/dev/null | sed 's/^/  found instead: /'
+    exit 1
+fi
+echo "  write-phase trace dir: $WRITE_TRACEDIR"
+
+echo ""
+echo "=== recorder-summary (write phase -- what H7 is about) ==="
+"$RECORDER_TOOLS_INSTALL/bin/recorder-summary" "$WRITE_TRACEDIR" > "${REPORT_DIR}/recorder_summary.txt" 2>&1
+cat "${REPORT_DIR}/recorder_summary.txt"
+
+echo ""
+echo "=== recorder2text (the call sequence H7 actually needs) ==="
+"$RECORDER_TOOLS_INSTALL/bin/recorder2text" "$WRITE_TRACEDIR" > "${REPORT_DIR}/recorder2text.log" 2>&1
+TEXTDIR="${WRITE_TRACEDIR}/_text"
+if [ -d "$TEXTDIR" ]; then
+    echo "  text output: $TEXTDIR"
+    echo "  --- MPI-IO write call counts, independent vs collective (what H7 reads) ---"
+    grep -rhoE 'MPI_File_write_at[a-z_]*' "$TEXTDIR" 2>/dev/null | sort | uniq -c | sort -rn | sed 's/^/    /'
+else
+    echo "FATAL: recorder2text did not produce $TEXTDIR"
+    tail -15 "${REPORT_DIR}/recorder2text.log" | sed 's/^/  /'
+    exit 1
+fi
+
+echo ""
+echo " Container collective I/O Recorder run (COLL_DATA=$COLL_DATA) Completed Successfully! "

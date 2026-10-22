@@ -35,7 +35,7 @@ BIN="${OSU_DIR}/osu_${BENCH}"
 
 # pt2pt is a TWO-rank benchmark by definition. The full node is still
 # requested (ncpus=128) with place=excl so no other job shares the hardware --
-# a noisy neighbour would contaminate latency measurements far more than
+# a noisy neighbor would contaminate latency measurements far more than
 # bandwidth ones.
 NP=2
 NODE_COUNT=1

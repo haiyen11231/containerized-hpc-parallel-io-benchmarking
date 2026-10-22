@@ -1,0 +1,137 @@
+#!/bin/bash
+#PBS -N darshan_stage0
+#PBS -l select=1:ncpus=4:mpiprocs=4:mem=8gb
+#PBS -l walltime=00:20:00
+#PBS -l place=excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/darshan_stage0.out
+
+# STAGE 0 -- validate Darshan before trusting it for anything.
+#
+# This answers ONE question that decides the rest of Phase 2:
+#
+#   Can the system darshan/3.4.6 module -- which is built against CRAY-MPICH --
+#   instrument our OpenMPI jobs?
+#
+#     ldd /app/apps/darshan/3.4.6/lib/libdarshan.so
+#         libmpi_cray.so.12 => /opt/cray/pe/lib64/libmpi_cray.so.12
+#
+#   Every benchmark in this project runs under openmpi/4.1.2-hpe. Loading a
+#   cray-mpich-linked library into an OpenMPI process can pull two MPI
+#   implementations into one address space -- the same class of mismatch that
+#   produced MPI_Comm_create_keyval / MPI_ERR_ARG with hdf5-...-cmpi earlier.
+#
+# Three arms, cheapest first. The first that works determines the path:
+#
+#   ARM 1  POSIX-only, DARSHAN_ENABLE_NONMPI=1   -> no MPI symbols needed at all
+#   ARM 2  default modules (POSIX + MPI-IO)      -> the real test of ABI compat
+#   ARM 3  no Darshan at all                     -> control: does IOR even run here
+#
+# If ARM 2 works, use the system module and skip building from source.
+# If ARM 2 fails but ARM 1 works, Phase 2 runs POSIX-only (enough for H1 and H2)
+#   unless MPI-IO detail is needed, which then requires the source build.
+# If ARM 1 fails too, Darshan is not usable via LD_PRELOAD here -- stop and
+#   rethink before spending time on a build.
+
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+module load darshan/3.4.6
+
+module list 2>&1 | sed 's/^/  /'
+
+IOR=$HOME/scratch/fyp/native/ior/ior-4.0.0/src/ior
+LOGDIR=$HOME/scratch/fyp/profiling/darshan-logs
+WORK=$HOME/scratch/fyp/profiling/stage0-payload
+OUT=results
+
+mkdir -p "$LOGDIR" "$WORK" "$OUT" logs
+
+[ -x "$IOR" ] || { echo "FATAL: $IOR not found"; exit 1; }
+[ -r "$DARSHAN_ROOT/lib/libdarshan.so" ] || { echo "FATAL: libdarshan.so not readable"; exit 1; }
+
+echo "=== what libdarshan.so is linked against ==="
+ldd "$DARSHAN_ROOT/lib/libdarshan.so" | grep -iE 'mpi|libc\.' | sed 's/^/  /' | tee "$OUT/libdarshan_ldd.txt"
+
+# Small and quick -- this is a plumbing check, not a measurement.
+IOR_ARGS=(-a POSIX -t 1m -b 16m -e -i 2)
+
+run_arm () {
+    local label="$1"; shift
+    local log="$OUT/${label}.log"
+    local dlog="$LOGDIR/stage0_${label}.darshan"
+    rm -f "$dlog"
+
+    echo ""
+    echo "================================================================="
+    echo " ARM: $label"
+    echo "================================================================="
+
+    set +e
+    "$@" > "$log" 2>&1
+    local rc=$?
+    set -e
+
+    local darshan_found=0
+    [ -s "$dlog" ] && darshan_found=1
+
+    local parsed=0 posix=0 mpiio=0
+    if [ "$darshan_found" -eq 1 ]; then
+        darshan-parser "$dlog" > "$OUT/${label}.parsed" 2>/dev/null
+        parsed=$?
+        posix=$(grep -c '^POSIX_' "$OUT/${label}.parsed" 2>/dev/null); posix=${posix:-0}
+        mpiio=$(grep -c '^MPIIO_' "$OUT/${label}.parsed" 2>/dev/null); mpiio=${mpiio:-0}
+    fi
+
+    {
+      echo "arm:            $label"
+      echo "ior_exit:       $rc"
+      echo "darshan_log:    $( [ "$darshan_found" -eq 1 ] && echo PRESENT || echo ABSENT )"
+      echo "parser_exit:    $parsed"
+      echo "posix_counters: $posix"
+      echo "mpiio_counters: $mpiio"
+      echo "verdict:        $( [ "$rc" -eq 0 ] && [ "$darshan_found" -eq 1 ] && [ "$posix" -gt 0 ] && echo PASS || echo FAIL )"
+    } | tee "$OUT/${label}.summary"
+}
+
+# ---- ARM 1: POSIX only, no MPI involvement in Darshan at all ----
+run_arm posix_only \
+  mpirun -np 4 \
+    -x LD_PRELOAD="$DARSHAN_ROOT/lib/libdarshan.so" \
+    -x DARSHAN_ENABLE_NONMPI=1 \
+    -x DARSHAN_MOD_ENABLE=POSIX \
+    -x DARSHAN_LOGFILE="$LOGDIR/stage0_posix_only.darshan" \
+    --mca btl ^openib --mca pml ucx -x UCX_LOG_LEVEL=ERROR \
+    "$IOR" "${IOR_ARGS[@]}" -o "$WORK/t_posix_only"
+
+# ---- ARM 2: default modules, i.e. POSIX + MPI-IO. The real ABI test. ----
+run_arm with_mpiio \
+  mpirun -np 4 \
+    -x LD_PRELOAD="$DARSHAN_ROOT/lib/libdarshan.so" \
+    -x DARSHAN_LOGFILE="$LOGDIR/stage0_with_mpiio.darshan" \
+    --mca btl ^openib --mca pml ucx -x UCX_LOG_LEVEL=ERROR \
+    "$IOR" -a MPIIO -t 1m -b 16m -e -i 2 -o "$WORK/t_with_mpiio"
+
+# ---- ARM 3: control, no Darshan ----
+run_arm no_darshan \
+  mpirun -np 4 \
+    --mca btl ^openib --mca pml ucx -x UCX_LOG_LEVEL=ERROR \
+    "$IOR" "${IOR_ARGS[@]}" -o "$WORK/t_no_darshan"
+
+echo ""
+echo "================================================================="
+echo " STAGE 0 SUMMARY "
+echo "================================================================="
+grep -H 'verdict\|posix_counters\|mpiio_counters' "$OUT"/*.summary 2>/dev/null | sed 's|.*/||'
+echo ""
+echo "DECISION:"
+echo "  ARM2 PASS with mpiio_counters>0 -> use the system module, no build needed"
+echo "  ARM2 FAIL, ARM1 PASS            -> POSIX-only path (answers H1, H2)"
+echo "  ARM1 FAIL                       -> LD_PRELOAD unusable; rethink before building"
+echo ""
+echo "Sample of what the parser produced (arm 1):"
+head -40 "$OUT/posix_only.parsed" 2>/dev/null | sed 's/^/    /'

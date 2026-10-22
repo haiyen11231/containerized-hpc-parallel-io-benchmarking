@@ -1,0 +1,11 @@
+arm:                  container_rpn128
+ranks_per_node:       128
+total_ranks:          512
+predicted_conns_node: 65408
+ports_available:      28232
+over_subscription:    2.32x
+exit_code:            16
+port_errors:          512
+data_rows:            0
+0
+verdict:              FAIL

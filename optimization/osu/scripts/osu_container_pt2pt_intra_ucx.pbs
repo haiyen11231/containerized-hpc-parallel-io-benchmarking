@@ -1,0 +1,100 @@
+#!/bin/bash
+#PBS -N osu_container_pt2pt_intra_ucx
+#PBS -l walltime=00:30:00
+#PBS -l place=excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/osu_container_pt2pt_intra_ucx.out
+
+# OPTIMIZED container intra-node pt2pt: identical to the baseline script in
+# every respect EXCEPT the transport selection.
+#
+#   baseline  : --mca btl vader,self --mca btl_vader_single_copy_mechanism none
+#   optimized : --mca pml ucx
+#
+# Motivation (optimization/osu/GUIDE.md, "Prediction 4"): the baseline found
+# the container ~20% FASTER than native on intra-node Allreduce, attributed to
+# native's UCX paying a CMA syscall that the container's vader bounce-buffer
+# copy avoids. If that explanation is right, giving the container UCX (which
+# also uses CMA for shared memory, same as native) should make the advantage
+# disappear. This script tests the same prediction on pt2pt latency/bandwidth.
+
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+module load apptainer
+
+SIF=$HOME/scratch/fyp/container/osu/osu_micro_benchmarks.sif
+OSU_DIR=/opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt
+
+: "${BENCH:?Must pass -v BENCH=<latency|bw>}"
+: "${REPS:?Must pass -v REPS=<number>}"
+
+BIN="${OSU_DIR}/osu_${BENCH}"
+apptainer exec "$SIF" sh -c "test -x $BIN" \
+    || { echo "FATAL: $BIN not found inside $SIF"; exit 1; }
+
+# pt2pt is a TWO-rank benchmark. Same node, place=excl -- identical to the
+# baseline intra-node script.
+NP=2
+NODE_COUNT=1
+ACTUAL_NODES=$(sort -u "$PBS_NODEFILE" | wc -l)
+if [ "$ACTUAL_NODES" -ne "$NODE_COUNT" ]; then
+    echo "FATAL: Expected $NODE_COUNT node, PBS granted $ACTUAL_NODES."
+    exit 1
+fi
+
+REPORT_DIR="container_ucx_intra/${BENCH}"
+mkdir -p "$REPORT_DIR" logs
+
+# The single change under test. --map-by core --bind-to core pins rank 0 to
+# core 0 and rank 1 to core 1, exactly as the baseline script does, so
+# placement cannot explain any difference.
+MPI_CONFIG=(
+  -np "$NP"
+  --map-by core --bind-to core
+  --mca pml ucx
+  --mca orte_base_help_aggregate 0
+  -x UCX_LOG_LEVEL=ERROR
+)
+
+echo "================================================================="
+echo " OPTIMIZED (UCX) container intra-node pt2pt: BENCH=$BENCH REPS=$REPS "
+echo "================================================================="
+sort -u "$PBS_NODEFILE" > "${REPORT_DIR}/nodes.txt"
+cat "${REPORT_DIR}/nodes.txt"
+
+# Record which transport UCX actually selected. The inter-node probe's grep
+# filter came back empty on the earlier run (a known gap -- see
+# ../README.md) -- this time the RAW log is kept too, so there is always
+# direct evidence to inspect even if the grep filter misses the exact wording.
+echo "=== transport actually used (UCX_LOG_LEVEL=info, 1 rep) ==="
+mpirun -np 2 --map-by core --bind-to core --mca pml ucx -x UCX_LOG_LEVEL=info \
+  apptainer exec "$SIF" "$BIN" -m 1:1 > "${REPORT_DIR}/transport_raw.txt" 2>&1
+grep -iE 'selected transport|support_level|rc_verbs|ud_verbs|cma|knem|sysv|posix|mm/|tcp' \
+  "${REPORT_DIR}/transport_raw.txt" | head -12 | tee "${REPORT_DIR}/transport.txt"
+
+for REP in $(seq 1 "$REPS"); do
+    echo "--- Repetition ${REP}/${REPS} ---"
+    OUT="${REPORT_DIR}/osu_${BENCH}_rep${REP}.txt"
+    set -x
+    mpirun "${MPI_CONFIG[@]}" apptainer exec "$SIF" "$BIN" > "$OUT" 2>&1
+    RC=$?
+    set +x
+    if [ "$RC" -ne 0 ]; then
+        echo "FAILED: BENCH=$BENCH rep=$REP (exit $RC)"
+        sed 's/^/    /' "$OUT" | head -20
+        exit "$RC"
+    fi
+    rows=$(grep -cE '^[0-9]' "$OUT")
+    if [ "$rows" -lt 2 ]; then
+        echo "FATAL: $OUT has only $rows data rows"
+        exit 1
+    fi
+    echo "  ok: $rows message sizes recorded"
+done
+
+echo " OPTIMIZED container intra-node pt2pt ($BENCH) Completed Successfully! "

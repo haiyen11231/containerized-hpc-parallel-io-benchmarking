@@ -1,0 +1,225 @@
+Currently Loaded Modulefiles:
+  1) libfabric/1.11.0.4.125             3) openmpi/4.1.2-hpe
+  2) intel/2022.0.2                     4) hdf5/1.12.1-parallel-icc22-ompi4
+=== node overlap check ===
+  write nodes: 2
+  read  nodes: 2
+  shared     : 2
+  WARNING: 2 node(s) shared with the write job -- those ranks may
+           read from page cache. Treat this measurement as suspect.
+    x1002c2s2b0n0.hostmgmt2002.cm.asp2a.nscc.sg
+    x1002c2s2b1n0.hostmgmt2002.cm.asp2a.nscc.sg
+=================================================================
+ COLD-READ VALIDATION (read phase): CASE=weak VARIANT=native NODES=2 NP=256 DIM_1=1048576 FILES=10 
+=================================================================
+--- reading file 1/10 (each file read EXACTLY once, so every read is cold) ---
+
+real	0m20.880s
+user	4m54.072s
+sys	9m26.070s
+2026-10-06 03:49:43,481 h5bench - INFO - Starting h5bench Suite
+2026-10-06 03:49:43,482 h5bench - WARNING - Base directory already exists: payload/weak_n2_dno_mno_native
+2026-10-06 03:49:43,491 h5bench - INFO - Lustre support detected
+2026-10-06 03:49:43,492 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/weak_n2_dno_mno_native
+2026-10-06 03:49:43,498 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-06 03:49:43,498 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-06 03:49:43,498 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-06 03:49:43,499 h5bench - INFO - JOBID: 25696106.pbs101
+2026-10-06 03:49:43,499 h5bench - INFO - h5bench [read] - Starting
+2026-10-06 03:49:43,499 h5bench - INFO - h5bench [read] - DIR: payload/weak_n2_dno_mno_native/2868e5d4-25696106.pbs101/
+2026-10-06 03:49:43,499 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 03:49:43,501 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_read payload/weak_n2_dno_mno_native/2868e5d4-25696106.pbs101/h5bench.cfg payload/weak_n2_dno_mno_native/coldread_weak_n2_dno_mno_native_1.h5
+2026-10-06 03:50:04,302 h5bench - INFO - SUCCESS (all output files are located at payload/weak_n2_dno_mno_native/2868e5d4-25696106.pbs101)
+2026-10-06 03:50:04,303 h5bench - INFO - Runtime: 20.8033087 seconds (elapsed time, includes allocation wait time)
+2026-10-06 03:50:04,303 h5bench - INFO - h5bench [read] - Complete
+2026-10-06 03:50:04,303 h5bench - INFO - Finishing h5bench Suite
+--- reading file 2/10 (each file read EXACTLY once, so every read is cold) ---
+
+real	0m20.402s
+user	5m32.733s
+sys	7m38.372s
+2026-10-06 03:50:04,409 h5bench - INFO - Starting h5bench Suite
+2026-10-06 03:50:04,410 h5bench - WARNING - Base directory already exists: payload/weak_n2_dno_mno_native
+2026-10-06 03:50:04,419 h5bench - INFO - Lustre support detected
+2026-10-06 03:50:04,420 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/weak_n2_dno_mno_native
+2026-10-06 03:50:04,426 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-06 03:50:04,426 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-06 03:50:04,426 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-06 03:50:04,426 h5bench - INFO - JOBID: 25696106.pbs101
+2026-10-06 03:50:04,427 h5bench - INFO - h5bench [read] - Starting
+2026-10-06 03:50:04,427 h5bench - INFO - h5bench [read] - DIR: payload/weak_n2_dno_mno_native/db88b520-25696106.pbs101/
+2026-10-06 03:50:04,427 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 03:50:04,428 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_read payload/weak_n2_dno_mno_native/db88b520-25696106.pbs101/h5bench.cfg payload/weak_n2_dno_mno_native/coldread_weak_n2_dno_mno_native_2.h5
+2026-10-06 03:50:24,750 h5bench - INFO - SUCCESS (all output files are located at payload/weak_n2_dno_mno_native/db88b520-25696106.pbs101)
+2026-10-06 03:50:24,751 h5bench - INFO - Runtime: 20.3236425 seconds (elapsed time, includes allocation wait time)
+2026-10-06 03:50:24,751 h5bench - INFO - h5bench [read] - Complete
+2026-10-06 03:50:24,751 h5bench - INFO - Finishing h5bench Suite
+--- reading file 3/10 (each file read EXACTLY once, so every read is cold) ---
+
+real	0m20.040s
+user	5m6.178s
+sys	9m50.298s
+2026-10-06 03:50:24,858 h5bench - INFO - Starting h5bench Suite
+2026-10-06 03:50:24,859 h5bench - WARNING - Base directory already exists: payload/weak_n2_dno_mno_native
+2026-10-06 03:50:24,869 h5bench - INFO - Lustre support detected
+2026-10-06 03:50:24,869 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/weak_n2_dno_mno_native
+2026-10-06 03:50:24,876 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-06 03:50:24,876 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-06 03:50:24,876 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-06 03:50:24,876 h5bench - INFO - JOBID: 25696106.pbs101
+2026-10-06 03:50:24,876 h5bench - INFO - h5bench [read] - Starting
+2026-10-06 03:50:24,877 h5bench - INFO - h5bench [read] - DIR: payload/weak_n2_dno_mno_native/8f37a6be-25696106.pbs101/
+2026-10-06 03:50:24,877 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 03:50:24,878 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_read payload/weak_n2_dno_mno_native/8f37a6be-25696106.pbs101/h5bench.cfg payload/weak_n2_dno_mno_native/coldread_weak_n2_dno_mno_native_3.h5
+2026-10-06 03:50:44,837 h5bench - INFO - SUCCESS (all output files are located at payload/weak_n2_dno_mno_native/8f37a6be-25696106.pbs101)
+2026-10-06 03:50:44,837 h5bench - INFO - Runtime: 19.9602444 seconds (elapsed time, includes allocation wait time)
+2026-10-06 03:50:44,838 h5bench - INFO - h5bench [read] - Complete
+2026-10-06 03:50:44,838 h5bench - INFO - Finishing h5bench Suite
+--- reading file 4/10 (each file read EXACTLY once, so every read is cold) ---
+
+real	0m26.287s
+user	7m23.311s
+sys	10m56.415s
+2026-10-06 03:50:44,947 h5bench - INFO - Starting h5bench Suite
+2026-10-06 03:50:44,948 h5bench - WARNING - Base directory already exists: payload/weak_n2_dno_mno_native
+2026-10-06 03:50:44,958 h5bench - INFO - Lustre support detected
+2026-10-06 03:50:44,958 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/weak_n2_dno_mno_native
+2026-10-06 03:50:44,965 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-06 03:50:44,965 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-06 03:50:44,965 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-06 03:50:44,966 h5bench - INFO - JOBID: 25696106.pbs101
+2026-10-06 03:50:44,966 h5bench - INFO - h5bench [read] - Starting
+2026-10-06 03:50:44,966 h5bench - INFO - h5bench [read] - DIR: payload/weak_n2_dno_mno_native/211a4edb-25696106.pbs101/
+2026-10-06 03:50:44,966 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 03:50:44,968 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_read payload/weak_n2_dno_mno_native/211a4edb-25696106.pbs101/h5bench.cfg payload/weak_n2_dno_mno_native/coldread_weak_n2_dno_mno_native_4.h5
+2026-10-06 03:51:11,173 h5bench - INFO - SUCCESS (all output files are located at payload/weak_n2_dno_mno_native/211a4edb-25696106.pbs101)
+2026-10-06 03:51:11,174 h5bench - INFO - Runtime: 26.2071323 seconds (elapsed time, includes allocation wait time)
+2026-10-06 03:51:11,174 h5bench - INFO - h5bench [read] - Complete
+2026-10-06 03:51:11,174 h5bench - INFO - Finishing h5bench Suite
+--- reading file 5/10 (each file read EXACTLY once, so every read is cold) ---
+
+real	0m22.321s
+user	5m46.581s
+sys	10m16.490s
+2026-10-06 03:51:11,285 h5bench - INFO - Starting h5bench Suite
+2026-10-06 03:51:11,287 h5bench - WARNING - Base directory already exists: payload/weak_n2_dno_mno_native
+2026-10-06 03:51:11,298 h5bench - INFO - Lustre support detected
+2026-10-06 03:51:11,298 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/weak_n2_dno_mno_native
+2026-10-06 03:51:11,305 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-06 03:51:11,305 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-06 03:51:11,306 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-06 03:51:11,306 h5bench - INFO - JOBID: 25696106.pbs101
+2026-10-06 03:51:11,306 h5bench - INFO - h5bench [read] - Starting
+2026-10-06 03:51:11,306 h5bench - INFO - h5bench [read] - DIR: payload/weak_n2_dno_mno_native/73b3af53-25696106.pbs101/
+2026-10-06 03:51:11,306 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 03:51:11,308 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_read payload/weak_n2_dno_mno_native/73b3af53-25696106.pbs101/h5bench.cfg payload/weak_n2_dno_mno_native/coldread_weak_n2_dno_mno_native_5.h5
+2026-10-06 03:51:33,542 h5bench - INFO - SUCCESS (all output files are located at payload/weak_n2_dno_mno_native/73b3af53-25696106.pbs101)
+2026-10-06 03:51:33,543 h5bench - INFO - Runtime: 22.2359757 seconds (elapsed time, includes allocation wait time)
+2026-10-06 03:51:33,543 h5bench - INFO - h5bench [read] - Complete
+2026-10-06 03:51:33,543 h5bench - INFO - Finishing h5bench Suite
+--- reading file 6/10 (each file read EXACTLY once, so every read is cold) ---
+
+real	0m23.444s
+user	4m0.855s
+sys	12m6.188s
+2026-10-06 03:51:33,649 h5bench - INFO - Starting h5bench Suite
+2026-10-06 03:51:33,650 h5bench - WARNING - Base directory already exists: payload/weak_n2_dno_mno_native
+2026-10-06 03:51:33,661 h5bench - INFO - Lustre support detected
+2026-10-06 03:51:33,661 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/weak_n2_dno_mno_native
+2026-10-06 03:51:33,667 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-06 03:51:33,668 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-06 03:51:33,668 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-06 03:51:33,668 h5bench - INFO - JOBID: 25696106.pbs101
+2026-10-06 03:51:33,668 h5bench - INFO - h5bench [read] - Starting
+2026-10-06 03:51:33,668 h5bench - INFO - h5bench [read] - DIR: payload/weak_n2_dno_mno_native/67b56707-25696106.pbs101/
+2026-10-06 03:51:33,669 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 03:51:33,670 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_read payload/weak_n2_dno_mno_native/67b56707-25696106.pbs101/h5bench.cfg payload/weak_n2_dno_mno_native/coldread_weak_n2_dno_mno_native_6.h5
+2026-10-06 03:51:57,033 h5bench - INFO - SUCCESS (all output files are located at payload/weak_n2_dno_mno_native/67b56707-25696106.pbs101)
+2026-10-06 03:51:57,034 h5bench - INFO - Runtime: 23.3647413 seconds (elapsed time, includes allocation wait time)
+2026-10-06 03:51:57,034 h5bench - INFO - h5bench [read] - Complete
+2026-10-06 03:51:57,034 h5bench - INFO - Finishing h5bench Suite
+--- reading file 7/10 (each file read EXACTLY once, so every read is cold) ---
+
+real	0m21.300s
+user	11m34.465s
+sys	6m47.290s
+2026-10-06 03:51:57,139 h5bench - INFO - Starting h5bench Suite
+2026-10-06 03:51:57,141 h5bench - WARNING - Base directory already exists: payload/weak_n2_dno_mno_native
+2026-10-06 03:51:57,153 h5bench - INFO - Lustre support detected
+2026-10-06 03:51:57,153 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/weak_n2_dno_mno_native
+2026-10-06 03:51:57,159 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-06 03:51:57,160 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-06 03:51:57,160 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-06 03:51:57,160 h5bench - INFO - JOBID: 25696106.pbs101
+2026-10-06 03:51:57,160 h5bench - INFO - h5bench [read] - Starting
+2026-10-06 03:51:57,160 h5bench - INFO - h5bench [read] - DIR: payload/weak_n2_dno_mno_native/c95750f7-25696106.pbs101/
+2026-10-06 03:51:57,161 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 03:51:57,162 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_read payload/weak_n2_dno_mno_native/c95750f7-25696106.pbs101/h5bench.cfg payload/weak_n2_dno_mno_native/coldread_weak_n2_dno_mno_native_7.h5
+2026-10-06 03:52:18,378 h5bench - INFO - SUCCESS (all output files are located at payload/weak_n2_dno_mno_native/c95750f7-25696106.pbs101)
+2026-10-06 03:52:18,379 h5bench - INFO - Runtime: 21.2178411 seconds (elapsed time, includes allocation wait time)
+2026-10-06 03:52:18,379 h5bench - INFO - h5bench [read] - Complete
+2026-10-06 03:52:18,379 h5bench - INFO - Finishing h5bench Suite
+--- reading file 8/10 (each file read EXACTLY once, so every read is cold) ---
+
+real	0m20.620s
+user	11m40.781s
+sys	5m7.917s
+2026-10-06 03:52:18,484 h5bench - INFO - Starting h5bench Suite
+2026-10-06 03:52:18,485 h5bench - WARNING - Base directory already exists: payload/weak_n2_dno_mno_native
+2026-10-06 03:52:18,498 h5bench - INFO - Lustre support detected
+2026-10-06 03:52:18,498 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/weak_n2_dno_mno_native
+2026-10-06 03:52:18,504 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-06 03:52:18,504 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-06 03:52:18,505 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-06 03:52:18,505 h5bench - INFO - JOBID: 25696106.pbs101
+2026-10-06 03:52:18,505 h5bench - INFO - h5bench [read] - Starting
+2026-10-06 03:52:18,505 h5bench - INFO - h5bench [read] - DIR: payload/weak_n2_dno_mno_native/11c68378-25696106.pbs101/
+2026-10-06 03:52:18,505 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 03:52:18,507 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_read payload/weak_n2_dno_mno_native/11c68378-25696106.pbs101/h5bench.cfg payload/weak_n2_dno_mno_native/coldread_weak_n2_dno_mno_native_8.h5
+2026-10-06 03:52:39,045 h5bench - INFO - SUCCESS (all output files are located at payload/weak_n2_dno_mno_native/11c68378-25696106.pbs101)
+2026-10-06 03:52:39,046 h5bench - INFO - Runtime: 20.5401649 seconds (elapsed time, includes allocation wait time)
+2026-10-06 03:52:39,046 h5bench - INFO - h5bench [read] - Complete
+2026-10-06 03:52:39,046 h5bench - INFO - Finishing h5bench Suite
+--- reading file 9/10 (each file read EXACTLY once, so every read is cold) ---
+
+real	0m18.952s
+user	8m11.724s
+sys	6m6.838s
+2026-10-06 03:52:39,149 h5bench - INFO - Starting h5bench Suite
+2026-10-06 03:52:39,150 h5bench - WARNING - Base directory already exists: payload/weak_n2_dno_mno_native
+2026-10-06 03:52:39,164 h5bench - INFO - Lustre support detected
+2026-10-06 03:52:39,164 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/weak_n2_dno_mno_native
+2026-10-06 03:52:39,171 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-06 03:52:39,171 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-06 03:52:39,171 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-06 03:52:39,171 h5bench - INFO - JOBID: 25696106.pbs101
+2026-10-06 03:52:39,172 h5bench - INFO - h5bench [read] - Starting
+2026-10-06 03:52:39,172 h5bench - INFO - h5bench [read] - DIR: payload/weak_n2_dno_mno_native/ee4636f5-25696106.pbs101/
+2026-10-06 03:52:39,172 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 03:52:39,174 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_read payload/weak_n2_dno_mno_native/ee4636f5-25696106.pbs101/h5bench.cfg payload/weak_n2_dno_mno_native/coldread_weak_n2_dno_mno_native_9.h5
+2026-10-06 03:52:58,039 h5bench - INFO - SUCCESS (all output files are located at payload/weak_n2_dno_mno_native/ee4636f5-25696106.pbs101)
+2026-10-06 03:52:58,039 h5bench - INFO - Runtime: 18.8671646 seconds (elapsed time, includes allocation wait time)
+2026-10-06 03:52:58,040 h5bench - INFO - h5bench [read] - Complete
+2026-10-06 03:52:58,040 h5bench - INFO - Finishing h5bench Suite
+--- reading file 10/10 (each file read EXACTLY once, so every read is cold) ---
+
+real	0m23.584s
+user	7m47.157s
+sys	5m28.941s
+2026-10-06 03:52:58,144 h5bench - INFO - Starting h5bench Suite
+2026-10-06 03:52:58,146 h5bench - WARNING - Base directory already exists: payload/weak_n2_dno_mno_native
+2026-10-06 03:52:58,158 h5bench - INFO - Lustre support detected
+2026-10-06 03:52:58,158 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/weak_n2_dno_mno_native
+2026-10-06 03:52:58,164 h5bench - DEBUG - LD_LIBRARY_PATH: /app/libs/hdf5/1.12.1-parallel-icc22-ompi4/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-06 03:52:58,164 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-06 03:52:58,164 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-06 03:52:58,165 h5bench - INFO - JOBID: 25696106.pbs101
+2026-10-06 03:52:58,165 h5bench - INFO - h5bench [read] - Starting
+2026-10-06 03:52:58,165 h5bench - INFO - h5bench [read] - DIR: payload/weak_n2_dno_mno_native/f3c6c550-25696106.pbs101/
+2026-10-06 03:52:58,165 h5bench - INFO - Parallel setup: mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR
+2026-10-06 03:52:58,167 h5bench - INFO - mpirun -np 256 --map-by ppr:128:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin//h5bench_read payload/weak_n2_dno_mno_native/f3c6c550-25696106.pbs101/h5bench.cfg payload/weak_n2_dno_mno_native/coldread_weak_n2_dno_mno_native_10.h5
+2026-10-06 03:53:21,669 h5bench - INFO - SUCCESS (all output files are located at payload/weak_n2_dno_mno_native/f3c6c550-25696106.pbs101)
+2026-10-06 03:53:21,669 h5bench - INFO - Runtime: 23.5036390 seconds (elapsed time, includes allocation wait time)
+2026-10-06 03:53:21,669 h5bench - INFO - h5bench [read] - Complete
+2026-10-06 03:53:21,669 h5bench - INFO - Finishing h5bench Suite
+Read phase completed successfully!

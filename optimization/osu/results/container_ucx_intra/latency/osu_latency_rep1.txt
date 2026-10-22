@@ -1,0 +1,90 @@
+
+# OSU MPI Latency Test v8.0rc
+# Datatype: MPI_CHAR.
+# Size       Avg Latency(us)
+1                       0.16
+2                       0.14
+4                       0.14
+8                       0.14
+16                      0.14
+32                      0.16
+64                      0.16
+128                     0.20
+256                     0.21
+512                     0.25
+1024                    0.32
+2048                    0.35
+4096                    0.50
+8192                    0.79
+16384                   1.25
+32768                   2.19
+65536                   3.54
+131072                  6.75
+[x1003c2s5b0n1:252039:0:252039]      cma_ep.c:81   process_vm_readv(pid=252081 {0x1464b04b2000,131072}-->{0x150de80f8000,131072}) returned -1: Operation not permitted
+==== backtrace (tid: 252039) ====
+ 0  /lib/x86_64-linux-gnu/libucs.so.0(ucs_handle_error+0x2e4) [0x1464c5943fc4]
+ 1  /lib/x86_64-linux-gnu/libucs.so.0(ucs_fatal_error_message+0xb6) [0x1464c5944176]
+ 2  /lib/x86_64-linux-gnu/libucs.so.0(+0x25c9a) [0x1464c5948c9a]
+ 3  /lib/x86_64-linux-gnu/libucs.so.0(ucs_log_dispatch+0xe4) [0x1464c59424a4]
+ 4  /lib/x86_64-linux-gnu/ucx/libuct_cma.so.0(+0x2d22) [0x1464c569ad22]
+ 5  /lib/x86_64-linux-gnu/ucx/libuct_cma.so.0(uct_cma_ep_tx+0x29d) [0x1464c569afed]
+ 6  /lib/x86_64-linux-gnu/libuct.so.0(uct_scopy_ep_progress_tx+0x6e) [0x1464c58ed13e]
+ 7  /lib/x86_64-linux-gnu/libucs.so.0(ucs_arbiter_dispatch_nonempty+0xfa) [0x1464c59386ea]
+ 8  /lib/x86_64-linux-gnu/libuct.so.0(uct_scopy_iface_progress+0x81) [0x1464c58f6731]
+ 9  /lib/x86_64-linux-gnu/libucs.so.0(+0x15f6f) [0x1464c5938f6f]
+10  /lib/x86_64-linux-gnu/libucp.so.0(ucp_worker_progress+0x7a) [0x1464c59ba28a]
+11  /usr/lib/x86_64-linux-gnu/openmpi/lib/openmpi3/mca_pml_ucx.so(mca_pml_ucx_recv+0x184) [0x1464c5a6de44]
+12  /lib/x86_64-linux-gnu/libmpi.so.40(MPI_Recv+0x155) [0x1464c838c465]
+13  /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency(+0x6d54) [0x56394a2afd54]
+14  /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency(+0x7b96) [0x56394a2b0b96]
+15  /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency(+0x813d) [0x56394a2b113d]
+16  /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency(+0x5e56) [0x56394a2aee56]
+17  /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency(+0x5fc0) [0x56394a2aefc0]
+18  /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency(+0x53a8) [0x56394a2ae3a8]
+19  /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency(+0x4e70) [0x56394a2ade70]
+20  /lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x1464c8022d90]
+21  /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x1464c8022e40]
+22  /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency(+0x4f55) [0x56394a2adf55]
+=================================
+[x1003c2s5b0n1:252039] *** Process received signal ***
+[x1003c2s5b0n1:252039] Signal: Aborted (6)
+[x1003c2s5b0n1:252039] Signal code:  (-6)
+[x1003c2s5b0n1:252039] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x1464c803b520]
+[x1003c2s5b0n1:252039] [ 1] /lib/x86_64-linux-gnu/libc.so.6(pthread_kill+0x12c)[0x1464c808f9bc]
+[x1003c2s5b0n1:252039] [ 2] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x1464c803b476]
+[x1003c2s5b0n1:252039] [ 3] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x1464c80217f3]
+[x1003c2s5b0n1:252039] [ 4] /lib/x86_64-linux-gnu/libucs.so.0(+0x2117b)[0x1464c594417b]
+[x1003c2s5b0n1:252039] [ 5] /lib/x86_64-linux-gnu/libucs.so.0(+0x25c9a)[0x1464c5948c9a]
+[x1003c2s5b0n1:252039] [ 6] /lib/x86_64-linux-gnu/libucs.so.0(ucs_log_dispatch+0xe4)[0x1464c59424a4]
+[x1003c2s5b0n1:252039] [ 7] /lib/x86_64-linux-gnu/ucx/libuct_cma.so.0(+0x2d22)[0x1464c569ad22]
+[x1003c2s5b0n1:252039] [ 8] /lib/x86_64-linux-gnu/ucx/libuct_cma.so.0(uct_cma_ep_tx+0x29d)[0x1464c569afed]
+[x1003c2s5b0n1:252039] [ 9] /lib/x86_64-linux-gnu/libuct.so.0(uct_scopy_ep_progress_tx+0x6e)[0x1464c58ed13e]
+[x1003c2s5b0n1:252039] [10] /lib/x86_64-linux-gnu/libucs.so.0(ucs_arbiter_dispatch_nonempty+0xfa)[0x1464c59386ea]
+[x1003c2s5b0n1:252039] [11] /lib/x86_64-linux-gnu/libuct.so.0(uct_scopy_iface_progress+0x81)[0x1464c58f6731]
+[x1003c2s5b0n1:252039] [12] /lib/x86_64-linux-gnu/libucs.so.0(+0x15f6f)[0x1464c5938f6f]
+[x1003c2s5b0n1:252039] [13] /lib/x86_64-linux-gnu/libucp.so.0(ucp_worker_progress+0x7a)[0x1464c59ba28a]
+[x1003c2s5b0n1:252039] [14] /usr/lib/x86_64-linux-gnu/openmpi/lib/openmpi3/mca_pml_ucx.so(mca_pml_ucx_recv+0x184)[0x1464c5a6de44]
+[x1003c2s5b0n1:252039] [15] /lib/x86_64-linux-gnu/libmpi.so.40(MPI_Recv+0x155)[0x1464c838c465]
+[x1003c2s5b0n1:252039] [16] /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency(+0x6d54)[0x56394a2afd54]
+[x1003c2s5b0n1:252039] [17] /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency(+0x7b96)[0x56394a2b0b96]
+[x1003c2s5b0n1:252039] [18] /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency(+0x813d)[0x56394a2b113d]
+[x1003c2s5b0n1:252039] [19] /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency(+0x5e56)[0x56394a2aee56]
+[x1003c2s5b0n1:252039] [20] /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency(+0x5fc0)[0x56394a2aefc0]
+[x1003c2s5b0n1:252039] [21] /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency(+0x53a8)[0x56394a2ae3a8]
+[x1003c2s5b0n1:252039] [22] /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency(+0x4e70)[0x56394a2ade70]
+[x1003c2s5b0n1:252039] [23] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x1464c8022d90]
+[x1003c2s5b0n1:252039] [24] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x1464c8022e40]
+[x1003c2s5b0n1:252039] [25] /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency(+0x4f55)[0x56394a2adf55]
+[x1003c2s5b0n1:252039] *** End of error message ***
+/app/apps/apptainer/1.5.0/bin/apptainer: line 21: 252025 Aborted                 (core dumped) $SCRIPT_DIR/apptainer_bin "$@"
+--------------------------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun detected that one or more processes exited with non-zero status, thus causing
+the job to be terminated. The first process to do so was:
+
+  Process name: [[9956,1],1]
+  Exit code:    134
+--------------------------------------------------------------------------

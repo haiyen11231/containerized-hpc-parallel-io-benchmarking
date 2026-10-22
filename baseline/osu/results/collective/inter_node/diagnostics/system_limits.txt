@@ -1,0 +1,4 @@
+ephemeral_port_range: 32768	60999
+ports_available:      28232
+tcp_tw_reuse:         2
+nodes:                4

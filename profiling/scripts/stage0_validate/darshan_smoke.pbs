@@ -1,0 +1,104 @@
+#!/bin/bash
+#PBS -N darshan_smoke
+#PBS -l select=1:ncpus=4:mpiprocs=4:mem=8gb
+#PBS -l walltime=00:15:00
+#PBS -l place=excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/darshan_smoke.out
+
+# Minimal smoke test: does YOUR Darshan build actually instrument an OpenMPI job?
+#
+# Four ranks, one tiny IOR write, nothing else. The only questions are:
+#   1. does the job still run with libdarshan.so preloaded?
+#   2. does a .darshan log get written?
+#   3. can darshan-parser read it?
+#   4. do POSIX counters appear with sensible values?
+#
+# NOTE on the log path: this build was configured with
+#     --with-log-path=/darshan-logs
+# which does not exist and is not creatable by a normal user. DARSHAN_LOGFILE
+# overrides that compiled-in default with an exact filename, which is what this
+# job (and every later one) relies on.
+
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+module load darshan/3.4.6          # for darshan-parser only -- NOT for the .so
+
+# Your own build, linked against OpenMPI. The system module's .so is linked
+# against cray-mpich and must not be preloaded into these jobs.
+DARSHAN_LIB=$HOME/scratch/fyp/native/darshan/darshan/install/lib/libdarshan.so
+IOR=$HOME/scratch/fyp/native/ior/ior-4.0.0/src/ior
+
+WORK=$HOME/scratch/fyp/profiling/smoke-payload
+LOGDIR=$HOME/scratch/fyp/profiling/darshan-logs
+OUT=results
+mkdir -p "$WORK" "$LOGDIR" "$OUT" logs
+
+DLOG=$LOGDIR/smoke_$PBS_JOBID.darshan
+rm -f "$DLOG"
+
+echo "=== pre-flight ==="
+[ -r "$DARSHAN_LIB" ] || { echo "FATAL: $DARSHAN_LIB not readable"; exit 1; }
+[ -x "$IOR" ]         || { echo "FATAL: $IOR not found"; exit 1; }
+echo "  darshan lib : $DARSHAN_LIB"
+echo "  linked MPI  : $(ldd "$DARSHAN_LIB" | grep -oE 'libmpi[^ ]*\.so[^ ]*' | head -1)"
+echo "  log target  : $DLOG"
+
+echo ""
+echo "=== run: 4 ranks, IOR writing 4 x 16 MiB ==="
+set +e
+mpirun -np 4 \
+  -x LD_PRELOAD="$DARSHAN_LIB" \
+  -x DARSHAN_LOGFILE="$DLOG" \
+  --mca btl ^openib --mca pml ucx -x UCX_LOG_LEVEL=ERROR \
+  "$IOR" -a POSIX -t 1m -b 16m -e -i 2 -o "$WORK/smoke_testfile" \
+  > "$OUT/ior.log" 2>&1
+RC=$?
+set -e
+echo "  ior exit code: $RC"
+[ "$RC" -ne 0 ] && { echo "  --- ior output ---"; sed 's/^/    /' "$OUT/ior.log" | tail -20; }
+
+echo ""
+echo "=== did a log appear? ==="
+if [ -s "$DLOG" ]; then
+    echo "  YES: $(ls -lh "$DLOG" | awk '{print $5}')  $DLOG"
+else
+    echo "  NO -- Darshan did not write a log."
+    echo "  Most likely: LD_PRELOAD did not reach the ranks, or the binary is static."
+    echo "  ldd on ior:"; ldd "$IOR" | head -5 | sed 's/^/    /'
+    exit 1
+fi
+
+echo ""
+echo "=== can darshan-parser read it? ==="
+darshan-parser "$DLOG" > "$OUT/smoke.parsed" 2>"$OUT/parser.err"
+PRC=$?
+echo "  parser exit: $PRC"
+[ "$PRC" -ne 0 ] && { sed 's/^/    /' "$OUT/parser.err" | head -10; exit 1; }
+
+POSIX_N=$(grep -c '^POSIX_' "$OUT/smoke.parsed" 2>/dev/null); POSIX_N=${POSIX_N:-0}
+MPIIO_N=$(grep -c '^MPIIO_' "$OUT/smoke.parsed" 2>/dev/null); MPIIO_N=${MPIIO_N:-0}
+echo "  POSIX counter lines: $POSIX_N"
+echo "  MPIIO counter lines: $MPIIO_N"
+
+echo ""
+echo "=== the counters Phase 2 actually needs ==="
+grep -E 'POSIX_(OPENS|WRITES|READS|SEEKS)\b' "$OUT/smoke.parsed" 2>/dev/null | head -6 | sed 's/^/  /'
+echo "  --- time breakdown (H1) ---"
+grep -E 'POSIX_F_(WRITE|READ|META)_TIME' "$OUT/smoke.parsed" 2>/dev/null | head -6 | sed 's/^/  /'
+echo "  --- access sizes (H2) ---"
+grep -E 'POSIX_SIZE_WRITE_' "$OUT/smoke.parsed" 2>/dev/null | head -5 | sed 's/^/  /'
+
+echo ""
+echo "================================================================="
+if [ "$RC" -eq 0 ] && [ -s "$DLOG" ] && [ "$POSIX_N" -gt 0 ]; then
+    echo " SMOKE TEST PASSED -- Darshan is working. Proceed to Stage 1."
+else
+    echo " SMOKE TEST FAILED -- do not proceed until this passes."
+fi
+echo "================================================================="

@@ -1,0 +1,121 @@
+#!/bin/bash
+#PBS -N osu_container_collective_intra_ucx_alglock
+#PBS -l walltime=02:05:00
+#PBS -l place=excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/osu_container_collective_intra_ucx_alglock.out
+
+# Intra-node counterpart to osu_container_collective_inter_{allreduce,alltoall}
+# _ucx_alglock.pbs. Combines BOTH optimizations, covering BOTH benches:
+#   (1) transport:  --mca pml ucx -x UCX_TLS=^cma          (non-CMA UCX path)
+#   (2) algorithm:  --mca coll_tuned_use_dynamic_rules 1
+#                   --mca coll_tuned_<bench>_algorithm <ALG>
+
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+module load apptainer
+
+SIF=$HOME/scratch/fyp/container/osu/osu_micro_benchmarks.sif
+OSU_DIR=/opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/collective
+
+: "${BENCH:?Must pass -v BENCH=<allreduce|alltoall>}"
+: "${MODE:?Must pass -v MODE=<weak|strong>}"
+: "${NP:?Must pass -v NP=<rank count>}"
+: "${ALG:?Must pass -v ALG=<algorithm index for this bench>}"
+: "${REPS:?Must pass -v REPS=<number>}"
+
+BIN="${OSU_DIR}/osu_${BENCH}"
+apptainer exec "$SIF" sh -c "test -x $BIN" \
+    || { echo "FATAL: $BIN not found inside $SIF"; exit 1; }
+
+case "$BENCH" in
+  allreduce) ALG_PARAM="coll_tuned_allreduce_algorithm" ;;
+  alltoall)  ALG_PARAM="coll_tuned_alltoall_algorithm" ;;
+  *) echo "FATAL: unknown BENCH='$BENCH'"; exit 1 ;;
+esac
+
+NODE_COUNT=1
+ACTUAL_NODES=$(sort -u "$PBS_NODEFILE" | wc -l)
+if [ "$ACTUAL_NODES" -ne "$NODE_COUNT" ]; then
+    echo "FATAL: Expected $NODE_COUNT node, PBS granted $ACTUAL_NODES."
+    exit 1
+fi
+
+SLOTS=$(wc -l < "$PBS_NODEFILE")
+if [ "$SLOTS" -ne "$NP" ]; then
+    echo "FATAL: PBS_NODEFILE has $SLOTS slots but NP=$NP."
+    exit 1
+fi
+
+case "$MODE" in
+  weak)
+    MSG=65536
+    ;;
+  strong)
+    TOTAL=8388608
+    if [ $(( TOTAL % NP )) -ne 0 ]; then
+        echo "FATAL: TOTAL=$TOTAL is not divisible by NP=$NP -- per-rank size would be truncated"
+        exit 1
+    fi
+    MSG=$(( TOTAL / NP ))
+    ;;
+  *) echo "FATAL: unknown MODE='$MODE' (expected weak|strong)"; exit 1 ;;
+esac
+
+REPORT_DIR="collective_ucx_alglock/intra/${MODE}/${BENCH}/alg${ALG}/np${NP}"
+mkdir -p "$REPORT_DIR" logs
+
+BENCH_ARGS=(-f -i 100 -m "${MSG}:${MSG}")
+
+MPI_CONFIG=(
+  -np "$NP"
+  --map-by core --bind-to core
+  --mca pml ucx
+  -x UCX_TLS=^cma
+  --mca orte_base_help_aggregate 0
+  --mca coll_tuned_use_dynamic_rules 1
+  --mca "$ALG_PARAM" "$ALG"
+  -x UCX_LOG_LEVEL=ERROR
+)
+
+echo "================================================================="
+echo " Container intra-node ${MODE} scaling, UCX + algorithm locked: BENCH=$BENCH NP=$NP ALG=$ALG ($ALG_PARAM) MSG=${MSG}B REPS=$REPS "
+echo "================================================================="
+
+sort -u "$PBS_NODEFILE" > "${REPORT_DIR}/nodes.txt"
+echo "$MSG" > "${REPORT_DIR}/msgsize_bytes.txt"
+echo "$ALG" > "${REPORT_DIR}/algorithm.txt"
+
+mpirun "${MPI_CONFIG[@]}" --report-bindings true \
+    > "${REPORT_DIR}/bindings.txt" 2>&1 || echo "  (binding capture failed, non-fatal)"
+
+for REP in $(seq 1 "$REPS"); do
+    echo "--- Repetition ${REP}/${REPS} ---"
+    OUT="${REPORT_DIR}/osu_${BENCH}_rep${REP}.txt"
+
+    set -x
+    mpirun "${MPI_CONFIG[@]}" apptainer exec "$SIF" "$BIN" "${BENCH_ARGS[@]}" > "$OUT" 2>&1
+    RC=$?
+    set +x
+
+    if [ "$RC" -ne 0 ]; then
+        echo "FAILED: BENCH=$BENCH MODE=$MODE NP=$NP ALG=$ALG rep=$REP (exit $RC)"
+        sed 's/^/    /' "$OUT" | head -30
+        exit "$RC"
+    fi
+
+    rows=$(grep -cE '^[0-9]' "$OUT")
+    if [ "$rows" -lt 1 ]; then
+        echo "FATAL: $OUT has no data rows -- benchmark produced no table"
+        sed 's/^/    /' "$OUT" | head -20
+        exit 1
+    fi
+    echo "  ok: $rows data row(s) recorded"
+done
+
+echo " Container intra-node ${MODE} scaling, UCX + algorithm locked (BENCH=$BENCH NP=$NP ALG=$ALG) Completed Successfully! "

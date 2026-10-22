@@ -1,0 +1,34 @@
+{
+  "mpi": {
+    "command": "mpirun",
+    "configuration": "@MPI_CONFIG@"
+  },
+  "vol": {},
+  "file-system": {
+    "lustre": {
+      "stripe-count": "4",
+      "stripe-size": "1M"
+    }
+  },
+  "directory": "@DIRECTORY@",
+  "benchmarks": [
+    {
+      "benchmark": "write",
+      "file": "@DATA_FILE@",
+      "configuration": {
+        "MEM_PATTERN": "CONTIG",
+        "FILE_PATTERN": "CONTIG",
+        "NUM_DIMS": "1",
+        "DIM_1": "@DIM_1@",
+        "DIM_2": "1",
+        "DIM_3": "1",
+        "TIMESTEPS": "5",
+        "EMULATED_COMPUTE_TIME_PER_TIMESTEP": "0 s",
+        "MODE": "SYNC",
+        "COLLECTIVE_DATA": "@COLL_DATA@",
+        "COLLECTIVE_METADATA": "@COLL_META@",
+        "CSV_FILE": "@CSV@"
+      }
+    }
+  ]
+}

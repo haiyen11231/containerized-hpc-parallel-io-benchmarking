@@ -46,83 +46,73 @@ one config so the read finds the file the write just produced; Lustre striping
 `-c 4 -S 1m`; hybrid launch model (host `mpirun` + per-rank `apptainer exec`).
 
 Same caveats as the scaling studies — see `../weak_scaling/README.md` for
-read-cache inflation, the binary-units-labelled-as-decimal trap, and why CSVs
+read-cache inflation, the binary-units-labeled-as-decimal trap, and why CSVs
 land under `payload/<variant>/<combo>/<uuid>/`.
 
- "collective" is doing a lot of hidden work.
+## Background: what "collective" actually means
 
-Independent vs collective I/O
+### Independent vs collective I/O
 
-Independent (the default, COLLECTIVE_DATA=NO): every rank writes on its own, whenever it's ready. 256 ranks → 256 separate streams arriving at Lustre in whatever order they happen to arrive.
+**Independent** (the default, `COLLECTIVE_DATA=NO`): every rank writes on its own, whenever it is ready. 256 ranks produce 256 separate streams arriving at Lustre in whatever order they happen to arrive.
 
-rank 0  ──write(32MiB)──→ ╮
-rank 1  ──write(32MiB)──→ ├─→  Lustre sees 256 scattered,
-  …                       │    possibly unaligned requests
+```
+rank 0   ──write(32MiB)──→ ╮
+rank 1   ──write(32MiB)──→ ├─→  Lustre sees 256 scattered,
+  …                        │    possibly unaligned requests
 rank 255 ──write(32MiB)──→ ╯
+```
 
-Collective (COLLECTIVE_DATA=YES): all ranks make the call together. Because MPI-IO now knows every rank's intent at once, it can reorganise before touching disk. This is two-phase I/O:
+**Collective** (`COLLECTIVE_DATA=YES`): all ranks make the call together. Because MPI-IO now knows every rank's intent at once, it can reorganize before touching disk — this is **two-phase I/O**:
 
+```
 Phase 1 — COMMUNICATION (over the network)
   256 ranks shuffle their data to a few "aggregator" ranks
-      rank 0..255  ──MPI messages──→  rank 0, 16, 32, 48 (aggregators)
+      rank 0..255  ──MPI messages──→  ranks 0, 16, 32, 48
 
 Phase 2 — I/O (to disk)
-  only the aggregators write, each one a big contiguous block
+  only the aggregators write, each a large contiguous block
       aggregator ──write(2 GiB contiguous)──→ Lustre
+```
 
 Lustre is fast at large contiguous stripe-aligned writes and slow at many small scattered ones. Two-phase converts the second into the first.
 
-But look at what it costs: Phase 1 is pure network traffic. Collective I/O trades network communication for better disk access patterns.
+**But note the cost: Phase 1 is pure network traffic.** Collective I/O trades network communication for better disk access patterns.
 
-Why that trade is exactly your thesis question
+### Why that trade is the thesis question
 
-That trade-off has a completely different price on each side:
+The price of that trade differs by variant:
 
-┌───────────┬───────────────────────────────────┬────────────────────────────────────────┐
-│           │              Network              │           So collective I/O…           │
-├───────────┼───────────────────────────────────┼────────────────────────────────────────┤
-│ Native    │ UCX + Slingshot — fast            │ cheap trade, should help a lot         │
-├───────────┼───────────────────────────────────┼────────────────────────────────────────┤
-│ Container │ generic OpenMPI, TCP over hsn0 —  │ expensive trade, may help little or    │
-│           │ slower                            │ even hurt                              │
-└───────────┴───────────────────────────────────┴────────────────────────────────────────┘
+| | Network | So collective I/O… |
+|---|---|---|
+| **Native** | UCX + Slingshot — fast | cheap trade, modest gain expected |
+| **Container** | generic OpenMPI, TCP over `hsn0` — slower | expensive trade, may help little or even hurt |
 
-This is the only case study that tests mechanism #1 (MPI runtime overhead) in an I/O context. Intra-node, weak, and strong scaling mostly probe mechanisms #2 and #3 — the storage path. This one takes the exact gap your OSU Allreduce results measured and asks: does it actually matter for real I/O?
+This is the **only case study that tests mechanism #1 (MPI runtime overhead) in an I/O context**. Intra-node, weak and strong scaling mostly probe mechanisms #2 and #3 — the storage path. This one takes the gap the OSU Allreduce results measured and asks whether it actually matters for real I/O.
 
-The second switch is a different mechanism
+### The second switch is a different mechanism
 
-COLLECTIVE_METADATA has nothing to do with bulk data. HDF5 metadata is the file's structural bookkeeping — where datasets live, their shapes, B-tree indices, the superblock.
+`COLLECTIVE_METADATA` has nothing to do with bulk data. HDF5 metadata is the file's structural bookkeeping — where datasets live, their shapes, B-tree indices, the superblock.
 
-- NO: all 256 ranks independently read the same metadata blocks → 256 requests to the Lustre MDT for identical information.
-- YES: one rank reads it, then broadcasts → 1 MDT request + 1 MPI broadcast.
+- **NO**: all 256 ranks independently read the same metadata blocks → 256 requests to the Lustre MDT for identical information.
+- **YES**: one rank reads it, then broadcasts → 1 MDT request + 1 MPI broadcast.
 
-Same shape of trade (filesystem work → MPI communication), but a different stress: metadata is many small latency-bound messages, whereas collective data is few large bandwidth-bound messages. OSU measured both regimes, so both map onto findings you already have.
+Same shape of trade (filesystem work → MPI communication), but a different stress: metadata is **many small latency-bound** messages, whereas collective data is **few large bandwidth-bound** messages. OSU measured both regimes, so both map onto findings already in hand.
 
-Why 2×2 instead of one on/off switch
+### Why 2×2 rather than one on/off switch
 
-If a single switch flipped both at once and the container looked worse, you couldn't say why — data path or metadata path? The factorial separates them by subtraction:
+If a single switch flipped both at once and the container looked different, you could not say why — data path or metadata path? The factorial separates them by subtraction:
 
-(NO ,NO )  ← baseline
-(YES,NO ) − (NO,NO)  = effect of collective DATA alone
-(NO ,YES) − (NO,NO)  = effect of collective METADATA alone
-(YES,YES)            = do they interact, or just add up?
+```
+(NO , NO )                      baseline
+(YES, NO ) − (NO, NO)           effect of collective DATA alone
+(NO , YES) − (NO, NO)           effect of collective METADATA alone
+(YES, YES)                      do they interact, or just add up?
+```
 
 Four cheap cells, three independent answers.
 
-What a result would actually look like
+### How to read the result
 
-Say you get this (illustrative numbers, not predictions):
+Read it as a **difference of differences**, not as absolute bars. The question is not "is the container slower" but "how much does each variant *gain* from enabling collective I/O". If one variant gains far more, that points at which bottleneck the optimization is actually relieving — a mechanistic explanation tied to a root cause already measured independently with OSU.
 
-┌───────────┬──────────┬──────────┬───────────────────────────┐
-│           │ (NO,NO)  │ (YES,NO) │ gain from collective data │
-├───────────┼──────────┼──────────┼───────────────────────────┤
-│ Native    │ 2.0 GB/s │ 3.0 GB/s │ +50%                      │
-├───────────┼──────────┼──────────┼───────────────────────────┤
-│ Container │ 1.8 GB/s │ 1.9 GB/s │ +6%                       │
-└───────────┴──────────┴──────────┴───────────────────────────┘
-
-Read it as a difference of differences. The headline isn't "container is 5% slower" — it's that native gains 50% from collective I/O while the container gains almost nothing. That says the container isn't slower at writing bytes; it's that it can't afford the communication collective I/O depends on. That's a mechanistic explanation tied to a specific root cause you've already independently measured with OSU.
-
-And if the container came out slower with collective enabled — the trade costing more than it saves — that's an even sharper finding, plus a concrete recommendation: disable collective I/O in containerised runs unless the MPI stack is fixed. Which feeds straight into your Phase 3 optimisation (bind-mounting the host MPI).
-
-So when you read these results, don't compare cells across the native/container tables. Compare the gains within each table. That's where the physics is.
+For the measured outcome, see `../../../results/inter_node/collective_io/README.md`.

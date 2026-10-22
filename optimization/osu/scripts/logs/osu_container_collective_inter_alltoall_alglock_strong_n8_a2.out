@@ -1,0 +1,50 @@
+=================================================================
+ Container inter-node Alltoall, algorithm locked: MODE=strong NODES=8 NP=1024 ALG=2 MSG=8192B REPS=10 
+=================================================================
+=== nodes used (8 distinct) ===
+x1001c1s1b0n1.hostmgmt2001.cm.asp2a.nscc.sg
+x1001c3s2b1n1.hostmgmt2001.cm.asp2a.nscc.sg
+x1002c3s1b1n1.hostmgmt2002.cm.asp2a.nscc.sg
+x1002c4s1b0n1.hostmgmt2002.cm.asp2a.nscc.sg
+x1002c4s7b0n0.hostmgmt2002.cm.asp2a.nscc.sg
+x1002c6s6b0n1.hostmgmt2002.cm.asp2a.nscc.sg
+x1002c7s4b1n0.hostmgmt2002.cm.asp2a.nscc.sg
+x1003c1s1b1n0.hostmgmt2003.cm.asp2a.nscc.sg
+=== ephemeral port range on this node (for comparison with the baseline diagnostic) ===
+32768	60999
+--- Repetition 1/10 ---
++ mpirun -np 1024 --map-by core --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 --mca coll_tuned_use_dynamic_rules 1 --mca coll_tuned_alltoall_algorithm 2 -x UCX_LOG_LEVEL=ERROR apptainer exec /home/users/ntu/haiyen00/scratch/fyp/container/osu/osu_micro_benchmarks.sif /opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/collective/osu_alltoall -f -i 100 -m 8192:8192
++ RC=16
++ set +x
+FAILED: MODE=strong NODES=8 ALG=2 rep=1 (exit 16)
+    
+    # OSU MPI All-to-All Personalized Exchange Latency Test v8.0rc
+    # Datatype: MPI_CHAR.
+    # Size       Avg Latency(us)   Min Latency(us)   Max Latency(us)  Iterations
+    [x1002c6s6b0n1][[2691,1],702][../../../../../../opal/mca/btl/tcp/btl_tcp_endpoint.c:730:mca_btl_tcp_endpoint_start_connect] bind on local address (10.150.1.160:0) failed: Address already in use (98)
+    [x1002c6s6b0n1:1767748] *** An error occurred in MPI_Alltoall
+    [x1002c6s6b0n1:1767748] *** reported by process [176357377,702]
+    [x1002c6s6b0n1:1767748] *** on communicator MPI_COMM_WORLD
+    [x1002c6s6b0n1:1767748] *** MPI_ERR_OTHER: known error not in list
+    [x1002c6s6b0n1:1767748] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+    [x1002c6s6b0n1:1767748] ***    and potentially your MPI job)
+    [x1002c6s6b0n1][[2691,1],712][../../../../../../opal/mca/btl/tcp/btl_tcp_endpoint.c:730:mca_btl_tcp_endpoint_start_connect] bind on local address (10.150.1.160:0) failed: Address already in use (98)
+    [x1002c4s7b0n0][[2691,1],631][../../../../../../opal/mca/btl/tcp/btl_tcp.c:559:mca_btl_tcp_recv_blocking] recv(96) failed: Connection reset by peer (104)
+    [x1003c1s1b1n0][[2691,1],982][../../../../../../opal/mca/btl/tcp/btl_tcp.c:559:mca_btl_tcp_recv_blocking] recv(64) failed: Connection reset by peer (104)
+    [x1002c6s6b0n1][[2691,1],714][../../../../../../opal/mca/btl/tcp/btl_tcp_endpoint.c:730:mca_btl_tcp_endpoint_start_connect] bind on local address (10.150.1.160:0) failed: Address already in use (98)
+    [x1002c4s7b0n0][[2691,1],624][../../../../../../opal/mca/btl/tcp/btl_tcp.c:559:mca_btl_tcp_recv_blocking] recv(91) failed: Connection reset by peer (104)
+    [x1003c1s1b1n0][[2691,1],981][../../../../../../opal/mca/btl/tcp/btl_tcp.c:559:mca_btl_tcp_recv_blocking] recv(64) failed: Connection reset by peer (104)
+    [x1002c6s6b0n1][[2691,1],713][../../../../../../opal/mca/btl/tcp/btl_tcp_endpoint.c:730:mca_btl_tcp_endpoint_start_connect] bind on local address (10.150.1.160:0) failed: Address already in use (98)
+    [x1002c4s7b0n0][[2691,1],622][../../../../../../opal/mca/btl/tcp/btl_tcp.c:559:mca_btl_tcp_recv_blocking] recv(89) failed: Connection reset by peer (104)
+    [x1002c6s6b0n1:1767630] *** An error occurred in MPI_Alltoall
+    [x1002c6s6b0n1:1767630] *** reported by process [176357377,712]
+    [x1002c6s6b0n1:1767630] *** on communicator MPI_COMM_WORLD
+    [x1002c6s6b0n1:1767630] *** MPI_ERR_OTHER: known error not in list
+    [x1002c6s6b0n1:1767630] *** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+    [x1002c6s6b0n1:1767630] ***    and potentially your MPI job)
+    [x1002c4s7b0n0][[2691,1],623][../../../../../../opal/mca/btl/tcp/btl_tcp.c:559:mca_btl_tcp_recv_blocking] recv(89) failed: Connection reset by peer (104)
+    [x1002c6s6b0n1:1767629] *** An error occurred in MPI_Alltoall
+    [x1002c6s6b0n1:1767629] *** reported by process [176357377,714]
+    [x1002c6s6b0n1:1767629] *** on communicator MPI_COMM_WORLD
+    [x1002c6s6b0n1:1767629] *** MPI_ERR_OTHER: known error not in list
+  port-error lines in this output: 0

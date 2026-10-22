@@ -1,0 +1,1285 @@
+[1791891865.271296] [x1002c3s1b1n0:639509:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.273354] [x1002c3s1b1n0:638684:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.273352] [x1002c3s1b1n0:638860:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.273392] [x1002c3s1b1n0:639533:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.273388] [x1002c3s1b1n0:639645:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.273390] [x1002c3s1b1n0:639647:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.275539] [x1002c3s1b1n0:638682:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.279011] [x1002c3s1b1n0:638688:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.279057] [x1002c3s1b1n0:639486:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.279755] [x1002c3s1b1n0:638691:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.286724] [x1002c3s1b1n0:639534:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.287139] [x1002c3s1b1n0:638687:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.287148] [x1002c3s1b1n0:638963:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.287196] [x1002c3s1b1n0:639508:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.292082] [x1002c3s1b1n0:638869:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.307211] [x1002c3s1b1n0:639708:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.309613] [x1002c3s1b1n0:639772:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.309616] [x1002c3s1b1n0:639854:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.309823] [x1002c3s1b1n0:639771:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.309824] [x1002c3s1b1n0:639857:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.310484] [x1002c3s1b1n0:639853:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.310538] [x1002c3s1b1n0:639799:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.504397] [x1002c3s1b1n0:638860:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.507132] [x1002c3s1b1n0:639509:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.513383] [x1002c3s1b1n0:638684:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.549992] [x1002c3s1b1n0:640207:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.562087] [x1002c3s1b1n0:639486:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.586188] [x1002c3s1b1n0:638682:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.587460] [x1002c3s1b1n0:639645:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.601450] [x1002c3s1b1n0:638688:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.610551] [x1002c3s1b1n0:639508:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.612532] [x1002c3s1b1n0:639533:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.613105] [x1002c3s1b1n0:638691:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.623300] [x1002c3s1b1n0:639647:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.628076] [x1002c3s1b1n0:638687:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.634562] [x1002c3s1b1n0:639534:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.645609] [x1002c3s1b1n0:639708:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.648520] [x1002c3s1b1n0:638963:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.649755] [x1002c3s1b1n0:639799:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.650540] [x1002c3s1b1n0:638869:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.653909] [x1002c3s1b1n0:639772:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.667082] [x1002c3s1b1n0:640314:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.671043] [x1002c3s1b1n0:640309:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.671673] [x1002c3s1b1n0:640351:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.671774] [x1002c3s1b1n0:640208:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.671797] [x1002c3s1b1n0:640216:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.672154] [x1002c3s1b1n0:640217:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.672516] [x1002c3s1b1n0:640213:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.674596] [x1002c3s1b1n0:639853:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.688304] [x1002c3s1b1n0:639854:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.692494] [x1002c3s1b1n0:639857:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.694108] [x1002c3s1b1n0:639771:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.707602] [x1002c3s1b1n0:640707:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.709246] [x1002c3s1b1n0:640537:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.718117] [x1002c3s1b1n0:640705:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.718187] [x1002c3s1b1n0:640586:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.721756] [x1002c3s1b1n0:640637:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.721759] [x1002c3s1b1n0:640584:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.723700] [x1002c3s1b1n0:640585:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.723704] [x1002c3s1b1n0:640636:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.730198] [x1002c3s1b1n0:640948:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.747747] [x1002c3s1b1n0:640952:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.753285] [x1002c3s1b1n0:640953:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.754829] [x1002c3s1b1n0:640949:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.776229] [x1002c3s1b1n0:640950:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.797163] [x1002c3s1b1n0:641064:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.801391] [x1002c3s1b1n0:641070:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.803398] [x1002c3s1b1n0:641012:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.807841] [x1002c3s1b1n0:641234:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.861171] [x1002c3s1b1n0:640207:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.862336] [x1002c3s1b1n0:641295:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.862336] [x1002c3s1b1n0:641284:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.865778] [x1002c3s1b1n0:641351:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.867378] [x1002c3s1b1n0:641346:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.871303] [x1002c3s1b1n0:641281:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.873822] [x1002c3s1b1n0:641402:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.875111] [x1002c3s1b1n0:641348:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.877619] [x1002c3s1b1n0:641367:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.881997] [x1002c3s1b1n0:642111:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.882871] [x1002c3s1b1n0:641597:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.884703] [x1002c3s1b1n0:641516:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.885506] [x1002c3s1b1n0:641512:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.888511] [x1002c3s1b1n0:641993:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.890479] [x1002c3s1b1n0:641502:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.890641] [x1002c3s1b1n0:641462:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.890731] [x1002c3s1b1n0:641492:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.890732] [x1002c3s1b1n0:641515:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.891938] [x1002c3s1b1n0:642112:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.895532] [x1002c3s1b1n0:641986:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.897042] [x1002c3s1b1n0:642062:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.900020] [x1002c3s1b1n0:642054:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.901594] [x1002c3s1b1n0:642068:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.903532] [x1002c3s1b1n0:641994:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.908922] [x1002c3s1b1n0:642202:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.911392] [x1002c3s1b1n0:642205:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891865.917631] [x1002c3s1b1n0:640309:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.934982] [x1002c3s1b1n0:640208:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891865.962106] [x1002c3s1b1n0:640314:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.013537] [x1002c3s1b1n0:642203:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.014108] [x1002c3s1b1n0:642209:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.019989] [x1002c3s1b1n0:640707:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.024550] [x1002c3s1b1n0:640351:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.039523] [x1002c3s1b1n0:642197:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.043226] [x1002c3s1b1n0:642204:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.058864] [x1002c3s1b1n0:642223:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.064551] [x1002c3s1b1n0:640213:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.072321] [x1002c3s1b1n0:642230:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.073441] [x1002c3s1b1n0:642365:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.083523] [x1002c3s1b1n0:642340:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.113775] [x1002c3s1b1n0:640216:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.114194] [x1002c3s1b1n0:642342:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.116431] [x1002c3s1b1n0:642366:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.117995] [x1002c3s1b1n0:640537:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.123559] [x1002c3s1b1n0:642345:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.133397] [x1002c3s1b1n0:642356:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.136116] [x1002c3s1b1n0:642333:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.138706] [x1002c3s1b1n0:640217:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.154171] [x1002c3s1b1n0:642876:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.155389] [x1002c3s1b1n0:642319:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.159505] [x1002c3s1b1n0:640953:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.168856] [x1002c3s1b1n0:642354:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.169636] [x1002c3s1b1n0:642368:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.171154] [x1002c3s1b1n0:642360:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.175081] [x1002c3s1b1n0:642351:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.176389] [x1002c3s1b1n0:642348:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.179213] [x1002c3s1b1n0:640705:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.187112] [x1002c3s1b1n0:640585:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.189319] [x1002c3s1b1n0:642346:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.196871] [x1002c3s1b1n0:642379:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.203675] [x1002c3s1b1n0:642867:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.210869] [x1002c3s1b1n0:642362:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.211698] [x1002c3s1b1n0:642874:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.213060] [x1002c3s1b1n0:642369:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.215157] [x1002c3s1b1n0:642872:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.217159] [x1002c3s1b1n0:642355:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.217896] [x1002c3s1b1n0:642344:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.222805] [x1002c3s1b1n0:642376:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.223941] [x1002c3s1b1n0:642343:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.227941] [x1002c3s1b1n0:642361:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.242569] [x1002c3s1b1n0:642381:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.244236] [x1002c3s1b1n0:642359:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.246819] [x1002c3s1b1n0:642378:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.251111] [x1002c3s1b1n0:642353:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.251145] [x1002c3s1b1n0:642877:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.252912] [x1002c3s1b1n0:642870:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.258940] [x1002c3s1b1n0:640952:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.259844] [x1002c3s1b1n0:642491:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.262076] [x1002c3s1b1n0:642341:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.262158] [x1002c3s1b1n0:642367:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.270990] [x1002c3s1b1n0:642405:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.272740] [x1002c3s1b1n0:642869:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.275766] [x1002c3s1b1n0:642321:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.278205] [x1002c3s1b1n0:640584:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.282533] [x1002c3s1b1n0:642878:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.291706] [x1002c3s1b1n0:640949:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.296051] [x1002c3s1b1n0:640586:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.304273] [x1002c3s1b1n0:642382:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.309170] [x1002c3s1b1n0:642873:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.311524] [x1002c3s1b1n0:642557:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.311570] [x1002c3s1b1n0:640637:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.315992] [x1002c3s1b1n0:640948:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.316504] [x1002c3s1b1n0:642551:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.316970] [x1002c3s1b1n0:642875:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.326586] [x1002c3s1b1n0:642377:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.329236] [x1002c3s1b1n0:642350:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.338364] [x1002c3s1b1n0:642347:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.350976] [x1002c3s1b1n0:642322:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.375408] [x1002c3s1b1n0:640950:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.376113] [x1002c3s1b1n0:642879:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.397369] [x1002c3s1b1n0:642871:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891866.423608] [x1002c3s1b1n0:641070:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.428896] [x1002c3s1b1n0:640636:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.444700] [x1002c3s1b1n0:641234:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.559985] [x1002c3s1b1n0:641351:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.577562] [x1002c3s1b1n0:642068:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.603820] [x1002c3s1b1n0:641064:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.679659] [x1002c3s1b1n0:641012:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.701212] [x1002c3s1b1n0:641284:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.758808] [x1002c3s1b1n0:641346:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.798792] [x1002c3s1b1n0:641295:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.805370] [x1002c3s1b1n0:642202:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.827209] [x1002c3s1b1n0:642062:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.844010] [x1002c3s1b1n0:641492:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.847431] [x1002c3s1b1n0:641462:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.856609] [x1002c3s1b1n0:642112:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.860512] [x1002c3s1b1n0:641515:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.911982] [x1002c3s1b1n0:642054:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.955199] [x1002c3s1b1n0:642205:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.959355] [x1002c3s1b1n0:642204:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.991484] [x1002c3s1b1n0:641281:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.993165] [x1002c3s1b1n0:642111:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891866.995132] [x1002c3s1b1n0:641402:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.011992] [x1002c3s1b1n0:641367:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.040644] [x1002c3s1b1n0:641348:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.081454] [x1002c3s1b1n0:641597:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.100422] [x1002c3s1b1n0:641994:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.140582] [x1002c3s1b1n0:641993:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.149063] [x1002c3s1b1n0:641986:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.153504] [x1002c3s1b1n0:642197:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.158617] [x1002c3s1b1n0:641512:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.161318] [x1002c3s1b1n0:641502:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.168300] [x1002c3s1b1n0:642345:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.173953] [x1002c3s1b1n0:641516:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.180413] [x1002c3s1b1n0:642353:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.182175] [x1002c3s1b1n0:642230:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.185406] [x1002c3s1b1n0:642867:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.186189] [x1002c3s1b1n0:642366:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.192558] [x1002c3s1b1n0:642379:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.235572] [x1002c3s1b1n0:642354:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.238374] [x1002c3s1b1n0:642223:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.266361] [x1002c3s1b1n0:642378:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.275192] [x1002c3s1b1n0:642876:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.282659] [x1002c3s1b1n0:642365:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.292703] [x1002c3s1b1n0:642368:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.318160] [x1002c3s1b1n0:642209:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.322098] [x1002c3s1b1n0:642343:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.322912] [x1002c3s1b1n0:642360:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.343909] [x1002c3s1b1n0:642362:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.354649] [x1002c3s1b1n0:642369:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.383442] [x1002c3s1b1n0:642877:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.383970] [x1002c3s1b1n0:642203:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.400864] [x1002c3s1b1n0:642878:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.405563] [x1002c3s1b1n0:642355:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.431646] [x1002c3s1b1n0:642321:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.434291] [x1002c3s1b1n0:642376:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.438442] [x1002c3s1b1n0:642351:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.461064] [x1002c3s1b1n0:642491:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.502370] [x1002c3s1b1n0:642333:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.505784] [x1002c3s1b1n0:642344:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.527978] [x1002c3s1b1n0:642872:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.529231] [x1002c3s1b1n0:642870:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.529973] [x1002c3s1b1n0:642319:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.532630] [x1002c3s1b1n0:642361:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.537232] [x1002c3s1b1n0:642874:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.541335] [x1002c3s1b1n0:642342:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.542594] [x1002c3s1b1n0:642340:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.549915] [x1002c3s1b1n0:642367:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.551945] [x1002c3s1b1n0:642356:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.553224] [x1002c3s1b1n0:642348:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.554647] [x1002c3s1b1n0:642377:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.556527] [x1002c3s1b1n0:642382:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.558547] [x1002c3s1b1n0:642347:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.559931] [x1002c3s1b1n0:642871:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.561243] [x1002c3s1b1n0:642359:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.561998] [x1002c3s1b1n0:642341:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.562575] [x1002c3s1b1n0:642869:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.567323] [x1002c3s1b1n0:642551:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.571265] [x1002c3s1b1n0:642350:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.583918] [x1002c3s1b1n0:642322:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.588750] [x1002c3s1b1n0:642405:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.595934] [x1002c3s1b1n0:642873:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.605837] [x1002c3s1b1n0:642875:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.609305] [x1002c3s1b1n0:642381:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.609825] [x1002c3s1b1n0:642557:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.612434] [x1002c3s1b1n0:642346:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891867.613866] [x1002c3s1b1n0:642879:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891869.807753] [x1003c6s3b0n1:3310808:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.810668] [x1003c6s3b0n1:3310910:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.812085] [x1003c6s3b0n1:3310887:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.814998] [x1003c6s3b0n1:3310933:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.815032] [x1003c6s3b0n1:3310928:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.815002] [x1003c6s3b0n1:3310901:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.816550] [x1003c6s3b0n1:3310815:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.816969] [x1003c6s3b0n1:3310870:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.818021] [x1003c6s3b0n1:3310822:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.818690] [x1003c6s3b0n1:3310869:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.819454] [x1003c6s3b0n1:3310860:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.819535] [x1003c6s3b0n1:3310873:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.820330] [x1003c6s3b0n1:3310909:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.820724] [x1003c6s3b0n1:3310868:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.820843] [x1003c6s3b0n1:3310885:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.821061] [x1003c6s3b0n1:3310851:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.821641] [x1003c6s3b0n1:3310889:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.821882] [x1003c6s3b0n1:3310858:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.822286] [x1003c6s3b0n1:3310817:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.823055] [x1003c6s3b0n1:3310924:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.824787] [x1003c6s3b0n1:3310855:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.825582] [x1003c6s3b0n1:3310832:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.825892] [x1003c6s3b0n1:3310850:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.826143] [x1003c6s3b0n1:3310884:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.827160] [x1003c6s3b0n1:3310866:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.827382] [x1003c6s3b0n1:3310923:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.831217] [x1003c6s3b0n1:3310807:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.831804] [x1003c6s3b0n1:3310863:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.832067] [x1003c6s3b0n1:3310824:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.833251] [x1003c6s3b0n1:3310914:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.833487] [x1003c6s3b0n1:3310849:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.834770] [x1003c6s3b0n1:3310900:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.834907] [x1003c6s3b0n1:3310835:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.835180] [x1003c6s3b0n1:3310931:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.835949] [x1003c6s3b0n1:3310897:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.836273] [x1003c6s3b0n1:3310861:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.838150] [x1003c6s3b0n1:3310875:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.838140] [x1003c6s3b0n1:3310895:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.838931] [x1003c6s3b0n1:3310828:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.839152] [x1003c6s3b0n1:3310894:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.839799] [x1003c6s3b0n1:3310856:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.840097] [x1003c6s3b0n1:3310809:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.843633] [x1003c6s3b0n1:3310927:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.858532] [x1003c6s3b0n1:3310829:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.858812] [x1003c6s3b0n1:3310935:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.866914] [x1003c6s3b0n1:3310904:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.866916] [x1003c6s3b0n1:3310854:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.867009] [x1003c6s3b0n1:3310915:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.867142] [x1003c6s3b0n1:3310857:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.868639] [x1003c6s3b0n1:3310865:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.886605] [x1003c6s3b0n1:3310922:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.895055] [x1003c6s3b0n1:3310844:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.895161] [x1003c6s3b0n1:3310880:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.895115] [x1003c6s3b0n1:3310823:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.895385] [x1003c6s3b0n1:3310871:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.895436] [x1003c6s3b0n1:3310925:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.895659] [x1003c6s3b0n1:3310838:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.895685] [x1003c6s3b0n1:3310814:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.895845] [x1003c6s3b0n1:3310874:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.895892] [x1003c6s3b0n1:3310827:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896071] [x1003c6s3b0n1:3310836:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896106] [x1003c6s3b0n1:3310907:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896196] [x1003c6s3b0n1:3310892:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896204] [x1003c6s3b0n1:3310926:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896217] [x1003c6s3b0n1:3310937:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896255] [x1003c6s3b0n1:3310912:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896238] [x1003c6s3b0n1:3310934:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896453] [x1003c6s3b0n1:3310825:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896488] [x1003c6s3b0n1:3310842:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896512] [x1003c6s3b0n1:3310919:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896523] [x1003c6s3b0n1:3310843:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896516] [x1003c6s3b0n1:3310847:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896461] [x1003c6s3b0n1:3310893:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896567] [x1003c6s3b0n1:3310911:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896603] [x1003c6s3b0n1:3310896:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896598] [x1003c6s3b0n1:3310921:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896590] [x1003c6s3b0n1:3310830:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896622] [x1003c6s3b0n1:3310879:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896643] [x1003c6s3b0n1:3310876:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896558] [x1003c6s3b0n1:3310848:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896689] [x1003c6s3b0n1:3310867:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896651] [x1003c6s3b0n1:3310902:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896652] [x1003c6s3b0n1:3310906:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896834] [x1003c6s3b0n1:3310891:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896807] [x1003c6s3b0n1:3310818:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896811] [x1003c6s3b0n1:3310864:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896794] [x1003c6s3b0n1:3310936:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.896946] [x1003c6s3b0n1:3310932:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.897240] [x1003c6s3b0n1:3310929:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.897449] [x1003c6s3b0n1:3310913:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.897630] [x1003c6s3b0n1:3310890:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.898471] [x1003c6s3b0n1:3310833:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.898974] [x1003c6s3b0n1:3310886:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.899821] [x1003c6s3b0n1:3310845:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.900155] [x1003c6s3b0n1:3310846:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.900223] [x1003c6s3b0n1:3310917:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.901285] [x1003c6s3b0n1:3310920:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.902306] [x1003c6s3b0n1:3310888:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.902787] [x1003c6s3b0n1:3310882:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.903416] [x1003c6s3b0n1:3310852:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.904276] [x1003c6s3b0n1:3310831:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.905077] [x1003c6s3b0n1:3310872:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.905196] [x1003c6s3b0n1:3310812:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.906085] [x1003c6s3b0n1:3310834:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.906857] [x1003c6s3b0n1:3310813:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.906818] [x1003c6s3b0n1:3310903:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.907515] [x1003c6s3b0n1:3310862:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.907642] [x1003c6s3b0n1:3310840:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.908365] [x1003c6s3b0n1:3310883:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.908860] [x1003c6s3b0n1:3310859:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.909034] [x1003c6s3b0n1:3310826:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.909692] [x1003c6s3b0n1:3310821:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.910355] [x1003c6s3b0n1:3310881:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.910378] [x1003c6s3b0n1:3310816:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.910486] [x1003c6s3b0n1:3310930:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.911267] [x1003c6s3b0n1:3310877:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.911688] [x1003c6s3b0n1:3310837:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.912557] [x1003c6s3b0n1:3310918:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.912562] [x1003c6s3b0n1:3310878:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.913021] [x1003c6s3b0n1:3310908:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.913153] [x1003c6s3b0n1:3310916:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.913957] [x1003c6s3b0n1:3310853:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.915059] [x1003c6s3b0n1:3310899:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.915087] [x1003c6s3b0n1:3310905:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.915161] [x1003c6s3b0n1:3310841:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.915282] [x1003c6s3b0n1:3310811:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.916047] [x1003c6s3b0n1:3310898:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891869.917014] [x1003c6s3b0n1:3310839:0]     ucp_context.c:1778 UCX  INFO  UCP version is 1.12 (release 1)
+[1791891871.077930] [x1003c6s3b0n1:3310808:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.115494] [x1003c6s3b0n1:3310832:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.165616] [x1003c6s3b0n1:3310815:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.224784] [x1003c6s3b0n1:3310870:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.240947] [x1003c6s3b0n1:3310901:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.264410] [x1003c6s3b0n1:3310910:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.281631] [x1003c6s3b0n1:3310928:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.288438] [x1003c6s3b0n1:3310851:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.388814] [x1003c6s3b0n1:3310866:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.397421] [x1003c6s3b0n1:3310916:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.410040] [x1003c6s3b0n1:3310895:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.473387] [x1003c6s3b0n1:3310924:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.488323] [x1003c6s3b0n1:3310909:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.506147] [x1003c6s3b0n1:3310914:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.518900] [x1003c6s3b0n1:3310873:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.534624] [x1003c6s3b0n1:3310922:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.543179] [x1003c6s3b0n1:3310894:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.573179] [x1003c6s3b0n1:3310868:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.625588] [x1003c6s3b0n1:3310897:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.692509] [x1003c6s3b0n1:3310858:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.856114] [x1003c6s3b0n1:3310822:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.868292] [x1003c6s3b0n1:3310860:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.885798] [x1003c6s3b0n1:3310933:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.888871] [x1003c6s3b0n1:3310840:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.909403] [x1003c6s3b0n1:3310889:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.990662] [x1003c6s3b0n1:3310919:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891871.992628] [x1003c6s3b0n1:3310835:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.009050] [x1003c6s3b0n1:3310807:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.030700] [x1003c6s3b0n1:3310927:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.036641] [x1003c6s3b0n1:3310817:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.050800] [x1003c6s3b0n1:3310931:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.052235] [x1003c6s3b0n1:3310824:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.052913] [x1003c6s3b0n1:3310850:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.062167] [x1003c6s3b0n1:3310809:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.074371] [x1003c6s3b0n1:3310855:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.075159] [x1003c6s3b0n1:3310887:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.077158] [x1003c6s3b0n1:3310885:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.081299] [x1003c6s3b0n1:3310844:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.081382] [x1003c6s3b0n1:3310849:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.083485] [x1003c6s3b0n1:3310838:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.084207] [x1003c6s3b0n1:3310856:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.084335] [x1003c6s3b0n1:3310896:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.084463] [x1003c6s3b0n1:3310828:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.084473] [x1003c6s3b0n1:3310829:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.084465] [x1003c6s3b0n1:3310899:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.086290] [x1003c6s3b0n1:3310904:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.091911] [x1003c6s3b0n1:3310874:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.093441] [x1003c6s3b0n1:3310839:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.094800] [x1003c6s3b0n1:3310816:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.094864] [x1003c6s3b0n1:3310880:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.094977] [x1003c6s3b0n1:3310857:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.095004] [x1003c6s3b0n1:3310935:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.096006] [x1003c6s3b0n1:3310848:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.095996] [x1003c6s3b0n1:3310843:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.095975] [x1003c6s3b0n1:3310863:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.095965] [x1003c6s3b0n1:3310907:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.096128] [x1003c6s3b0n1:3310920:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.096065] [x1003c6s3b0n1:3310814:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.096060] [x1003c6s3b0n1:3310917:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.096181] [x1003c6s3b0n1:3310861:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.096119] [x1003c6s3b0n1:3310926:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.095961] [x1003c6s3b0n1:3310852:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.096214] [x1003c6s3b0n1:3310864:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.096152] [x1003c6s3b0n1:3310854:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.096331] [x1003c6s3b0n1:3310877:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.097116] [x1003c6s3b0n1:3310898:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.097201] [x1003c6s3b0n1:3310902:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.097227] [x1003c6s3b0n1:3310830:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.097250] [x1003c6s3b0n1:3310915:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.097340] [x1003c6s3b0n1:3310929:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.097410] [x1003c6s3b0n1:3310825:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.097504] [x1003c6s3b0n1:3310923:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.097474] [x1003c6s3b0n1:3310905:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.097518] [x1003c6s3b0n1:3310865:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.097529] [x1003c6s3b0n1:3310913:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.097652] [x1003c6s3b0n1:3310875:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.097747] [x1003c6s3b0n1:3310900:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.097790] [x1003c6s3b0n1:3310837:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.097835] [x1003c6s3b0n1:3310845:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.097820] [x1003c6s3b0n1:3310846:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.097808] [x1003c6s3b0n1:3310878:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.097848] [x1003c6s3b0n1:3310812:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.097901] [x1003c6s3b0n1:3310871:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.097840] [x1003c6s3b0n1:3310872:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.097963] [x1003c6s3b0n1:3310834:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.097984] [x1003c6s3b0n1:3310891:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.097885] [x1003c6s3b0n1:3310930:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098097] [x1003c6s3b0n1:3310869:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098014] [x1003c6s3b0n1:3310893:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098038] [x1003c6s3b0n1:3310911:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098068] [x1003c6s3b0n1:3310937:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098057] [x1003c6s3b0n1:3310886:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.097996] [x1003c6s3b0n1:3310912:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.097996] [x1003c6s3b0n1:3310888:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098142] [x1003c6s3b0n1:3310908:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098198] [x1003c6s3b0n1:3310936:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098225] [x1003c6s3b0n1:3310881:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098243] [x1003c6s3b0n1:3310818:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098273] [x1003c6s3b0n1:3310918:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098283] [x1003c6s3b0n1:3310813:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098292] [x1003c6s3b0n1:3310876:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098336] [x1003c6s3b0n1:3310833:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098274] [x1003c6s3b0n1:3310867:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098406] [x1003c6s3b0n1:3310811:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098355] [x1003c6s3b0n1:3310823:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098282] [x1003c6s3b0n1:3310841:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098373] [x1003c6s3b0n1:3310842:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098465] [x1003c6s3b0n1:3310847:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098473] [x1003c6s3b0n1:3310859:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098470] [x1003c6s3b0n1:3310884:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098530] [x1003c6s3b0n1:3310879:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098557] [x1003c6s3b0n1:3310862:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098545] [x1003c6s3b0n1:3310831:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098566] [x1003c6s3b0n1:3310827:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098632] [x1003c6s3b0n1:3310925:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098631] [x1003c6s3b0n1:3310934:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098666] [x1003c6s3b0n1:3310883:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098671] [x1003c6s3b0n1:3310882:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098686] [x1003c6s3b0n1:3310821:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098669] [x1003c6s3b0n1:3310903:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098717] [x1003c6s3b0n1:3310892:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098682] [x1003c6s3b0n1:3310906:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098655] [x1003c6s3b0n1:3310826:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098847] [x1003c6s3b0n1:3310836:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098809] [x1003c6s3b0n1:3310921:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098795] [x1003c6s3b0n1:3310890:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098754] [x1003c6s3b0n1:3310853:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.098781] [x1003c6s3b0n1:3310932:0]          parser.c:1914 UCX  INFO  UCX_* env variables: UCX_LOG_LEVEL=info UCX_TLS=^cma
+[1791891872.122133] [x1002c3s1b1n0:639509:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122134] [x1002c3s1b1n0:639645:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122158] [x1002c3s1b1n0:639508:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122258] [x1002c3s1b1n0:638860:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122172] [x1002c3s1b1n0:639486:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122377] [x1002c3s1b1n0:639486:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122218] [x1002c3s1b1n0:638688:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122259] [x1002c3s1b1n0:639799:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122289] [x1002c3s1b1n0:638682:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122299] [x1002c3s1b1n0:640208:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122262] [x1002c3s1b1n0:640314:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122361] [x1002c3s1b1n0:639508:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.121915] [x1003c6s3b0n1:3310832:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122387] [x1002c3s1b1n0:638687:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122576] [x1002c3s1b1n0:638687:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122382] [x1002c3s1b1n0:638691:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122572] [x1002c3s1b1n0:638691:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122424] [x1002c3s1b1n0:639647:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122399] [x1002c3s1b1n0:639708:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122594] [x1002c3s1b1n0:639708:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122365] [x1002c3s1b1n0:639509:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122444] [x1002c3s1b1n0:638688:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122366] [x1002c3s1b1n0:639645:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122374] [x1002c3s1b1n0:639533:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122555] [x1002c3s1b1n0:639533:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122432] [x1002c3s1b1n0:639853:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122452] [x1002c3s1b1n0:639857:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122466] [x1002c3s1b1n0:639854:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122353] [x1002c3s1b1n0:639534:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122536] [x1002c3s1b1n0:639534:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122431] [x1002c3s1b1n0:638869:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122470] [x1002c3s1b1n0:638684:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122506] [x1002c3s1b1n0:638682:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122457] [x1002c3s1b1n0:639771:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122504] [x1002c3s1b1n0:640351:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122506] [x1002c3s1b1n0:640208:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122537] [x1002c3s1b1n0:640216:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122550] [x1002c3s1b1n0:640584:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122394] [x1002c3s1b1n0:640217:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122557] [x1002c3s1b1n0:640217:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122492] [x1002c3s1b1n0:640314:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122485] [x1002c3s1b1n0:638860:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122505] [x1002c3s1b1n0:638963:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122721] [x1002c3s1b1n0:638963:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122622] [x1002c3s1b1n0:639647:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122480] [x1002c3s1b1n0:639799:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122628] [x1002c3s1b1n0:639853:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122665] [x1002c3s1b1n0:639857:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122622] [x1002c3s1b1n0:638869:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122679] [x1002c3s1b1n0:638684:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122540] [x1002c3s1b1n0:640309:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122733] [x1002c3s1b1n0:640309:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122595] [x1002c3s1b1n0:640707:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122792] [x1002c3s1b1n0:640707:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122688] [x1002c3s1b1n0:640705:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122583] [x1002c3s1b1n0:640207:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122788] [x1002c3s1b1n0:640207:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122611] [x1002c3s1b1n0:640213:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122800] [x1002c3s1b1n0:640213:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122668] [x1002c3s1b1n0:639771:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122695] [x1002c3s1b1n0:640351:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122558] [x1002c3s1b1n0:640537:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122746] [x1002c3s1b1n0:640537:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122610] [x1002c3s1b1n0:640586:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122797] [x1002c3s1b1n0:640586:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122665] [x1002c3s1b1n0:640953:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122844] [x1002c3s1b1n0:640953:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122732] [x1002c3s1b1n0:640216:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122743] [x1002c3s1b1n0:640584:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122636] [x1002c3s1b1n0:640952:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122849] [x1002c3s1b1n0:640952:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.121992] [x1003c6s3b0n1:3310870:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122842] [x1002c3s1b1n0:640636:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123043] [x1002c3s1b1n0:640636:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122707] [x1002c3s1b1n0:639854:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122869] [x1002c3s1b1n0:642054:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123059] [x1002c3s1b1n0:642054:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122753] [x1002c3s1b1n0:639772:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122944] [x1002c3s1b1n0:639772:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122785] [x1002c3s1b1n0:640949:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122984] [x1002c3s1b1n0:640949:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122817] [x1002c3s1b1n0:642068:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123018] [x1002c3s1b1n0:642068:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122816] [x1002c3s1b1n0:640637:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123024] [x1002c3s1b1n0:640637:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122947] [x1002c3s1b1n0:642111:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123129] [x1002c3s1b1n0:642111:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122774] [x1002c3s1b1n0:641070:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122953] [x1002c3s1b1n0:641070:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122793] [x1002c3s1b1n0:641064:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122967] [x1002c3s1b1n0:641064:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122967] [x1002c3s1b1n0:641367:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122784] [x1002c3s1b1n0:641012:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122958] [x1002c3s1b1n0:641012:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122844] [x1002c3s1b1n0:641284:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123014] [x1002c3s1b1n0:641284:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122949] [x1002c3s1b1n0:641234:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123137] [x1002c3s1b1n0:641234:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122877] [x1002c3s1b1n0:640705:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122832] [x1002c3s1b1n0:641346:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123008] [x1002c3s1b1n0:641346:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123003] [x1002c3s1b1n0:641994:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122868] [x1002c3s1b1n0:641492:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123039] [x1002c3s1b1n0:641492:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122957] [x1002c3s1b1n0:641281:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122910] [x1002c3s1b1n0:641515:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123094] [x1002c3s1b1n0:641515:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122893] [x1002c3s1b1n0:641462:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123088] [x1002c3s1b1n0:641462:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122764] [x1002c3s1b1n0:641351:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122942] [x1002c3s1b1n0:641351:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122861] [x1002c3s1b1n0:642112:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123064] [x1002c3s1b1n0:642112:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123021] [x1002c3s1b1n0:642202:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123034] [x1002c3s1b1n0:642205:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123010] [x1002c3s1b1n0:641597:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122738] [x1002c3s1b1n0:641295:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122925] [x1002c3s1b1n0:641295:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122764] [x1002c3s1b1n0:640585:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122946] [x1002c3s1b1n0:640585:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123031] [x1002c3s1b1n0:642353:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122819] [x1002c3s1b1n0:640948:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122990] [x1002c3s1b1n0:640948:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122903] [x1002c3s1b1n0:640950:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123107] [x1002c3s1b1n0:640950:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123073] [x1002c3s1b1n0:642354:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123248] [x1002c3s1b1n0:642354:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123199] [x1002c3s1b1n0:642368:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123206] [x1002c3s1b1n0:642867:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123160] [x1002c3s1b1n0:641367:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123025] [x1002c3s1b1n0:642204:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123222] [x1002c3s1b1n0:642204:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123076] [x1002c3s1b1n0:641348:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123257] [x1002c3s1b1n0:641348:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123169] [x1002c3s1b1n0:641994:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123036] [x1002c3s1b1n0:642062:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123235] [x1002c3s1b1n0:642062:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123156] [x1002c3s1b1n0:641281:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123106] [x1002c3s1b1n0:642345:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123294] [x1002c3s1b1n0:642345:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123167] [x1002c3s1b1n0:641512:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123170] [x1002c3s1b1n0:641993:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123144] [x1002c3s1b1n0:642197:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123369] [x1002c3s1b1n0:642197:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123268] [x1002c3s1b1n0:642365:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123239] [x1002c3s1b1n0:642202:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123229] [x1002c3s1b1n0:642205:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123204] [x1002c3s1b1n0:641597:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123055] [x1002c3s1b1n0:641986:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123253] [x1002c3s1b1n0:641986:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123233] [x1002c3s1b1n0:642223:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123228] [x1002c3s1b1n0:642343:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123171] [x1002c3s1b1n0:642379:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123504] [x1002c3s1b1n0:642379:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123198] [x1002c3s1b1n0:641502:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123494] [x1002c3s1b1n0:641502:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123236] [x1002c3s1b1n0:642876:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123512] [x1002c3s1b1n0:642876:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123297] [x1002c3s1b1n0:642378:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123119] [x1002c3s1b1n0:642230:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123314] [x1002c3s1b1n0:642230:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123215] [x1002c3s1b1n0:642333:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123513] [x1002c3s1b1n0:642333:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123263] [x1002c3s1b1n0:641516:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123532] [x1002c3s1b1n0:641516:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123226] [x1002c3s1b1n0:642353:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123287] [x1002c3s1b1n0:642362:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123540] [x1002c3s1b1n0:642362:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123135] [x1002c3s1b1n0:642366:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123284] [x1002c3s1b1n0:642366:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123296] [x1002c3s1b1n0:642369:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123550] [x1002c3s1b1n0:642369:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122066] [x1003c6s3b0n1:3310895:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122224] [x1003c6s3b0n1:3310895:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123568] [x1002c3s1b1n0:642491:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123539] [x1002c3s1b1n0:642342:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123740] [x1002c3s1b1n0:642342:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123497] [x1002c3s1b1n0:642368:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123473] [x1002c3s1b1n0:642355:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123715] [x1002c3s1b1n0:642355:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123490] [x1002c3s1b1n0:642203:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123703] [x1002c3s1b1n0:642203:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123593] [x1002c3s1b1n0:642870:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123504] [x1002c3s1b1n0:642867:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123467] [x1002c3s1b1n0:641512:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123301] [x1002c3s1b1n0:641402:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123547] [x1002c3s1b1n0:641402:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123368] [x1002c3s1b1n0:642321:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123548] [x1002c3s1b1n0:642321:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123493] [x1002c3s1b1n0:641993:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123539] [x1002c3s1b1n0:642365:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123450] [x1002c3s1b1n0:642877:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123646] [x1002c3s1b1n0:642877:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123662] [x1002c3s1b1n0:642382:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123504] [x1002c3s1b1n0:642351:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123710] [x1002c3s1b1n0:642351:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123364] [x1002c3s1b1n0:642209:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123572] [x1002c3s1b1n0:642209:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123502] [x1002c3s1b1n0:642367:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123704] [x1002c3s1b1n0:642367:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123539] [x1002c3s1b1n0:642223:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123536] [x1002c3s1b1n0:642343:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123643] [x1002c3s1b1n0:642341:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123836] [x1002c3s1b1n0:642341:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123483] [x1002c3s1b1n0:642376:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123675] [x1002c3s1b1n0:642376:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123542] [x1002c3s1b1n0:642361:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123732] [x1002c3s1b1n0:642361:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123538] [x1002c3s1b1n0:642878:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123724] [x1002c3s1b1n0:642878:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123601] [x1002c3s1b1n0:642344:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123782] [x1002c3s1b1n0:642344:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123545] [x1002c3s1b1n0:642378:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123566] [x1002c3s1b1n0:642874:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123758] [x1002c3s1b1n0:642874:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123492] [x1002c3s1b1n0:642348:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123682] [x1002c3s1b1n0:642348:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123395] [x1002c3s1b1n0:642360:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123606] [x1002c3s1b1n0:642360:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123628] [x1002c3s1b1n0:642377:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123813] [x1002c3s1b1n0:642377:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123654] [x1002c3s1b1n0:642340:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123843] [x1002c3s1b1n0:642340:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123656] [x1002c3s1b1n0:642356:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123853] [x1002c3s1b1n0:642356:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123756] [x1002c3s1b1n0:642491:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123669] [x1002c3s1b1n0:642347:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123854] [x1002c3s1b1n0:642347:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123911] [x1002c3s1b1n0:642381:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123679] [x1002c3s1b1n0:642872:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123870] [x1002c3s1b1n0:642872:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123694] [x1002c3s1b1n0:642350:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123889] [x1002c3s1b1n0:642350:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123776] [x1002c3s1b1n0:642870:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123828] [x1002c3s1b1n0:642551:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.124039] [x1002c3s1b1n0:642551:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123856] [x1002c3s1b1n0:642382:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123793] [x1002c3s1b1n0:642359:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123982] [x1002c3s1b1n0:642359:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123791] [x1002c3s1b1n0:642405:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123972] [x1002c3s1b1n0:642405:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123861] [x1002c3s1b1n0:642875:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.124065] [x1002c3s1b1n0:642875:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123729] [x1002c3s1b1n0:642319:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123911] [x1002c3s1b1n0:642319:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123961] [x1002c3s1b1n0:642873:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123735] [x1002c3s1b1n0:642869:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123932] [x1002c3s1b1n0:642869:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123793] [x1002c3s1b1n0:642322:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123996] [x1002c3s1b1n0:642322:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123875] [x1002c3s1b1n0:642557:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.124073] [x1002c3s1b1n0:642557:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123806] [x1002c3s1b1n0:642871:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123994] [x1002c3s1b1n0:642871:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123771] [x1002c3s1b1n0:642346:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123976] [x1002c3s1b1n0:642346:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.121992] [x1003c6s3b0n1:3310924:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122185] [x1003c6s3b0n1:3310924:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123997] [x1002c3s1b1n0:642879:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.124203] [x1002c3s1b1n0:642879:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.124106] [x1002c3s1b1n0:642381:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.124151] [x1002c3s1b1n0:642873:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122076] [x1003c6s3b0n1:3310916:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122228] [x1003c6s3b0n1:3310916:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122009] [x1003c6s3b0n1:3310897:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122164] [x1003c6s3b0n1:3310897:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.121990] [x1003c6s3b0n1:3310808:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122178] [x1003c6s3b0n1:3310808:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122086] [x1003c6s3b0n1:3310822:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122227] [x1003c6s3b0n1:3310822:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122111] [x1003c6s3b0n1:3310894:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122253] [x1003c6s3b0n1:3310894:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122154] [x1003c6s3b0n1:3310914:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122155] [x1003c6s3b0n1:3310858:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122046] [x1003c6s3b0n1:3310909:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122198] [x1003c6s3b0n1:3310909:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122072] [x1003c6s3b0n1:3310910:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122233] [x1003c6s3b0n1:3310910:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122007] [x1003c6s3b0n1:3310851:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122193] [x1003c6s3b0n1:3310851:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122074] [x1003c6s3b0n1:3310815:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122231] [x1003c6s3b0n1:3310815:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122070] [x1003c6s3b0n1:3310832:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122153] [x1003c6s3b0n1:3310844:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122298] [x1003c6s3b0n1:3310844:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122140] [x1003c6s3b0n1:3310870:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122430] [x1003c6s3b0n1:3310829:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122572] [x1003c6s3b0n1:3310829:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122160] [x1003c6s3b0n1:3310868:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122314] [x1003c6s3b0n1:3310868:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122179] [x1003c6s3b0n1:3310889:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122341] [x1003c6s3b0n1:3310889:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122305] [x1003c6s3b0n1:3310824:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122460] [x1003c6s3b0n1:3310824:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122404] [x1003c6s3b0n1:3310849:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122554] [x1003c6s3b0n1:3310849:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122324] [x1003c6s3b0n1:3310931:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122473] [x1003c6s3b0n1:3310931:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122232] [x1003c6s3b0n1:3310809:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122374] [x1003c6s3b0n1:3310809:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122190] [x1003c6s3b0n1:3310922:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122336] [x1003c6s3b0n1:3310922:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122423] [x1003c6s3b0n1:3310904:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122575] [x1003c6s3b0n1:3310904:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122189] [x1003c6s3b0n1:3310927:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122326] [x1003c6s3b0n1:3310927:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122366] [x1003c6s3b0n1:3310855:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122519] [x1003c6s3b0n1:3310855:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122250] [x1003c6s3b0n1:3310807:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122430] [x1003c6s3b0n1:3310807:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122145] [x1003c6s3b0n1:3310873:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122304] [x1003c6s3b0n1:3310873:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122166] [x1003c6s3b0n1:3310928:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122333] [x1003c6s3b0n1:3310928:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122280] [x1003c6s3b0n1:3310856:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122433] [x1003c6s3b0n1:3310856:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122351] [x1003c6s3b0n1:3310817:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122542] [x1003c6s3b0n1:3310817:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122162] [x1003c6s3b0n1:3310901:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122325] [x1003c6s3b0n1:3310901:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122373] [x1003c6s3b0n1:3310885:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122537] [x1003c6s3b0n1:3310885:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122491] [x1003c6s3b0n1:3310816:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122640] [x1003c6s3b0n1:3310816:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122168] [x1003c6s3b0n1:3310840:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122325] [x1003c6s3b0n1:3310840:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122406] [x1003c6s3b0n1:3310850:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122643] [x1003c6s3b0n1:3310850:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122265] [x1003c6s3b0n1:3310860:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122424] [x1003c6s3b0n1:3310860:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122312] [x1003c6s3b0n1:3310914:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122303] [x1003c6s3b0n1:3310858:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122295] [x1003c6s3b0n1:3310835:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122441] [x1003c6s3b0n1:3310835:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122453] [x1003c6s3b0n1:3310896:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122612] [x1003c6s3b0n1:3310896:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122199] [x1003c6s3b0n1:3310919:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122364] [x1003c6s3b0n1:3310919:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122459] [x1003c6s3b0n1:3310838:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122608] [x1003c6s3b0n1:3310838:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122402] [x1003c6s3b0n1:3310828:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122568] [x1003c6s3b0n1:3310828:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122256] [x1003c6s3b0n1:3310933:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122433] [x1003c6s3b0n1:3310933:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122528] [x1003c6s3b0n1:3310935:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122671] [x1003c6s3b0n1:3310935:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122812] [x1003c6s3b0n1:3310848:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122964] [x1003c6s3b0n1:3310848:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122690] [x1003c6s3b0n1:3310843:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122863] [x1003c6s3b0n1:3310843:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123006] [x1003c6s3b0n1:3310878:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123164] [x1003c6s3b0n1:3310878:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122724] [x1003c6s3b0n1:3310830:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122911] [x1003c6s3b0n1:3310830:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122562] [x1003c6s3b0n1:3310866:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122721] [x1003c6s3b0n1:3310866:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122878] [x1003c6s3b0n1:3310915:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123069] [x1003c6s3b0n1:3310915:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122554] [x1003c6s3b0n1:3310863:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122703] [x1003c6s3b0n1:3310863:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123047] [x1003c6s3b0n1:3310825:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123224] [x1003c6s3b0n1:3310825:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123022] [x1003c6s3b0n1:3310864:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123201] [x1003c6s3b0n1:3310864:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122513] [x1003c6s3b0n1:3310887:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122668] [x1003c6s3b0n1:3310887:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123060] [x1003c6s3b0n1:3310812:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123232] [x1003c6s3b0n1:3310812:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122813] [x1003c6s3b0n1:3310857:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122971] [x1003c6s3b0n1:3310857:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122512] [x1003c6s3b0n1:3310899:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122652] [x1003c6s3b0n1:3310899:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123064] [x1003c6s3b0n1:3310900:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123230] [x1003c6s3b0n1:3310900:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122941] [x1003c6s3b0n1:3310923:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123112] [x1003c6s3b0n1:3310923:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122951] [x1003c6s3b0n1:3310837:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123113] [x1003c6s3b0n1:3310837:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122610] [x1003c6s3b0n1:3310907:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122786] [x1003c6s3b0n1:3310907:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122758] [x1003c6s3b0n1:3310920:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122944] [x1003c6s3b0n1:3310920:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122569] [x1003c6s3b0n1:3310814:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122720] [x1003c6s3b0n1:3310814:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123081] [x1003c6s3b0n1:3310898:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123256] [x1003c6s3b0n1:3310898:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123080] [x1003c6s3b0n1:3310872:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123264] [x1003c6s3b0n1:3310872:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122628] [x1003c6s3b0n1:3310874:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122820] [x1003c6s3b0n1:3310874:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123080] [x1003c6s3b0n1:3310845:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123232] [x1003c6s3b0n1:3310845:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122722] [x1003c6s3b0n1:3310917:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122925] [x1003c6s3b0n1:3310917:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122545] [x1003c6s3b0n1:3310880:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122704] [x1003c6s3b0n1:3310880:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122680] [x1003c6s3b0n1:3310839:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122851] [x1003c6s3b0n1:3310839:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122639] [x1003c6s3b0n1:3310902:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122829] [x1003c6s3b0n1:3310902:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122938] [x1003c6s3b0n1:3310905:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123102] [x1003c6s3b0n1:3310905:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122844] [x1003c6s3b0n1:3310861:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123003] [x1003c6s3b0n1:3310861:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122960] [x1003c6s3b0n1:3310913:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123108] [x1003c6s3b0n1:3310913:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122680] [x1003c6s3b0n1:3310926:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122865] [x1003c6s3b0n1:3310926:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122882] [x1003c6s3b0n1:3310877:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123048] [x1003c6s3b0n1:3310877:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123026] [x1003c6s3b0n1:3310875:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123218] [x1003c6s3b0n1:3310875:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122980] [x1003c6s3b0n1:3310865:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123178] [x1003c6s3b0n1:3310865:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122641] [x1003c6s3b0n1:3310854:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122816] [x1003c6s3b0n1:3310854:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122991] [x1003c6s3b0n1:3310846:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123141] [x1003c6s3b0n1:3310846:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.122689] [x1003c6s3b0n1:3310852:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.122863] [x1003c6s3b0n1:3310852:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123655] [x1003c6s3b0n1:3310879:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123855] [x1003c6s3b0n1:3310879:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123122] [x1003c6s3b0n1:3310930:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123286] [x1003c6s3b0n1:3310930:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123345] [x1003c6s3b0n1:3310869:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123523] [x1003c6s3b0n1:3310869:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123655] [x1003c6s3b0n1:3310833:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123876] [x1003c6s3b0n1:3310833:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123380] [x1003c6s3b0n1:3310893:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123563] [x1003c6s3b0n1:3310893:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123471] [x1003c6s3b0n1:3310911:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123650] [x1003c6s3b0n1:3310911:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123381] [x1003c6s3b0n1:3310937:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123563] [x1003c6s3b0n1:3310937:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123290] [x1003c6s3b0n1:3310886:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123457] [x1003c6s3b0n1:3310886:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123385] [x1003c6s3b0n1:3310871:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123589] [x1003c6s3b0n1:3310871:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123699] [x1003c6s3b0n1:3310847:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123913] [x1003c6s3b0n1:3310847:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123246] [x1003c6s3b0n1:3310888:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123408] [x1003c6s3b0n1:3310888:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123156] [x1003c6s3b0n1:3310912:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123296] [x1003c6s3b0n1:3310912:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123401] [x1003c6s3b0n1:3310908:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123573] [x1003c6s3b0n1:3310908:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123439] [x1003c6s3b0n1:3310936:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123598] [x1003c6s3b0n1:3310936:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123201] [x1003c6s3b0n1:3310929:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123388] [x1003c6s3b0n1:3310929:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123391] [x1003c6s3b0n1:3310834:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123587] [x1003c6s3b0n1:3310834:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123763] [x1003c6s3b0n1:3310884:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123960] [x1003c6s3b0n1:3310884:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123771] [x1003c6s3b0n1:3310827:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123969] [x1003c6s3b0n1:3310827:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123637] [x1003c6s3b0n1:3310867:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123853] [x1003c6s3b0n1:3310867:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123597] [x1003c6s3b0n1:3310811:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123786] [x1003c6s3b0n1:3310811:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123315] [x1003c6s3b0n1:3310881:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123495] [x1003c6s3b0n1:3310881:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123698] [x1003c6s3b0n1:3310823:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123912] [x1003c6s3b0n1:3310823:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123182] [x1003c6s3b0n1:3310891:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123336] [x1003c6s3b0n1:3310891:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123449] [x1003c6s3b0n1:3310818:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123614] [x1003c6s3b0n1:3310818:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123641] [x1003c6s3b0n1:3310841:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123847] [x1003c6s3b0n1:3310841:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123355] [x1003c6s3b0n1:3310918:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123524] [x1003c6s3b0n1:3310918:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123517] [x1003c6s3b0n1:3310813:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123688] [x1003c6s3b0n1:3310813:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123713] [x1003c6s3b0n1:3310842:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123927] [x1003c6s3b0n1:3310842:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123720] [x1003c6s3b0n1:3310876:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123928] [x1003c6s3b0n1:3310876:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123873] [x1003c6s3b0n1:3310925:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.124049] [x1003c6s3b0n1:3310925:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123860] [x1003c6s3b0n1:3310934:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.124045] [x1003c6s3b0n1:3310934:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123767] [x1003c6s3b0n1:3310862:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123967] [x1003c6s3b0n1:3310862:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123939] [x1003c6s3b0n1:3310883:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.124114] [x1003c6s3b0n1:3310883:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123802] [x1003c6s3b0n1:3310882:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123986] [x1003c6s3b0n1:3310882:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.124000] [x1003c6s3b0n1:3310821:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.124182] [x1003c6s3b0n1:3310821:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123780] [x1003c6s3b0n1:3310859:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123976] [x1003c6s3b0n1:3310859:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123783] [x1003c6s3b0n1:3310826:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.123983] [x1003c6s3b0n1:3310826:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123891] [x1003c6s3b0n1:3310932:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.124064] [x1003c6s3b0n1:3310932:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123919] [x1003c6s3b0n1:3310831:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.124107] [x1003c6s3b0n1:3310831:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123989] [x1003c6s3b0n1:3310903:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.124173] [x1003c6s3b0n1:3310903:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.124029] [x1003c6s3b0n1:3310836:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.124231] [x1003c6s3b0n1:3310836:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123887] [x1003c6s3b0n1:3310892:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.124068] [x1003c6s3b0n1:3310892:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123986] [x1003c6s3b0n1:3310921:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.124168] [x1003c6s3b0n1:3310921:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.124083] [x1003c6s3b0n1:3310890:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.124268] [x1003c6s3b0n1:3310890:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123981] [x1003c6s3b0n1:3310853:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.124176] [x1003c6s3b0n1:3310853:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.123924] [x1003c6s3b0n1:3310906:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[0]: tag(self/memory0 dc_mlx5/mlx5_0:1); 
+[1791891872.124114] [x1003c6s3b0n1:3310906:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[1]: tag(sysv/memory dc_mlx5/mlx5_0:1); 
+[1791891872.542670] [x1002c3s1b1n0:638684:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+
+# OSU MPI Allreduce Latency Test v8.0rc
+# Datatype: MPI_INT.
+# Size       Avg Latency(us)   Min Latency(us)   Max Latency(us)  Iterations
+[1791891872.542298] [x1003c6s3b0n1:3310905:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543765] [x1002c3s1b1n0:639708:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543740] [x1002c3s1b1n0:638688:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543793] [x1002c3s1b1n0:640636:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543785] [x1002c3s1b1n0:642369:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543774] [x1002c3s1b1n0:642340:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543740] [x1002c3s1b1n0:642356:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543816] [x1002c3s1b1n0:642354:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543783] [x1002c3s1b1n0:639772:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543821] [x1002c3s1b1n0:642491:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543852] [x1002c3s1b1n0:642347:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543865] [x1002c3s1b1n0:640707:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543797] [x1002c3s1b1n0:642355:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543868] [x1002c3s1b1n0:640949:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543852] [x1002c3s1b1n0:642879:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543803] [x1002c3s1b1n0:642068:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543823] [x1002c3s1b1n0:642872:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543744] [x1002c3s1b1n0:640637:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543835] [x1002c3s1b1n0:642203:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543750] [x1002c3s1b1n0:642111:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543823] [x1002c3s1b1n0:641070:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543810] [x1002c3s1b1n0:641064:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543846] [x1002c3s1b1n0:642350:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543867] [x1002c3s1b1n0:641012:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543852] [x1002c3s1b1n0:641284:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543842] [x1002c3s1b1n0:641367:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543845] [x1002c3s1b1n0:641234:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543834] [x1002c3s1b1n0:640705:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543849] [x1002c3s1b1n0:641346:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543853] [x1002c3s1b1n0:642204:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543752] [x1002c3s1b1n0:641348:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543861] [x1002c3s1b1n0:641994:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543766] [x1002c3s1b1n0:641492:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543837] [x1002c3s1b1n0:642062:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543844] [x1002c3s1b1n0:641281:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543852] [x1002c3s1b1n0:642345:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543767] [x1002c3s1b1n0:642867:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543874] [x1002c3s1b1n0:641515:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543833] [x1002c3s1b1n0:641512:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543868] [x1002c3s1b1n0:641462:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543802] [x1002c3s1b1n0:641351:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543775] [x1002c3s1b1n0:641402:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543846] [x1002c3s1b1n0:642112:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543848] [x1002c3s1b1n0:642321:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543852] [x1002c3s1b1n0:642197:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543787] [x1002c3s1b1n0:641993:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543832] [x1002c3s1b1n0:642202:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543769] [x1002c3s1b1n0:642205:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543840] [x1002c3s1b1n0:640207:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543841] [x1002c3s1b1n0:642365:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543862] [x1002c3s1b1n0:640213:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543857] [x1002c3s1b1n0:641597:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543848] [x1002c3s1b1n0:639771:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543843] [x1002c3s1b1n0:640208:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543784] [x1002c3s1b1n0:642877:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543837] [x1002c3s1b1n0:642870:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543816] [x1002c3s1b1n0:642551:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543812] [x1002c3s1b1n0:642351:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543773] [x1002c3s1b1n0:642209:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543856] [x1002c3s1b1n0:641986:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543823] [x1002c3s1b1n0:642367:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543854] [x1002c3s1b1n0:642223:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543846] [x1002c3s1b1n0:642379:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543863] [x1002c3s1b1n0:642343:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543849] [x1002c3s1b1n0:641295:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543786] [x1002c3s1b1n0:642341:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543833] [x1002c3s1b1n0:640351:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543760] [x1002c3s1b1n0:642376:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543865] [x1002c3s1b1n0:642382:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543753] [x1002c3s1b1n0:642359:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543793] [x1002c3s1b1n0:642405:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543865] [x1002c3s1b1n0:642361:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543823] [x1002c3s1b1n0:640537:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543831] [x1002c3s1b1n0:642875:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543820] [x1002c3s1b1n0:641502:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543844] [x1002c3s1b1n0:642878:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543858] [x1002c3s1b1n0:642876:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543863] [x1002c3s1b1n0:642344:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543825] [x1002c3s1b1n0:642378:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543815] [x1002c3s1b1n0:642874:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543813] [x1002c3s1b1n0:640586:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543790] [x1002c3s1b1n0:642230:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543862] [x1002c3s1b1n0:640585:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543830] [x1002c3s1b1n0:642319:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543848] [x1002c3s1b1n0:642381:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543825] [x1002c3s1b1n0:642869:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543797] [x1002c3s1b1n0:642348:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543831] [x1002c3s1b1n0:642322:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543819] [x1002c3s1b1n0:642557:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543837] [x1002c3s1b1n0:642333:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543868] [x1002c3s1b1n0:641516:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543869] [x1002c3s1b1n0:640953:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543842] [x1002c3s1b1n0:642353:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543853] [x1002c3s1b1n0:642871:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543815] [x1002c3s1b1n0:642362:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543732] [x1002c3s1b1n0:640216:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543826] [x1002c3s1b1n0:642360:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543823] [x1002c3s1b1n0:642377:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543837] [x1002c3s1b1n0:642366:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543821] [x1002c3s1b1n0:640948:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543768] [x1002c3s1b1n0:640584:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543809] [x1002c3s1b1n0:640217:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543844] [x1002c3s1b1n0:640314:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543845] [x1002c3s1b1n0:639508:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543858] [x1002c3s1b1n0:638687:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543811] [x1002c3s1b1n0:638691:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543785] [x1002c3s1b1n0:639486:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543867] [x1002c3s1b1n0:640952:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543818] [x1002c3s1b1n0:642346:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543837] [x1002c3s1b1n0:638860:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543874] [x1002c3s1b1n0:638963:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543806] [x1002c3s1b1n0:639509:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543844] [x1002c3s1b1n0:639645:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543830] [x1002c3s1b1n0:639647:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543864] [x1002c3s1b1n0:639533:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543836] [x1002c3s1b1n0:639799:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543854] [x1002c3s1b1n0:639853:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543844] [x1002c3s1b1n0:640950:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543861] [x1002c3s1b1n0:639534:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543840] [x1002c3s1b1n0:639857:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543847] [x1002c3s1b1n0:638869:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543860] [x1002c3s1b1n0:642873:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543866] [x1002c3s1b1n0:640309:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543868] [x1002c3s1b1n0:639854:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543836] [x1002c3s1b1n0:642054:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543847] [x1002c3s1b1n0:642342:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543859] [x1002c3s1b1n0:642368:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543847] [x1002c3s1b1n0:638682:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543726] [x1003c6s3b0n1:3310930:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543709] [x1003c6s3b0n1:3310893:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543795] [x1003c6s3b0n1:3310904:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543813] [x1003c6s3b0n1:3310825:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+32768                 109.04            101.54            122.17           1
+[1791891872.543810] [x1003c6s3b0n1:3310927:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543885] [x1003c6s3b0n1:3310864:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543782] [x1003c6s3b0n1:3310887:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543862] [x1003c6s3b0n1:3310934:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543807] [x1003c6s3b0n1:3310812:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543898] [x1003c6s3b0n1:3310862:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543878] [x1003c6s3b0n1:3310886:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543873] [x1003c6s3b0n1:3310883:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543849] [x1003c6s3b0n1:3310855:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543822] [x1003c6s3b0n1:3310871:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543845] [x1003c6s3b0n1:3310847:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543831] [x1003c6s3b0n1:3310899:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543809] [x1003c6s3b0n1:3310807:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543816] [x1003c6s3b0n1:3310808:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543842] [x1003c6s3b0n1:3310882:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543915] [x1003c6s3b0n1:3310900:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543888] [x1003c6s3b0n1:3310923:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543908] [x1003c6s3b0n1:3310837:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543820] [x1003c6s3b0n1:3310873:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543874] [x1003c6s3b0n1:3310928:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543864] [x1003c6s3b0n1:3310856:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543881] [x1003c6s3b0n1:3310817:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543820] [x1003c6s3b0n1:3310821:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543809] [x1003c6s3b0n1:3310888:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543876] [x1003c6s3b0n1:3310822:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543859] [x1003c6s3b0n1:3310907:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543800] [x1003c6s3b0n1:3310859:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543896] [x1003c6s3b0n1:3310901:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543889] [x1003c6s3b0n1:3310885:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543831] [x1003c6s3b0n1:3310816:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543906] [x1003c6s3b0n1:3310920:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543879] [x1003c6s3b0n1:3310826:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543890] [x1003c6s3b0n1:3310814:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543893] [x1003c6s3b0n1:3310894:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543895] [x1003c6s3b0n1:3310898:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543853] [x1003c6s3b0n1:3310840:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543834] [x1003c6s3b0n1:3310850:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543884] [x1003c6s3b0n1:3310912:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543816] [x1003c6s3b0n1:3310932:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543811] [x1003c6s3b0n1:3310831:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543799] [x1003c6s3b0n1:3310903:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543898] [x1003c6s3b0n1:3310872:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543883] [x1003c6s3b0n1:3310908:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543849] [x1003c6s3b0n1:3310860:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543762] [x1003c6s3b0n1:3310914:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543883] [x1003c6s3b0n1:3310874:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543859] [x1003c6s3b0n1:3310845:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543799] [x1003c6s3b0n1:3310917:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543699] [x1003c6s3b0n1:3310909:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543915] [x1003c6s3b0n1:3310880:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543837] [x1003c6s3b0n1:3310839:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543861] [x1003c6s3b0n1:3310858:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543886] [x1003c6s3b0n1:3310936:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543906] [x1003c6s3b0n1:3310836:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543861] [x1003c6s3b0n1:3310910:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543888] [x1003c6s3b0n1:3310851:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543814] [x1003c6s3b0n1:3310902:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543825] [x1003c6s3b0n1:3310929:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543914] [x1003c6s3b0n1:3310906:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543889] [x1003c6s3b0n1:3310861:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543912] [x1003c6s3b0n1:3310835:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543828] [x1003c6s3b0n1:3310815:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543852] [x1003c6s3b0n1:3310832:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543842] [x1003c6s3b0n1:3310913:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543872] [x1003c6s3b0n1:3310892:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543812] [x1003c6s3b0n1:3310926:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543790] [x1003c6s3b0n1:3310834:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543884] [x1003c6s3b0n1:3310921:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543887] [x1003c6s3b0n1:3310884:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543778] [x1003c6s3b0n1:3310890:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543715] [x1003c6s3b0n1:3310827:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543828] [x1003c6s3b0n1:3310867:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543839] [x1003c6s3b0n1:3310811:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543784] [x1003c6s3b0n1:3310877:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543908] [x1003c6s3b0n1:3310853:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543884] [x1003c6s3b0n1:3310896:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543869] [x1003c6s3b0n1:3310875:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543786] [x1003c6s3b0n1:3310881:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543780] [x1003c6s3b0n1:3310865:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543910] [x1003c6s3b0n1:3310823:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543819] [x1003c6s3b0n1:3310891:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543904] [x1003c6s3b0n1:3310919:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543909] [x1003c6s3b0n1:3310818:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543883] [x1003c6s3b0n1:3310854:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543891] [x1003c6s3b0n1:3310838:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543791] [x1003c6s3b0n1:3310841:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543879] [x1003c6s3b0n1:3310846:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543784] [x1003c6s3b0n1:3310828:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543897] [x1003c6s3b0n1:3310918:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543883] [x1003c6s3b0n1:3310870:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543807] [x1003c6s3b0n1:3310844:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543878] [x1003c6s3b0n1:3310829:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543857] [x1003c6s3b0n1:3310868:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543812] [x1003c6s3b0n1:3310933:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543838] [x1003c6s3b0n1:3310895:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543833] [x1003c6s3b0n1:3310935:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543889] [x1003c6s3b0n1:3310889:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543845] [x1003c6s3b0n1:3310813:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543814] [x1003c6s3b0n1:3310842:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543905] [x1003c6s3b0n1:3310876:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543900] [x1003c6s3b0n1:3310852:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543830] [x1003c6s3b0n1:3310925:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543870] [x1003c6s3b0n1:3310824:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543843] [x1003c6s3b0n1:3310849:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543862] [x1003c6s3b0n1:3310879:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543889] [x1003c6s3b0n1:3310869:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543898] [x1003c6s3b0n1:3310848:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543895] [x1003c6s3b0n1:3310931:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543822] [x1003c6s3b0n1:3310843:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543826] [x1003c6s3b0n1:3310809:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543852] [x1003c6s3b0n1:3310924:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543924] [x1003c6s3b0n1:3310833:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543884] [x1003c6s3b0n1:3310922:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543893] [x1003c6s3b0n1:3310878:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543837] [x1003c6s3b0n1:3310911:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543848] [x1003c6s3b0n1:3310937:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543833] [x1003c6s3b0n1:3310830:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543900] [x1003c6s3b0n1:3310866:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543899] [x1003c6s3b0n1:3310915:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543842] [x1003c6s3b0n1:3310916:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543842] [x1003c6s3b0n1:3310897:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543878] [x1003c6s3b0n1:3310863:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 
+[1791891872.543924] [x1003c6s3b0n1:3310857:0]      ucp_worker.c:1866 UCX  INFO    ep_cfg[2]: tag(dc_mlx5/mlx5_0:1); 

@@ -1,0 +1,97 @@
+#!/bin/bash
+#PBS -N osu_container_pt2pt_inter_ucx
+#PBS -l walltime=00:30:00
+#PBS -l place=scatter:excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/osu_container_pt2pt_inter_ucx.out
+
+# OPTIMISED container inter-node pt2pt: identical to the baseline script in
+# every respect EXCEPT the transport selection.
+#
+#   baseline  : --mca btl tcp,self --mca btl_tcp_if_include hsn0 ...
+#   optimized : --mca pml ucx
+#
+# The baseline pinned TCP because the project believed the container's OpenMPI
+# had no UCX. A compute-node probe disproved that: the image ships `MCA pml:
+# ucx`, libibverbs/libmlx5/libucp, and Apptainer already exposes
+# /dev/infiniband and mlx5_0. Removing the pin lets UCX use rc_verbs (RDMA)
+# instead of TCP over the hsn0 IP interface.
+#
+# Everything else -- ranks, placement, REPS, message sweep, exclusivity -- is
+# unchanged, so the MCA flag is the only variable.
+
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+module load apptainer
+
+SIF=$HOME/scratch/fyp/container/osu/osu_micro_benchmarks.sif
+OSU_DIR=/opt/osu-micro-benchmarks-8.0rc/install/libexec/osu-micro-benchmarks/mpi/pt2pt
+
+: "${BENCH:?Must pass -v BENCH=<latency|bw>}"
+: "${REPS:?Must pass -v REPS=<number>}"
+
+BIN="${OSU_DIR}/osu_${BENCH}"
+apptainer exec "$SIF" sh -c "test -x $BIN" \
+    || { echo "FATAL: $BIN not found inside $SIF"; exit 1; }
+
+NP=2
+NODE_COUNT=2
+ACTUAL_NODES=$(sort -u "$PBS_NODEFILE" | wc -l)
+if [ "$ACTUAL_NODES" -ne "$NODE_COUNT" ]; then
+    echo "FATAL: Expected $NODE_COUNT distinct nodes, PBS granted $ACTUAL_NODES."
+    echo "       Both ranks on one node would measure shared memory, not the fabric."
+    exit 1
+fi
+
+REPORT_DIR="container_ucx/${BENCH}"
+mkdir -p "$REPORT_DIR" logs
+
+# The single change under test.
+MPI_CONFIG=(
+  -np "$NP"
+  --map-by ppr:1:node --bind-to core
+  --mca pml ucx
+  --mca orte_base_help_aggregate 0
+  -x UCX_LOG_LEVEL=ERROR
+)
+
+echo "================================================================="
+echo " OPTIMISED (UCX) container inter-node pt2pt: BENCH=$BENCH REPS=$REPS "
+echo "================================================================="
+sort -u "$PBS_NODEFILE" > "${REPORT_DIR}/nodes.txt"
+cat "${REPORT_DIR}/nodes.txt"
+
+# Record which transport UCX actually selected, so a silent TCP fallback
+# cannot be mistaken for a successful RDMA run.
+echo "=== transport actually used (UCX_LOG_LEVEL=info, 1 rep) ==="
+mpirun -np 2 --map-by ppr:1:node --mca pml ucx -x UCX_LOG_LEVEL=info \
+  apptainer exec "$SIF" "$BIN" -m 1:1 2>&1 \
+  | grep -iE 'selected|rc_verbs|ud_verbs|tcp|posix|sysv' | head -8 \
+  | tee "${REPORT_DIR}/transport.txt"
+
+for REP in $(seq 1 "$REPS"); do
+    echo "--- Repetition ${REP}/${REPS} ---"
+    OUT="${REPORT_DIR}/osu_${BENCH}_rep${REP}.txt"
+    set -x
+    mpirun "${MPI_CONFIG[@]}" apptainer exec "$SIF" "$BIN" > "$OUT" 2>&1
+    RC=$?
+    set +x
+    if [ "$RC" -ne 0 ]; then
+        echo "FAILED: BENCH=$BENCH rep=$REP (exit $RC)"
+        sed 's/^/    /' "$OUT" | head -20
+        exit "$RC"
+    fi
+    rows=$(grep -cE '^[0-9]' "$OUT")
+    if [ "$rows" -lt 2 ]; then
+        echo "FATAL: $OUT has only $rows data rows"
+        exit 1
+    fi
+    echo "  ok: $rows message sizes recorded"
+done
+
+echo " OPTIMIZED container inter-node pt2pt ($BENCH) Completed Successfully! "

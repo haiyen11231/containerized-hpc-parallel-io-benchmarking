@@ -1,0 +1,35 @@
+IOR-4.0.0: MPI Coordinated Test of Parallel I/O
+Began               : Thu Sep 17 09:14:31 2026
+Command line        : /home/users/ntu/haiyen00/scratch/ior/native/ior-4.0.0/src/ior -a MPIIO -t 4m -b 512m -e -C -i 3 -o native/stripe_c1/testfile_mpiio_shared_t4m
+Machine             : Linux x1002c1s0b1n0
+TestID              : 0
+StartTime           : Thu Sep 17 09:14:31 2026
+Path                : native/stripe_c1/testfile_mpiio_shared_t4m
+FS                  : 9695.3 TiB   Used FS: 67.9%   Inodes: 8190.4 Mi   Used Inodes: 35.5%
+
+Options: 
+api                 : MPIIO
+apiVersion          : (3.1)
+test filename       : native/stripe_c1/testfile_mpiio_shared_t4m
+access              : single-shared-file
+type                : independent
+segments            : 1
+ordering in a file  : sequential
+ordering inter file : constant task offset
+task offset         : 1
+nodes               : 1
+tasks               : 128
+clients per node    : 128
+repetitions         : 3
+xfersize            : 4 MiB
+blocksize           : 512 MiB
+aggregate filesize  : 64 GiB
+
+Results: 
+
+access    bw(MiB/s)  IOPS       Latency(s)  block(KiB) xfer(KiB)  open(s)    wr/rd(s)   close(s)   total(s)   iter
+------    ---------  ----       ----------  ---------- ---------  --------   --------   --------   --------   ----
+write     35.63      8.91       14.37       524288     4096       0.390498   1838.97    0.001624   1839.36    0   
+read      1546.18    386.93     0.322588    524288     4096       0.041726   42.34      2.95       42.39      0   
+write     23.84      6.06       21.13       524288     4096       12.78      2705.25    30.60      2748.62    1   
+read      671.44     167.93     0.756435    524288     4096       0.040827   97.56      3.22       97.61      1   

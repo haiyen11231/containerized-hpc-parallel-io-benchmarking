@@ -26,7 +26,7 @@ Values are container ÷ native, so **>1 means the container is worse**.
 
 ## 2. Allreduce: the container is consistently faster
 
-Across both studies and all ten configurations, the container runs Allreduce at **0.74–0.98×** native — typically 20% faster. Variance is low on both sides (CV 0.5–5.4%), and the effect reproduced across independent runs, so this is not the unstable "container looks faster" artefact seen in the pt2pt large-message bandwidth.
+Across both studies and all ten configurations, the container runs Allreduce at **0.74–0.98×** native — typically 20% faster. Variance is low on both sides (CV 0.5–5.4%), and the effect reproduced across independent runs, so this is not the unstable "container looks faster" artifact seen in the pt2pt large-message bandwidth.
 
 The mechanism is the same one that makes Alltoall worse, acting in the opposite direction. Allreduce moves only `O(S)` per rank regardless of rank count, so per-message overhead barely matters. What does matter is that native's UCX uses rendezvous with CMA — a kernel-assisted single copy requiring `process_vm_readv` syscalls and control-message handshakes — while the container, having no CMA, simply copies through a shared buffer. At 64 KiB and smaller, the bounce-buffer copy is cache-resident and beats the syscall round trip.
 
@@ -118,4 +118,4 @@ The pt2pt studies showed the container's MPI stack is badly handicapped on the n
 
 So "container overhead" is not a single number. It depends on message size and message count, and for some real patterns the sign reverses. That nuance is what makes the h5bench result (no measurable write penalty) consistent with the pt2pt inter-node result (up to 12×) rather than contradictory.
 
-For **Phase 3**, this predicts the bind-mounted-MPI optimisation should help Alltoall-style patterns substantially and may actually *hurt* Allreduce at these message sizes — a falsifiable prediction worth testing.
+For **Phase 3**, this predicts the bind-mounted-MPI optimization should help Alltoall-style patterns substantially and may actually *hurt* Allreduce at these message sizes — a falsifiable prediction worth testing.
