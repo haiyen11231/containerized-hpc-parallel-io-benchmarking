@@ -42,27 +42,42 @@ def ci95(vals):
 
 
 def parse_csv(path):
-    """h5bench's own 'metric, value, unit' summary -> {metric: float(value)}."""
+    """h5bench's own 'metric, value, unit' summary -> {metric: (float(value), unit)}.
+
+    h5bench switches a given metric's unit between MB/s and GB/s depending on
+    magnitude *within the same set of reps* -- keep the unit alongside the
+    value so callers can normalize before doing any arithmetic on it.
+    """
     out = {}
     for line in open(path):
         parts = [p.strip() for p in line.strip().split(",")]
         if len(parts) >= 2:
             try:
-                out[parts[0]] = float(parts[1])
+                out[parts[0]] = (float(parts[1]), parts[2] if len(parts) > 2 else "")
             except ValueError:
                 continue
     return out
 
 
+def to_gbps(value, unit):
+    """Both 'MB/s' and 'GB/s' are binary despite the labels (1 GB/s = 1024 MB/s)."""
+    if unit == "MB/s":
+        return value / 1024.0
+    if unit == "GB/s":
+        return value
+    raise ValueError(f"unexpected rate unit: {unit!r}")
+
+
 def load_variant(variant):
-    """All write_rep*.csv under payload/<variant>/*/ -> lists of (time, rate)."""
+    """All write_rep*.csv under payload/<variant>/*/ -> lists of (time, rate_gbps)."""
     pattern = os.path.join(DATA_ROOT, variant, "*", "write_rep*.csv")
     times, rates = [], []
     for f in sorted(glob.glob(pattern)):
         d = parse_csv(f)
         if "observed time" in d and "observed rate" in d:
-            times.append(d["observed time"])
-            rates.append(d["observed rate"])
+            times.append(d["observed time"][0])
+            rate_val, rate_unit = d["observed rate"]
+            rates.append(to_gbps(rate_val, rate_unit))
     return times, rates
 
 

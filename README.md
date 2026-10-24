@@ -103,7 +103,12 @@ https://blog.glennklockwood.com/2016/07/basics-of-io-benchmarking.html
 
 h5bench
 https://h5bench.readthedocs.io/en/latest/index.html 
-
+https://ieeexplore.ieee.org/document/11106079 
+https://onlinelibrary.wiley.com/doi/full/10.1002/cpe.8046 
+https://escholarship.org/content/qt3nb8f3d7/qt3nb8f3d7_noSplash_24663da61e0a0e9240d7ce461bd1b939.pdf 
+https://cug.org/proceedings/cug2021_proceedings/includes/files/pap103s2-file1.pdf 
+https://www.proquest.com/openview/20ecfe3586937ac21d936ddea29cadd9/1?pq-origsite=gscholar&cbl=18750&diss=y
+https://ieeexplore.ieee.org/document/10701352 
 
 darshan
 https://www.nas.nasa.gov/hecc/support/kb/using-darshan-for-io-characterization_681.html 

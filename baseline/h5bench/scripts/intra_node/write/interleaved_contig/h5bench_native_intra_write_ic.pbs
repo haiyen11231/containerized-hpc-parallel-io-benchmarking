@@ -1,0 +1,87 @@
+#!/bin/bash
+#PBS -N h5bench_native_intra_write_ic
+#PBS -l select=1:ncpus=64:mpiprocs=64:mem=64gb
+#PBS -l walltime=02:30:00
+#PBS -l place=excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/h5bench_native_intra_write_ic.out
+
+# Experiment description: Run h5bench natively on a single node with 64 ranks,
+# fixed MEM_PATTERN=INTERLEAVED / FILE_PATTERN=CONTIG, 2D dataset with 10 timesteps and 10 independent runs.
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load libfabric/1.11.0.4.125
+module load intel/2022.0.2
+module load openmpi/4.1.2-hpe
+
+module list
+mpirun --version
+
+export LD_LIBRARY_PATH=$HOME/scratch/fyp/native/hdf5/hdf5-1.10.7/build/install/lib:$LD_LIBRARY_PATH
+
+H5BENCH_DRIVER=$HOME/scratch/fyp/native/h5bench/h5bench/build_hdf5_1107/install/bin/h5bench
+TEMPLATE=h5bench_write_ic.json.template
+
+MPI_CONFIG="-np 64 --map-by ppr:64:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR"
+
+COMBO="write_interleaved_contig"
+REPS=10
+PAYLOAD_DIR="payload/native"
+REPORT_DIR="native"
+mkdir -p "$PAYLOAD_DIR" "$REPORT_DIR" logs
+
+# Set Lustre striping explicitly for the payload directory
+lfs setstripe -c 4 -S 1m "$PAYLOAD_DIR"
+echo "=== Verifying Lustre striping layout for $PAYLOAD_DIR ==="
+lfs getstripe "$PAYLOAD_DIR"
+
+
+DATA_FILE_NAME="h5bench_intra_native_${COMBO}.h5"
+# Clean up the data file on exit
+trap 'rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"' EXIT
+
+for REP in $(seq 1 "$REPS"); do
+    echo "--- Repetition ${REP}/${REPS} ---"
+
+    # Generate a JSON config file for each repetition with specific params
+    JSON="${REPORT_DIR}/config_rep${REP}.json"
+
+    sed -e "s|@MPI_CONFIG@|${MPI_CONFIG}|" \
+        -e "s|@DIRECTORY@|${PAYLOAD_DIR}|" \
+        -e "s|@DATA_FILE@|${DATA_FILE_NAME}|" \
+        -e "s|@CSV_FILE@|write_rep${REP}.csv|" \
+        "$TEMPLATE" > "$JSON"
+
+    python3 -m json.tool "$JSON" > /dev/null \
+        || { echo "FATAL: generated $JSON is not valid JSON"; exit 1; }
+
+    if grep -q '@[A-Z_]*@' "$JSON"; then
+        echo "FATAL: unsubstituted placeholder left in $JSON:"
+        grep -n '@[A-Z_]*@' "$JSON"
+        exit 1
+    fi
+
+    # Clean previous dataset file and flush system buffers
+    rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"
+    sync
+
+    # Run the h5bench driver with the generated JSON config
+    set -x
+    time "$H5BENCH_DRIVER" -a -d "$JSON"
+    H5BENCH_EXIT=$?
+    set +x
+
+    # Check exit status of h5bench driver
+    if [ "$H5BENCH_EXIT" -ne 0 ]; then
+        echo "FAILED: rep=$REP (h5bench exit $H5BENCH_EXIT)"
+        exit "$H5BENCH_EXIT"
+    fi
+
+    # Brief pause between reps to let I/O buffers drain
+    sleep 5
+done
+
+echo "Completed Successfully! "

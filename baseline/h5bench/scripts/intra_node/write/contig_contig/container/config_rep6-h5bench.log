@@ -1,0 +1,16 @@
+2026-10-24 05:53:59,637 h5bench - INFO - Starting h5bench Suite
+2026-10-24 05:53:59,638 h5bench - WARNING - Base directory already exists: payload/container
+2026-10-24 05:53:59,644 h5bench - INFO - Lustre support detected
+2026-10-24 05:53:59,644 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container
+2026-10-24 05:53:59,648 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-24 05:53:59,649 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-24 05:53:59,649 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-24 05:53:59,649 h5bench - INFO - JOBID: 25932541.pbs101
+2026-10-24 05:53:59,649 h5bench - INFO - h5bench [write] - Starting
+2026-10-24 05:53:59,649 h5bench - INFO - h5bench [write] - DIR: payload/container/bcaebaab-25932541.pbs101/
+2026-10-24 05:53:59,650 h5bench - INFO - Parallel setup: mpirun -np 64 --map-by ppr:64:node --bind-to core --mca pml ucx -x UCX_TLS=^cma --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-24 05:53:59,651 h5bench - INFO - mpirun -np 64 --map-by ppr:64:node --bind-to core --mca pml ucx -x UCX_TLS=^cma --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/bcaebaab-25932541.pbs101/h5bench.cfg payload/container/h5bench_intra_container_write_contig_contig.h5
+2026-10-24 06:00:13,349 h5bench - INFO - SUCCESS (all output files are located at payload/container/bcaebaab-25932541.pbs101)
+2026-10-24 06:00:13,376 h5bench - INFO - Runtime: 373.7263162 seconds (elapsed time, includes allocation wait time)
+2026-10-24 06:00:13,376 h5bench - INFO - h5bench [write] - Complete
+2026-10-24 06:00:13,377 h5bench - INFO - Finishing h5bench Suite
