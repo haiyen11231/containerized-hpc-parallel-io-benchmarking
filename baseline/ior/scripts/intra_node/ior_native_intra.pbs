@@ -8,9 +8,9 @@
 #PBS -j oe
 #PBS -o logs/ior_native_intra.out
 
-# Experiment description: Run IOR natively on single node with 64 ranks, 
-# sweeping transfer size (-t: 1m, 4m, 16m) with block size fixed at 64m. 
-# The stripe count and size are held FIXED at 4 and 1m, respectively, 
+# Experiment description: Run IOR natively on single node with 64 ranks,
+# sweeping transfer size (-t: 256k, 1m, 4m, 16m) with block size fixed at 128m.
+# The stripe count and size are held FIXED at 4 and 1m, respectively,
 # and identical between the two combos (MPI-IO + Shared vs POSIX + FPP).
 
 cd "$PBS_O_WORKDIR"
@@ -30,8 +30,8 @@ FPP_FLAG=""
 
 STRIPE_COUNT=4
 STRIPE_SIZE=1m
-B=64m
-T_SIZES=(1m 4m 16m)
+B=128m
+T_SIZES=(256k 1m 4m 16m)
 
 PAYLOAD_DIR="native/${API_LOWER}_${MODEL}"
 mkdir -p "$PAYLOAD_DIR"
