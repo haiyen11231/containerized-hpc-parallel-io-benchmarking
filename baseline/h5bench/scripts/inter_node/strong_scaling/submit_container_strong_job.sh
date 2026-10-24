@@ -1,7 +1,7 @@
 #!/bin/bash
 cd "$(dirname "$0")"
 
-NODE_COUNTS=(1 2 4 8)
+NODE_COUNTS=(8 4 2 1)
 
 mkdir -p logs
 

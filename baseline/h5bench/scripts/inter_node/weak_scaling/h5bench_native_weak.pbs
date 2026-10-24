@@ -1,6 +1,6 @@
 #!/bin/bash
 #PBS -N h5bench_native_weak
-#PBS -l walltime=02:30:00
+#PBS -l walltime=01:30:00
 #PBS -l place=scatter:excl
 #PBS -q normal
 #PBS -P personal-haiyen02
@@ -35,11 +35,10 @@ if [ "$ACTUAL_NODES" -ne "$NODE_COUNT" ]; then
     exit 1
 fi
 
-# WEAK SCALING: per-rank workload is FIXED in h5bench_config.json.template
-# (identical to intra_node/write/contig_contig), so total volume grows with
-# rank count.
-#   1 node (64 ranks) = 80 GB, 2 nodes (128) = 160 GB,
-#   4 nodes (256) = 320 GB, 8 nodes (512) = 640 GB per repetition
+# WEAK SCALING: per-rank workload is FIXED in h5bench_config.json.template,
+# so total volume grows with rank count. With DIM_1/DIM_2=1024:
+#   1 node (64 ranks) = 20 GB, 2 nodes (128) = 40 GB,
+#   4 nodes (256) = 80 GB, 8 nodes (512) = 160 GB per repetition
 NP=$((NODE_COUNT * 64))
 REPS=10
 MPI_CONFIG="-np ${NP} --map-by ppr:64:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR"
