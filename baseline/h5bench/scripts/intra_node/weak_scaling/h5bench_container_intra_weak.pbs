@@ -1,0 +1,119 @@
+#!/bin/bash
+#PBS -N h5bench_container_intraweak
+#PBS -l walltime=02:30:00
+#PBS -l place=excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/h5bench_container_intraweak.out
+
+# Experiment description: Run h5bench in an Apptainer container on a single
+# node, sweeping ranks-per-node (16/32/64), fixed MEM_PATTERN=CONTIG / FILE_PATTERN=CONTIG, 
+# 2D dataset with 10 timesteps and 5 independent runs.
+# Weak scaling: per-rank workload is fixed, so total volume grows with rank count.
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+module load apptainer
+
+module list
+mpirun --version
+apptainer --version
+
+H5BENCH_DRIVER=$HOME/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench
+SIF=$HOME/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+CONTAINER_BIN_DIR=/opt/h5bench/install/bin
+TEMPLATE=h5bench_config.json.template
+
+# Check the required environment variables
+: "${RANKS:?Must pass -v RANKS=<16|32|64> at submission time}"
+
+# Verify PBS granted the requested number of rank slots (single node, so
+# $PBS_NODEFILE has one line per rank, not per node)
+ACTUAL_RANKS=$(wc -l < "$PBS_NODEFILE")
+if [ "$ACTUAL_RANKS" -ne "$RANKS" ]; then
+    echo "FATAL: Expected $RANKS rank slot(s), PBS granted $ACTUAL_RANKS."
+    exit 1
+fi
+
+# WEAK SCALING: per-rank workload is FIXED in h5bench_config.json.template
+# at DIM_1=2048, DIM_2=2048 -- identical to ../write/contig_contig, so total
+# volume grows with rank count only (NP and STRIPE_COUNT are the only two
+# parameters that change with RANKS; DIM_1/DIM_2 never do):
+#   16 ranks = 20 GB, 32 ranks = 40 GB, 64 ranks = 80 GB per repetition.
+# 2048x2048 = 4,194,304 particles/rank, at 32 bytes/particle = 128 MiB/rank/
+# timestep x 10 timesteps = 1.25 GiB/rank total (fixed at every tier).
+
+REPS=5
+MPI_CONFIG="-np ${RANKS} --map-by ppr:${RANKS}:node --bind-to core --mca pml ucx -x UCX_TLS=^cma --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch ${SIF}"
+# Stripe count scales with rank count, anchored to intra_node's own
+# stripe-count=4 at the equivalent 64-rank/80GB size (1/2/4)
+STRIPE_COUNT=$((RANKS / 16))
+
+PAYLOAD_DIR="payload/container/r${RANKS}"
+REPORT_DIR="container/r${RANKS}"
+mkdir -p "$PAYLOAD_DIR" "$REPORT_DIR" logs
+
+# Set Lustre striping explicitly for the payload directory
+lfs setstripe -c "$STRIPE_COUNT" -S 1m "$PAYLOAD_DIR"
+echo "=== Verifying Lustre striping layout for $PAYLOAD_DIR (requested count=$STRIPE_COUNT) ==="
+lfs getstripe "$PAYLOAD_DIR"
+
+DATA_FILE_NAME="h5bench_intraweak_container_r${RANKS}.h5"
+# Clean up the data file on exit
+trap 'rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"' EXIT
+
+for REP in $(seq 1 "$REPS"); do
+    echo "--- Repetition ${REP}/${REPS} ---"
+
+    # Generate a JSON config file for each repetition with specific params
+    JSON="${REPORT_DIR}/config_rep${REP}.json"
+
+    sed -e "s|@MPI_CONFIG@|${MPI_CONFIG}|" \
+        -e "s|@DIRECTORY@|${PAYLOAD_DIR}|" \
+        -e "s|@DATA_FILE@|${DATA_FILE_NAME}|" \
+        -e "s|@STRIPE_COUNT@|${STRIPE_COUNT}|" \
+        -e "s|@CSV_FILE@|write_rep${REP}.csv|" \
+        "$TEMPLATE" > "$JSON"
+
+    python3 -m json.tool "$JSON" > /dev/null \
+        || { echo "FATAL: generated $JSON is not valid JSON"; exit 1; }
+
+    if grep -q '@[A-Z_]*@' "$JSON"; then
+        echo "FATAL: unsubstituted placeholder left in $JSON:"
+        grep -n '@[A-Z_]*@' "$JSON"
+        exit 1
+    fi
+
+    # Clean previous dataset file and flush system buffers
+    rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"
+    sync
+
+    # Run the h5bench driver with the generated JSON config
+    # -p points at the container's binary dir, which exists only inside the .sif
+    DRIVER_LOG="${REPORT_DIR}/driver_rep${REP}.log"
+    set -x
+    time "$H5BENCH_DRIVER" -a -d -p "$CONTAINER_BIN_DIR" "$JSON" > "$DRIVER_LOG" 2>&1
+    H5BENCH_EXIT=$?
+    set +x
+    cat "$DRIVER_LOG"
+
+    if ! grep -Eq "apptainer exec .*${CONTAINER_BIN_DIR}/+h5bench_write" "$DRIVER_LOG"; then
+        echo "FATAL: driver did not invoke the container binary"
+        grep -m1 'mpirun' "$DRIVER_LOG"
+        exit 1
+    fi
+
+    # Check exit status of h5bench driver
+    if [ "$H5BENCH_EXIT" -ne 0 ]; then
+        echo "FAILED: RANKS=$RANKS rep=$REP (h5bench exit $H5BENCH_EXIT)"
+        exit "$H5BENCH_EXIT"
+    fi
+
+    # Brief pause between reps to let I/O buffers drain
+    sleep 5
+done
+
+echo "Completed Successfully! "
