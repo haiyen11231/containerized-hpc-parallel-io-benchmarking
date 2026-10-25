@@ -1,15 +1,17 @@
 #!/bin/bash
 #PBS -N h5bench_native_weak
 #PBS -l walltime=02:30:00
-#PBS -l place=scatter
+#PBS -l place=scatter:excl
 #PBS -q normal
 #PBS -P personal-haiyen02
 #PBS -j oe
 #PBS -o logs/h5bench_native_weak.out
 
-# Experiment description: Run h5bench natively across 1/2/4/8 nodes with 64 ranks/node, 
-# fixed MEM_PATTERN=CONTIG / FILE_PATTERN=CONTIG, 2D dataset with 10 timesteps and 10 independent runs. 
+# Experiment description: Run h5bench in an Apptainer container across 1/2/4
+# nodes with 64 ranks/node, fixed MEM_PATTERN=CONTIG / FILE_PATTERN=CONTIG,
+# 2D dataset with 10 timesteps and 5 independent runs.
 # Weak scaling: per-rank workload is fixed, so total volume grows with rank count.
+# Per-rank workload matches intranode case Dim_1=2048, Dim_2=2048.
 cd "$PBS_O_WORKDIR"
 
 module purge
@@ -26,7 +28,7 @@ H5BENCH_DRIVER=$HOME/scratch/fyp/native/h5bench/h5bench/build_hdf5_1107/install/
 TEMPLATE=h5bench_config.json.template
 
 # Check the required environment variables
-: "${NODE_COUNT:?Must pass -v NODE_COUNT=<1|2|4|8> at submission time}"
+: "${NODE_COUNT:?Must pass -v NODE_COUNT=<1|2|4> at submission time}"
 
 # Verify PBS granted the requested number of nodes
 ACTUAL_NODES=$(sort -u "$PBS_NODEFILE" | wc -l)
@@ -35,18 +37,19 @@ if [ "$ACTUAL_NODES" -ne "$NODE_COUNT" ]; then
     exit 1
 fi
 
-# WEAK SCALING: per-rank workload is FIXED in h5bench_config.json.template,
-# so total volume grows with rank count. With DIM_1=512, DIM_2=1024:
-#   1 node (64 ranks) = 10 GB, 2 nodes (128) = 20 GB,
-#   4 nodes (256) = 40 GB, 8 nodes (512) = 80 GB per repetition
-# With (DIM_1=512, DIM_2=1024): 512×1024 = 524,288 particles/rank, at 32 bytes/particle
-# = 16 MiB/rank/timestep × 10 timesteps = 160 MiB/rank total (fixed at every tier).
+# WEAK SCALING: per-rank workload is FIXED in h5bench_config.json.template
+# at DIM_1=2048, DIM_2=2048 -- identical to intra_node/write/contig_contig,
+# so total volume grows with rank count only (NP and STRIPE_COUNT are the
+# only two parameters that change with NODE_COUNT; DIM_1/DIM_2 never do):
+#   1 node (64 ranks) = 80 GB, 2 nodes (128) = 160 GB, 4 nodes (256) = 320 GB
+# per repetition. 2048×2048 = 4,194,304 particles/rank, at 32 bytes/particle
+# = 128 MiB/rank/timestep × 10 timesteps = 1.25 GiB/rank total (fixed at
+# every tier, same as the intra_node baseline).
 
 NP=$((NODE_COUNT * 64))
-REPS=10
+REPS=5
 MPI_CONFIG="-np ${NP} --map-by ppr:64:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR"
-# Stripe count doubles with node count (2/4/8/16)
-STRIPE_COUNT=$((NODE_COUNT * 2))
+STRIPE_COUNT=$((NODE_COUNT * 4))
 
 PAYLOAD_DIR="payload/native/n${NODE_COUNT}"
 REPORT_DIR="native/n${NODE_COUNT}"

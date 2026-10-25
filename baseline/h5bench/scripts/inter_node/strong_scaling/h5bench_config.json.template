@@ -20,7 +20,7 @@
         "FILE_PATTERN": "CONTIG",
         "NUM_DIMS": "2",
         "DIM_1": "@DIM_1@",
-        "DIM_2": "1024",
+        "DIM_2": "2048",
         "DIM_3": "1",
         "TIMESTEPS": "10",
         "DELAYED_CLOSE_TIMESTEPS": "0",

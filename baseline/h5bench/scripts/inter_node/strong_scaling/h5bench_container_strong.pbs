@@ -1,16 +1,17 @@
 #!/bin/bash
 #PBS -N h5bench_container_strong
 #PBS -l walltime=02:30:00
-#PBS -l place=scatter
+#PBS -l place=scatter:excl
 #PBS -q normal
 #PBS -P personal-haiyen02
 #PBS -j oe
 #PBS -o logs/h5bench_container_strong.out
 
-# Experiment description: Run h5bench in an Apptainer container across 1/2/4/8
-# nodes with 64 ranks/node, fixed MEM_PATTERN=CONTIG / FILE_PATTERN=CONTIG,
-# 2D dataset with 10 timesteps and 10 independent runs.
+# Experiment description: Run h5bench in an Apptainer container across 1/2/4
+# nodes with 64 ranks/node, fixed MEM_PATTERN=CONTIG / FILE_PATTERN=CONTIG, 
+# 2D dataset with 10 timesteps and 5 independent runs.
 # Strong scaling: TOTAL problem size is fixed, so per-rank workload shrinks as node count grows.
+# Total size matches intra cases (80 GB).
 cd "$PBS_O_WORKDIR"
 
 module purge
@@ -28,7 +29,7 @@ CONTAINER_BIN_DIR=/opt/h5bench/install/bin
 TEMPLATE=h5bench_config.json.template
 
 # Check the required environment variables
-: "${NODE_COUNT:?Must pass -v NODE_COUNT=<1|2|4|8> at submission time}"
+: "${NODE_COUNT:?Must pass -v NODE_COUNT=<1|2|4> at submission time}"
 
 # Verify PBS granted the requested number of nodes
 ACTUAL_NODES=$(sort -u "$PBS_NODEFILE" | wc -l)
@@ -37,19 +38,20 @@ if [ "$ACTUAL_NODES" -ne "$NODE_COUNT" ]; then
     exit 1
 fi
 
-# STRONG SCALING: TOTAL problem size is FIXED at 40 GB, so DIM_1 halves
-# as node count doubles, keeping ranks * DIM_1 * DIM_2 constant.
+# STRONG SCALING: TOTAL problem size is FIXED at 80 GB (matching intra_node's
+# own total exactly), so DIM_1 halves as node count doubles, keeping
+# ranks * DIM_1 * DIM_2 constant. DIM_2 stays fixed at 2048 -- only DIM_1,
+# NP, and STRIPE_COUNT change with NODE_COUNT.
 #   1 node (64 ranks): DIM_1=2048, 2 nodes (128): DIM_1=1024,
-#   4 nodes (256): DIM_1=512, 8 nodes (512): DIM_1=256 -- always 40 GB total
+#   4 nodes (256): DIM_1=512 -- always 80 GB total
 # Per-rank data (10 timesteps):
-# 1 node: 640 MiB/rank, 2 nodes: 320 MiB/rank,
-# 4 nodes: 160 MiB/rank, 8 nodes: 80 MiB/rank
+# 1 node: 1.25 GiB/rank, 2 nodes: 640 MiB/rank, 4 nodes: 320 MiB/rank
 
 NP=$((NODE_COUNT * 64))
-REPS=10
+REPS=5
 DIM_1=$((2048 / NODE_COUNT))
 MPI_CONFIG="-np ${NP} --map-by ppr:64:node --bind-to core --mca pml ucx -x UCX_TLS=^cma --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch ${SIF}"
-STRIPE_COUNT=$((NODE_COUNT * 2))
+STRIPE_COUNT=$((NODE_COUNT * 4))
 
 PAYLOAD_DIR="payload/container/n${NODE_COUNT}"
 REPORT_DIR="container/n${NODE_COUNT}"
