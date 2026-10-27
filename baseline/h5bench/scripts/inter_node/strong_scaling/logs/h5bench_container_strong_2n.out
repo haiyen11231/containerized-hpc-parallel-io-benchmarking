@@ -1,0 +1,132 @@
+Currently Loaded Modulefiles:
+  1) libfabric/1.11.0.4.125   3) apptainer/1.5.0
+  2) openmpi/4.1.2-hpe
+mpirun (Open MPI) 4.1.2
+
+Report bugs to http://www.open-mpi.org/community/help/
+apptainer version 1.5.0
+=== Verifying Lustre striping layout for payload/container/n2 (requested count=8) ===
+payload/container/n2
+stripe_count:  8 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
+--- Repetition 1/5 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/n2/config_rep1.json
+
+real	24m45.909s
+user	711m58.465s
+sys	4m44.028s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-26 00:16:45,020 h5bench - INFO - Starting h5bench Suite
+2026-10-26 00:16:45,021 h5bench - WARNING - Base directory already exists: payload/container/n2
+2026-10-26 00:16:45,025 h5bench - INFO - Lustre support detected
+2026-10-26 00:16:45,025 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 8 payload/container/n2
+2026-10-26 00:16:45,029 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-26 00:16:45,029 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-26 00:16:45,030 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-26 00:16:45,030 h5bench - INFO - JOBID: 25985329.pbs101
+2026-10-26 00:16:45,030 h5bench - INFO - h5bench [write] - Starting
+2026-10-26 00:16:45,030 h5bench - INFO - h5bench [write] - DIR: payload/container/n2/9387226e-25985329.pbs101/
+2026-10-26 00:16:45,030 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:64:node --bind-to core --mca pml ucx -x UCX_TLS=^cma --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-26 00:16:45,032 h5bench - INFO - mpirun -np 128 --map-by ppr:64:node --bind-to core --mca pml ucx -x UCX_TLS=^cma --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n2/9387226e-25985329.pbs101/h5bench.cfg payload/container/n2/h5bench_strong_container_n2.h5
+2026-10-26 00:41:30,792 h5bench - INFO - SUCCESS (all output files are located at payload/container/n2/9387226e-25985329.pbs101)
+2026-10-26 00:41:30,812 h5bench - INFO - Runtime: 1485.7811205 seconds (elapsed time, includes allocation wait time)
+2026-10-26 00:41:30,812 h5bench - INFO - h5bench [write] - Complete
+2026-10-26 00:41:30,812 h5bench - INFO - Finishing h5bench Suite
+--- Repetition 2/5 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/n2/config_rep2.json
+
+real	7m18.640s
+user	136m15.980s
+sys	4m31.986s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-26 00:41:44,753 h5bench - INFO - Starting h5bench Suite
+2026-10-26 00:41:44,754 h5bench - WARNING - Base directory already exists: payload/container/n2
+2026-10-26 00:41:44,758 h5bench - INFO - Lustre support detected
+2026-10-26 00:41:44,759 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 8 payload/container/n2
+2026-10-26 00:41:44,763 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-26 00:41:44,764 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-26 00:41:44,764 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-26 00:41:44,764 h5bench - INFO - JOBID: 25985329.pbs101
+2026-10-26 00:41:44,764 h5bench - INFO - h5bench [write] - Starting
+2026-10-26 00:41:44,764 h5bench - INFO - h5bench [write] - DIR: payload/container/n2/56500660-25985329.pbs101/
+2026-10-26 00:41:44,765 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:64:node --bind-to core --mca pml ucx -x UCX_TLS=^cma --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-26 00:41:44,767 h5bench - INFO - mpirun -np 128 --map-by ppr:64:node --bind-to core --mca pml ucx -x UCX_TLS=^cma --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n2/56500660-25985329.pbs101/h5bench.cfg payload/container/n2/h5bench_strong_container_n2.h5
+2026-10-26 00:49:03,312 h5bench - INFO - SUCCESS (all output files are located at payload/container/n2/56500660-25985329.pbs101)
+2026-10-26 00:49:03,322 h5bench - INFO - Runtime: 438.5567493 seconds (elapsed time, includes allocation wait time)
+2026-10-26 00:49:03,322 h5bench - INFO - h5bench [write] - Complete
+2026-10-26 00:49:03,322 h5bench - INFO - Finishing h5bench Suite
+--- Repetition 3/5 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/n2/config_rep3.json
+
+real	7m23.984s
+user	189m26.201s
+sys	4m11.190s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-26 00:49:16,171 h5bench - INFO - Starting h5bench Suite
+2026-10-26 00:49:16,172 h5bench - WARNING - Base directory already exists: payload/container/n2
+2026-10-26 00:49:16,176 h5bench - INFO - Lustre support detected
+2026-10-26 00:49:16,177 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 8 payload/container/n2
+2026-10-26 00:49:16,181 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-26 00:49:16,182 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-26 00:49:16,182 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-26 00:49:16,182 h5bench - INFO - JOBID: 25985329.pbs101
+2026-10-26 00:49:16,182 h5bench - INFO - h5bench [write] - Starting
+2026-10-26 00:49:16,183 h5bench - INFO - h5bench [write] - DIR: payload/container/n2/d31b42d3-25985329.pbs101/
+2026-10-26 00:49:16,183 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:64:node --bind-to core --mca pml ucx -x UCX_TLS=^cma --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-26 00:49:16,184 h5bench - INFO - mpirun -np 128 --map-by ppr:64:node --bind-to core --mca pml ucx -x UCX_TLS=^cma --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n2/d31b42d3-25985329.pbs101/h5bench.cfg payload/container/n2/h5bench_strong_container_n2.h5
+2026-10-26 00:56:40,082 h5bench - INFO - SUCCESS (all output files are located at payload/container/n2/d31b42d3-25985329.pbs101)
+2026-10-26 00:56:40,083 h5bench - INFO - Runtime: 443.8994906 seconds (elapsed time, includes allocation wait time)
+2026-10-26 00:56:40,083 h5bench - INFO - h5bench [write] - Complete
+2026-10-26 00:56:40,083 h5bench - INFO - Finishing h5bench Suite
+--- Repetition 4/5 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/n2/config_rep4.json
+
+real	9m45.943s
+user	96m58.813s
+sys	3m48.693s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-26 00:56:56,345 h5bench - INFO - Starting h5bench Suite
+2026-10-26 00:56:56,347 h5bench - WARNING - Base directory already exists: payload/container/n2
+2026-10-26 00:56:56,352 h5bench - INFO - Lustre support detected
+2026-10-26 00:56:56,352 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 8 payload/container/n2
+2026-10-26 00:56:56,357 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-26 00:56:56,357 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-26 00:56:56,357 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-26 00:56:56,358 h5bench - INFO - JOBID: 25985329.pbs101
+2026-10-26 00:56:56,358 h5bench - INFO - h5bench [write] - Starting
+2026-10-26 00:56:56,358 h5bench - INFO - h5bench [write] - DIR: payload/container/n2/31440ead-25985329.pbs101/
+2026-10-26 00:56:56,358 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:64:node --bind-to core --mca pml ucx -x UCX_TLS=^cma --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-26 00:56:56,360 h5bench - INFO - mpirun -np 128 --map-by ppr:64:node --bind-to core --mca pml ucx -x UCX_TLS=^cma --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n2/31440ead-25985329.pbs101/h5bench.cfg payload/container/n2/h5bench_strong_container_n2.h5
+2026-10-26 01:06:42,220 h5bench - INFO - SUCCESS (all output files are located at payload/container/n2/31440ead-25985329.pbs101)
+2026-10-26 01:06:42,221 h5bench - INFO - Runtime: 585.8622727 seconds (elapsed time, includes allocation wait time)
+2026-10-26 01:06:42,221 h5bench - INFO - h5bench [write] - Complete
+2026-10-26 01:06:42,221 h5bench - INFO - Finishing h5bench Suite
+--- Repetition 5/5 ---
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/n2/config_rep5.json
+
+real	16m35.185s
+user	569m3.485s
+sys	5m24.874s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-26 01:06:53,931 h5bench - INFO - Starting h5bench Suite
+2026-10-26 01:06:53,932 h5bench - WARNING - Base directory already exists: payload/container/n2
+2026-10-26 01:06:53,938 h5bench - INFO - Lustre support detected
+2026-10-26 01:06:53,938 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 8 payload/container/n2
+2026-10-26 01:06:53,943 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-26 01:06:53,943 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-26 01:06:53,943 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-26 01:06:53,943 h5bench - INFO - JOBID: 25985329.pbs101
+2026-10-26 01:06:53,943 h5bench - INFO - h5bench [write] - Starting
+2026-10-26 01:06:53,944 h5bench - INFO - h5bench [write] - DIR: payload/container/n2/81e46d87-25985329.pbs101/
+2026-10-26 01:06:53,944 h5bench - INFO - Parallel setup: mpirun -np 128 --map-by ppr:64:node --bind-to core --mca pml ucx -x UCX_TLS=^cma --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-26 01:06:53,945 h5bench - INFO - mpirun -np 128 --map-by ppr:64:node --bind-to core --mca pml ucx -x UCX_TLS=^cma --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/n2/81e46d87-25985329.pbs101/h5bench.cfg payload/container/n2/h5bench_strong_container_n2.h5
+2026-10-26 01:23:29,043 h5bench - INFO - SUCCESS (all output files are located at payload/container/n2/81e46d87-25985329.pbs101)
+2026-10-26 01:23:29,051 h5bench - INFO - Runtime: 995.1065903 seconds (elapsed time, includes allocation wait time)
+2026-10-26 01:23:29,051 h5bench - INFO - h5bench [write] - Complete
+2026-10-26 01:23:29,051 h5bench - INFO - Finishing h5bench Suite
+Completed Successfully! 

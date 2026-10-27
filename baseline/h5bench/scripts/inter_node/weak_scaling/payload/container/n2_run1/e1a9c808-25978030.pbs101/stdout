@@ -1,0 +1,66 @@
+Configuration file: payload/container/n2/e1a9c808-25978030.pbs101/h5bench.cfg
+Output data file: payload/container/n2/h5bench_weak_container_n2.h5
+
+================ Benchmark Configuration ==================
+File: payload/container/n2/e1a9c808-25978030.pbs101/h5bench.cfg
+Number of particles per rank: 4194304
+Number of time steps: 10
+Emulated compute time per timestep: 0
+Mode: SYNC
+Collective metadata operations: NO
+Collective buffering for data operations: NO
+Number of dimensions: 2
+    Dim_1: 2048
+    Dim_2: 2048
+Standard deviation for varying particle size in normal distribution = 1
+===========================================================
+
+Start benchmark: h5bench_write
+Number of particles per rank: 4 M
+Total number of particles: 512M
+Collective Metadata operations: OFF
+2048 * 2048 2D array, my x_start = 0, y_start = 0, x_blk = 2048, y_blk = 2048
+Opened HDF5 file... 
+Writing Timestep_0 ... 
+    data_write_contig_contig_MD_array: Finished writing time step 
+Computing...
+Writing Timestep_1 ... 
+    data_write_contig_contig_MD_array: Finished writing time step 
+Computing...
+Writing Timestep_2 ... 
+    data_write_contig_contig_MD_array: Finished writing time step 
+Computing...
+Writing Timestep_3 ... 
+    data_write_contig_contig_MD_array: Finished writing time step 
+Computing...
+Writing Timestep_4 ... 
+    data_write_contig_contig_MD_array: Finished writing time step 
+Computing...
+Writing Timestep_5 ... 
+    data_write_contig_contig_MD_array: Finished writing time step 
+Computing...
+Writing Timestep_6 ... 
+    data_write_contig_contig_MD_array: Finished writing time step 
+Computing...
+Writing Timestep_7 ... 
+    data_write_contig_contig_MD_array: Finished writing time step 
+Computing...
+Writing Timestep_8 ... 
+    data_write_contig_contig_MD_array: Finished writing time step 
+Computing...
+Writing Timestep_9 ... 
+    data_write_contig_contig_MD_array: Finished writing time step 
+
+=================== Performance Results ==================
+Total number of ranks: 128
+Total emulated compute time: 0.000 s
+Total write size: 160.000 GB
+Raw write time: 407.232 s
+Metadata time: 0.002 s
+H5Fcreate() time: 0.076 s
+H5Fflush() time: 9.778 s
+H5Fclose() time: 0.002 s
+Observed completion time: 417.095 s
+SYNC Raw write rate: 402.325 MB/s 
+SYNC Observed write rate: 392.812 MB/s
+===========================================================
