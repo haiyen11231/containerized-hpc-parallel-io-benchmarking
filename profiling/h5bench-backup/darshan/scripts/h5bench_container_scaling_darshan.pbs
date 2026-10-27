@@ -1,0 +1,157 @@
+#!/bin/bash
+#PBS -N h5bench_container_scaling_darshan
+#PBS -l walltime=02:05:00
+#PBS -l place=scatter:excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/h5bench_container_scaling_darshan.out
+
+# Container counterpart to h5bench_native_scaling_darshan.pbs -- see that
+# script and ../../GUIDE.md for H5/H6. Same bind-mount + POSIX-only Darshan
+# approach as h5bench_container_intra_darshan.pbs.
+
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+module load apptainer
+module load darshan/3.4.6          # darshan-parser ONLY, not the .so
+
+H5BENCH_DRIVER=$HOME/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench
+SIF=$HOME/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+CONTAINER_BIN_DIR=/opt/h5bench/install/bin
+DARSHAN_HOST_INSTALL=$HOME/scratch/fyp/native/darshan/darshan/install
+DARSHAN_LIB_IN_CONTAINER=/opt/darshan/lib/libdarshan.so
+
+[ -r "${DARSHAN_HOST_INSTALL}/lib/libdarshan.so" ] \
+    || { echo "FATAL: ${DARSHAN_HOST_INSTALL}/lib/libdarshan.so not readable"; exit 1; }
+for b in h5bench_write h5bench_read; do
+    apptainer exec "$SIF" sh -c "test -x ${CONTAINER_BIN_DIR}/${b}" \
+        || { echo "FATAL: ${b} not found inside $SIF"; exit 1; }
+done
+
+: "${MODE:?Must pass -v MODE=<weak|strong> at submission time}"
+: "${NODE_COUNT:?Must pass -v NODE_COUNT=<1|8> at submission time}"
+: "${REPS:?Must pass -v REPS=<number> at submission time}"
+
+case "$MODE" in
+  weak|strong) ;;
+  *) echo "FATAL: unknown MODE='$MODE' (expected weak|strong)"; exit 1 ;;
+esac
+TEMPLATE="h5bench_config_${MODE}.json.template"
+
+NP=$((NODE_COUNT * 128))
+ACTUAL_NODES=$(sort -u "$PBS_NODEFILE" | wc -l)
+if [ "$ACTUAL_NODES" -ne "$NODE_COUNT" ]; then
+    echo "FATAL: Expected $NODE_COUNT node(s), PBS granted $ACTUAL_NODES."
+    exit 1
+fi
+
+# Split into PREFIX/SUFFIX around "apptainer exec ... ${SIF}" -- see
+# h5bench_container_intra_darshan.pbs for why: every mpirun "-x VAR=val" must
+# appear BEFORE apptainer exec, not after, or it becomes a bogus argument to
+# apptainer instead of an mpirun flag.
+# LD_PRELOAD/DARSHAN_* go through apptainer's OWN --env flag, not mpirun's
+# -x -- see h5bench_container_intra_darshan.pbs for why: "-x" exports into
+# the environment of "apptainer" itself (the host process mpirun launches
+# directly), so the dynamic linker tries to preload /opt/darshan/... for
+# apptainer BEFORE any bind-mount exists, fails silently ("ignored"), and
+# Darshan never actually reaches h5bench_write either. Confirmed empirically
+# (h5bench reported SUCCESS, zero Darshan log produced) before this fix.
+MPI_CONFIG_PREFIX="-np ${NP} --map-by ppr:128:node --bind-to core --mca btl vader,tcp,self --mca btl_vader_single_copy_mechanism none --mca btl_tcp_if_include hsn0 --mca oob_tcp_if_include hsn0 --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR"
+APPTAINER_EXEC_BASE="apptainer exec --bind /scratch --bind ${DARSHAN_HOST_INSTALL}:/opt/darshan"
+
+if [ "$MODE" = "strong" ]; then
+    TOTAL_PARTICLES=$(( 128 * 1024 * 1024 ))
+    if [ $(( TOTAL_PARTICLES % NP )) -ne 0 ]; then
+        echo "FATAL: TOTAL_PARTICLES ($TOTAL_PARTICLES) not divisible by NP ($NP)"
+        exit 1
+    fi
+    DIM_1=$(( TOTAL_PARTICLES / NP ))
+fi
+
+PAYLOAD_DIR="payload/container/${MODE}/n${NODE_COUNT}"
+REPORT_DIR="container/${MODE}/n${NODE_COUNT}"
+LOGDIR="darshan-logs/container/${MODE}/n${NODE_COUNT}"
+mkdir -p "$PAYLOAD_DIR" "$REPORT_DIR" "$LOGDIR" logs
+
+lfs setstripe -c 4 -S 1m "$PAYLOAD_DIR"
+echo "=== Lustre striping on $PAYLOAD_DIR ==="
+lfs getstripe "$PAYLOAD_DIR"
+
+DATA_FILE_NAME="h5bench_${MODE}_container_darshan_n${NODE_COUNT}.h5"
+trap 'rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"' EXIT
+
+echo "================================================================="
+echo " Container ${MODE} scaling, Darshan-instrumented: NODES=$NODE_COUNT NP=$NP ${DIM_1:+DIM_1=$DIM_1} REPS=$REPS "
+echo "================================================================="
+
+for REP in $(seq 1 "$REPS"); do
+    echo "--- Repetition ${REP}/${REPS} ---"
+
+    DLOG="${LOGDIR}/n${NODE_COUNT}_rep${REP}_${PBS_JOBID}.darshan"
+    rm -f "$DLOG"
+    # In-container path -- see h5bench_container_intra_darshan.pbs for why
+    # this is the plain canonicalized absolute path with no relative-path
+    # reconstruction: "--bind /scratch" exposes the whole real /scratch tree
+    # 1:1, and the earlier "relative-to $HOME/scratch + re-prepend /scratch/"
+    # approach silently dropped the "users/ntu/haiyen00" portion of the real
+    # path, since $HOME/scratch symlinks to /scratch/users/ntu/haiyen00, not
+    # /scratch itself.
+    DLOG_IN_CONTAINER="$(realpath "$(pwd)/$LOGDIR")/n${NODE_COUNT}_rep${REP}_${PBS_JOBID}.darshan"
+    RUN_MPI_CONFIG="${MPI_CONFIG_PREFIX} ${APPTAINER_EXEC_BASE} --env LD_PRELOAD=${DARSHAN_LIB_IN_CONTAINER} --env DARSHAN_MOD_ENABLE=POSIX --env DARSHAN_LOGFILE=${DLOG_IN_CONTAINER} ${SIF}"
+
+    JSON="${REPORT_DIR}/config_rep${REP}.json"
+    SED_ARGS=(
+      -e "s|@MPI_CONFIG@|${RUN_MPI_CONFIG}|"
+      -e "s|@DIRECTORY@|${PAYLOAD_DIR}|"
+      -e "s|@DATA_FILE@|${DATA_FILE_NAME}|"
+      -e "s|@WRITE_CSV@|write_rep${REP}.csv|"
+      -e "s|@READ_CSV@|read_rep${REP}.csv|"
+    )
+    [ "$MODE" = "strong" ] && SED_ARGS+=(-e "s|@DIM_1@|${DIM_1}|")
+    sed "${SED_ARGS[@]}" "$TEMPLATE" > "$JSON"
+
+    python3 -m json.tool "$JSON" > /dev/null \
+        || { echo "FATAL: generated $JSON is not valid JSON"; exit 1; }
+    if grep -q '@[A-Z_]*@' "$JSON"; then
+        echo "FATAL: unsubstituted placeholder left in $JSON:"; grep -n '@[A-Z_]*@' "$JSON"; exit 1
+    fi
+
+    rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"
+
+    DRIVER_LOG="${REPORT_DIR}/driver_rep${REP}.log"
+    set -x
+    time "$H5BENCH_DRIVER" -a -d -p "$CONTAINER_BIN_DIR" "$JSON" > "$DRIVER_LOG" 2>&1
+    H5BENCH_EXIT=$?
+    set +x
+    cat "$DRIVER_LOG"
+
+    if ! grep -Eq "apptainer exec .*${CONTAINER_BIN_DIR}/+h5bench_write" "$DRIVER_LOG"; then
+        echo "FATAL: driver did not invoke the container binary"
+        grep -m1 'mpirun' "$DRIVER_LOG"
+        exit 1
+    fi
+
+    if [ "$H5BENCH_EXIT" -ne 0 ]; then
+        echo "FAILED: MODE=$MODE NODES=$NODE_COUNT rep=$REP (h5bench exit $H5BENCH_EXIT)"
+        exit "$H5BENCH_EXIT"
+    fi
+
+    if [ ! -s "$DLOG" ]; then
+        echo "FATAL: no Darshan log at $DLOG -- see h5bench_container_intra_darshan.pbs's"
+        echo "  troubleshooting note on the bind-mount/ABI fallback."
+        exit 1
+    fi
+
+    PARSED="${REPORT_DIR}/darshan_rep${REP}.parsed"
+    darshan-parser "$DLOG" > "$PARSED" 2>/dev/null \
+        || { echo "FATAL: darshan-parser failed on $DLOG"; exit 1; }
+    POSIX_N=$(grep -cP '^POSIX\t' "$PARSED" 2>/dev/null); POSIX_N=${POSIX_N:-0}
+    echo "  rep${REP}: darshan log $(ls -lh "$DLOG" | awk '{print $5}'), $POSIX_N POSIX counter lines"
+    [ "$POSIX_N" -gt 0 ] || { echo "FATAL: Darshan log parsed but has no POSIX counters"; exit 1; }
+done
+
+echo " Container ${MODE} scaling Darshan run (NODES=$NODE_COUNT) Completed Successfully! "

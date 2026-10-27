@@ -1,0 +1,189 @@
+#!/bin/bash
+#PBS -N h5bench_container_intra_darshan
+#PBS -l walltime=02:05:00
+#PBS -l place=excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/h5bench_container_intra_darshan.out
+
+# Darshan-instrumented version of baseline/h5bench/scripts/intra_node/
+# h5bench_container_intra.pbs. Same hypotheses as the native sibling script
+# (H1-H4, ../../GUIDE.md).
+#
+# Container instrumentation per profiling/SETUP.md section 3: bind-mount the
+# HOST's Darshan build into the container namespace, since the library must
+# exist where the container's dynamic linker can find it. This is the same
+# native build as the native script uses -- POSIX wrappers only need libc,
+# which is ABI-stable across the host/container boundary, so
+# DARSHAN_MOD_ENABLE=POSIX avoids the MPI-ABI mismatch entirely (host OpenMPI
+# 4.1.2-hpe vs container's generic apt OpenMPI 4.1.2). This is also why Path A
+# (POSIX-only) rather than Path B is used here: Path B would need a SEPARATE
+# Darshan build against the container's own OpenMPI, which is a
+# container-image rebuild, not attempted in this first pass.
+#
+# DARSHAN_ENABLE_NONMPI is deliberately NOT also set -- see
+# h5bench_native_intra_darshan.pbs for why (it double-initializes against
+# h5bench's own MPI_Init and silently drops all POSIX records, confirmed
+# empirically on the native side before this flag was removed from both).
+#
+# VERIFY BEFORE RUNNING: confirm DARSHAN_HOST_INSTALL below actually contains
+# the native Darshan build (profiling/scripts/stage0_validate/ already
+# validated the library itself on the host; the bind-mount step here has not
+# been tried yet).
+
+cd "$PBS_O_WORKDIR"
+
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+module load apptainer
+module load darshan/3.4.6          # darshan-parser ONLY, not the .so -- missing
+                                    # this made darshan-parser silently
+                                    # unavailable, surfacing only as a generic
+                                    # "darshan-parser failed" once the actual
+                                    # log-writing bugs above were fixed
+
+H5BENCH_DRIVER=$HOME/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench
+SIF=$HOME/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+CONTAINER_BIN_DIR=/opt/h5bench/install/bin
+TEMPLATE=h5bench_config_intra.json.template
+DARSHAN_HOST_INSTALL=$HOME/scratch/fyp/native/darshan/darshan/install
+DARSHAN_LIB_IN_CONTAINER=/opt/darshan/lib/libdarshan.so
+
+[ -r "${DARSHAN_HOST_INSTALL}/lib/libdarshan.so" ] \
+    || { echo "FATAL: ${DARSHAN_HOST_INSTALL}/lib/libdarshan.so not readable"; exit 1; }
+
+apptainer exec "$SIF" sh -c "test -x ${CONTAINER_BIN_DIR}/h5bench_write" \
+    || { echo "FATAL: h5bench_write not found inside $SIF"; exit 1; }
+
+: "${MEM_PATTERN:?Must pass -v MEM_PATTERN=<CONTIG|INTERLEAVED> at submission time}"
+: "${FILE_PATTERN:?Must pass -v FILE_PATTERN=<CONTIG|INTERLEAVED> at submission time}"
+: "${REPS:?Must pass -v REPS=<number> at submission time}"
+
+NODE_COUNT=1
+NP=$((NODE_COUNT * 128))
+
+# Same baseline transport (vader, CMA disabled), plus:
+#   - --bind the host Darshan install into the container at /opt/darshan
+#   - LD_PRELOAD and DARSHAN_* set via apptainer's OWN --env flag, NOT
+#     mpirun's -x
+#
+# That distinction matters and is not cosmetic. "-x VAR=val" on mpirun
+# exports the variable into the environment of the process mpirun launches
+# directly -- which is "apptainer" itself (the HOST binary), not yet the
+# containerized target. With LD_PRELOAD set that way, the dynamic linker
+# tries to preload /opt/darshan/lib/libdarshan.so for the "apptainer" HOST
+# PROCESS, before it has performed any bind-mount -- and since /opt/darshan
+# does not exist on the host, that preload fails ("cannot open shared object
+# file: ignored"). Confirmed empirically: h5bench_write still ran and
+# reported SUCCESS, but no Darshan log ever appeared, because Darshan was
+# never actually preloaded into h5bench_write either (apptainer does not
+# appear to re-propagate the already-failed LD_PRELOAD inward). Apptainer's
+# own "--env KEY=val" sets the variable for the IN-CONTAINER process only,
+# applied after the bind-mounts and namespace switch, which is what this
+# needs. (An interactive single-rank test using --env worked correctly
+# before this bug was found in the full 128-rank job -- same binary, same
+# bind, only the env-passing mechanism differed.)
+#
+# Split into PREFIX/SUFFIX around "apptainer exec ... ${SIF}" for a second,
+# separate reason: every mpirun flag must still appear BEFORE "apptainer
+# exec", not after -- anything after ${SIF} is passed to apptainer as the
+# COMMAND to run inside the container, not back to mpirun. DARSHAN_LOGFILE
+# changes per repetition, so it has to be inserted at the PREFIX/SUFFIX seam
+# each time.
+MPI_CONFIG_PREFIX="-np ${NP} --map-by ppr:128:node --bind-to core --mca btl vader,self --mca btl_vader_single_copy_mechanism none --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR"
+APPTAINER_EXEC_BASE="apptainer exec --bind /scratch --bind ${DARSHAN_HOST_INSTALL}:/opt/darshan"
+
+MEM_LOWER=$(echo "$MEM_PATTERN" | tr '[:upper:]' '[:lower:]')
+FILE_LOWER=$(echo "$FILE_PATTERN" | tr '[:upper:]' '[:lower:]')
+COMBO="${MEM_LOWER}_${FILE_LOWER}"
+
+PAYLOAD_DIR="payload/container/${COMBO}"
+REPORT_DIR="container/${COMBO}"
+LOGDIR="darshan-logs/container/${COMBO}"
+mkdir -p "$PAYLOAD_DIR" "$REPORT_DIR" "$LOGDIR" logs
+
+lfs setstripe -c 4 -S 1m "$PAYLOAD_DIR"
+echo "=== Lustre striping on $PAYLOAD_DIR ==="
+lfs getstripe "$PAYLOAD_DIR"
+
+DATA_FILE_NAME="h5bench_intra_container_darshan_${COMBO}.h5"
+trap 'rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"' EXIT
+
+echo "================================================================="
+echo " Container Intra-Node Pattern Sweep, Darshan-instrumented: MEM=$MEM_PATTERN FILE=$FILE_PATTERN NP=$NP REPS=$REPS "
+echo "================================================================="
+
+for REP in $(seq 1 "$REPS"); do
+    echo "--- Repetition ${REP}/${REPS} ---"
+
+    DLOG="${LOGDIR}/${COMBO}_rep${REP}_${PBS_JOBID}.darshan"
+    rm -f "$DLOG"
+    # DARSHAN_LOGFILE is also an IN-CONTAINER path. "--bind /scratch" exposes
+    # the ENTIRE real /scratch tree at the identical path inside the
+    # container (it is a Lustre mount, not scoped to this user), so the
+    # plain canonicalized absolute path already works as-is -- no relative-
+    # path reconstruction needed. An earlier version computed this relative
+    # to "$HOME/scratch" and re-prepended a literal "/scratch/" prefix, which
+    # silently dropped the "users/ntu/haiyen00" portion of the real path
+    # ($HOME/scratch is a symlink to /scratch/users/ntu/haiyen00, not
+    # /scratch itself) -- Darshan then reported "unable to create log file"
+    # at the truncated path, even though the mpirun command line and the
+    # --env fix above were otherwise correct.
+    DLOG_IN_CONTAINER="$(realpath "$(pwd)/$LOGDIR")/${COMBO}_rep${REP}_${PBS_JOBID}.darshan"
+    RUN_MPI_CONFIG="${MPI_CONFIG_PREFIX} ${APPTAINER_EXEC_BASE} --env LD_PRELOAD=${DARSHAN_LIB_IN_CONTAINER} --env DARSHAN_MOD_ENABLE=POSIX --env DARSHAN_LOGFILE=${DLOG_IN_CONTAINER} ${SIF}"
+
+    JSON="${REPORT_DIR}/config_rep${REP}.json"
+    sed -e "s|@MPI_CONFIG@|${RUN_MPI_CONFIG}|" \
+        -e "s|@DIRECTORY@|${PAYLOAD_DIR}|" \
+        -e "s|@DATA_FILE@|${DATA_FILE_NAME}|" \
+        -e "s|@MEM_PATTERN@|${MEM_PATTERN}|" \
+        -e "s|@FILE_PATTERN@|${FILE_PATTERN}|" \
+        -e "s|@CSV_FILE@|write_rep${REP}.csv|" \
+        "$TEMPLATE" > "$JSON"
+
+    python3 -m json.tool "$JSON" > /dev/null \
+        || { echo "FATAL: generated $JSON is not valid JSON"; exit 1; }
+    if grep -q '@[A-Z_]*@' "$JSON"; then
+        echo "FATAL: unsubstituted placeholder left in $JSON:"; grep -n '@[A-Z_]*@' "$JSON"; exit 1
+    fi
+
+    rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"
+
+    DRIVER_LOG="${REPORT_DIR}/driver_rep${REP}.log"
+    set -x
+    time "$H5BENCH_DRIVER" -a -d -p "$CONTAINER_BIN_DIR" "$JSON" > "$DRIVER_LOG" 2>&1
+    H5BENCH_EXIT=$?
+    set +x
+    cat "$DRIVER_LOG"
+
+    if ! grep -Eq "apptainer exec .*${CONTAINER_BIN_DIR}/+h5bench_write" "$DRIVER_LOG"; then
+        echo "FATAL: driver did not invoke the container binary"
+        grep -m1 'mpirun' "$DRIVER_LOG"
+        exit 1
+    fi
+
+    if [ "$H5BENCH_EXIT" -ne 0 ]; then
+        echo "FAILED: MEM=$MEM_PATTERN FILE=$FILE_PATTERN rep=$REP (h5bench exit $H5BENCH_EXIT)"
+        exit "$H5BENCH_EXIT"
+    fi
+
+    if [ ! -s "$DLOG" ]; then
+        echo "FATAL: no Darshan log at $DLOG"
+        echo "  Most likely: the bind-mount did not resolve, or the container's dynamic linker"
+        echo "  rejected the host .so (check driver log above for a loader error)."
+        echo "  Fallback: this is exactly the ABI problem profiling/SETUP.md section 3 warns"
+        echo "  about -- if POSIX-only ALSO fails here, Darshan needs a build inside the .def."
+        exit 1
+    fi
+
+    PARSED="${REPORT_DIR}/darshan_rep${REP}.parsed"
+    darshan-parser "$DLOG" > "$PARSED" 2>/dev/null \
+        || { echo "FATAL: darshan-parser failed on $DLOG"; exit 1; }
+    POSIX_N=$(grep -cP '^POSIX\t' "$PARSED" 2>/dev/null); POSIX_N=${POSIX_N:-0}
+    echo "  rep${REP}: darshan log $(ls -lh "$DLOG" | awk '{print $5}'), $POSIX_N POSIX counter lines"
+    [ "$POSIX_N" -gt 0 ] || { echo "FATAL: Darshan log parsed but has no POSIX counters"; exit 1; }
+done
+
+echo " Container intra-node Darshan sweep (MEM=$MEM_PATTERN FILE=$FILE_PATTERN) Completed Successfully! "
