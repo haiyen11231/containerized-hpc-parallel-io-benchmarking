@@ -1,0 +1,45 @@
+IOR-4.0.0: MPI Coordinated Test of Parallel I/O
+Began               : Sun Oct 25 13:21:10 2026
+Command line        : /opt/ior-4.0.0/src/ior -a MPIIO -w -t 1m -b 64m -m -g -d 5 -c -i 10 -o container/mpiio_shared_t1m/testfile_mpiio_shared_t1m
+Machine             : Linux x1001c3s6b1n0
+TestID              : 0
+StartTime           : Sun Oct 25 13:21:10 2026
+Path                : container/mpiio_shared_t1m/testfile_mpiio_shared_t1m
+FS                  : 9695.3 TiB   Used FS: 72.5%   Inodes: 8190.4 Mi   Used Inodes: 38.3%
+
+Options: 
+api                 : MPIIO
+apiVersion          : (3.1)
+test filename       : container/mpiio_shared_t1m/testfile_mpiio_shared_t1m
+access              : single-shared-file
+type                : collective
+segments            : 1
+ordering in a file  : sequential
+ordering inter file : no tasks offsets
+nodes               : 1
+tasks               : 64
+clients per node    : 64
+repetitions         : 10
+xfersize            : 1 MiB
+blocksize           : 64 MiB
+aggregate filesize  : 4 GiB
+
+Results: 
+
+access    bw(MiB/s)  IOPS       Latency(s)  block(KiB) xfer(KiB)  open(s)    wr/rd(s)   close(s)   total(s)   iter
+------    ---------  ----       ----------  ---------- ---------  --------   --------   --------   --------   ----
+write     1739.79    1777.19    0.035898    65536      1024.00    0.048232   2.30       0.001296   2.35       0   
+write     28.66      2477.65    0.025804    65536      1024.00    141.24     1.65       0.000545   142.89     1   
+write     309.90     2483.99    0.025760    65536      1024.00    11.57      1.65       0.001105   13.22      2   
+write     213.94     214.38     0.298506    65536      1024.00    0.038864   19.11      0.000527   19.15      3   
+write     2257.51    2446.95    0.026136    65536      1024.00    0.139580   1.67       0.000880   1.81       4   
+write     2437.77    2494.60    0.025649    65536      1024.00    0.037314   1.64       0.000956   1.68       5   
+write     706.18     2425.95    0.026369    65536      1024.00    4.11       1.69       0.001021   5.80       6   
+write     165.30     200.51     0.319183    65536      1024.00    4.35       20.43      0.000918   24.78      7   
+write     1375.22    2495.64    0.025620    65536      1024.00    1.34       1.64       0.000978   2.98       8   
+write     2464.00    2522.20    0.025359    65536      1024.00    0.037423   1.62       0.000924   1.66       9   
+
+Summary of all tests:
+Operation   Max(MiB)   Min(MiB)  Mean(MiB)     StdDev   Max(OPs)   Min(OPs)  Mean(OPs)     StdDev    Mean(s) Stonewall(s) Stonewall(MiB) Test# #Tasks tPN reps fPP reord reordoff reordrand seed segcnt   blksiz    xsize aggs(MiB)   API RefNum
+write        2464.00      28.66    1169.83     949.32    2464.00      28.66    1169.83     949.32   21.63262         NA            NA     0     64  64   10   0     0        1         0    0      1 67108864  1048576    4096.0 MPIIO      0
+Finished            : Sun Oct 25 13:28:47 2026

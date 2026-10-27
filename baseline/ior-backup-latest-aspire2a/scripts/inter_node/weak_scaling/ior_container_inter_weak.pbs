@@ -1,0 +1,84 @@
+#!/bin/bash
+#PBS -N ior_container_inter_weak
+#PBS -l walltime=01:00:00
+#PBS -l place=scatter:excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/ior_container_inter_weak.out
+
+# Experiment description: Run IOR in an Apptainer container across 1/2/4/8
+# nodes, 64 ranks/node, Combo A (MPI-IO + Shared) vs Combo B (POSIX + FPP). 
+# Per-rank work (B=128m) is fixed, so total data grows with node count
+# (128 MiB/node -> 8 GiB/node).
+cd "$PBS_O_WORKDIR"
+
+module swap cray-mpich openmpi
+module load apptainer
+
+SIF=$HOME/scratch/fyp/container/ior/ior_benchmarks.sif
+IOR_BIN=/opt/ior-4.0.0/src/ior
+
+# Validate required input parameters passed via qsub -v
+: "${NODE_COUNT:?Must pass -v NODE_COUNT=<1|2|4|8> at submission time}"
+: "${API:?Must pass -v API=<POSIX|MPIIO> at submission time}"
+: "${MODEL:?Must pass -v MODEL=<shared|fpp> at submission time}"
+
+NP=$((NODE_COUNT * 64))
+
+# Verify the actual number of nodes allocated
+ACTUAL_NODES=$(sort -u "$PBS_NODEFILE" | wc -l)
+if [ "$ACTUAL_NODES" -ne "$NODE_COUNT" ]; then
+    echo "FATAL: Expected $NODE_COUNT node(s), PBS granted $ACTUAL_NODES."
+    exit 1
+fi
+
+STRIPE_COUNT=$((NODE_COUNT * 2))
+T=4m
+B=128m
+
+API_LOWER=$(echo "$API" | tr '[:upper:]' '[:lower:]')
+FPP_FLAG=""
+[ "$MODEL" == "fpp" ] && FPP_FLAG="-F"
+
+PAYLOAD_DIR="container/stripe_c${STRIPE_COUNT}/${API_LOWER}_${MODEL}_n${NODE_COUNT}"
+mkdir -p "$PAYLOAD_DIR"
+lfs setstripe -c "$STRIPE_COUNT" -S 1m "$PAYLOAD_DIR"
+echo "=== Verifying Lustre Striping Layout for $PAYLOAD_DIR ==="
+lfs getstripe "$PAYLOAD_DIR"
+
+# Cleanup trap for early aborts or execution failure
+trap 'rm -f "${PAYLOAD_DIR}"/testfile_weak_*' EXIT
+
+REPORT_DIR="container/${API_LOWER}/${MODEL}"
+mkdir -p "$REPORT_DIR"
+
+TEST_FILE="${PAYLOAD_DIR}/testfile_weak_${API_LOWER}_${MODEL}_n${NODE_COUNT}"
+rm -f "${TEST_FILE}"*
+
+set -x
+time mpirun -np "$NP" \
+  --map-by ppr:64:node --bind-to core \
+  --mca pml ucx \
+  -x UCX_TLS=^cma \
+  --mca orte_base_help_aggregate 0 \
+  --mca opal_common_ucx_opal_mem_hooks 1 \
+  -x UCX_LOG_LEVEL=ERROR \
+  apptainer exec --bind /scratch "$SIF" "$IOR_BIN" \
+  -a "$API" $FPP_FLAG \
+  -w \
+  -t "$T" -b "$B" \
+  -e -C -i 10 \
+  -o "$TEST_FILE" \
+  > "${REPORT_DIR}/ior_n${NODE_COUNT}.txt"
+MPIRUN_EXIT=$?
+set +x
+
+rm -f "${TEST_FILE}"*
+
+if [ "$MPIRUN_EXIT" -ne 0 ]; then
+    echo "FAILED: API=$API MODEL=$MODEL NODES=$NODE_COUNT (mpirun exit code $MPIRUN_EXIT)"
+    exit "$MPIRUN_EXIT"
+fi
+
+echo "Completed Successfully! "

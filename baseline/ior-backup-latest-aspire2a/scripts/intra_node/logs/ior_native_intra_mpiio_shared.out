@@ -1,0 +1,21 @@
+---------------------------------------------------
+Running: API=MPIIO | MODEL=shared | -t 1m | -b 64m 
+---------------------------------------------------
+=== Verifying Lustre Striping Layout for native/mpiio_shared_t1m ===
+native/mpiio_shared_t1m
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
++ mpirun -np 64 --map-by ppr:64:node --bind-to core --mca btl '^openib' --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/ior/ior-4.0.0/src/ior -a MPIIO -w -t 1m -b 64m -m -g -d 5 -c -i 10 -o native/mpiio_shared_t1m/testfile_mpiio_shared_t1m
++ MPIRUN_EXIT=0
++ set +x
+---------------------------------------------------
+Running: API=MPIIO | MODEL=shared | -t 4m | -b 64m 
+---------------------------------------------------
+=== Verifying Lustre Striping Layout for native/mpiio_shared_t4m ===
+native/mpiio_shared_t4m
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
++ mpirun -np 64 --map-by ppr:64:node --bind-to core --mca btl '^openib' --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR /home/users/ntu/haiyen00/scratch/fyp/native/ior/ior-4.0.0/src/ior -a MPIIO -w -t 4m -b 64m -m -g -d 5 -c -i 10 -o native/mpiio_shared_t4m/testfile_mpiio_shared_t4m
++ MPIRUN_EXIT=0
++ set +x
+Completed Successfully! 
