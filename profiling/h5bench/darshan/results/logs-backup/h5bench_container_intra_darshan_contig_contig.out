@@ -1,0 +1,29 @@
+=== Lustre striping on payload/container/contig_contig ===
+payload/container/contig_contig
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin container/contig_contig/config.json
+
+real	1m26.447s
+user	20m28.271s
+sys	3m39.212s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-27 23:02:24,241 h5bench - INFO - Starting h5bench Suite
+2026-10-27 23:02:24,242 h5bench - WARNING - Base directory already exists: payload/container/contig_contig
+2026-10-27 23:02:24,246 h5bench - INFO - Lustre support detected
+2026-10-27 23:02:24,247 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/container/contig_contig
+2026-10-27 23:02:24,251 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-27 23:02:24,251 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-27 23:02:24,251 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-27 23:02:24,251 h5bench - INFO - JOBID: 26029593.pbs101
+2026-10-27 23:02:24,251 h5bench - INFO - h5bench [write] - Starting
+2026-10-27 23:02:24,252 h5bench - INFO - h5bench [write] - DIR: payload/container/contig_contig/1b8372b8-26029593.pbs101/
+2026-10-27 23:02:24,252 h5bench - INFO - Parallel setup: mpirun -np 64 --map-by ppr:64:node --bind-to core --mca pml ucx -x UCX_TLS=^cma --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch --bind /home/users/ntu/haiyen00/scratch/fyp/native/darshan/darshan/install:/opt/darshan --env LD_PRELOAD=/opt/darshan/lib/libdarshan.so --env DARSHAN_MOD_ENABLE=POSIX --env DARSHAN_LOGFILE=/scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/darshan-logs/container/contig_contig/contig_contig_26029593.pbs101.darshan /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif
+2026-10-27 23:02:24,254 h5bench - INFO - mpirun -np 64 --map-by ppr:64:node --bind-to core --mca pml ucx -x UCX_TLS=^cma --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch --bind /home/users/ntu/haiyen00/scratch/fyp/native/darshan/darshan/install:/opt/darshan --env LD_PRELOAD=/opt/darshan/lib/libdarshan.so --env DARSHAN_MOD_ENABLE=POSIX --env DARSHAN_LOGFILE=/scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/darshan-logs/container/contig_contig/contig_contig_26029593.pbs101.darshan /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks.sif /opt/h5bench/install/bin/h5bench_write payload/container/contig_contig/1b8372b8-26029593.pbs101/h5bench.cfg payload/container/contig_contig/h5bench_intra_container_darshan_contig_contig.h5
+2026-10-27 23:03:50,586 h5bench - INFO - SUCCESS (all output files are located at payload/container/contig_contig/1b8372b8-26029593.pbs101)
+2026-10-27 23:03:50,587 h5bench - INFO - Runtime: 86.3345437 seconds (elapsed time, includes allocation wait time)
+2026-10-27 23:03:50,587 h5bench - INFO - h5bench [write] - Complete
+2026-10-27 23:03:50,587 h5bench - INFO - Finishing h5bench Suite
+  darshan log 38K, 5590 POSIX counter lines
+ Container intra-node Darshan run (MEM=CONTIG FILE=CONTIG) Completed Successfully! 

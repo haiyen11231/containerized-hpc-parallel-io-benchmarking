@@ -1,0 +1,118 @@
+# darshan log version: 3.41
+# compression method: ZLIB
+# exe: /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build_hdf5_1107/install/bin//h5bench_write payload/native/contig_contig/70a543c7-26029849.pbs101/h5bench.cfg payload/native/contig_contig/h5bench_intra_native_darshan_contig_contig.h5
+# uid: 35712
+# jobid: 26029849
+# start_time: 1793114300
+# start_time_asci: Tue Oct 27 23:18:20 2026
+# end_time: 1793114383
+# end_time_asci: Tue Oct 27 23:19:43 2026
+# nprocs: 64
+# run time: 82.4544
+# metadata: lib_ver = 3.5.0
+# metadata: h = cb_nodes=1
+
+# log file regions
+# -------------------------------------------------------
+# header: 1328 bytes (uncompressed)
+# job data: 438 bytes (compressed)
+# record table: 8405 bytes (compressed)
+# POSIX module: 4754 bytes (compressed), ver=4
+# MPI-IO module: 166 bytes (compressed), ver=3
+# STDIO module: 239 bytes (compressed), ver=2
+# HEATMAP module: 19135 bytes (compressed), ver=1
+
+# mounted file systems (mount point and fs type)
+# -------------------------------------------------------
+# mount entry:	/var/opt/cray/pe/pe_images/nvidia-22.04	squashfs
+# mount entry:	/var/opt/cray/pe/pe_images/intel-22.04	squashfs
+# mount entry:	/var/opt/cray/pe/pe_images/base-22.04	squashfs
+# mount entry:	/var/opt/cray/pe/pe_images/aocc-22.04	squashfs
+# mount entry:	/sys/firmware/efi/efivars	efivarfs
+# mount entry:	/sys/kernel/debug/tracing	tracefs
+# mount entry:	/proc/sys/fs/binfmt_misc	autofs
+# mount entry:	/sys/kernel/config	configfs
+# mount entry:	/usr/share/lmod	overlay
+# mount entry:	/sys/fs/pstore	pstore
+# mount entry:	/opt/cray/pe	overlay
+# mount entry:	/sys/fs/bpf	bpf
+# mount entry:	/dev/mqueue	mqueue
+# mount entry:	/root_ro	squashfs
+# mount entry:	/scratch	lustre
+# mount entry:	/data	gpfs
+# mount entry:	/home	gpfs
+# mount entry:	/dev	devtmpfs
+# mount entry:	/pe	nfs
+# mount entry:	/	overlay
+
+# *******************************************************
+# POSIX module data
+# *******************************************************
+
+# performance
+# -----------
+# total_bytes: 17179876824
+#
+# I/O timing for unique files (seconds):
+# ...........................
+# unique files: slowest_rank_io_time: 0.016330
+# unique files: slowest_rank_meta_only_time: 0.016330
+# unique files: slowest_rank_rw_only_time: 0.000000
+# unique files: slowest_rank: 27
+#
+# I/O timing for shared files (seconds):
+# ...........................
+# shared files: time_by_slowest: 79.370057
+#
+# Aggregate performance, including both shared and unique files:
+# ...........................
+# agg_time_by_slowest: 79.386387 # seconds
+# agg_perf_by_slowest: 206.383084 # MiB/s
+
+# *******************************************************
+# MPI-IO module data
+# *******************************************************
+
+# performance
+# -----------
+# total_bytes: 17179876824
+#
+# I/O timing for unique files (seconds):
+# ...........................
+# unique files: slowest_rank_io_time: 0.000000
+# unique files: slowest_rank_meta_only_time: 0.000000
+# unique files: slowest_rank_rw_only_time: 0.000000
+# unique files: slowest_rank: 0
+#
+# I/O timing for shared files (seconds):
+# ...........................
+# shared files: time_by_slowest: 79.404579
+#
+# Aggregate performance, including both shared and unique files:
+# ...........................
+# agg_time_by_slowest: 79.404579 # seconds
+# agg_perf_by_slowest: 206.335798 # MiB/s
+
+# *******************************************************
+# STDIO module data
+# *******************************************************
+
+# performance
+# -----------
+# total_bytes: 18938
+#
+# I/O timing for unique files (seconds):
+# ...........................
+# unique files: slowest_rank_io_time: 0.000000
+# unique files: slowest_rank_meta_only_time: 0.000000
+# unique files: slowest_rank_rw_only_time: 0.000000
+# unique files: slowest_rank: 0
+#
+# I/O timing for shared files (seconds):
+# ...........................
+# shared files: time_by_slowest: 2.513410
+#
+# Aggregate performance, including both shared and unique files:
+# ...........................
+# agg_time_by_slowest: 2.513410 # seconds
+# agg_perf_by_slowest: 0.007186 # MiB/s

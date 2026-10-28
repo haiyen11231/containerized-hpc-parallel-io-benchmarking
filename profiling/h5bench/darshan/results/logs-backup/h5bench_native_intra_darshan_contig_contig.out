@@ -1,0 +1,29 @@
+=== Lustre striping on payload/native/contig_contig ===
+payload/native/contig_contig
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build_hdf5_1107/install/bin/h5bench -a -d native/contig_contig/config.json
+
+real	1m47.778s
+user	5m55.500s
+sys	4m56.875s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-27 23:08:04,515 h5bench - INFO - Starting h5bench Suite
+2026-10-27 23:08:04,516 h5bench - WARNING - Base directory already exists: payload/native/contig_contig
+2026-10-27 23:08:04,521 h5bench - INFO - Lustre support detected
+2026-10-27 23:08:04,522 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 payload/native/contig_contig
+2026-10-27 23:08:04,527 h5bench - DEBUG - LD_LIBRARY_PATH: /home/users/ntu/haiyen00/scratch/fyp/native/hdf5/hdf5-1.10.7/build/install/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-27 23:08:04,528 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-27 23:08:04,528 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-27 23:08:04,528 h5bench - INFO - JOBID: 26029752.pbs101
+2026-10-27 23:08:04,528 h5bench - INFO - h5bench [write] - Starting
+2026-10-27 23:08:04,528 h5bench - INFO - h5bench [write] - DIR: payload/native/contig_contig/a2acc9b3-26029752.pbs101/
+2026-10-27 23:08:04,529 h5bench - INFO - Parallel setup: mpirun -np 64 --map-by ppr:64:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR -x LD_PRELOAD=/home/users/ntu/haiyen00/scratch/fyp/native/darshan/darshan/install/lib/libdarshan.so -x DARSHAN_MOD_ENABLE=POSIX -x DARSHAN_LOGFILE=darshan-logs/native/contig_contig/contig_contig_26029752.pbs101.darshan
+2026-10-27 23:08:04,530 h5bench - INFO - mpirun -np 64 --map-by ppr:64:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR -x LD_PRELOAD=/home/users/ntu/haiyen00/scratch/fyp/native/darshan/darshan/install/lib/libdarshan.so -x DARSHAN_MOD_ENABLE=POSIX -x DARSHAN_LOGFILE=darshan-logs/native/contig_contig/contig_contig_26029752.pbs101.darshan /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build_hdf5_1107/install/bin//h5bench_write payload/native/contig_contig/a2acc9b3-26029752.pbs101/h5bench.cfg payload/native/contig_contig/h5bench_intra_native_darshan_contig_contig.h5
+2026-10-27 23:09:52,117 h5bench - INFO - SUCCESS (all output files are located at payload/native/contig_contig/a2acc9b3-26029752.pbs101)
+2026-10-27 23:09:52,117 h5bench - INFO - Runtime: 107.5883884 seconds (elapsed time, includes allocation wait time)
+2026-10-27 23:09:52,117 h5bench - INFO - h5bench [write] - Complete
+2026-10-27 23:09:52,117 h5bench - INFO - Finishing h5bench Suite
+  darshan log 37K, 5590 POSIX counter lines
+ Native intra-node Darshan run (MEM=CONTIG FILE=CONTIG) Completed Successfully! 
