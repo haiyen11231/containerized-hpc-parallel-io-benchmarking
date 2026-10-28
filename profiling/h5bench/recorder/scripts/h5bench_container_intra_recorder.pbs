@@ -1,0 +1,134 @@
+#!/bin/bash
+#PBS -N h5bench_container_intra_recorder
+#PBS -l walltime=02:05:00
+#PBS -l place=excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/h5bench_container_intra_recorder.out
+
+cd "$PBS_O_WORKDIR"
+WORKDIR=$(pwd)
+
+module purge
+module load libfabric/1.11.0.4.125
+module load openmpi/4.1.2-hpe
+module load apptainer
+
+H5BENCH_DRIVER=$HOME/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench
+SIF=$HOME/scratch/fyp/container/h5bench/h5bench_benchmarks_recorder.sif
+CONTAINER_BIN_DIR=/opt/h5bench/install/bin
+TEMPLATE="${WORKDIR}/h5bench_config.json.template"
+RECORDER_LIB_IN_CONTAINER=/opt/recorder/install/lib/librecorder.so
+
+# recorder-summary/recorder2text are read with the HOST's native Recorder build
+RECORDER_TOOLS_INSTALL=$HOME/scratch/fyp/native/recorder/Recorder/install
+
+[ -r "${RECORDER_TOOLS_INSTALL}/bin/recorder-summary" ] \
+    || { echo "FATAL: ${RECORDER_TOOLS_INSTALL}/bin/recorder-summary not readable"; exit 1; }
+[ -r "$SIF" ] || { echo "FATAL: $SIF not readable"; exit 1; }
+apptainer exec "$SIF" sh -c "test -r ${RECORDER_LIB_IN_CONTAINER}" \
+    || { echo "FATAL: ${RECORDER_LIB_IN_CONTAINER} not found inside $SIF -- wrong image?"; exit 1; }
+apptainer exec "$SIF" sh -c "test -x ${CONTAINER_BIN_DIR}/h5bench_write" \
+    || { echo "FATAL: h5bench_write not found inside $SIF"; exit 1; }
+
+NODE_COUNT=1
+NP=$((NODE_COUNT * 64))
+
+MEM_PATTERN=INTERLEAVED
+FILE_PATTERN=CONTIG
+
+MPI_CONFIG_PREFIX="-np ${NP} --map-by ppr:64:node --bind-to core --mca pml ucx -x UCX_TLS=^cma --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR"
+APPTAINER_EXEC_BASE="apptainer exec --bind /scratch"
+
+COMBO="interleaved_contig"
+PAYLOAD_DIR="${WORKDIR}/payload/container/${COMBO}"
+REPORT_DIR="${WORKDIR}/container/${COMBO}"
+TRACEBASE="${WORKDIR}/recorder-traces/container/${COMBO}_${PBS_JOBID}"
+mkdir -p "$PAYLOAD_DIR" "$REPORT_DIR" "$TRACEBASE" logs
+
+lfs setstripe -c 4 -S 1m "$PAYLOAD_DIR"
+echo "=== Lustre striping on $PAYLOAD_DIR ==="
+lfs getstripe "$PAYLOAD_DIR"
+
+DATA_FILE_NAME="h5bench_intra_container_recorder_${COMBO}.h5"
+trap 'rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"' EXIT
+
+# By default, POSIX, MPIIO, HDF5, NETCDF, PNETCDF, DAOS are all traced, but not MPI.
+RUN_MPI_CONFIG="${MPI_CONFIG_PREFIX} ${APPTAINER_EXEC_BASE} --env LD_PRELOAD=${RECORDER_LIB_IN_CONTAINER} --env RECORDER_MPI_TRACING=1 --env RECORDER_DEBUG_LEVEL=0 ${SIF}"
+
+JSON="${REPORT_DIR}/config.json"
+sed -e "s|@MPI_CONFIG@|${RUN_MPI_CONFIG}|" \
+    -e "s|@DIRECTORY@|${PAYLOAD_DIR}|" \
+    -e "s|@DATA_FILE@|${DATA_FILE_NAME}|" \
+    -e "s|@MEM_PATTERN@|${MEM_PATTERN}|" \
+    -e "s|@FILE_PATTERN@|${FILE_PATTERN}|" \
+    -e "s|@CSV_FILE@|write.csv|" \
+    "$TEMPLATE" > "$JSON"
+
+python3 -m json.tool "$JSON" > /dev/null \
+    || { echo "FATAL: generated $JSON is not valid JSON"; exit 1; }
+if grep -q '@[A-Z_]*@' "$JSON"; then
+    echo "FATAL: unsubstituted placeholder left in $JSON:"; grep -n '@[A-Z_]*@' "$JSON"; exit 1
+fi
+
+rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"
+
+cd "$TRACEBASE"
+DRIVER_LOG="${REPORT_DIR}/driver.log"
+set -x
+time "$H5BENCH_DRIVER" -a -d -p "$CONTAINER_BIN_DIR" "$JSON" > "$DRIVER_LOG" 2>&1
+H5BENCH_EXIT=$?
+set +x
+cd "$WORKDIR"
+cat "$DRIVER_LOG"
+
+if ! grep -Eq "apptainer exec .*${CONTAINER_BIN_DIR}/+h5bench_write" "$DRIVER_LOG"; then
+    echo "FATAL: driver did not invoke the container binary"
+    grep -m1 'mpirun' "$DRIVER_LOG"
+    exit 1
+fi
+
+if [ "$H5BENCH_EXIT" -ne 0 ]; then
+    echo "FAILED: MEM=$MEM_PATTERN FILE=$FILE_PATTERN (h5bench exit $H5BENCH_EXIT)"
+    exit "$H5BENCH_EXIT"
+fi
+
+echo ""
+echo "=== what did Recorder produce? ==="
+find "$TRACEBASE" -maxdepth 2 | head -20 | sed 's/^/  /'
+echo "  size: $(du -sh "$TRACEBASE" 2>/dev/null | awk '{print $1}')"
+if [ -z "$(find "$TRACEBASE" -type f 2>/dev/null | head -1)" ]; then
+    echo "FATAL: no trace files -- LD_PRELOAD likely did not reach the ranks"
+    exit 1
+fi
+
+WRITE_TRACEDIR=$(find "$TRACEBASE" -type f -name 'recorder.dat' -path '*h5bench_write*' 2>/dev/null | head -1 | xargs -r dirname)
+if [ -z "$WRITE_TRACEDIR" ]; then
+    echo "FATAL: no recorder.dat found under an h5bench_write directory in $TRACEBASE"
+    find "$TRACEBASE" -name 'recorder.dat' 2>/dev/null | sed 's/^/  found instead: /'
+    exit 1
+fi
+echo "  trace dir: $WRITE_TRACEDIR"
+
+echo ""
+echo "=== recorder-summary ==="
+"$RECORDER_TOOLS_INSTALL/bin/recorder-summary" "$WRITE_TRACEDIR" > "${REPORT_DIR}/recorder_summary.txt" 2>&1
+cat "${REPORT_DIR}/recorder_summary.txt"
+
+echo ""
+echo "=== recorder2text (call sequence) ==="
+"$RECORDER_TOOLS_INSTALL/bin/recorder2text" "$WRITE_TRACEDIR" > "${REPORT_DIR}/recorder2text.log" 2>&1
+TEXTDIR="${WRITE_TRACEDIR}/_text"
+if [ -d "$TEXTDIR" ]; then
+    echo "  text output: $TEXTDIR"
+    echo "  --- distinct call types traced (top 20, unverified format) ---"
+    grep -rhoE '[A-Za-z_][A-Za-z0-9_]*\(' "$TEXTDIR" 2>/dev/null | sed 's/($//' | sort | uniq -c | sort -rn | head -20 | sed 's/^/    /'
+else
+    echo "FATAL: recorder2text did not produce $TEXTDIR"
+    tail -15 "${REPORT_DIR}/recorder2text.log" | sed 's/^/  /'
+    exit 1
+fi
+
+echo ""
+echo " Container intra-node Recorder run (MEM=$MEM_PATTERN FILE=$FILE_PATTERN) Completed Successfully! "
