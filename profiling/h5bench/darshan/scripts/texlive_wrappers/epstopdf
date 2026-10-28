@@ -1,0 +1,2 @@
+#!/bin/bash
+exec apptainer exec --bind /tmp --bind /scratch /app/apps/containers/texlive/texlive.2023.debian.2021.sif epstopdf "$@"

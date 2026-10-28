@@ -1,0 +1,63 @@
+#!/bin/bash
+#PBS -N darshan_pdf_reports
+#PBS -l walltime=00:30:00
+#PBS -l select=1:ncpus=4:mem=8gb
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/darshan_pdf_reports.out
+
+cd "$PBS_O_WORKDIR"
+module load apptainer
+
+export PATH=/app/apps/darshan/3.4.6/bin:$PATH
+
+TEXLIVE_SIF=/app/apps/containers/texlive/texlive.2023.debian.2021.sif
+WRAPDIR="$(pwd)/texlive_wrappers"
+mkdir -p "$WRAPDIR" pdf_reports logs
+
+cat > "$WRAPDIR/pdflatex" << 'EOF'
+#!/bin/bash
+exec apptainer exec --bind /tmp --bind /scratch /app/apps/containers/texlive/texlive.2023.debian.2021.sif pdflatex "$@"
+EOF
+chmod +x "$WRAPDIR/pdflatex"
+
+cat > "$WRAPDIR/epstopdf" << 'EOF'
+#!/bin/bash
+exec apptainer exec --bind /tmp --bind /scratch /app/apps/containers/texlive/texlive.2023.debian.2021.sif epstopdf "$@"
+EOF
+chmod +x "$WRAPDIR/epstopdf"
+
+export PATH="$WRAPDIR:$PATH"
+
+echo "=== verify pdflatex/epstopdf/gnuplot resolve on PATH ==="
+which pdflatex epstopdf gnuplot
+
+echo "=== quick smoke test: can the wrapped pdflatex actually compile something? ==="
+TESTDIR=$(mktemp -d /scratch/users/ntu/haiyen00/tmp_pdflatex_test.XXXXXX 2>/dev/null || mktemp -d)
+cd "$TESTDIR"
+cat > test.tex << 'EOF'
+\documentclass{article}
+\begin{document}
+Hello from the texlive container.
+\end{document}
+EOF
+pdflatex -interaction=nonstopmode test.tex
+ls -la test.pdf
+cd "$PBS_O_WORKDIR"
+
+echo "=== generating PDF reports for all 4 runs ==="
+for VARIANT in native container; do
+  for COMBO in contig_contig interleaved_contig; do
+    DLOG=$(ls darshan-logs/${VARIANT}/${COMBO}/*.darshan 2>/dev/null | head -1)
+    if [ -n "$DLOG" ]; then
+      echo "--- ${VARIANT}/${COMBO}: $DLOG ---"
+      darshan-job-summary.pl "$DLOG" --output "pdf_reports/${VARIANT}_${COMBO}_summary.pdf" --verbose
+    else
+      echo "MISSING darshan log for ${VARIANT}/${COMBO}"
+    fi
+  done
+done
+
+echo "=== final pdf_reports/ listing ==="
+ls -la pdf_reports/

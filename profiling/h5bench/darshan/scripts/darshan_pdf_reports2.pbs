@@ -1,0 +1,52 @@
+#!/bin/bash
+#PBS -N darshan_pdf_reports2
+#PBS -l walltime=00:30:00
+#PBS -l select=1:ncpus=4:mem=8gb
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/darshan_pdf_reports2.out
+
+cd "$PBS_O_WORKDIR"
+module load apptainer
+
+export PATH=/app/apps/darshan/3.4.6/bin:$PATH
+
+TEXLIVE_SIF=/app/apps/containers/texlive/texlive.2023.debian.2021.sif
+WRAPDIR="$(pwd)/texlive_wrappers"
+mkdir -p "$WRAPDIR" pdf_reports logs
+
+echo "=== does the texlive sif have gnuplot? ==="
+apptainer exec --bind /tmp --bind /scratch "$TEXLIVE_SIF" which gnuplot 2>&1
+GNUPLOT_IN_SIF=$?
+
+if [ "$GNUPLOT_IN_SIF" -eq 0 ]; then
+  cat > "$WRAPDIR/gnuplot" << 'EOF'
+#!/bin/bash
+exec apptainer exec --bind /tmp --bind /scratch /app/apps/containers/texlive/texlive.2023.debian.2021.sif gnuplot "$@"
+EOF
+  chmod +x "$WRAPDIR/gnuplot"
+  echo "gnuplot wrapper created from texlive sif"
+else
+  echo "gnuplot NOT found in texlive sif -- trying apt-based container fallback via apptainer pull is out of scope, reporting failure"
+fi
+
+export PATH="$WRAPDIR:$PATH"
+echo "=== verify all three resolve now ==="
+which pdflatex epstopdf gnuplot
+
+echo "=== generating PDF reports for all 4 runs ==="
+for VARIANT in native container; do
+  for COMBO in contig_contig interleaved_contig; do
+    DLOG=$(ls darshan-logs/${VARIANT}/${COMBO}/*.darshan 2>/dev/null | head -1)
+    if [ -n "$DLOG" ]; then
+      echo "--- ${VARIANT}/${COMBO}: $DLOG ---"
+      darshan-job-summary.pl "$DLOG" --output "pdf_reports/${VARIANT}_${COMBO}_summary.pdf" --verbose
+    else
+      echo "MISSING darshan log for ${VARIANT}/${COMBO}"
+    fi
+  done
+done
+
+echo "=== final pdf_reports/ listing ==="
+ls -la pdf_reports/
