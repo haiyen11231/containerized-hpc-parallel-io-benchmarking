@@ -1,0 +1,78 @@
+========Recorder Tracing Parameters========
+Tracing start time: 2026-10-28 15:56:57
+Total processes: 64
+POSIX tracing: Enabled
+MPI tracing: Enabled
+MPI-IO tracing: Enabled
+HDF5 tracing: Enabled
+PnetCDF tracing: Enabled
+NetCDF tracing: Enabled
+DAOS tracing: Disabled
+Store thread id: False
+Store call depth: True
+Timestamp compression: True
+Interprocess compression: True
+Intraprocess pattern recognition: False
+Interprocess pattern recognition: False
+===========================================
+
+Total: 500800
+POSIX: 246624
+MPI: 1472
+MPI-IO: 245984
+HDF5: 6720
+PnetCDF: 0
+NetCDF: 0
+DAOS: 0
+
+Func                        Unique Signature   Total Call Count
+open                                      67                192
+close                                     66                192
+write                                      1                  1
+lseek                                      2                  4
+pread                                 114688             114688
+pwrite                                131101             131102
+fopen                                      2                128
+fclose                                     1                  1
+fwrite                                     1                  1
+fsync                                      1                 64
+link                                      29                 29
+unlink                                    94                 94
+fcntl                                     64                 64
+remove                                     1                 64
+MPI_File_close                             1                 64
+MPI_File_open                              1                 64
+MPI_File_read_at                      114688             114688
+MPI_File_sync                              1                 64
+MPI_File_write_at                     131101             131102
+MPI_Finalized                              1                 64
+MPI_Comm_rank                            128                128
+MPI_Comm_size                              2                128
+MPI_Comm_set_errhandler                    2                128
+MPI_Barrier                                2                512
+MPI_Bcast                                  1                128
+MPI_Allreduce                              1                 64
+MPI_Scan                                   1                 64
+MPI_Comm_dup                             128                128
+MPI_File_get_size                          2                  2
+MPI_Comm_free                              2                128
+H5Fflush                                   1                 64
+H5Dwrite                                  16               1024
+H5Dcreate2                                16               1024
+H5Fcreate                                  1                 64
+H5Pclose                                   2                128
+H5Gclose                                   2                128
+H5Fclose                                   1                 64
+H5Sselect_hyperslab                        1                 64
+H5Tcreate                                  2                576
+H5Screate_simple                           1                128
+H5Tclose                                   9                576
+H5Gcreate2                                 2                128
+H5Pcreate                                  2                128
+H5Sclose                                   2                128
+H5Pget_mdc_config                          1                 64
+H5Pset_fapl_mpio                           1                 64
+H5open                                     1               1216
+H5Pset_mdc_config                          1                 64
+H5check_version                            1                 64
+H5Dclose                                  16               1024

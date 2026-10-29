@@ -32,16 +32,18 @@ apptainer exec "$SIF" sh -c "test -r ${RECORDER_LIB_IN_CONTAINER}" \
 apptainer exec "$SIF" sh -c "test -x ${CONTAINER_BIN_DIR}/h5bench_write" \
     || { echo "FATAL: h5bench_write not found inside $SIF"; exit 1; }
 
+: "${MEM_PATTERN:?Must pass -v MEM_PATTERN=<CONTIG|INTERLEAVED> at submission time}"
+: "${FILE_PATTERN:?Must pass -v FILE_PATTERN=<CONTIG|INTERLEAVED> at submission time}"
+
 NODE_COUNT=1
 NP=$((NODE_COUNT * 64))
-
-MEM_PATTERN=INTERLEAVED
-FILE_PATTERN=CONTIG
 
 MPI_CONFIG_PREFIX="-np ${NP} --map-by ppr:64:node --bind-to core --mca pml ucx -x UCX_TLS=^cma --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR"
 APPTAINER_EXEC_BASE="apptainer exec --bind /scratch"
 
-COMBO="interleaved_contig"
+MEM_LOWER=$(echo "$MEM_PATTERN" | tr '[:upper:]' '[:lower:]')
+FILE_LOWER=$(echo "$FILE_PATTERN" | tr '[:upper:]' '[:lower:]')
+COMBO="${MEM_LOWER}_${FILE_LOWER}"
 PAYLOAD_DIR="${WORKDIR}/payload/container/${COMBO}"
 REPORT_DIR="${WORKDIR}/container/${COMBO}"
 TRACEBASE="${WORKDIR}/recorder-traces/container/${COMBO}_${PBS_JOBID}"

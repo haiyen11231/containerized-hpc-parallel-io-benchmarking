@@ -1,0 +1,42 @@
+Configuration file: /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/container/interleaved_contig/185dd165-26038244.pbs101/h5bench.cfg
+Output data file: /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/container/interleaved_contig/h5bench_intra_container_recorder_interleaved_contig.h5
+
+================ Benchmark Configuration ==================
+File: /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/container/interleaved_contig/185dd165-26038244.pbs101/h5bench.cfg
+Number of particles per rank: 4194304
+Number of time steps: 2
+Emulated compute time per timestep: 0
+Mode: SYNC
+Collective metadata operations: NO
+Collective buffering for data operations: NO
+Number of dimensions: 2
+    Dim_1: 2048
+    Dim_2: 2048
+Standard deviation for varying particle size in normal distribution = 1
+===========================================================
+
+Start benchmark: h5bench_write
+Number of particles per rank: 4 M
+Total number of particles: 256M
+Collective Metadata operations: OFF
+2048 * 2048 2D array, my x_start = 0, y_start = 0, x_blk = 2048, y_blk = 2048
+Opened HDF5 file... 
+Writing Timestep_0 ... 
+    data_write_interleaved_to_contig: Finished writing time step 
+Computing...
+Writing Timestep_1 ... 
+    data_write_interleaved_to_contig: Finished writing time step 
+
+=================== Performance Results ==================
+Total number of ranks: 64
+Total emulated compute time: 0.000 s
+Total write size: 16.000 GB
+Raw write time: 11.912 s
+Metadata time: 0.001 s
+H5Fcreate() time: 0.174 s
+H5Fflush() time: 1.485 s
+H5Fclose() time: 0.001 s
+Observed completion time: 13.574 s
+SYNC Raw write rate: 1.343 GB/s 
+SYNC Observed write rate: 1.179 GB/s
+===========================================================

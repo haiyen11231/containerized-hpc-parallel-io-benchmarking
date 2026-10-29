@@ -1,0 +1,77 @@
+--------------------------------------------------------------------------
+No OpenFabrics connection schemes reported that they were able to be
+used on a specific port.  As such, the openib BTL (OpenFabrics
+support) will be disabled for this port.
+
+  Local host:           x1002c4s6b0n0
+  Local device:         mlx5_0
+  Local port:           1
+  CPCs attempted:       rdmacm, udcm
+--------------------------------------------------------------------------
+[x1002c4s6b0n0:1584837] common_ucx.c:364  Warning: UCX is unable to handle VM_UNMAP event. This may cause performance degradation or data corruption. Pls try adding --mca opal_common_ucx_opal_mem_hooks 1 to mpirun/oshrun command line to resolve this issue.
+[1793173247.455460] [x1002c4s6b0n0:1584837:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[1793173247.460103] [x1002c4s6b0n0:1584837:0]     gdr_copy_md.c:272  UCX  WARN  could not open gdr copy, built for v2.3 but loaded v2.5
+[Recorder] rank 0 finished
+[Recorder] rank 1 finished
+[Recorder] rank 2 finished
+[Recorder] rank 3 finished
+[Recorder] rank 4 finished
+[Recorder] rank 5 finished
+[Recorder] rank 6 finished
+[Recorder] rank 7 finished
+[Recorder] rank 8 finished
+[Recorder] rank 9 finished
+[Recorder] rank 10 finished
+[Recorder] rank 11 finished
+[Recorder] rank 12 finished
+[Recorder] rank 13 finished
+[Recorder] rank 14 finished
+[Recorder] rank 15 finished
+[Recorder] rank 16 finished
+[Recorder] rank 17 finished
+[Recorder] rank 18 finished
+[Recorder] rank 19 finished
+[Recorder] rank 20 finished
+[Recorder] rank 21 finished
+[Recorder] rank 22 finished
+[Recorder] rank 23 finished
+[Recorder] rank 24 finished
+[Recorder] rank 25 finished
+[Recorder] rank 26 finished
+[Recorder] rank 27 finished
+[Recorder] rank 28 finished
+[Recorder] rank 29 finished
+[Recorder] rank 30 finished
+[Recorder] rank 31 finished
+[Recorder] rank 32 finished
+[Recorder] rank 33 finished
+[Recorder] rank 34 finished
+[Recorder] rank 35 finished
+[Recorder] rank 36 finished
+[Recorder] rank 37 finished
+[Recorder] rank 38 finished
+[Recorder] rank 39 finished
+[Recorder] rank 40 finished
+[Recorder] rank 41 finished
+[Recorder] rank 42 finished
+[Recorder] rank 43 finished
+[Recorder] rank 44 finished
+[Recorder] rank 45 finished
+[Recorder] rank 46 finished
+[Recorder] rank 47 finished
+[Recorder] rank 48 finished
+[Recorder] rank 49 finished
+[Recorder] rank 50 finished
+[Recorder] rank 51 finished
+[Recorder] rank 52 finished
+[Recorder] rank 53 finished
+[Recorder] rank 54 finished
+[Recorder] rank 55 finished
+[Recorder] rank 56 finished
+[Recorder] rank 57 finished
+[Recorder] rank 58 finished
+[Recorder] rank 59 finished
+[Recorder] rank 60 finished
+[Recorder] rank 61 finished
+[Recorder] rank 62 finished
+[Recorder] rank 63 finished

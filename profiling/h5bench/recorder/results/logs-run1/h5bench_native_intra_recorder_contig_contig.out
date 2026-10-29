@@ -1,0 +1,122 @@
+  recorder lib linked MPI: libmpi.so.40
+  (want libmpi.so.40 = OpenMPI, NOT libmpi_cray.so.12)
+  recorder lib linked HDF5: 	libgotcha.so.2 => /home/users/ntu/haiyen00/scratch/fyp/native/recorder/Recorder/install_hdf5_1107/lib64/libgotcha.so.2 (0x000015303c24e000)
+	libhdf5.so.103 => /home/users/ntu/haiyen00/scratch/fyp/native/hdf5/hdf5-1.10.7/build/install/lib/libhdf5.so.103 (0x000015303ba8a000)
+=== Lustre striping on /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/native/contig_contig ===
+/scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/native/contig_contig
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build_hdf5_1107/install/bin/h5bench -a -d /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/native/contig_contig/config.json
+
+real	0m15.397s
+user	1m15.491s
+sys	7m16.320s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-28 15:09:55,671 h5bench - INFO - Starting h5bench Suite
+2026-10-28 15:09:55,673 h5bench - WARNING - Base directory already exists: /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/native/contig_contig
+2026-10-28 15:09:55,679 h5bench - INFO - Lustre support detected
+2026-10-28 15:09:55,679 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/native/contig_contig
+2026-10-28 15:09:55,684 h5bench - DEBUG - LD_LIBRARY_PATH: /home/users/ntu/haiyen00/scratch/fyp/native/hdf5/hdf5-1.10.7/build/install/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-28 15:09:55,685 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-28 15:09:55,685 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-28 15:09:55,685 h5bench - INFO - JOBID: 26038241.pbs101
+2026-10-28 15:09:55,685 h5bench - INFO - h5bench [write] - Starting
+2026-10-28 15:09:55,685 h5bench - INFO - h5bench [write] - DIR: /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/native/contig_contig/b1e0a2b2-26038241.pbs101/
+2026-10-28 15:09:55,686 h5bench - INFO - Parallel setup: mpirun -np 64 --map-by ppr:64:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR -x LD_PRELOAD=/home/users/ntu/haiyen00/scratch/fyp/native/recorder/Recorder/install_hdf5_1107/lib/librecorder.so -x RECORDER_MPI_TRACING=1 -x RECORDER_DEBUG_LEVEL=0
+2026-10-28 15:09:55,687 h5bench - INFO - mpirun -np 64 --map-by ppr:64:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR -x LD_PRELOAD=/home/users/ntu/haiyen00/scratch/fyp/native/recorder/Recorder/install_hdf5_1107/lib/librecorder.so -x RECORDER_MPI_TRACING=1 -x RECORDER_DEBUG_LEVEL=0 /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build_hdf5_1107/install/bin//h5bench_write /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/native/contig_contig/b1e0a2b2-26038241.pbs101/h5bench.cfg /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/native/contig_contig/h5bench_intra_native_recorder_contig_contig.h5
+2026-10-28 15:10:10,924 h5bench - INFO - SUCCESS (all output files are located at /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/native/contig_contig/b1e0a2b2-26038241.pbs101)
+2026-10-28 15:10:10,924 h5bench - INFO - Runtime: 15.2385066 seconds (elapsed time, includes allocation wait time)
+2026-10-28 15:10:10,924 h5bench - INFO - h5bench [write] - Complete
+2026-10-28 15:10:10,925 h5bench - INFO - Finishing h5bench Suite
+
+=== what did Recorder produce? ===
+  /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/recorder-traces/native/contig_contig_26038241.pbs101
+  /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/recorder-traces/native/contig_contig_26038241.pbs101/recorder-20261028
+  /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/recorder-traces/native/contig_contig_26038241.pbs101/recorder-20261028/150959.221-x1003c7s5b1n0-user-unknown-h5bench_write-559473
+  size: 21K
+  trace dir: /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/recorder-traces/native/contig_contig_26038241.pbs101/recorder-20261028/150959.221-x1003c7s5b1n0-user-unknown-h5bench_write-559473
+
+=== recorder-summary ===
+========Recorder Tracing Parameters========
+Tracing start time: 2026-10-28 15:09:59
+Total processes: 64
+POSIX tracing: Enabled
+MPI tracing: Enabled
+MPI-IO tracing: Enabled
+HDF5 tracing: Enabled
+PnetCDF tracing: Enabled
+NetCDF tracing: Enabled
+DAOS tracing: Disabled
+Store thread id: False
+Store call depth: True
+Timestamp compression: True
+Interprocess compression: True
+Intraprocess pattern recognition: False
+Interprocess pattern recognition: False
+===========================================
+
+Total: 13358
+POSIX: 1870
+MPI: 1472
+MPI-IO: 1248
+HDF5: 8768
+PnetCDF: 0
+NetCDF: 0
+DAOS: 0
+
+Func                        Unique Signature   Total Call Count
+open                                      67                192
+close                                     66                192
+write                                      1                  1
+lseek                                      2                  4
+pwrite                                  1053               1054
+fopen                                      2                128
+fclose                                     1                  1
+fwrite                                     1                  1
+fsync                                      1                 64
+link                                      20                 20
+unlink                                    85                 85
+fcntl                                     64                 64
+remove                                     1                 64
+MPI_File_close                             1                 64
+MPI_File_open                              1                 64
+MPI_File_sync                              1                 64
+MPI_File_write_at                       1053               1054
+MPI_Finalized                              1                 64
+MPI_Comm_rank                            128                128
+MPI_Comm_size                              2                128
+MPI_Comm_set_errhandler                    2                128
+MPI_Barrier                                2                512
+MPI_Bcast                                  1                128
+MPI_Allreduce                              1                 64
+MPI_Scan                                   1                 64
+MPI_Comm_dup                             128                128
+MPI_File_get_size                          2                  2
+MPI_Comm_free                              2                128
+H5Fflush                                   1                 64
+H5Dwrite                                  16               1024
+H5Dcreate2                                16               1024
+H5Fcreate                                  1                 64
+H5Pclose                                   2                128
+H5Gclose                                   2                128
+H5Fclose                                   1                 64
+H5Sselect_hyperslab                        1                 64
+H5Tcreate                                  2                576
+H5Screate_simple                           1                128
+H5Tclose                                   9                576
+H5Gcreate2                                 2                128
+H5Pcreate                                  2                128
+H5Sclose                                   2                128
+H5Pget_mdc_config                          1                 64
+H5Pset_fapl_mpio                           1                 64
+H5open                                     1               3264
+H5Pset_mdc_config                          1                 64
+H5check_version                            1                 64
+H5Dclose                                  16               1024
+
+=== recorder2text (call sequence) ===
+  text output: /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/recorder-traces/native/contig_contig_26038241.pbs101/recorder-20261028/150959.221-x1003c7s5b1n0-user-unknown-h5bench_write-559473/_text
+  --- distinct call types traced (top 20, unverified format) ---
+
+ Native intra-node Recorder run (MEM=CONTIG FILE=CONTIG) Completed Successfully! 

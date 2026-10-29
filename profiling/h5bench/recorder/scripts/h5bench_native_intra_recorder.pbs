@@ -7,12 +7,6 @@
 #PBS -j oe
 #PBS -o logs/h5bench_native_intra_recorder.out
 
-# Experiment description: Darshan already answered WHERE this combo's anomaly is: 
-# the interleaved READ phase averages 32.23s/rank native vs 67.02s/rank container for
-# near-identical bytes (217.0 vs 220.3 MiB/rank), and rank-time spread widens
-# from 36.4s to 144.1s -- this script (Recorder) answers WHY, via Recorder's full
-# POSIX/MPI-IO call-by-call trace.
-
 cd "$PBS_O_WORKDIR"
 WORKDIR=$(pwd)
 
@@ -36,16 +30,18 @@ echo "  recorder lib linked HDF5: $HDF5_LINK_CHECK"
 echo "$HDF5_LINK_CHECK" | grep -q "not found" \
     && { echo "FATAL: librecorder.so's HDF5 dependency did not resolve -- rebuild did not take, or LD_LIBRARY_PATH above is wrong."; exit 1; }
 
+: "${MEM_PATTERN:?Must pass -v MEM_PATTERN=<CONTIG|INTERLEAVED> at submission time}"
+: "${FILE_PATTERN:?Must pass -v FILE_PATTERN=<CONTIG|INTERLEAVED> at submission time}"
+
 NODE_COUNT=1
 NP=$((NODE_COUNT * 64))
-
-MEM_PATTERN=INTERLEAVED
-FILE_PATTERN=CONTIG
 
 # By default, POSIX, MPIIO, HDF5, NETCDF, PNETCDF, DAOS are all traced, but not MPI.
 MPI_CONFIG="-np ${NP} --map-by ppr:64:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR -x LD_PRELOAD=${RECORDER_LIB} -x RECORDER_MPI_TRACING=1 -x RECORDER_DEBUG_LEVEL=0"
 
-COMBO="interleaved_contig"
+MEM_LOWER=$(echo "$MEM_PATTERN" | tr '[:upper:]' '[:lower:]')
+FILE_LOWER=$(echo "$FILE_PATTERN" | tr '[:upper:]' '[:lower:]')
+COMBO="${MEM_LOWER}_${FILE_LOWER}"
 PAYLOAD_DIR="${WORKDIR}/payload/native/${COMBO}"
 REPORT_DIR="${WORKDIR}/native/${COMBO}"
 TRACEBASE="${WORKDIR}/recorder-traces/native/${COMBO}_${PBS_JOBID}"

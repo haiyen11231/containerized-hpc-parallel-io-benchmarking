@@ -1,0 +1,132 @@
+#!/bin/bash
+#PBS -N h5bench_native_intra_recorder
+#PBS -l walltime=02:05:00
+#PBS -l place=excl
+#PBS -q normal
+#PBS -P personal-haiyen02
+#PBS -j oe
+#PBS -o logs/h5bench_native_intra_recorder.out
+
+cd "$PBS_O_WORKDIR"
+WORKDIR=$(pwd)
+
+module purge
+module load libfabric/1.11.0.4.125
+module load intel/2022.0.2
+module load openmpi/4.1.2-hpe
+
+export LD_LIBRARY_PATH=$HOME/scratch/fyp/native/hdf5/hdf5-1.10.7/build/install/lib:$LD_LIBRARY_PATH
+
+H5BENCH_DRIVER=$HOME/scratch/fyp/native/h5bench/h5bench/build_hdf5_1107/install/bin/h5bench
+TEMPLATE="${WORKDIR}/h5bench_config.json.template"
+RECORDER_LIB=$HOME/scratch/fyp/native/recorder/Recorder/install_hdf5_1107/lib/librecorder.so
+RECORDER_TOOLS_INSTALL=$HOME/scratch/fyp/native/recorder/Recorder/install
+
+[ -r "$RECORDER_LIB" ] || { echo "FATAL: $RECORDER_LIB not readable -- build it first (see profiling/h5bench/recorder/ rebuild notes)"; exit 1; }
+echo "  recorder lib linked MPI: $(ldd "$RECORDER_LIB" 2>/dev/null | grep -oE 'libmpi[^ ]*\.so[^ ]*' | head -1)"
+echo "  (want libmpi.so.40 = OpenMPI, NOT libmpi_cray.so.12)"
+HDF5_LINK_CHECK=$(ldd "$RECORDER_LIB" 2>/dev/null | grep -i hdf5)
+echo "  recorder lib linked HDF5: $HDF5_LINK_CHECK"
+echo "$HDF5_LINK_CHECK" | grep -q "not found" \
+    && { echo "FATAL: librecorder.so's HDF5 dependency did not resolve -- rebuild did not take, or LD_LIBRARY_PATH above is wrong."; exit 1; }
+
+: "${MEM_PATTERN:?Must pass -v MEM_PATTERN=<CONTIG|INTERLEAVED> at submission time}"
+: "${FILE_PATTERN:?Must pass -v FILE_PATTERN=<CONTIG|INTERLEAVED> at submission time}"
+
+NODE_COUNT=1
+NP=$((NODE_COUNT * 64))
+
+# By default, POSIX, MPIIO, HDF5, NETCDF, PNETCDF, DAOS are all traced, but not MPI.
+MPI_CONFIG="-np ${NP} --map-by ppr:64:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR -x LD_PRELOAD=${RECORDER_LIB} -x RECORDER_MPI_TRACING=1 -x RECORDER_DEBUG_LEVEL=0"
+
+MEM_LOWER=$(echo "$MEM_PATTERN" | tr '[:upper:]' '[:lower:]')
+FILE_LOWER=$(echo "$FILE_PATTERN" | tr '[:upper:]' '[:lower:]')
+COMBO="${MEM_LOWER}_${FILE_LOWER}"
+PAYLOAD_DIR="${WORKDIR}/payload/native/${COMBO}"
+REPORT_DIR="${WORKDIR}/native/${COMBO}"
+TRACEBASE="${WORKDIR}/recorder-traces/native/${COMBO}_${PBS_JOBID}"
+mkdir -p "$PAYLOAD_DIR" "$REPORT_DIR" "$TRACEBASE" logs
+
+lfs setstripe -c 4 -S 1m "$PAYLOAD_DIR"
+echo "=== Lustre striping on $PAYLOAD_DIR ==="
+lfs getstripe "$PAYLOAD_DIR"
+
+DATA_FILE_NAME="h5bench_intra_native_recorder_${COMBO}.h5"
+trap 'rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"' EXIT
+
+JSON="${REPORT_DIR}/config.json"
+sed -e "s|@MPI_CONFIG@|${MPI_CONFIG}|" \
+    -e "s|@DIRECTORY@|${PAYLOAD_DIR}|" \
+    -e "s|@DATA_FILE@|${DATA_FILE_NAME}|" \
+    -e "s|@MEM_PATTERN@|${MEM_PATTERN}|" \
+    -e "s|@FILE_PATTERN@|${FILE_PATTERN}|" \
+    -e "s|@CSV_FILE@|write.csv|" \
+    "$TEMPLATE" > "$JSON"
+
+python3 -m json.tool "$JSON" > /dev/null \
+    || { echo "FATAL: generated $JSON is not valid JSON"; exit 1; }
+if grep -q '@[A-Z_]*@' "$JSON"; then
+    echo "FATAL: unsubstituted placeholder left in $JSON:"; grep -n '@[A-Z_]*@' "$JSON"; exit 1
+fi
+
+rm -f "${PAYLOAD_DIR}/${DATA_FILE_NAME}"
+
+# Recorder writes its trace into the CURRENT WORKING DIRECTORY at the time
+# the ranks call MPI_Init -- cd into the dedicated trace dir FIRST. Every
+# path above is already absolute, so nothing else breaks from the directory
+# change.
+cd "$TRACEBASE"
+DRIVER_LOG="${REPORT_DIR}/driver.log"
+set -x
+time "$H5BENCH_DRIVER" -a -d "$JSON" > "$DRIVER_LOG" 2>&1
+H5BENCH_EXIT=$?
+set +x
+cd "$WORKDIR"
+cat "$DRIVER_LOG"
+
+if [ "$H5BENCH_EXIT" -ne 0 ]; then
+    echo "FAILED: MEM=$MEM_PATTERN FILE=$FILE_PATTERN (h5bench exit $H5BENCH_EXIT)"
+    exit "$H5BENCH_EXIT"
+fi
+
+echo ""
+echo "=== what did Recorder produce? ==="
+find "$TRACEBASE" -maxdepth 2 | head -20 | sed 's/^/  /'
+echo "  size: $(du -sh "$TRACEBASE" 2>/dev/null | awk '{print $1}')"
+if [ -z "$(find "$TRACEBASE" -type f 2>/dev/null | head -1)" ]; then
+    echo "FATAL: no trace files -- LD_PRELOAD likely did not reach the ranks"
+    exit 1
+fi
+
+WRITE_TRACEDIR=$(find "$TRACEBASE" -type f -name 'recorder.dat' -path '*h5bench_write*' 2>/dev/null | head -1 | xargs -r dirname)
+if [ -z "$WRITE_TRACEDIR" ]; then
+    echo "FATAL: no recorder.dat found under an h5bench_write directory in $TRACEBASE"
+    find "$TRACEBASE" -name 'recorder.dat' 2>/dev/null | sed 's/^/  found instead: /'
+    exit 1
+fi
+echo "  trace dir: $WRITE_TRACEDIR"
+
+echo ""
+echo "=== recorder-summary ==="
+"$RECORDER_TOOLS_INSTALL/bin/recorder-summary" "$WRITE_TRACEDIR" > "${REPORT_DIR}/recorder_summary.txt" 2>&1
+cat "${REPORT_DIR}/recorder_summary.txt"
+
+echo ""
+echo "=== recorder2text (call sequence) ==="
+"$RECORDER_TOOLS_INSTALL/bin/recorder2text" "$WRITE_TRACEDIR" > "${REPORT_DIR}/recorder2text.log" 2>&1
+TEXTDIR="${WRITE_TRACEDIR}/_text"
+if [ -d "$TEXTDIR" ]; then
+    echo "  text output: $TEXTDIR"
+    # The following is a quick sanity check to see if the trace looks like it contains MPI-IO and POSIX calls. 
+    # It is not a formal verification of the trace format, which is done by recorder-summary.
+    echo "  --- distinct call types traced (top 20, unverified format) ---"
+    grep -rhoE '[A-Za-z_][A-Za-z0-9_]*\(' "$TEXTDIR" 2>/dev/null | sed 's/($//' | sort | uniq -c | sort -rn | head -20 | sed 's/^/    /'
+else
+    echo "FATAL: recorder2text did not produce $TEXTDIR"
+    tail -15 "${REPORT_DIR}/recorder2text.log" | sed 's/^/  /'
+    exit 1
+fi
+
+echo ""
+echo " Native intra-node Recorder run (MEM=$MEM_PATTERN FILE=$FILE_PATTERN) Completed Successfully! "
+

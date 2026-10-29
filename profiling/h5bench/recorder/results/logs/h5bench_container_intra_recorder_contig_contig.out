@@ -1,0 +1,117 @@
+=== Lustre striping on /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/container/contig_contig ===
+/scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/container/contig_contig
+stripe_count:  4 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1 pool:          disk
+
++ /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build/install/bin/h5bench -a -d -p /opt/h5bench/install/bin /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/container/contig_contig/config.json
+
+real	0m15.169s
+user	1m31.025s
+sys	7m53.179s
++ H5BENCH_EXIT=0
++ set +x
+2026-10-28 22:23:47,428 h5bench - INFO - Starting h5bench Suite
+2026-10-28 22:23:47,429 h5bench - WARNING - Base directory already exists: /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/container/contig_contig
+2026-10-28 22:23:47,433 h5bench - INFO - Lustre support detected
+2026-10-28 22:23:47,433 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/container/contig_contig
+2026-10-28 22:23:47,437 h5bench - DEBUG - LD_LIBRARY_PATH: /app/apps/singularity/sup/squashfuse/0.6.1/lib:/app/apps/openmpi/4.1.2-hpe/lib:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-28 22:23:47,438 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-28 22:23:47,438 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-28 22:23:47,438 h5bench - INFO - JOBID: 26043338.pbs101
+2026-10-28 22:23:47,438 h5bench - INFO - h5bench [write] - Starting
+2026-10-28 22:23:47,439 h5bench - INFO - h5bench [write] - DIR: /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/container/contig_contig/7fddca18-26043338.pbs101/
+2026-10-28 22:23:47,439 h5bench - INFO - Parallel setup: mpirun -np 64 --map-by ppr:64:node --bind-to core --mca pml ucx -x UCX_TLS=^cma --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch --env LD_PRELOAD=/opt/recorder/install/lib/librecorder.so --env RECORDER_MPI_TRACING=1 --env RECORDER_DEBUG_LEVEL=0 /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks_recorder.sif
+2026-10-28 22:23:47,440 h5bench - INFO - mpirun -np 64 --map-by ppr:64:node --bind-to core --mca pml ucx -x UCX_TLS=^cma --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR apptainer exec --bind /scratch --env LD_PRELOAD=/opt/recorder/install/lib/librecorder.so --env RECORDER_MPI_TRACING=1 --env RECORDER_DEBUG_LEVEL=0 /home/users/ntu/haiyen00/scratch/fyp/container/h5bench/h5bench_benchmarks_recorder.sif /opt/h5bench/install/bin/h5bench_write /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/container/contig_contig/7fddca18-26043338.pbs101/h5bench.cfg /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/container/contig_contig/h5bench_intra_container_recorder_contig_contig.h5
+2026-10-28 22:24:02,479 h5bench - INFO - SUCCESS (all output files are located at /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/container/contig_contig/7fddca18-26043338.pbs101)
+2026-10-28 22:24:02,480 h5bench - INFO - Runtime: 15.0402782 seconds (elapsed time, includes allocation wait time)
+2026-10-28 22:24:02,480 h5bench - INFO - h5bench [write] - Complete
+2026-10-28 22:24:02,480 h5bench - INFO - Finishing h5bench Suite
+
+=== what did Recorder produce? ===
+  /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/recorder-traces/container/contig_contig_26043338.pbs101
+  /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/recorder-traces/container/contig_contig_26043338.pbs101/recorder-20261028
+  /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/recorder-traces/container/contig_contig_26043338.pbs101/recorder-20261028/142351.04-x1001c1s5b1n0-user-unknown-h5bench_write-1666215
+  size: 21K
+  trace dir: /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/recorder-traces/container/contig_contig_26043338.pbs101/recorder-20261028/142351.04-x1001c1s5b1n0-user-unknown-h5bench_write-1666215
+
+=== recorder-summary ===
+========Recorder Tracing Parameters========
+Tracing start time: 2026-10-28 22:23:51
+Total processes: 64
+POSIX tracing: Enabled
+MPI tracing: Enabled
+MPI-IO tracing: Enabled
+HDF5 tracing: Enabled
+PnetCDF tracing: Enabled
+NetCDF tracing: Enabled
+DAOS tracing: Disabled
+Store thread id: False
+Store call depth: True
+Timestamp compression: True
+Interprocess compression: True
+Intraprocess pattern recognition: False
+Interprocess pattern recognition: False
+===========================================
+
+Total: 13317
+POSIX: 1829
+MPI: 1472
+MPI-IO: 1248
+HDF5: 8768
+PnetCDF: 0
+NetCDF: 0
+DAOS: 0
+
+Func                        Unique Signature   Total Call Count
+open                                      67                192
+close                                     66                192
+write                                      1                  1
+lseek                                      2                  4
+pwrite                                  1053               1054
+fopen                                      2                128
+fclose                                     1                  1
+fwrite                                     1                  1
+fsync                                      1                 64
+unlink                                    64                 64
+fcntl                                     64                 64
+remove                                     1                 64
+MPI_File_close                             1                 64
+MPI_File_open                              1                 64
+MPI_File_sync                              1                 64
+MPI_File_write_at                       1053               1054
+MPI_Finalized                              1                 64
+MPI_Comm_rank                            128                128
+MPI_Comm_size                              2                128
+MPI_Comm_set_errhandler                    2                128
+MPI_Barrier                                2                512
+MPI_Bcast                                  1                128
+MPI_Allreduce                             64                 64
+MPI_Scan                                  64                 64
+MPI_Comm_dup                             128                128
+MPI_File_get_size                          2                  2
+MPI_Comm_free                              2                128
+H5Fflush                                   1                 64
+H5Dwrite                                  16               1024
+H5Dcreate2                                16               1024
+H5Fcreate                                  1                 64
+H5Pclose                                   2                128
+H5Gclose                                   2                128
+H5Fclose                                   1                 64
+H5Sselect_hyperslab                        1                 64
+H5Tcreate                                  2                576
+H5Screate_simple                           1                128
+H5Tclose                                   9                576
+H5Gcreate2                                 2                128
+H5Pcreate                                  2                128
+H5Sclose                                   2                128
+H5Pget_mdc_config                          1                 64
+H5Pset_fapl_mpio                           1                 64
+H5open                                     1               3264
+H5Pset_mdc_config                          1                 64
+H5check_version                            1                 64
+H5Dclose                                  16               1024
+
+=== recorder2text (call sequence) ===
+  text output: /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/recorder-traces/container/contig_contig_26043338.pbs101/recorder-20261028/142351.04-x1001c1s5b1n0-user-unknown-h5bench_write-1666215/_text
+  --- distinct call types traced (top 20, unverified format) ---
+
+ Container intra-node Recorder run (MEM=CONTIG FILE=CONTIG) Completed Successfully! 

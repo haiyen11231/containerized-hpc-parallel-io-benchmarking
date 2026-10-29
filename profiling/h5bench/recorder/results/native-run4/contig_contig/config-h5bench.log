@@ -1,0 +1,16 @@
+2026-10-28 15:56:27,532 h5bench - INFO - Starting h5bench Suite
+2026-10-28 15:56:27,533 h5bench - WARNING - Base directory already exists: /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/native/contig_contig
+2026-10-28 15:56:27,539 h5bench - INFO - Lustre support detected
+2026-10-28 15:56:27,539 h5bench - DEBUG - Lustre stripping configuration: lfs setstripe -S 1M -c 4 /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/native/contig_contig
+2026-10-28 15:56:27,545 h5bench - DEBUG - LD_LIBRARY_PATH: /home/users/ntu/haiyen00/scratch/fyp/native/hdf5/hdf5-1.10.7/build/install/lib:/app/apps/openmpi/4.1.2-hpe/lib:/app/apps/oneapi/2022.1.2/mkl/2022.0.2/lib/intel64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/x64:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/lib/oclfpga/host/linux64/lib:/app/apps/oneapi/2022.1.2/compiler/2022.0.2/linux/compiler/lib/intel64_lin:/opt/cray/libfabric/1.11.0.4.125/lib64
+2026-10-28 15:56:27,546 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2026-10-28 15:56:27,546 h5bench - DEBUG - LD_PRELOAD: 
+2026-10-28 15:56:27,546 h5bench - INFO - JOBID: 26038824.pbs101
+2026-10-28 15:56:27,546 h5bench - INFO - h5bench [write] - Starting
+2026-10-28 15:56:27,546 h5bench - INFO - h5bench [write] - DIR: /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/native/contig_contig/eb00d639-26038824.pbs101/
+2026-10-28 15:56:27,547 h5bench - INFO - Parallel setup: mpirun -np 64 --map-by ppr:64:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR -x LD_PRELOAD=/home/users/ntu/haiyen00/scratch/fyp/native/recorder/Recorder/install_hdf5_1107/lib/librecorder.so -x RECORDER_MPI_TRACING=1 -x RECORDER_DEBUG_LEVEL=0
+2026-10-28 15:56:27,549 h5bench - INFO - mpirun -np 64 --map-by ppr:64:node --bind-to core --mca btl ^openib --mca pml ucx --mca orte_base_help_aggregate 0 --mca opal_common_ucx_opal_mem_hooks 1 -x UCX_LOG_LEVEL=ERROR -x LD_PRELOAD=/home/users/ntu/haiyen00/scratch/fyp/native/recorder/Recorder/install_hdf5_1107/lib/librecorder.so -x RECORDER_MPI_TRACING=1 -x RECORDER_DEBUG_LEVEL=0 /home/users/ntu/haiyen00/scratch/fyp/native/h5bench/h5bench/build_hdf5_1107/install/bin//h5bench_write /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/native/contig_contig/eb00d639-26038824.pbs101/h5bench.cfg /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/native/contig_contig/h5bench_intra_native_recorder_contig_contig.h5
+2026-10-28 15:56:42,043 h5bench - INFO - SUCCESS (all output files are located at /scratch/users/ntu/haiyen00/fyp/experiments/profiling/h5bench/recorder/payload/native/contig_contig/eb00d639-26038824.pbs101)
+2026-10-28 15:56:42,044 h5bench - INFO - Runtime: 14.4965668 seconds (elapsed time, includes allocation wait time)
+2026-10-28 15:56:42,044 h5bench - INFO - h5bench [write] - Complete
+2026-10-28 15:56:42,044 h5bench - INFO - Finishing h5bench Suite
