@@ -1,0 +1,87 @@
+Bootstrap: docker
+From: ubuntu:24.04
+
+# IOR container for the TATE cluster (Ubuntu 24.04.3, Intel Xeon Gold 6148,
+# EDR InfiniBand ConnectX-5, Slurm 23.11 + PMIx 5, Apptainer 1.4.5).
+#
+# Baseline rule: the container's MPI stack must be IDENTICAL to native, so any
+# native-vs-container gap comes from containerization, not from a different
+# MPI build. Every MPI/network package below is pinned to the exact version
+# installed on the TATE host. 
+
+%labels
+    Benchmark IOR 4.0.0
+    TargetCluster TATE (Ubuntu 24.04.3)
+    OpenMPI 4.1.6-7ubuntu2
+    PMIx 5.0.1-4.1build1
+    UCX 1.16.0+ds-5ubuntu1
+    RdmaCore 50.0-2ubuntu0.2
+
+%post
+    export DEBIAN_FRONTEND=noninteractive   # avoid tzdata etc. hanging the build on a prompt
+
+    # Host versions (dpkg -l on TATE)
+    OMPI_VER=4.1.6-7ubuntu2
+    PMIX_VER=5.0.1-4.1build1
+    UCX_VER=1.16.0+ds-5ubuntu1
+    RDMA_VER=50.0-2ubuntu0.2
+    FABRIC_VER=1.17.0-3build2
+    GCC_VER=13.3.0-6ubuntu2~24.04.1
+
+    apt-get update
+
+    # Install GNU C/C++, Make -> compile the benchmark source code (gcc pinned to host's 13.3.0)
+    # Install wget -> download IOR 
+    # Install libopenmpi-dev & openmpi-bin -> Open MPI + headers/mpicc (same build as host)
+    # Install libpmix -> lets srun --mpi=pmix tell each rank its place in the job
+    # Install libucx0 -> UCX transport layer used by OpenMPI's pml ucx
+    # Install libibverbs1, ibverbs-providers -> verbs API + mlx5 driver for the ConnectX-5 HCA
+    # Install libfabric1 -> same OFI library the host OpenMPI was built against
+    # Install ucx-utils -> ucx_info, to check inside the container that InfiniBand is visible
+    apt-get install -y \
+        build-essential gcc-13=${GCC_VER} \
+        wget \
+        openmpi-bin=${OMPI_VER} libopenmpi-dev=${OMPI_VER} libopenmpi3t64=${OMPI_VER} \
+        openmpi-common=${OMPI_VER} \
+        libpmix2t64=${PMIX_VER} libpmix-dev=${PMIX_VER} \
+        libucx0=${UCX_VER} ucx-utils=${UCX_VER} \
+        libibverbs1=${RDMA_VER} ibverbs-providers=${RDMA_VER} \
+        libfabric1=${FABRIC_VER}
+
+    # Keep apt from upgrading the pinned stack if someone extends this image later
+    apt-mark hold openmpi-bin libopenmpi-dev libopenmpi3t64 openmpi-common \
+        libpmix2t64 libpmix-dev libucx0 ucx-utils libibverbs1 ibverbs-providers libfabric1
+
+    # Download and build IOR 
+    cd /tmp
+    wget https://github.com/hpc/ior/releases/download/4.0.0/ior-4.0.0.tar.gz
+    tar xzf ior-4.0.0.tar.gz
+    cd ior-4.0.0
+    ./configure CC=mpicc --prefix=/opt/ior-4.0.0/install
+    make -j"$(nproc)"
+    make install
+
+    # Record the exact stack inside the image 
+    dpkg -l libc6 gcc-13 openmpi-bin libopenmpi3t64 libpmix2t64 libucx0 \
+        libibverbs1 ibverbs-providers libfabric1 \
+        | awk '/^[ih]i/{print $2, $3}' > /opt/ior-4.0.0/stack_versions.txt   # held packages show as "hi", not "ii"
+
+    # Clean up 
+    rm -rf /tmp/ior-4.0.0 /tmp/ior-4.0.0.tar.gz
+    apt-get clean
+    rm -rf /var/lib/apt/lists/*
+
+%environment
+    export PATH=/opt/ior-4.0.0/install/bin:$PATH
+
+%test
+    # Runs automatically at the end of `apptainer build`; fails the build if IOR or MPI is broken
+    set -e
+    echo "== Stack versions in image"
+    cat /opt/ior-4.0.0/stack_versions.txt
+    ldd --version | head -1
+    ompi_info | grep "Open MPI:"
+    echo "== IOR binary"
+    ls -l /opt/ior-4.0.0/install/bin/ior
+    ldd /opt/ior-4.0.0/install/bin/ior | grep libmpi
+    ! ldd /opt/ior-4.0.0/install/bin/ior | grep "not found"
