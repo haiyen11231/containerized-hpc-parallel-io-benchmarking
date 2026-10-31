@@ -1,0 +1,78 @@
+Bootstrap: docker
+From: almalinux:8
+
+%post
+    set -e
+
+    dnf install -y dnf-plugins-core epel-release
+    dnf config-manager --set-enabled powertools
+
+    dnf install -y gcc gcc-c++ make cmake git python3 \
+        openmpi openmpi-devel hdf5-openmpi hdf5-openmpi-devel
+
+    echo "=== toolchain versions (verify these match native) ==="
+    gcc --version | head -1
+    ldd --version | head -1
+
+    export PATH=/usr/lib64/openmpi/bin:$PATH
+    export LD_LIBRARY_PATH=/usr/lib64/openmpi/lib:$LD_LIBRARY_PATH
+
+    command -v mpicc >/dev/null \
+        || { echo "FATAL: mpicc not found at /usr/lib64/openmpi/bin -- check actual layout with 'rpm -ql openmpi-devel'"; exit 1; }
+    mpicc --showme:version 2>&1 || true
+
+    HDF5_HEADER=$(rpm -ql hdf5-openmpi-devel | grep -m1 'hdf5\.h$')
+    HDF5_LIBSO=$(rpm -ql hdf5-openmpi-devel hdf5-openmpi | grep -m1 'libhdf5\.so$')
+    [ -n "$HDF5_HEADER" ] && [ -n "$HDF5_LIBSO" ] \
+        || { echo "FATAL: could not resolve hdf5.h / libhdf5.so -- inspect with 'rpm -ql hdf5-openmpi-devel hdf5-openmpi'"; exit 1; }
+    HDF5_INCLUDE_DIR=$(dirname "$HDF5_HEADER")
+    HDF5_LIB_DIR=$(dirname "$HDF5_LIBSO")
+    echo "Resolved HDF5 include dir: $HDF5_INCLUDE_DIR"
+    echo "Resolved HDF5 lib dir:     $HDF5_LIB_DIR"
+
+    [ "$HDF5_LIB_DIR" = "/usr/lib64/openmpi/lib" ] \
+        || { echo "FATAL: HDF5_LIB_DIR resolved to $HDF5_LIB_DIR, not the hardcoded /usr/lib64/openmpi/lib in %environment -- update %environment to match"; exit 1; }
+
+    export CPATH="$HDF5_INCLUDE_DIR:$CPATH"
+    export LIBRARY_PATH="$HDF5_LIB_DIR:$LIBRARY_PATH"
+    export LD_LIBRARY_PATH="$HDF5_LIB_DIR:$LD_LIBRARY_PATH"
+
+    # Clone h5bench with submodules into /opt
+    cd /opt
+    git clone --recurse-submodules https://github.com/hpc-io/h5bench
+    cd h5bench
+
+    # EPEL's hdf5-openmpi-devel ships an HDF5 compiler wrapper (h5pcc),
+    # colocated in /usr/lib64/openmpi/bin alongside mpicc -- i.e. already on
+    # PATH. CMake's FindHDF5 actively searches PATH for h5cc/h5pcc FIRST,
+    # and when it finds one it ignores the -DHDF5_INCLUDE_DIRS/-DHDF5_LIBRARIES
+    # hints below entirely and tries to use the wrapper instead, which fails
+    # here ("HDF5 C compiler wrapper is unable to compile a minimal HDF5
+    # program") since the wrapper's embedded flags don't resolve cleanly in a
+    # fresh container. Ubuntu's libhdf5-openmpi-dev never shipped this
+    # wrapper, which is why the original image never hit this. Fix: hide
+    # h5pcc from PATH for just this configure step so FindHDF5 falls back to
+    # the header/library search the hints above already correctly feed it.
+    H5PCC_PATH=$(command -v h5pcc || true)
+    if [ -n "$H5PCC_PATH" ]; then mv "$H5PCC_PATH" "${H5PCC_PATH}.disabled"; fi
+
+    mkdir -p build && cd build
+    cmake .. \
+        -DCMAKE_C_COMPILER=mpicc \
+        -DCMAKE_CXX_COMPILER=mpicxx \
+        -DHDF5_INCLUDE_DIRS="$HDF5_INCLUDE_DIR" \
+        -DHDF5_LIBRARIES="$HDF5_LIBSO" \
+        -DCMAKE_INSTALL_PREFIX=/opt/h5bench/install \
+        -DH5BENCH_ALL=OFF
+
+    make -j
+    make install
+
+    if [ -n "$H5PCC_PATH" ]; then mv "${H5PCC_PATH}.disabled" "$H5PCC_PATH"; fi
+
+    dnf clean all
+    rm -rf /var/cache/dnf
+
+%environment
+    export PATH=/usr/lib64/openmpi/bin:/opt/h5bench/install/bin:$PATH
+    export LD_LIBRARY_PATH=/usr/lib64/openmpi/lib:$LD_LIBRARY_PATH

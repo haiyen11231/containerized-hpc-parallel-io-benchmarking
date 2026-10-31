@@ -1,7 +1,5 @@
 *.sif
 .venv/
 
-# Regenerable Perfetto/Chrome-trace exports from recorder2timeline -- some
-# exceed GitHub's 100MB limit (interleaved_contig traces run ~120MB); all are
-# reproducible from the raw Recorder traces per profiling/h5bench/recorder/results/README.md
+# Regenerable Perfetto/Chrome-trace exports from recorder2timeline
 profiling/h5bench/recorder/results/timelines/

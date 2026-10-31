@@ -1,0 +1,92 @@
+Bootstrap: docker
+From: almalinux:8
+
+%post
+    set -e
+
+    dnf install -y dnf-plugins-core epel-release
+    dnf config-manager --set-enabled powertools
+
+    dnf install -y gcc gcc-c++ make cmake git python3 zlib-devel \
+        openmpi openmpi-devel hdf5-openmpi hdf5-openmpi-devel
+
+    echo "=== toolchain versions (verify these match native) ==="
+    gcc --version | head -1
+    ldd --version | head -1
+
+    export PATH=/usr/lib64/openmpi/bin:$PATH
+    export LD_LIBRARY_PATH=/usr/lib64/openmpi/lib:$LD_LIBRARY_PATH
+
+    command -v mpicc >/dev/null \
+        || { echo "FATAL: mpicc not found at /usr/lib64/openmpi/bin -- check actual layout with 'rpm -ql openmpi-devel'"; exit 1; }
+
+    HDF5_HEADER=$(rpm -ql hdf5-openmpi-devel | grep -m1 'hdf5\.h$')
+    HDF5_LIBSO=$(rpm -ql hdf5-openmpi-devel hdf5-openmpi | grep -m1 'libhdf5\.so$')
+    [ -n "$HDF5_HEADER" ] && [ -n "$HDF5_LIBSO" ] \
+        || { echo "FATAL: could not resolve hdf5.h / libhdf5.so -- inspect with 'rpm -ql hdf5-openmpi-devel hdf5-openmpi'"; exit 1; }
+    HDF5_INCLUDE_DIR=$(dirname "$HDF5_HEADER")
+    HDF5_LIB_DIR=$(dirname "$HDF5_LIBSO")
+    echo "Resolved HDF5 include dir: $HDF5_INCLUDE_DIR"
+    echo "Resolved HDF5 lib dir:     $HDF5_LIB_DIR"
+
+    [ "$HDF5_LIB_DIR" = "/usr/lib64/openmpi/lib" ] \
+        || { echo "FATAL: HDF5_LIB_DIR resolved to $HDF5_LIB_DIR, not the hardcoded /usr/lib64/openmpi/lib in %environment -- update %environment to match"; exit 1; }
+
+    export CPATH="$HDF5_INCLUDE_DIR:$CPATH"
+    export LIBRARY_PATH="$HDF5_LIB_DIR:$LIBRARY_PATH"
+    export LD_LIBRARY_PATH="$HDF5_LIB_DIR:$LD_LIBRARY_PATH"
+
+    cd /opt
+    git clone --recurse-submodules https://github.com/hpc-io/h5bench
+    cd h5bench
+
+    H5PCC_PATH=$(command -v h5pcc || true)
+    if [ -n "$H5PCC_PATH" ]; then mv "$H5PCC_PATH" "${H5PCC_PATH}.disabled"; fi
+
+    mkdir -p build && cd build
+    cmake .. \
+        -DCMAKE_C_COMPILER=mpicc \
+        -DCMAKE_CXX_COMPILER=mpicxx \
+        -DHDF5_INCLUDE_DIRS="$HDF5_INCLUDE_DIR" \
+        -DHDF5_LIBRARIES="$HDF5_LIBSO" \
+        -DCMAKE_INSTALL_PREFIX=/opt/h5bench/install \
+        -DH5BENCH_ALL=OFF
+
+    make -j
+    make install
+
+    if [ -n "$H5PCC_PATH" ]; then mv "${H5PCC_PATH}.disabled" "$H5PCC_PATH"; fi
+
+    mkdir -p /opt/recorder-hdf5-root
+    ln -s "$HDF5_INCLUDE_DIR" /opt/recorder-hdf5-root/include
+    ln -s "$HDF5_LIB_DIR" /opt/recorder-hdf5-root/lib
+    echo "=== synthetic HDF5 root for Recorder ==="
+    ls -la /opt/recorder-hdf5-root/
+    ls /opt/recorder-hdf5-root/include/hdf5.h /opt/recorder-hdf5-root/lib/libhdf5.so
+
+    cd /opt
+    git clone https://github.com/uiuc-hpc/Recorder.git
+    cd Recorder
+    git checkout 8ad273e2aa7531b8463b445dffe6d7cecd8f45dd
+    git submodule update --init --recursive
+
+    mkdir -p build && cd build
+    cmake .. \
+        -DCMAKE_C_COMPILER=mpicc \
+        -DCMAKE_INSTALL_PREFIX=/opt/recorder/install \
+        -DRECORDER_WITH_HDF5=/opt/recorder-hdf5-root
+    make -j
+    make install
+
+    echo "=== Recorder build -- MPI linkage check ==="
+    ldd /opt/recorder/install/lib/librecorder.so | grep -i mpi
+    echo "=== Recorder build -- HDF5 tracing check ==="
+    ldd /opt/recorder/install/lib/librecorder.so | grep -i hdf5 \
+        && echo "HDF5 tracing: linked" || echo "HDF5 tracing: NOT linked -- check the synthetic root above"
+
+    dnf clean all
+    rm -rf /var/cache/dnf
+
+%environment
+    export PATH=/usr/lib64/openmpi/bin:/opt/h5bench/install/bin:$PATH
+    export LD_LIBRARY_PATH=/usr/lib64/openmpi/lib:/opt/recorder/install/lib:/opt/recorder/install/lib64:$LD_LIBRARY_PATH
