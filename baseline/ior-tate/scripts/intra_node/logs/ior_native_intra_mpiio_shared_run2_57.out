@@ -1,0 +1,20 @@
+=== Environment ===
+Node: tate01.psl-ntu.internal  Job: 57  Tasks: 16  Run: 2
+Variant: native  API: MPIIO  MODEL: shared  B: 16m  T: 64k 256k 1m 4m
+Load before: 12.54 13.93 14.42 1/1541 782114
+dsaihn01:/mnt/tate-home /home nfs4 rw,relatime,vers=4.2,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,clientaddr=10.128.10.111,local_lock=none,addr=10.128.10.1 0 0
+mpirun (Open MPI) 4.1.6
+---------------------------------------------------
+Running: API=MPIIO | MODEL=shared | -t 64k | -b 16m 
+---------------------------------------------------
+---------------------------------------------------
+Running: API=MPIIO | MODEL=shared | -t 256k | -b 16m 
+---------------------------------------------------
+---------------------------------------------------
+Running: API=MPIIO | MODEL=shared | -t 1m | -b 16m 
+---------------------------------------------------
+---------------------------------------------------
+Running: API=MPIIO | MODEL=shared | -t 4m | -b 16m 
+---------------------------------------------------
+Load after: 13.90 14.64 14.77 2/1496 783580
+Completed Successfully! 

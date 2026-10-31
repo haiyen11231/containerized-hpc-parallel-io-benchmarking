@@ -1,0 +1,24 @@
+=== Environment ===
+Node: tate01.psl-ntu.internal  Job: 60  Tasks: 16  Run: 2
+Variant: container  API: POSIX  MODEL: fpp  B: 16m  T: 64k 256k 1m 4m
+Load before: 13.43 14.33 14.72 2/1515 789261
+dsaihn01:/mnt/tate-home /home nfs4 rw,relatime,vers=4.2,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,clientaddr=10.128.10.111,local_lock=none,addr=10.128.10.1 0 0
+mpirun (Open MPI) 4.1.6
+apptainer version 1.4.5
+SIF: /home/fyp/haiyen02/container/ior/ior_benchmarks_tate_cluster.sif
+gcc-13 13.3.0-6ubuntu2~24.04.1
+libc6:amd64 2.39-0ubuntu8.9
+---------------------------------------------------
+Running: API=POSIX | MODEL=fpp | -t 64k | -b 16m 
+---------------------------------------------------
+---------------------------------------------------
+Running: API=POSIX | MODEL=fpp | -t 256k | -b 16m 
+---------------------------------------------------
+---------------------------------------------------
+Running: API=POSIX | MODEL=fpp | -t 1m | -b 16m 
+---------------------------------------------------
+---------------------------------------------------
+Running: API=POSIX | MODEL=fpp | -t 4m | -b 16m 
+---------------------------------------------------
+Load after: 13.44 14.30 14.65 1/1551 792791
+Completed Successfully! 

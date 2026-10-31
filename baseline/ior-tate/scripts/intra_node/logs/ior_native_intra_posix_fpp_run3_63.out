@@ -1,0 +1,20 @@
+=== Environment ===
+Node: tate01.psl-ntu.internal  Job: 63  Tasks: 16  Run: 3
+Variant: native  API: POSIX  MODEL: fpp  B: 16m  T: 64k 256k 1m 4m
+Load before: 14.07 14.95 15.07 2/1528 800446
+dsaihn01:/mnt/tate-home /home nfs4 rw,relatime,vers=4.2,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,clientaddr=10.128.10.111,local_lock=none,addr=10.128.10.1 0 0
+mpirun (Open MPI) 4.1.6
+---------------------------------------------------
+Running: API=POSIX | MODEL=fpp | -t 64k | -b 16m 
+---------------------------------------------------
+---------------------------------------------------
+Running: API=POSIX | MODEL=fpp | -t 256k | -b 16m 
+---------------------------------------------------
+---------------------------------------------------
+Running: API=POSIX | MODEL=fpp | -t 1m | -b 16m 
+---------------------------------------------------
+---------------------------------------------------
+Running: API=POSIX | MODEL=fpp | -t 4m | -b 16m 
+---------------------------------------------------
+Load after: 13.20 14.34 14.81 2/1502 801117
+Completed Successfully! 

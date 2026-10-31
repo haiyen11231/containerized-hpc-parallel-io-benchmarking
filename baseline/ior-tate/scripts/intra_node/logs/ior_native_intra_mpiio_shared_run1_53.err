@@ -1,0 +1,12 @@
++ mpirun -np 16 --map-by ppr:16:socket --bind-to core -x UCX_POSIX_USE_PROC_LINK /home/fyp/haiyen02/native/ior/ior-4.0.0/install/bin/ior -a MPIIO -w -t 64k -b 16m -m -g -d 5 -c -i 10 -o payload/native_mpiio_shared_53/t64k/testfile_mpiio_shared_t64k
++ MPIRUN_EXIT=0
++ set +x
++ mpirun -np 16 --map-by ppr:16:socket --bind-to core -x UCX_POSIX_USE_PROC_LINK /home/fyp/haiyen02/native/ior/ior-4.0.0/install/bin/ior -a MPIIO -w -t 256k -b 16m -m -g -d 5 -c -i 10 -o payload/native_mpiio_shared_53/t256k/testfile_mpiio_shared_t256k
++ MPIRUN_EXIT=0
++ set +x
++ mpirun -np 16 --map-by ppr:16:socket --bind-to core -x UCX_POSIX_USE_PROC_LINK /home/fyp/haiyen02/native/ior/ior-4.0.0/install/bin/ior -a MPIIO -w -t 1m -b 16m -m -g -d 5 -c -i 10 -o payload/native_mpiio_shared_53/t1m/testfile_mpiio_shared_t1m
++ MPIRUN_EXIT=0
++ set +x
++ mpirun -np 16 --map-by ppr:16:socket --bind-to core -x UCX_POSIX_USE_PROC_LINK /home/fyp/haiyen02/native/ior/ior-4.0.0/install/bin/ior -a MPIIO -w -t 4m -b 16m -m -g -d 5 -c -i 10 -o payload/native_mpiio_shared_53/t4m/testfile_mpiio_shared_t4m
++ MPIRUN_EXIT=0
++ set +x

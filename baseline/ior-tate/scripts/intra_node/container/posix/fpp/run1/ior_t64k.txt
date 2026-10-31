@@ -1,0 +1,45 @@
+IOR-4.0.0: MPI Coordinated Test of Parallel I/O
+Began               : Sun Nov  1 03:48:26 2026
+Command line        : /opt/ior-4.0.0/install/bin/ior -a POSIX -F -w -t 64k -b 16m -m -g -d 5 -e --posix.odirect -i 10 -o payload/container_posix_fpp_56/t64k/testfile_posix_fpp_t64k
+Machine             : Linux tate01.psl-ntu.internal
+TestID              : 0
+StartTime           : Sun Nov  1 03:48:26 2026
+Path                : payload/container_posix_fpp_56/t64k/testfile_posix_fpp_t64k.00000000
+FS                  : 3.7 TiB   Used FS: 31.7%   Inodes: 238.4 Mi   Used Inodes: 1.6%
+
+Options: 
+api                 : POSIX
+apiVersion          : 
+test filename       : payload/container_posix_fpp_56/t64k/testfile_posix_fpp_t64k
+access              : file-per-process
+type                : independent
+segments            : 1
+ordering in a file  : sequential
+ordering inter file : no tasks offsets
+nodes               : 1
+tasks               : 16
+clients per node    : 16
+repetitions         : 10
+xfersize            : 65536 bytes
+blocksize           : 16 MiB
+aggregate filesize  : 256 MiB
+
+Results: 
+
+access    bw(MiB/s)  IOPS       Latency(s)  block(KiB) xfer(KiB)  open(s)    wr/rd(s)   close(s)   total(s)   iter
+------    ---------  ----       ----------  ---------- ---------  --------   --------   --------   --------   ----
+write     68.67      1116.65    0.014278    16384      64.00      0.058516   3.67       0.001175   3.73       0   
+write     69.11      1123.04    0.014200    16384      64.00      0.055738   3.65       0.000845   3.70       1   
+write     69.36      1134.98    0.014064    16384      64.00      0.080770   3.61       0.000964   3.69       2   
+write     71.01      1155.61    0.013824    16384      64.00      0.059622   3.54       0.000854   3.61       3   
+write     67.24      1092.71    0.014620    16384      64.00      0.057472   3.75       0.001022   3.81       4   
+write     68.80      1118.93    0.014299    16384      64.00      0.059010   3.66       0.001065   3.72       5   
+write     70.32      1143.84    0.013988    16384      64.00      0.058425   3.58       0.001069   3.64       6   
+write     66.87      1089.12    0.014669    16384      64.00      0.066317   3.76       0.000985   3.83       7   
+write     69.70      1133.51    0.014095    16384      64.00      0.058374   3.61       0.001088   3.67       8   
+write     69.64      1136.97    0.014063    16384      64.00      0.072786   3.60       0.000897   3.68       9   
+
+Summary of all tests:
+Operation   Max(MiB)   Min(MiB)  Mean(MiB)     StdDev   Max(OPs)   Min(OPs)  Mean(OPs)     StdDev    Mean(s) Stonewall(s) Stonewall(MiB) Test# #Tasks tPN reps fPP reord reordoff reordrand seed segcnt   blksiz    xsize aggs(MiB)   API RefNum
+write          71.01      66.87      69.07       1.21    1136.17    1069.97    1105.17      19.28    3.70734         NA            NA     0     16  16   10   1     0        1         0    0      1 16777216    65536     256.0 POSIX      0
+Finished            : Sun Nov  1 03:49:55 2026
