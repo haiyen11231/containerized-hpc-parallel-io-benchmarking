@@ -1,0 +1,36 @@
+=== Environment ===
+Nodes: tate[01-03] (3)  Job: 170  NP: 48
+Variant: container  API: POSIX  MODEL: fpp  T: 1m  B: 16m (per rank, weak)  REPS: 5
+OMPIO lock algorithm: 3 (fs_ufs_lock_algorithm)
+Load before:
+  tate02: 20.55 12.25 8.41 7/2442 2888949
+  tate03: 15.02 9.85 4.45 2/1140 733298
+  tate01: 15.88 12.07 7.95 2/1728 901053
+dsaihn01:/mnt/tate-home /home nfs4 rw,relatime,vers=4.2,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,clientaddr=10.128.10.111,local_lock=none,addr=10.128.10.1 0 0
+mpirun (Open MPI) 4.1.6
+apptainer version 1.4.5
+SIF: /home/fyp/haiyen02/container/ior/ior_benchmarks_tate_cluster.sif
+gcc-13 13.3.0-6ubuntu2~24.04.1
+libc6:amd64 2.39-0ubuntu8.9
+UCX transports visible in the container:
+#         Device: eno1
+#         Device: ibp134s0
+#         Device: ibp134s0:1
+#         Device: ibp175s0:1
+#         Device: lo
+#         Device: memory
+#      Transport: cma
+#      Transport: dc_mlx5
+#      Transport: posix
+#      Transport: rc_mlx5
+#      Transport: rc_verbs
+#      Transport: self
+#      Transport: sysv
+#      Transport: tcp
+#      Transport: ud_mlx5
+#      Transport: ud_verbs
+Load after:
+  tate03: 16.56 10.87 4.99 1/1133 734115
+  tate02: 20.83 13.31 8.93 7/2463 2889875
+  tate01: 16.32 12.64 8.30 1/1727 902045
+Completed Successfully! 
