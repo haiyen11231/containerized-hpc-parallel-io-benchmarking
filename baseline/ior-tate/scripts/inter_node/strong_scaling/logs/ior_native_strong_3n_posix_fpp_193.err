@@ -1,0 +1,3 @@
++ mpirun -np 48 --map-by ppr:16:node --bind-to core -x UCX_POSIX_USE_PROC_LINK -x UCX_NET_DEVICES --mca fs_ufs_lock_algorithm 3 /home/fyp/haiyen02/native/ior/ior-4.0.0/install/bin/ior -a POSIX -F -w -t 1m -b 16m -m -g -d 5 -e --posix.odirect -i 5 -o payload/native_posix_fpp_n3_193/testfile_strong_posix_fpp_n3
++ MPIRUN_EXIT=0
++ set +x

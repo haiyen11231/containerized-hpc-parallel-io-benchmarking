@@ -1,0 +1,13 @@
+=== Environment ===
+Nodes: tate[01,03] (2)  Job: 201  NP: 32
+Variant: native  API: POSIX  MODEL: fpp  T: 1m  B: 16m (per rank, weak)  REPS: 5
+OMPIO lock algorithm: 3 (fs_ufs_lock_algorithm)
+Load before:
+  tate03: 11.95 9.09 5.49 1/1148 750930
+  tate01: 14.16 13.78 8.62 2/1700 935086
+dsaihn01:/mnt/tate-home /home nfs4 rw,relatime,vers=4.2,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,clientaddr=10.128.10.111,local_lock=none,addr=10.128.10.1 0 0
+mpirun (Open MPI) 4.1.6
+Load after:
+  tate03: 13.55 9.76 5.83 1/1131 751043
+  tate01: 14.69 13.95 8.84 1/1683 935231
+Completed Successfully! 
