@@ -1,0 +1,23 @@
+=== Environment ===
+Node: tate01.psl-ntu.internal  Job: 215  Tasks: 16
+Variant: native  Case: mpiio_shared_t64k_lock3  B: 16m  REPS: 1  OMPIO lock: 3
+Load before: 15.27 12.55 7.35 1/1556 1015467
+mpirun (Open MPI) 4.1.6
+Recorder: /home/fyp/haiyen02/native/recorder/Recorder/install
+Load after: 15.31 12.65 7.44 1/1592 1015593
+Trace: /home/fyp/haiyen02/experiments/profiling/ior/recorder/native/mpiio_shared_t64k_lock3/trace_215 (208K)
+fcntl calls: 34, longest: 0.00 s, >= 29 s: 0
+     4096 MPI_File_write_at_all
+      135 open
+      135 close
+       69 unlink
+       34 MPI_File_open
+       34 getcwd
+       34 fcntl
+       33 remove
+       33 MPI_File_close
+       32 lseek
+       16 MPI_File_set_size
+       16 ftruncate
+        3 write
+Completed Successfully! 

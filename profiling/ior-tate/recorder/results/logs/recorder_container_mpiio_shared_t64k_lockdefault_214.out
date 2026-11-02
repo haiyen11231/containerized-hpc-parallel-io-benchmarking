@@ -1,0 +1,28 @@
+=== Environment ===
+Node: tate01.psl-ntu.internal  Job: 214  Tasks: 16
+Variant: container  Case: mpiio_shared_t64k_lockdefault  B: 16m  REPS: 1  OMPIO lock: default
+Load before: 14.04 9.36 5.08 1/1521 1014373
+mpirun (Open MPI) 4.1.6
+apptainer version 1.4.5
+Recorder: /home/fyp/haiyen02/native/recorder/Recorder/install
+SIF: /home/fyp/haiyen02/container/ior/ior_benchmarks_tate_cluster.sif
+	libgotcha.so.2 => /home/fyp/haiyen02/native/recorder/Recorder/install/lib/libgotcha.so.2 (0x0000751d0f48d000)
+	libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x0000751d0f46d000)
+	libmpi.so.40 => /lib/x86_64-linux-gnu/libmpi.so.40 (0x0000751d0f33b000)
+Load after: 15.27 12.55 7.35 1/1548 1015394
+Trace: /home/fyp/haiyen02/experiments/profiling/ior/recorder/container/mpiio_shared_t64k_lockdefault/trace_214 (248K)
+fcntl calls: 8228, longest: 30.44 s, >= 29 s: 76
+     8228 fcntl
+     4096 MPI_File_write_at_all
+      135 open
+      135 close
+       69 unlink
+       34 MPI_File_open
+       34 getcwd
+       33 remove
+       33 MPI_File_close
+       32 lseek
+       16 MPI_File_set_size
+       16 ftruncate
+        3 write
+Completed Successfully! 

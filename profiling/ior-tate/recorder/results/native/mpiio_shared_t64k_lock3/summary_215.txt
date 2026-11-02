@@ -1,0 +1,41 @@
+========Recorder Tracing Parameters========
+Tracing start time: 2026-11-02 20:59:01
+Total processes: 16
+POSIX tracing: Enabled
+MPI tracing: Disabled
+MPI-IO tracing: Enabled
+HDF5 tracing: Disabled
+PnetCDF tracing: Enabled
+NetCDF tracing: Enabled
+DAOS tracing: Disabled
+Store thread id: False
+Store call depth: True
+Timestamp compression: True
+Interprocess compression: True
+Intraprocess pattern recognition: False
+Interprocess pattern recognition: False
+===========================================
+
+Total: 4670
+POSIX: 491
+MPI: 0
+MPI-IO: 4179
+HDF5: 0
+PnetCDF: 0
+NetCDF: 0
+DAOS: 0
+
+Func                        Unique Signature   Total Call Count
+open                                      37                135
+close                                     35                135
+write                                      2                  3
+lseek                                      2                 32
+getcwd                                     1                 34
+unlink                                    33                 69
+fcntl                                     16                 34
+remove                                     2                 33
+ftruncate                                  1                 16
+MPI_File_close                             3                 33
+MPI_File_set_size                          1                 16
+MPI_File_open                              4                 34
+MPI_File_write_at_all                   4096               4096

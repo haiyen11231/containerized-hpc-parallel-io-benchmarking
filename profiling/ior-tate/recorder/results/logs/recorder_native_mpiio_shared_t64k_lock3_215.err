@@ -1,0 +1,7 @@
++ mpirun -np 16 --map-by ppr:16:socket --bind-to core -x UCX_POSIX_USE_PROC_LINK --mca fs_ufs_lock_algorithm 3 -x LD_PRELOAD=/home/fyp/haiyen02/native/recorder/Recorder/install/lib/librecorder.so -x RECORDER_TRACES_DIR=/home/fyp/haiyen02/experiments/profiling/ior/recorder/native/mpiio_shared_t64k_lock3/trace_215 /home/fyp/haiyen02/native/ior/ior-4.0.0/install/bin/ior -a MPIIO -w -t 64k -b 16m -m -g -d 5 -c -i 1 -o payload/native_mpiio_shared_t64k_lock3_215/testfile_mpiio_shared_t64k_lock3
+[Recorder] unique grammars: 16
+[Recorder] interprocess compression time: 0.041 secs
+[Recorder] trace written to /home/fyp/haiyen02/experiments/profiling/ior/recorder/native/mpiio_shared_t64k_lock3/trace_215//recorder.dat
+[Recorder] elapsed time: 7.21
++ MPIRUN_EXIT=0
++ set +x

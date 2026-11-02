@@ -1,0 +1,36 @@
+IOR-4.0.0: MPI Coordinated Test of Parallel I/O
+Began               : Mon Nov  2 20:50:06 2026
+Command line        : /home/fyp/haiyen02/native/ior/ior-4.0.0/install/bin/ior -a MPIIO -w -t 64k -b 16m -m -g -d 5 -c -i 1 -o payload/native_mpiio_shared_t64k_lockdefault_213/testfile_mpiio_shared_t64k_lockdefault
+Machine             : Linux tate01.psl-ntu.internal
+TestID              : 0
+StartTime           : Mon Nov  2 20:50:06 2026
+Path                : payload/native_mpiio_shared_t64k_lockdefault_213/testfile_mpiio_shared_t64k_lockdefault
+FS                  : 3.7 TiB   Used FS: 31.7%   Inodes: 238.4 Mi   Used Inodes: 1.6%
+
+Options: 
+api                 : MPIIO
+apiVersion          : (3.1)
+test filename       : payload/native_mpiio_shared_t64k_lockdefault_213/testfile_mpiio_shared_t64k_lockdefault
+access              : single-shared-file
+type                : collective
+segments            : 1
+ordering in a file  : sequential
+ordering inter file : no tasks offsets
+nodes               : 1
+tasks               : 16
+clients per node    : 16
+repetitions         : 1
+xfersize            : 65536 bytes
+blocksize           : 16 MiB
+aggregate filesize  : 256 MiB
+
+Results: 
+
+access    bw(MiB/s)  IOPS       Latency(s)  block(KiB) xfer(KiB)  open(s)    wr/rd(s)   close(s)   total(s)   iter
+------    ---------  ----       ----------  ---------- ---------  --------   --------   --------   --------   ----
+write     0.887087   14.20      1.13        16384      64.00      0.168165   288.42     0.000912   288.58     0   
+
+Summary of all tests:
+Operation   Max(MiB)   Min(MiB)  Mean(MiB)     StdDev   Max(OPs)   Min(OPs)  Mean(OPs)     StdDev    Mean(s) Stonewall(s) Stonewall(MiB) Test# #Tasks tPN reps fPP reord reordoff reordrand seed segcnt   blksiz    xsize aggs(MiB)   API RefNum
+write           0.89       0.89       0.89       0.00      14.19      14.19      14.19       0.00  288.58494         NA            NA     0     16  16    1   0     0        1         0    0      1 16777216    65536     256.0 MPIIO      0
+Finished            : Mon Nov  2 20:54:59 2026

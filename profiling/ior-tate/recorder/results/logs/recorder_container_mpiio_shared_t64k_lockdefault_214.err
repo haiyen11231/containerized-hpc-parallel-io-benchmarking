@@ -1,0 +1,7 @@
++ mpirun -np 16 --map-by ppr:16:socket --bind-to core -x UCX_POSIX_USE_PROC_LINK apptainer exec --env LD_PRELOAD=/home/fyp/haiyen02/native/recorder/Recorder/install/lib/librecorder.so --env RECORDER_TRACES_DIR=/home/fyp/haiyen02/experiments/profiling/ior/recorder/container/mpiio_shared_t64k_lockdefault/trace_214 /home/fyp/haiyen02/container/ior/ior_benchmarks_tate_cluster.sif /opt/ior-4.0.0/install/bin/ior -a MPIIO -w -t 64k -b 16m -m -g -d 5 -c -i 1 -o payload/container_mpiio_shared_t64k_lockdefault_214/testfile_mpiio_shared_t64k_lockdefault
+[Recorder] unique grammars: 16
+[Recorder] interprocess compression time: 0.041 secs
+[Recorder] trace written to /home/fyp/haiyen02/experiments/profiling/ior/recorder/container/mpiio_shared_t64k_lockdefault/trace_214//recorder.dat
+[Recorder] elapsed time: 233.78
++ MPIRUN_EXIT=0
++ set +x
