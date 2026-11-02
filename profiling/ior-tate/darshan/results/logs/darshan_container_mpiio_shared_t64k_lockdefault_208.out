@@ -1,0 +1,13 @@
+=== Environment ===
+Node: tate01.psl-ntu.internal  Job: 208  Tasks: 16
+Variant: container  Case: mpiio_shared_t64k_lockdefault  B: 16m  REPS: 3  OMPIO lock: default
+Load before: 13.99 12.53 6.78 1/1508 1008209
+mpirun (Open MPI) 4.1.6
+apptainer version 1.4.5
+Darshan Darshan Runtime 3.5.0
+SIF: /home/fyp/haiyen02/container/ior/ior_benchmarks_tate_cluster.sif
+	libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007590d2d4d000)
+	libmpi.so.40 => /lib/x86_64-linux-gnu/libmpi.so.40 (0x00007590d2c1b000)
+Load after: 15.50 14.88 10.69 1/1538 1009610
+Darshan log 236K: 9030 POSIX lines, 204 MPI-IO lines, DXT 25044 lines
+Completed Successfully! 

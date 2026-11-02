@@ -1,0 +1,38 @@
+IOR-4.0.0: MPI Coordinated Test of Parallel I/O
+Began               : Mon Nov  2 20:04:17 2026
+Command line        : /opt/ior-4.0.0/install/bin/ior -a MPIIO -w -t 64k -b 16m -m -g -d 5 -c -i 3 -o payload/container_mpiio_shared_t64k_lockdefault_208/testfile_mpiio_shared_t64k_lockdefault
+Machine             : Linux tate01.psl-ntu.internal
+TestID              : 0
+StartTime           : Mon Nov  2 20:04:17 2026
+Path                : payload/container_mpiio_shared_t64k_lockdefault_208/testfile_mpiio_shared_t64k_lockdefault
+FS                  : 3.7 TiB   Used FS: 31.7%   Inodes: 238.4 Mi   Used Inodes: 1.6%
+
+Options: 
+api                 : MPIIO
+apiVersion          : (3.1)
+test filename       : payload/container_mpiio_shared_t64k_lockdefault_208/testfile_mpiio_shared_t64k_lockdefault
+access              : single-shared-file
+type                : collective
+segments            : 1
+ordering in a file  : sequential
+ordering inter file : no tasks offsets
+nodes               : 1
+tasks               : 16
+clients per node    : 16
+repetitions         : 3
+xfersize            : 65536 bytes
+blocksize           : 16 MiB
+aggregate filesize  : 256 MiB
+
+Results: 
+
+access    bw(MiB/s)  IOPS       Latency(s)  block(KiB) xfer(KiB)  open(s)    wr/rd(s)   close(s)   total(s)   iter
+------    ---------  ----       ----------  ---------- ---------  --------   --------   --------   --------   ----
+write     0.546813   8.75       1.83        16384      64.00      0.170985   468.00     0.000901   468.17     0   
+write     5.53       88.73      0.180194    16384      64.00      0.162527   46.16      0.000709   46.32      1   
+write     5.53       88.74      0.180175    16384      64.00      0.163248   46.16      0.000705   46.32      2   
+
+Summary of all tests:
+Operation   Max(MiB)   Min(MiB)  Mean(MiB)     StdDev   Max(OPs)   Min(OPs)  Mean(OPs)     StdDev    Mean(s) Stonewall(s) Stonewall(MiB) Test# #Tasks tPN reps fPP reord reordoff reordrand seed segcnt   blksiz    xsize aggs(MiB)   API RefNum
+write           5.53       0.55       3.87       2.35      88.43       8.75      61.87      37.56  186.93671         NA            NA     0     16  16    3   0     0        1         0    0      1 16777216    65536     256.0 MPIIO      0
+Finished            : Mon Nov  2 20:13:53 2026

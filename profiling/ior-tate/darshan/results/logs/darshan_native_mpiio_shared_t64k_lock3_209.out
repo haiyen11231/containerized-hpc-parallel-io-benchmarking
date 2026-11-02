@@ -1,0 +1,9 @@
+=== Environment ===
+Node: tate01.psl-ntu.internal  Job: 209  Tasks: 16
+Variant: native  Case: mpiio_shared_t64k_lock3  B: 16m  REPS: 5  OMPIO lock: 3
+Load before: 14.34 14.65 10.64 1/1532 1009662
+mpirun (Open MPI) 4.1.6
+Darshan Darshan Runtime 3.5.0
+Load after: 14.84 14.74 10.82 1/1602 1009854
+Darshan log 328K: 15050 POSIX lines, 340 MPI-IO lines, DXT 41728 lines
+Completed Successfully! 

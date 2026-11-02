@@ -1,0 +1,3 @@
++ mpirun -np 16 --map-by ppr:16:socket --bind-to core -x UCX_POSIX_USE_PROC_LINK --mca fs_ufs_lock_algorithm 3 -x LD_PRELOAD=/home/fyp/haiyen02/native/darshan/darshan/install/lib/libdarshan.so -x DARSHAN_LOGFILE=/home/fyp/haiyen02/experiments/profiling/ior/native/mpiio_shared_t64k_lock3/mpiio_shared_t64k_lock3_209.darshan -x DXT_ENABLE_IO_TRACE=1 -x DARSHAN_JOBID=SLURM_JOB_ID /home/fyp/haiyen02/native/ior/ior-4.0.0/install/bin/ior -a MPIIO -w -t 64k -b 16m -m -g -d 5 -c -i 5 -o payload/native_mpiio_shared_t64k_lock3_209/testfile_mpiio_shared_t64k_lock3
++ MPIRUN_EXIT=0
++ set +x

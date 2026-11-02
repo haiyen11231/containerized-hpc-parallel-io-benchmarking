@@ -1,0 +1,3 @@
++ mpirun -np 16 --map-by ppr:16:socket --bind-to core -x UCX_POSIX_USE_PROC_LINK apptainer exec --bind /home/fyp/haiyen02/native/darshan/darshan/install:/opt/darshan --env LD_PRELOAD=/opt/darshan/lib/libdarshan.so --env DARSHAN_LOGFILE=/home/fyp/haiyen02/experiments/profiling/ior/container/posix_fpp_t64k/posix_fpp_t64k_212.darshan --env DXT_ENABLE_IO_TRACE=1 --env DARSHAN_JOBID=SLURM_JOB_ID /home/fyp/haiyen02/container/ior/ior_benchmarks_tate_cluster.sif /opt/ior-4.0.0/install/bin/ior -a POSIX -F -w -t 64k -b 16m -m -g -d 5 -e --posix.odirect -i 5 -o payload/container_posix_fpp_t64k_212/testfile_posix_fpp_t64k
++ MPIRUN_EXIT=0
++ set +x
