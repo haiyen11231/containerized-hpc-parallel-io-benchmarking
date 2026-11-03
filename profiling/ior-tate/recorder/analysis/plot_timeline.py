@@ -21,6 +21,7 @@ import re
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.patches import Patch
 
 HERE = os.path.dirname(__file__)
 RESULTS = os.path.join(HERE, "..", "results")
@@ -32,11 +33,6 @@ VARIANT_COLOR = {"native": "#1f77b4", "container": "#ff7f0e"}
 VARIANT_LABEL = {"native": "Native", "container": "Container"}
 CASE_LABEL = {"mpiio_shared_t64k_lockdefault": "default locking",
               "mpiio_shared_t64k_lock3": "lock fix (alg. 3)"}
-# Top to bottom
-LANES = [("native", "mpiio_shared_t64k_lockdefault"),
-         ("container", "mpiio_shared_t64k_lockdefault"),
-         ("native", "mpiio_shared_t64k_lock3"),
-         ("container", "mpiio_shared_t64k_lock3")]
 LINE = re.compile(r"^(\S+) (\S+) (\S+) ")
 
 
@@ -65,11 +61,24 @@ def ior_time(variant, case):
     return None
 
 
-def main():
-    fig, ax = plt.subplots(figsize=(12, 4.6))
+# Each panel covers one locking case (native + container lanes), with its
+# own x-axis scaled to that case's own data -- default locking runs to ~300s,
+# the lock fix to ~2s, a >100x range that a single shared linear axis can't
+# show (the lock-fix lanes would be invisible slivers at x=0, as the original
+# single-axis version was). Same "own scale per panel" principle already
+# used elsewhere in this project's figures (e.g. IOR's own transfer-sweep
+# plot) for comparisons spanning very different magnitudes.
+PANELS = [
+    ("default locking", "mpiio_shared_t64k_lockdefault", 310),
+    ("lock fix (alg. 3)", "mpiio_shared_t64k_lock3", 2.0),
+]
+
+
+def plot_panel(ax, case, xmax):
     height = 0.6
-    for i, (variant, case) in enumerate(LANES):
-        y = len(LANES) - 1 - i
+    variants = ["native", "container"]
+    for i, variant in enumerate(variants):
+        y = len(variants) - 1 - i
         calls = write_calls(variant, case)
         if not calls:
             print(f"  [skip] {variant}/{case}: no trace")
@@ -86,29 +95,41 @@ def main():
         end = calls[-1][1]
         stalled = sum(e - s for s, e in stalls)
         if stalls:
-            note = (f"{len(stalls)} stalls of ~30 s = {stalled:.0f} s "
-                    f"({stalled / end * 100:.0f}% of {end:.0f} s)")
+            note = f"{len(stalls)} stalls = {stalled:.0f} s ({stalled / end * 100:.0f}%)"
         else:
             total = ior_time(variant, case)
-            note = (f"no stalls: write calls end at {end:.1f} s"
-                    + (f" (IOR total {total:.1f} s incl. flush at close)" if total else ""))
-        ax.annotate(note, (end, y), textcoords="offset points", xytext=(8, -4),
-                    fontsize=9, color="#333333")
-    ax.set_yticks(range(len(LANES)))
-    ax.set_yticklabels([f"{VARIANT_LABEL[v]}\n{CASE_LABEL[c]}" for v, c in reversed(LANES)],
-                       fontsize=9)
-    ax.set_xlim(-5, 360)
-    ax.set_ylim(-0.7, len(LANES) - 0.3)
-    ax.set_xlabel("Time since first MPI_File_write_at_all (s)")
+            note = f"ends {end:.1f} s" + (f" (IOR total {total:.1f} s)" if total else "")
+        ax.annotate(note, (end, y), textcoords="offset points", xytext=(6, -4),
+                    fontsize=8, color="#333333")
+    ax.set_yticks(range(len(variants)))
+    ax.set_yticklabels([VARIANT_LABEL[v] for v in reversed(variants)], fontsize=9)
+    ax.set_xlim(-xmax * 0.02, xmax)
+    ax.set_ylim(-0.7, len(variants) - 0.3)
+    ax.set_title(CASE_LABEL[case], fontsize=10)
     ax.grid(axis="x", alpha=0.3)
     for side in ("top", "right"):
         ax.spines[side].set_visible(False)
-    fig.suptitle("IOR MPI-IO + Shared, -t 64k, one repetition on tate01 (16 ranks) -- Recorder trace of rank 1\n"
-                 "full bars = MPI_File_write_at_all calls >= 29 s (waiting on the NFS file lock), "
-                 "thin band = normal writing", fontsize=10)
+
+
+def main():
+    fig, axes = plt.subplots(1, 2, figsize=(12, 3.6), width_ratios=[2, 1])
+    for ax, (_, case, xmax) in zip(axes, PANELS):
+        plot_panel(ax, case, xmax)
+    fig.supxlabel("Time since first MPI_File_write_at_all (s)", fontsize=9)
+    fig.suptitle("IOR MPI-IO + Shared, -t 64k -- Recorder trace, rank 1, 16 ranks (TATE)", fontsize=11)
+    # Key for the two visual elements every bar is drawn from (not a finding,
+    # just how to read the encoding) -- a solid full-height bar is one call
+    # stalled on the NFS lock (>= 29s); the thin pale band is normal writing.
+    legend_handles = [
+        Patch(facecolor="#555555", label=f"stall (≥{STALL_S:.0f}s lock wait)"),
+        Patch(facecolor="#555555", alpha=0.35, label="normal write"),
+    ]
+    fig.legend(handles=legend_handles, loc="upper center", bbox_to_anchor=(0.5, 0.88),
+               ncol=2, frameon=False, fontsize=9)
     os.makedirs(FIG_DIR, exist_ok=True)
     path = os.path.join(FIG_DIR, "ior_recorder_timeline.png")
     fig.tight_layout()
+    fig.subplots_adjust(top=0.72)  # reserve room above the axes for suptitle + legend
     fig.savefig(path, dpi=150)
     plt.close(fig)
     print(f"  wrote {path}")

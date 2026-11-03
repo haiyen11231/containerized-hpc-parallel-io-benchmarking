@@ -1,0 +1,275 @@
+
+===== Host / OS =====
+$ hostname
+tate01.psl-ntu.internal
+$ cat /etc/os-release
+PRETTY_NAME="Ubuntu 24.04.3 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04.3 LTS (Noble Numbat)"
+VERSION_CODENAME=noble
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=noble
+LOGO=ubuntu-logo
+$ uname -r
+6.8.0-111-generic
+$ ldd --version | head -1
+ldd (Ubuntu GLIBC 2.39-0ubuntu8.7) 2.39
+
+===== CPU / memory =====
+$ lscpu
+Architecture:                            x86_64
+CPU op-mode(s):                          32-bit, 64-bit
+Address sizes:                           46 bits physical, 48 bits virtual
+Byte Order:                              Little Endian
+CPU(s):                                  80
+On-line CPU(s) list:                     0-79
+Vendor ID:                               GenuineIntel
+Model name:                              Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz
+CPU family:                              6
+Model:                                   85
+Thread(s) per core:                      2
+Core(s) per socket:                      20
+Socket(s):                               2
+Stepping:                                4
+BogoMIPS:                                4800.00
+Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 pti intel_ppin ssbd mba ibrs ibpb stibp tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts vnmi pku ospke md_clear flush_l1d arch_capabilities ibpb_exit_to_user
+Virtualization:                          VT-x
+L1d cache:                               1.3 MiB (40 instances)
+L1i cache:                               1.3 MiB (40 instances)
+L2 cache:                                40 MiB (40 instances)
+L3 cache:                                55 MiB (2 instances)
+NUMA node(s):                            2
+NUMA node0 CPU(s):                       0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78
+NUMA node1 CPU(s):                       1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,41,43,45,47,49,51,53,55,57,59,61,63,65,67,69,71,73,75,77,79
+Vulnerability Gather data sampling:      Mitigation; Microcode
+Vulnerability Indirect target selection: Not affected
+Vulnerability Itlb multihit:             KVM: Mitigation: VMX disabled
+Vulnerability L1tf:                      Mitigation; PTE Inversion; VMX conditional cache flushes, SMT vulnerable
+Vulnerability Mds:                       Mitigation; Clear CPU buffers; SMT vulnerable
+Vulnerability Meltdown:                  Mitigation; PTI
+Vulnerability Mmio stale data:           Mitigation; Clear CPU buffers; SMT vulnerable
+Vulnerability Reg file data sampling:    Not affected
+Vulnerability Retbleed:                  Mitigation; IBRS
+Vulnerability Spec rstack overflow:      Not affected
+Vulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl
+Vulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:                Mitigation; IBRS; IBPB conditional; STIBP conditional; RSB filling; PBRSB-eIBRS Not affected; BHI Not affected
+Vulnerability Srbds:                     Not affected
+Vulnerability Tsa:                       Not affected
+Vulnerability Tsx async abort:           Mitigation; Clear CPU buffers; SMT vulnerable
+Vulnerability Vmscape:                   Mitigation; IBPB before exit to userspace
+$ free -g
+               total        used        free      shared  buff/cache   available
+Mem:             187           4         123           0          61         183
+Swap:              7           0           7
+$ numactl --hardware
+available: 2 nodes (0-1)
+node 0 cpus: 0 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 32 34 36 38 40 42 44 46 48 50 52 54 56 58 60 62 64 66 68 70 72 74 76 78
+node 0 size: 95366 MB
+node 0 free: 75387 MB
+node 1 cpus: 1 3 5 7 9 11 13 15 17 19 21 23 25 27 29 31 33 35 37 39 41 43 45 47 49 51 53 55 57 59 61 63 65 67 69 71 73 75 77 79
+node 1 size: 96705 MB
+node 1 free: 50766 MB
+node distances:
+node   0   1 
+  0:  10  21 
+  1:  21  10 
+
+===== GPU =====
+$ nvidia-smi -L
+GPU 0: Tesla V100-PCIE-16GB (UUID: GPU-b303e6b6-a133-5624-dbc2-68470af6feb1)
+GPU 1: Tesla V100-PCIE-16GB (UUID: GPU-5b5b2ee3-db39-b9d8-6c03-90f720f65b81)
+
+===== Interconnect =====
+$ ip -br addr
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eno1             UP             192.168.88.31/24 metric 100 fe80::266e:96ff:febd:7190/64 
+eno2             DOWN           
+eno3             DOWN           
+eno4             DOWN           
+ibp134s0         UP             10.128.10.111/24 fe80::9a03:9b03:a8:9cba/64 
+ibp175s0         DOWN           
+$ ibv_devinfo -l
+2 HCAs found:
+	ibp134s0
+	ibp175s0
+
+$ ls /sys/class/infiniband /sys/class/cxi
+ls: cannot access '/sys/class/cxi': No such file or directory
+/sys/class/infiniband:
+ibp134s0
+ibp175s0
+$ ucx_info -v
+/home/fyp/haiyen02/discover_cluster.sh: line 11: ucx_info: command not found
+$ ucx_info -d | grep -E "Transport|Device"
+/home/fyp/haiyen02/discover_cluster.sh: line 11: ucx_info: command not found
+
+===== Filesystems =====
+$ df -hT | grep -vE "tmpfs|overlay"
+Filesystem              Type      Size  Used Avail Use% Mounted on
+efivarfs                efivarfs  304K  160K  140K  54% /sys/firmware/efi/efivars
+/dev/sda2               ext4      218G   51G  157G  25% /
+/dev/sda1               vfat      1.1G  6.2M  1.1G   1% /boot/efi
+dsaihn01:/mnt/tate-home nfs4      3.7T  1.2T  2.4T  34% /home
+$ mount | grep -iE "lustre|gpfs|beegfs|nfs|wekafs"
+dsaihn01:/mnt/tate-home on /home type nfs4 (rw,relatime,vers=4.2,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,clientaddr=10.128.10.111,local_lock=none,addr=10.128.10.1,_netdev)
+$ echo HOME=$HOME; echo SCRATCH=${SCRATCH:-unset}; ls -ld /scratch* /work* /project* /data* 2>/dev/null
+HOME=/home/fyp/haiyen02
+SCRATCH=unset
+$ which lfs && lfs df -h | tail -25
+$ which lfs && lfs getstripe -d $HOME
+$ quota -s; which lfs && lfs quota -h -u $USER $(df --output=target $HOME | tail -1)
+/home/fyp/haiyen02/discover_cluster.sh: line 11: quota: command not found
+
+===== Slurm =====
+$ sinfo --version
+slurm-wlm 23.11.4
+$ sinfo -s
+PARTITION AVAIL  TIMELIMIT   NODES(A/I/O/T) NODELIST
+teaching*    up    8:00:00          0/3/0/3 tate[01-03]
+$ sinfo -o "%P %a %l %D %c %m %G %f"
+PARTITION AVAIL TIMELIMIT NODES CPUS MEMORY GRES AVAIL_FEATURES
+teaching* up 8:00:00 3 80 192071 gpu:v100:2 (null)
+$ scontrol show partition
+PartitionName=teaching
+   AllowGroups=ALL AllowAccounts=ALL AllowQos=ALL
+   AllocNodes=ALL Default=YES QoS=N/A
+   DefaultTime=00:30:00 DisableRootJobs=NO ExclusiveUser=NO GraceTime=0 Hidden=NO
+   MaxNodes=UNLIMITED MaxTime=08:00:00 MinNodes=0 LLN=NO MaxCPUsPerNode=UNLIMITED MaxCPUsPerSocket=UNLIMITED
+   Nodes=tate[01-03]
+   PriorityJobFactor=1 PriorityTier=1 RootOnly=NO ReqResv=NO OverSubscribe=NO
+   OverTimeLimit=NONE PreemptMode=OFF
+   State=UP TotalCPUs=240 TotalNodes=3 SelectTypeParameters=NONE
+   JobDefaults=(null)
+   DefMemPerCPU=2000 MaxMemPerNode=UNLIMITED
+   TRES=cpu=236,mem=576213M,node=3,billing=236
+
+$ scontrol show node $(sinfo -h -N -o %N | head -1)
+NodeName=tate01 Arch=x86_64 CoresPerSocket=20 
+   CPUAlloc=0 CPUEfctv=76 CPUTot=80 CPULoad=0.18
+   AvailableFeatures=(null)
+   ActiveFeatures=(null)
+   Gres=gpu:v100:2
+   NodeAddr=10.128.10.111 NodeHostName=tate01 Version=23.11.4
+   OS=Linux 6.8.0-111-generic #111-Ubuntu SMP PREEMPT_DYNAMIC Sat Apr 11 23:16:02 UTC 2026 
+   RealMemory=192071 AllocMem=0 FreeMem=126162 Sockets=2 Boards=1
+   CoreSpecCount=2 CPUSpecList=38-39,78-79 MemSpecLimit=8192
+   State=IDLE ThreadsPerCore=2 TmpDisk=0 Weight=1 Owner=N/A MCS_label=N/A
+   Partitions=teaching 
+   BootTime=2026-10-13T15:48:15 SlurmdStartTime=2026-10-13T15:50:23
+   LastBusyTime=2026-10-26T13:29:23 ResumeAfterTime=None
+   CfgTRES=cpu=76,mem=192071M,billing=76
+   AllocTRES=
+   CapWatts=n/a
+   CurrentWatts=0 AveWatts=0
+   ExtSensorsJoules=n/a ExtSensorsWatts=0 ExtSensorsTemp=n/a
+
+$ sacctmgr -n show assoc user=$USER format=account,partition,qos
+You are not running a supported accounting_storage plugin
+Only 'accounting_storage/slurmdbd' is supported.
+$ sacctmgr -n show qos format=name,maxwall,maxtresperuser
+You are not running a supported accounting_storage plugin
+Only 'accounting_storage/slurmdbd' is supported.
+$ srun --mpi=list
+MPI plugin types are...
+	none
+	pmi2
+	pmix
+	cray_shasta
+specific pmix plugin versions available: pmix_v5
+$ scontrol show config | grep -iE "MpiDefault|SelectType|TaskPlugin|ProctrackType|PrologFlags"
+MpiDefault              = (null)
+ProctrackType           = proctrack/cgroup
+PrologFlags             = (null)
+SelectType              = select/cons_tres
+SelectTypeParameters    = CR_CORE_MEMORY
+TaskPlugin              = task/cgroup,task/affinity
+TaskPluginParam         = (null type)
+
+===== Modules =====
+$ module -t avail 2>&1
+/home/fyp/haiyen02/discover_cluster.sh: line 11: module: command not found
+$ module -t avail 2>&1 | grep -iE "mpi|ucx|pmix|hdf5|darshan|apptainer|singularity|gcc|intel|cuda|libfabric"
+
+===== MPI on default PATH =====
+$ which mpirun mpicc srun
+/usr/bin/mpirun
+/usr/bin/mpicc
+/usr/bin/srun
+$ mpirun --version
+mpirun (Open MPI) 4.1.6
+
+Report bugs to http://www.open-mpi.org/community/help/
+$ ompi_info | grep -iE "Open MPI:|pml|btl|mtl|pmix|ucx|ofi|lustre|io romio|io ompio|fs:"
+                Open MPI: 4.1.6
+  Configure command line: '--build=x86_64-linux-gnu' '--prefix=/usr' '--includedir=${prefix}/include' '--mandir=${prefix}/share/man' '--infodir=${prefix}/share/info' '--sysconfdir=/etc' '--localstatedir=/var' '--disable-option-checking' '--disable-silent-rules' '--libdir=${prefix}/lib/x86_64-linux-gnu' '--runstatedir=/run' '--disable-maintainer-mode' '--disable-dependency-tracking' '--disable-silent-rules' '--disable-wrapper-runpath' '--with-package-string=Debian OpenMPI' '--with-verbs' '--with-libfabric' '--with-psm' '--with-psm2' '--with-ucx' '--with-pmix=/usr/lib/x86_64-linux-gnu/pmix2' '--with-jdk-dir=/usr/lib/jvm/default-java' '--enable-mpi-java' '--enable-opal-btl-usnic-unit-tests' '--with-libevent=external' '--with-hwloc=external' '--disable-silent-rules' '--enable-mpi-cxx' '--enable-ipv6' '--with-devel-headers' '--with-slurm' '--with-sge' '--without-tm' '--sysconfdir=/etc/openmpi' '--libdir=${prefix}/lib/x86_64-linux-gnu/openmpi/lib' '--includedir=${prefix}/lib/x86_64-linux-gnu/openmpi/include' 'FC=gfortran'
+             C profiling: yes
+           C++ profiling: yes
+   Fort mpif.h profiling: yes
+  Fort use mpi profiling: yes
+Memory profiling support: no
+                 MCA btl: ofi (MCA v2.1.0, API v3.1.0, Component v4.1.6)
+                 MCA btl: tcp (MCA v2.1.0, API v3.1.0, Component v4.1.6)
+                 MCA btl: openib (MCA v2.1.0, API v3.1.0, Component v4.1.6)
+                 MCA btl: self (MCA v2.1.0, API v3.1.0, Component v4.1.6)
+                 MCA btl: vader (MCA v2.1.0, API v3.1.0, Component v4.1.6)
+                MCA pmix: isolated (MCA v2.1.0, API v2.0.0, Component v4.1.6)
+                MCA pmix: ext3x (MCA v2.1.0, API v2.0.0, Component v4.1.6)
+                MCA pmix: flux (MCA v2.1.0, API v2.0.0, Component v4.1.6)
+                MCA fbtl: posix (MCA v2.1.0, API v2.0.0, Component v4.1.6)
+                  MCA fs: ufs (MCA v2.1.0, API v2.0.0, Component v4.1.6)
+                 MCA mtl: psm (MCA v2.1.0, API v2.0.0, Component v4.1.6)
+                 MCA mtl: psm2 (MCA v2.1.0, API v2.0.0, Component v4.1.6)
+                 MCA mtl: ofi (MCA v2.1.0, API v2.0.0, Component v4.1.6)
+                 MCA osc: ucx (MCA v2.1.0, API v3.0.0, Component v4.1.6)
+                 MCA pml: v (MCA v2.1.0, API v2.0.0, Component v4.1.6)
+                 MCA pml: monitoring (MCA v2.1.0, API v2.0.0, Component v4.1.6)
+                 MCA pml: ob1 (MCA v2.1.0, API v2.0.0, Component v4.1.6)
+                 MCA pml: ucx (MCA v2.1.0, API v2.0.0, Component v4.1.6)
+                 MCA pml: cm (MCA v2.1.0, API v2.0.0, Component v4.1.6)
+
+===== Apptainer =====
+$ which apptainer singularity
+/usr/bin/apptainer
+/usr/bin/singularity
+$ apptainer --version
+apptainer version 1.4.5
+$ apptainer buildcfg | grep -iE "SESSIONDIR|PLUGIN"
+SESSIONDIR=/var/lib/apptainer/mnt/session
+PLUGIN_ROOTDIR=/usr/libexec/apptainer/plugin
+$ grep -vE "^#|^$" /etc/apptainer/apptainer.conf | grep -iE "bind path|user bind|mount|setuid|underlay|overlay"
+allow setuid = yes
+mount proc = yes
+mount sys = yes
+mount dev = yes
+mount devpts = yes
+mount home = yes
+mount tmp = yes
+mount hostfs = no
+bind path = /etc/localtime
+bind path = /etc/hosts
+user bind control = yes
+enable fusemount = yes
+enable overlay = yes
+enable underlay = yes
+mount slave = yes
+$ cat /proc/sys/user/max_user_namespaces
+767958
+$ echo APPTAINER_CACHEDIR=${APPTAINER_CACHEDIR:-unset}
+APPTAINER_CACHEDIR=unset
+
+===== Tools =====
+$ which git cmake wget curl python3 strace perf darshan-parser
+/usr/bin/git
+/usr/bin/cmake
+/usr/bin/wget
+/usr/bin/curl
+/usr/bin/python3
+/usr/bin/strace
+/usr/bin/perf

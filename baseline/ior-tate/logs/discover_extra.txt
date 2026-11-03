@@ -1,0 +1,91 @@
+== ucx/rdma packages
+libcaf-openmpi-3t64:amd64 2.10.2+ds-2.1build2
+libcoarrays-openmpi-dev:amd64 2.10.2+ds-2.1build2
+libfabric1:amd64 1.17.0-3build2
+libhdf5-103-1t64:amd64 1.10.10+repack-3.1ubuntu4
+libhdf5-hl-100t64:amd64 1.10.10+repack-3.1ubuntu4
+libibverbs1:amd64 50.0-2ubuntu0.2
+libopenmpi-dev:amd64 4.1.6-7ubuntu2
+libopenmpi3t64:amd64 4.1.6-7ubuntu2
+libpmix-dev:amd64 5.0.1-4.1build1
+libpmix2t64:amd64 5.0.1-4.1build1
+libucx0:amd64 1.16.0+ds-5ubuntu1
+openmpi-bin 4.1.6-7ubuntu2
+openmpi-common 4.1.6-7ubuntu2
+rdma-core 50.0-2ubuntu0.2
+== ib rate
+100 Gb/sec (4X EDR)
+100 Gb/sec (4X EDR)
+4: ACTIVE
+4: ACTIVE
+InfiniBand
+InfiniBand
+== ibstat
+	CA type: MT4119
+		State: Active
+		Rate: 100
+		Link layer: InfiniBand
+	CA type: MT4119
+		State: Active
+		Rate: 100
+		Link layer: InfiniBand
+== /tmp & local disks
+Filesystem     Type   Size  Used Avail Use% Mounted on
+/dev/sda2      ext4   218G   51G  157G  25% /
+/dev/sda2      ext4   218G   51G  157G  25% /
+tmpfs          tmpfs   94G     0   94G   0% /dev/shm
+NAME   SIZE ROTA MODEL
+sda  223.6G    0 SSDSC2KG240G7R
+== other storage dirs
+ls: cannot access '/data*': No such file or directory
+ls: cannot access '/scratch*': No such file or directory
+ls: cannot access '/work*': No such file or directory
+ls: cannot access '/shared*': No such file or directory
+drwxr-xr-x 2 root root 4096 Aug 14 20:13 /mnt/nfs
+ls: /home/limulin: Permission denied
+ls: /home/lost+found: Permission denied
+ls: /home/ske: Permission denied
+ls: /home/wangchen: Permission denied
+total 60
+drwxr-xr-x 12 root       root        4096 Oct 26 13:27 .
+drwxr-xr-x 24 root       root        4096 Aug  5 16:49 ..
+drwxr-x--- 11 dsaiadmin  dsaiadmin   4096 Aug 10 10:12 dsaiadmin
+drwxr-xr-x  3 root       root        4096 Oct 26 13:27 fyp
+drwxr-x--- 17 limulin    limulin     4096 Oct  3 15:57 limulin
+drwx------  2 root       root       16384 Nov 30  2025 lost+found
+drwxr-x---  2 ruijie     ruijie      4096 Apr 15  2026 ruijie
+drwxr-x--- 16 ske        ske         4096 Oct 19 13:48 ske
+drwxr-x--- 47 sunjiaying sunjiaying  4096 Oct 27 19:49 sunjiaying
+ls: /home/dsaiadmin: Permission denied
+ls: /home/wzwu: Permission denied
+ls: /home/ruijie: Permission denied
+drwxr-xr-x 3 root root 4096 Oct 26 13:27 /home/fyp
+== nfs mount options
+/home from dsaihn01:/mnt/tate-home
+ Flags:	rw,relatime,vers=4.2,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,clientaddr=10.128.10.111,local_lock=none,addr=10.128.10.1
+
+== mounts on each node
+-- tate01
+Filesystem              Type      Size  Used Avail Use% Mounted on
+/dev/sda2               ext4      218G   51G  157G  25% /
+dsaihn01:/mnt/tate-home nfs4      3.7T  1.2T  2.4T  34% /home
+model name	: Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz
+1
+ibp134s0         UP             10.128.10.111/24 fe80::9a03:9b03:a8:9cba/64 
+ibp175s0         DOWN           
+-- tate02
+Filesystem              Type      Size  Used Avail Use% Mounted on
+/dev/sda2               ext4      218G   28G  180G  14% /
+dsaihn01:/mnt/tate-home nfs4      3.7T  1.2T  2.4T  34% /home
+model name	: Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz
+1
+ibp134s0         UP             10.128.10.112/24 fe80::268a:703:49:dfd8/64 
+ibp175s0         DOWN           
+-- tate03
+Filesystem              Type      Size  Used Avail Use% Mounted on
+/dev/sda2               ext4      218G   28G  180G  14% /
+dsaihn01:/mnt/tate-home nfs4      3.7T  1.2T  2.4T  34% /home
+model name	: Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz
+1
+ibp134s0         UP             10.128.10.113/24 fe80::9a03:9b03:c6:69e0/64 
+ibp175s0         DOWN           

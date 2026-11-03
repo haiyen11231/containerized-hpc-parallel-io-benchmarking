@@ -26,7 +26,7 @@ Native and container are identical, down to the split of locks between the two a
 
 ## 2. The 30 s waits are inside the lock requests
 
-Some lock requests take 30.4–30.5 s to return — the Linux NFSv4 client's maximum back-off when the server refuses a lock because another process holds it. While an aggregator waits, the whole collective write waits with it, so every rank sees the stall. From the timeline of rank 1, which takes no locks:
+Some lock requests take 30.4–30.5 s to return — the Linux NFSv4 client's maximum back-off when the server refuses a lock because another process holds it (`NFS4_LOCK_MAXTIMEOUT (30 * HZ)`, `fs/nfs/nfs4proc.c`, exponential backoff from 1 s capped there — verified against `torvalds/linux` master, see `../../../baseline/ior-tate/analysis/ANALYSIS.md`'s root-cause section for the full citation). While an aggregator waits, the whole collective write waits with it, so every rank sees the stall. From the timeline of rank 1, which takes no locks:
 
 | | Stall events (`MPI_File_write_at_all` ≥ 29 s) | Time in stalls | Share of the repetition |
 |---|---|---|---|
