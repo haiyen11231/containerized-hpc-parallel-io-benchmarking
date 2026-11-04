@@ -34,10 +34,12 @@ It is the expected cost of the container's transport:
 
 | | native | container |
 |---|---|---|
-| transport | UCX shared memory | vader (apt OpenMPI has no UCX) |
+| transport | UCX shared memory | vader, CMA excluded by the launch script |
 | single-copy | CMA, kernel-assisted | **disabled** — `btl_vader_single_copy_mechanism none` |
 
 Apptainer's user namespace breaks OpenMPI's CMA path, so the container copies twice — sender into a shared buffer, receiver out of it — where native copies once. At small messages this per-message overhead dominates and the penalty shows cleanly.
+
+> **Correction (Phase 3):** "apt OpenMPI has no UCX" is wrong — `optimization/osu/README.md` §1–§2 confirmed UCX was compiled into the container's OpenMPI all along. The real cause of CMA being disabled here is the kernel, not a missing library: `optimization/osu/README.md` §10 shows that forcing UCX on this exact intra-node pt2pt case (which re-enables CMA) **crashes** — `process_vm_readv ... Operation not permitted`, deterministic, confirmed via raw UCX logs. `vader`'s CMA exclusion in this baseline script isn't a build limitation, it's the only configuration that doesn't crash under Apptainer's user-namespace isolation.
 
 The latency penalty peaks at **1.44× around 4–16 KB**: messages large enough that copying cost matters, too small to amortise it. Latency is 1.15–1.30× slower across essentially the whole small-message range, every point resolvable.
 

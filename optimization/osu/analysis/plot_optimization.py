@@ -129,8 +129,8 @@ def fig_pt2pt(bench, name, title, ylabel, logy=True):
 if __name__ == "__main__":
     print("Generating OSU optimization figures...")
     fig_pt2pt("latency", "figO1a_pt2pt_latency.png",
-              "Figure O1A — pt2pt inter-node latency: native vs container (TCP) vs container (UCX)",
+              "pt2pt inter-node latency: native vs container (TCP) vs container (UCX)",
               "Latency (us)")
     fig_pt2pt("bw", "figO1b_pt2pt_bandwidth.png",
-              "Figure O1B — pt2pt inter-node bandwidth: native vs container (TCP) vs container (UCX)",
+              "pt2pt inter-node bandwidth: native vs container (TCP) vs container (UCX)",
               "Bandwidth (MB/s)")

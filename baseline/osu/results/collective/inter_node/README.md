@@ -103,4 +103,6 @@ Set against IOR and h5bench finding no measurable I/O penalty, the thesis claim 
 
 > *Containerization's cost is concentrated entirely in the MPI network transport. It is invisible to I/O-bound workloads, can be favorable for latency-bound shared-memory collectives, and becomes a hard functional limit — not just a slowdown — for communication-heavy patterns at scale.*
 
-For **Phase 3**, this makes the bind-mounted-MPI optimization measurable in a new way: it should not merely speed up Alltoall at 512+ ranks, it should make it **run at all**. That is a binary, unambiguous success criterion.
+For **Phase 3**, this makes the optimization measurable in a new way: it should not merely speed up Alltoall at 512+ ranks, it should make it **run at all**. That is a binary, unambiguous success criterion.
+
+> **Update (Phase 3, `optimization/osu/README.md` §1, §6):** the fix needed was a single MCA flag (`--mca pml ucx`, removing the baseline's TCP pin), not a bind-mount — the container's OpenMPI already had UCX compiled in. Alltoall at 512/1024 ranks runs cleanly under it, confirming the prediction above exactly, just via a simpler mechanism than planned.

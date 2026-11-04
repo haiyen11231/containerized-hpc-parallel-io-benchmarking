@@ -114,7 +114,7 @@ def fig_pt2pt_intra(bench, name, title, ylabel, logy=True):
     for label, color, marker, d in (
         ("Native", NATIVE, "o", native),
         ("Container, baseline (vader)", BASELINE, "x", baseline),
-        ("Container, optimized (UCX, no-CMA)", UCX, "^", ucx),
+        ("Container, UCX (CMA excluded)", UCX, "^", ucx),
     ):
         sizes = sorted(d)
         means = [st.mean(d[s]) for s in sizes]
@@ -203,8 +203,7 @@ def fig_algorithm_lock_diagnostic():
     ax.set_xticks([32, 64, 128]); ax.set_xticklabels(["32", "64", "128"])
     ax.set_xlabel("Total MPI ranks")
     ax.set_ylabel("Latency (us)")
-    ax.set_title("Figure O6 — Does locking the Allreduce algorithm remove the NP=64 spike?\n"
-                  "(native only; same intra-node weak-scaling config as the baseline anomaly)",
+    ax.set_title("Allreduce algorithm-lock diagnostic (native, NP=64 anomaly)",
                   fontsize=11.5)
     ax.grid(alpha=0.3, which="both")
     ax.legend(fontsize=9)
@@ -215,13 +214,13 @@ def fig_algorithm_lock_diagnostic():
 if __name__ == "__main__":
     print("Generating OSU intra-node optimization progress figures...")
     fig_pt2pt_intra("latency", "figO3a_pt2pt_intra_latency.png",
-                     "Figure O3A — pt2pt intra-node latency: native vs container (vader) vs container (UCX)",
+                     "pt2pt intra-node latency: native vs container (vader) vs container (UCX)",
                      "Latency (us)")
     fig_pt2pt_intra("bw", "figO3b_pt2pt_intra_bandwidth.png",
-                     "Figure O3B — pt2pt intra-node bandwidth: native vs container (vader) vs container (UCX)",
+                     "pt2pt intra-node bandwidth: native vs container (vader) vs container (UCX)",
                      "Bandwidth (MB/s)")
     fig_collective_intra_progress("allreduce", 6, "figO4_allreduce_intra_progress.png",
-                                   "Figure O4 — Allreduce, intra-node: optimization progress vs baseline")
+                                   "Allreduce, intra-node: optimization progress vs baseline")
     fig_collective_intra_progress("alltoall", 2, "figO5_alltoall_intra_progress.png",
-                                   "Figure O5 — Alltoall, intra-node: optimization progress vs baseline")
+                                   "Alltoall, intra-node: optimization progress vs baseline")
     fig_algorithm_lock_diagnostic()

@@ -131,7 +131,7 @@ def fig_architecture():
         ec=NEUTRAL, fc="#e8e8e8", fontsize=10, fontweight="bold")
 
     fig.suptitle(
-        "Figure O2 — Same container image, same NIC: the transport flag is the only difference\n"
+        "MPI transport paths: native vs container (TCP) vs container (UCX)\n"
         "(1-byte inter-node latency shown at the base of each path)",
         fontsize=12.5, y=0.985)
 

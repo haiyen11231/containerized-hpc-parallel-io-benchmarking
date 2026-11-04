@@ -118,4 +118,6 @@ The pt2pt studies showed the container's MPI stack is badly handicapped on the n
 
 So "container overhead" is not a single number. It depends on message size and message count, and for some real patterns the sign reverses. That nuance is what makes the h5bench result (no measurable write penalty) consistent with the pt2pt inter-node result (up to 12×) rather than contradictory.
 
-For **Phase 3**, this predicts the bind-mounted-MPI optimization should help Alltoall-style patterns substantially and may actually *hurt* Allreduce at these message sizes — a falsifiable prediction worth testing.
+For **Phase 3**, this predicts the UCX optimization should help Alltoall-style patterns substantially and may actually *hurt* Allreduce at these message sizes — a falsifiable prediction worth testing.
+
+> **Update (Phase 3, `optimization/osu/README.md` §5, §10):** both halves confirmed. Enabling UCX (one MCA flag, no bind-mount needed — see the inter-node collective README) made intra-node Allreduce's advantage reverse rather than merely vanish. And a direct pt2pt test of the same CMA-enabling change on this node crashed outright (`optimization/osu/README.md` §10); the container's `vader`-without-CMA path used throughout this document is the only configuration that runs, not an unoptimized default.

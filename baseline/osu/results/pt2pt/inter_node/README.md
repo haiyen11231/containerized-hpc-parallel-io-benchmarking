@@ -63,11 +63,11 @@ So the gap is not merely large: native is also far more *predictable*, which mat
 
 ## 5. What this means for the project
 
-This directly confirms **leading hypothesis #1** from the research plan: the container's generic apt-built OpenMPI has no UCX support and falls back to TCP, and the cost of that fallback on the network path is severe.
+This directly confirms **leading hypothesis #1** from the research plan: the container falls back to TCP on the network path, and the cost of that fallback is severe.
 
 It also sets up the contrast with the I/O benchmarks. h5bench found **no measurable container write penalty**, because bulk data transfer to Lustre dominates and dilutes the transport difference. Here, with nothing but transport, the same underlying defect costs 2–12×. Those results are not in conflict — together they say *the container's MPI stack is badly handicapped, but most I/O workloads are not transport-bound enough to expose it.*
 
-That framing is what makes **Phase 3's bind-mount optimization** worth doing and worth measuring: this study gives the upper bound on how much it could recover.
+> **Correction (Phase 3, `optimization/osu/README.md` §1–§3):** the root cause stated above — "the container's generic apt-built OpenMPI has no UCX support" — is wrong. `ompi_info` run inside the container confirmed UCX was genuinely compiled in, with RDMA devices visible via Apptainer's default `/dev` passthrough. The TCP fallback measured here was caused by the baseline script itself force-pinning `--mca btl tcp,self`, on the mistaken assumption that UCX was unavailable. Removing that flag alone (no bind-mount, no rebuild) recovered native-level latency and bandwidth. The numbers in this document are correct and reproducible — they measure a real, deliberately-TCP-pinned configuration — but the explanation for *why* needs the Phase 3 document, not this one.
 
 ## 6. Compare with intra-node
 

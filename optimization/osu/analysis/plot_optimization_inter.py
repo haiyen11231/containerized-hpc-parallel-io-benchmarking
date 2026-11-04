@@ -140,10 +140,8 @@ if __name__ == "__main__":
     print("Generating OSU inter-node collective optimization figures...")
     fig_collective_inter_progress(
         "allreduce", 6, "figO7_allreduce_inter_progress.png",
-        "Figure O7 — Allreduce, inter-node: optimization progress vs baseline (128 ranks/node)")
+        "Allreduce, inter-node: optimization progress vs baseline (128 ranks/node)")
     fig_collective_inter_progress(
         "alltoall", 2, "figO8_alltoall_inter_progress.png",
-        "Figure O8 — Alltoall, inter-node: optimization progress vs baseline (128 ranks/node)\n"
-        "Container baseline AND algorithm-lock (both TCP) fail to scale past n2 -- not algorithm-specific;\n"
-        "UCX-only and UCX+algorithm-lock scale cleanly to n8, same fix as pt2pt/Allreduce",
+        "Alltoall, inter-node: optimization progress vs baseline (128 ranks/node)",
         alltoall_suffix=True)
